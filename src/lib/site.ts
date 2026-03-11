@@ -26,13 +26,13 @@ export const ENDORSED_PROPERTIES = [
     name: 'AfterFiat',
     description:
       'A book-length thesis on verification, repression, synthetic media, and the infrastructure required for credible truth and value in the AI era.',
-    url: '#',
+    url: 'https://afterfiat.xyz',
   },
   {
     name: 'Eschatology Report',
     description:
       'Long-form writing on AI acceleration, symbolic overload, civilizational drift, and the search for workable orientation.',
-    url: '#',
+    url: 'https://eschatologyreport.substack.com',
   },
   {
     name: 'AlchemicalAI',
