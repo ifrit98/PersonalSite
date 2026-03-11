@@ -1,0 +1,82 @@
+---
+const essays = [
+  {
+    title: 'The Verification Problem',
+    desc: 'Why credible truth becomes the scarcest resource when synthetic persuasion scales.',
+    href: '#',
+  },
+  {
+    title: 'Infrastructure for Trust',
+    desc: 'What it means to build systems that remain legible under adversarial pressure.',
+    href: '#',
+  },
+  {
+    title: 'Signal, Noise, and Orientation',
+    desc: 'On maintaining coherent action when institutional legibility fails.',
+    href: '#',
+  },
+];
+---
+
+<section class="essays">
+  <div class="container">
+    <h2 class="essays__heading">Selected Essays</h2>
+    <ul class="essays__list" role="list">
+      {essays.map((essay) => (
+        <li class="essays__item">
+          <a href={essay.href} class="essays__link">
+            <h3 class="essays__title">{essay.title}</h3>
+            <p class="essays__desc">{essay.desc}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .essays {
+    padding-block: var(--sp-16);
+  }
+
+  .essays__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-6);
+  }
+
+  .essays__list {
+    list-style: none;
+  }
+
+  .essays__item {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .essays__link {
+    display: block;
+    padding-block: var(--sp-4);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .essays__link:hover .essays__title {
+    color: var(--color-brass);
+  }
+
+  .essays__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .essays__desc {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+</style>

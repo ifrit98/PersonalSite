@@ -1,0 +1,96 @@
+---
+import Button from '@/components/ui/Button.astro';
+
+const features = [
+  {
+    title: 'AfterFiat',
+    body: 'A book-length thesis on verification, repression, synthetic media, and the infrastructure required for credible truth and value in the AI era.',
+    href: '/writing',
+    cta: 'Read More',
+  },
+  {
+    title: 'Eschatology Report',
+    body: 'Long-form writing on AI acceleration, symbolic overload, civilizational drift, and the search for workable orientation.',
+    href: '#',
+    cta: 'Visit',
+  },
+  {
+    title: 'Selected Systems Work',
+    body: 'Engineering work across secure environments, distributed ML, real-time detection, and adversarial protocol design.',
+    href: '/work',
+    cta: 'View Work',
+  },
+  {
+    title: 'Research & Music',
+    body: 'Published work in music generation and sonification, alongside ongoing work on formal musical and geometric structure.',
+    href: '/research',
+    cta: 'Explore',
+  },
+];
+---
+
+<section class="features">
+  <div class="container">
+    <h2 class="features__heading">Selected Domains</h2>
+    <div class="features__grid">
+      {features.map((f) => (
+        <article class="features__card">
+          <h3 class="features__title">{f.title}</h3>
+          <p class="features__body">{f.body}</p>
+          <Button href={f.href} variant="text">{f.cta} &rarr;</Button>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    padding-block: var(--sp-24);
+  }
+
+  .features__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-12);
+  }
+
+  .features__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-8);
+  }
+
+  .features__card {
+    padding: var(--sp-8);
+    background-color: var(--color-card);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    transition: box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .features__card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .features__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-3);
+  }
+
+  .features__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-4);
+  }
+
+  @media (max-width: 768px) {
+    .features__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

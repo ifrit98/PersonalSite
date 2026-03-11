@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import NarrativeSection from '@/components/sections/NarrativeSection.astro';
+import WritingSurfaceGrid from '@/components/sections/WritingSurfaceGrid.astro';
+import StartHereList from '@/components/sections/StartHereList.astro';
+import EssayList from '@/components/sections/EssayList.astro';
+import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+---
+
+<BaseLayout
+  title="Writing"
+  description="Essays, theses, and long-form work on verification, synthetic media, civilizational constraint, and the search for workable orientation."
+>
+  <PageHero
+    eyebrow="Writing"
+    title="Writing"
+    body="Essays, theses, and long-form work on verification, synthetic media, civilizational constraint, and the search for workable orientation."
+  />
+
+  <NarrativeSection>
+    <p>
+      The writing extends the same core problem explored in the systems work: what survives when
+      institutional legibility fails and synthetic persuasion scales. The throughline is
+      straightforward — when trust becomes expensive and synthetic noise becomes cheap, how do we
+      maintain signal, coordination, and genuine value?
+    </p>
+  </NarrativeSection>
+
+  <WritingSurfaceGrid />
+  <StartHereList />
+  <EssayList />
+
+  <CallToActionBand
+    heading="Read the work"
+    body="Start with AfterFiat for the foundational thesis, then explore the broader writing."
+    actions={[
+      { label: 'Read AfterFiat', href: '#', variant: 'primary' },
+      { label: 'Visit Eschatology Report', href: '#', variant: 'secondary' },
+      { label: 'Contact', href: '/contact', variant: 'secondary' },
+    ]}
+  />
+</BaseLayout>

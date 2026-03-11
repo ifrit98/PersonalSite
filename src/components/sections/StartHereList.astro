@@ -1,0 +1,102 @@
+---
+const steps = [
+  {
+    number: '01',
+    label: 'Start with AfterFiat',
+    desc: 'The foundational thesis on verification, trust, and the infrastructure problem of the AI era.',
+    href: '#',
+  },
+  {
+    number: '02',
+    label: 'Read selected essays from Eschatology Report',
+    desc: 'Long-form writing on acceleration, synthetic media, and civilizational constraint.',
+    href: '#',
+  },
+  {
+    number: '03',
+    label: 'Explore current notes and talks',
+    desc: 'Shorter pieces, research memos, and developing work. Available as the archive grows.',
+    href: '#',
+  },
+];
+---
+
+<section class="start-here">
+  <div class="container">
+    <h2 class="start-here__heading">Start Here</h2>
+    <p class="start-here__intro">If you're new, this is a suggested reading path.</p>
+    <ol class="start-here__list" role="list">
+      {steps.map((step) => (
+        <li class="start-here__item">
+          <span class="start-here__number">{step.number}</span>
+          <div>
+            <a href={step.href} class="start-here__label">{step.label}</a>
+            <p class="start-here__desc">{step.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .start-here {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .start-here__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-2);
+  }
+
+  .start-here__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-8);
+  }
+
+  .start-here__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .start-here__item {
+    display: flex;
+    gap: var(--sp-4);
+    align-items: flex-start;
+  }
+
+  .start-here__number {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-brass);
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 0.15em;
+  }
+
+  .start-here__label {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .start-here__label:hover {
+    color: var(--color-brass);
+  }
+
+  .start-here__desc {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-1);
+  }
+</style>

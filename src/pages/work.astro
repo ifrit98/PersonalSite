@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import NarrativeSection from '@/components/sections/NarrativeSection.astro';
+import CapabilityGrid from '@/components/sections/CapabilityGrid.astro';
+import CaseStudyList from '@/components/sections/CaseStudyList.astro';
+import EngagementTypes from '@/components/sections/EngagementTypes.astro';
+import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+---
+
+<BaseLayout
+  title="Selected Work"
+  description="Systems work across protocols, distributed ML, real-time inference, and production operations."
+>
+  <PageHero
+    eyebrow="Work"
+    title="Selected Work"
+    body="Systems work across protocols, distributed ML, real-time inference, and production operations."
+  />
+
+  <NarrativeSection>
+    <p>
+      My engineering work focuses on systems that have to function under non-ideal conditions:
+      adversarial environments, tight latency budgets, operational constraints, partial
+      observability, or incentive misalignment. The public record includes privacy-preserving
+      protocol work, distributed training in secure environments, sensor and edge ML, and production
+      systems built for reliability rather than demo value.
+    </p>
+  </NarrativeSection>
+
+  <CapabilityGrid />
+  <CaseStudyList />
+  <EngagementTypes />
+
+  <CallToActionBand
+    heading="Discuss an engagement"
+    body="For architecture review, protocol analysis, distributed ML advisory, research memos, or select advisory work."
+    actions={[
+      { label: 'Contact', href: '/contact', variant: 'primary' },
+      { label: 'Request Capabilities Overview', href: '/contact', variant: 'secondary' },
+    ]}
+  />
+</BaseLayout>

@@ -1,0 +1,88 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import NarrativeSection from '@/components/sections/NarrativeSection.astro';
+import Section from '@/components/ui/Section.astro';
+import FocusGrid from '@/components/sections/FocusGrid.astro';
+import PrinciplesGrid from '@/components/sections/PrinciplesGrid.astro';
+import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="Background, throughline, and current focus — protocol design, infrastructure, real-time ML, writing, and formal research."
+>
+  <PageHero
+    eyebrow="About"
+    title="About"
+    body="I work on systems that need to remain credible under pressure."
+  />
+
+  <NarrativeSection>
+    <p>
+      My background sits at the intersection of protocol design, infrastructure, real-time machine
+      learning, and long-form research. On the engineering side, that has meant building
+      privacy-preserving and adversarial systems, working on distributed ML pipelines, and shipping
+      real-time detection systems in operational settings. On the research and writing side, it has
+      meant trying to articulate what happens to trust, coordination, and value when verification
+      remains expensive but persuasion and forgery become cheap.
+    </p>
+    <p>
+      I'm most interested in systems that do not assume benign conditions. That includes threat
+      modeling, incentive design, production operations, and the design of mechanisms that remain
+      legible and resilient when the surrounding environment becomes noisy, strategic, or
+      adversarial. In practice, that has included work across decentralized storage protocols,
+      distributed LLM fine-tuning, real-time underwater detection, and formal research in music and
+      sonification.
+    </p>
+    <p>
+      A second thread running through all of this is form. I studied music formally before moving
+      into computer science, and I still think in terms of structure, counterpoint, invariants,
+      tension, and resolution. That is one reason my work tends to move across engineering, writing,
+      and research without feeling discontinuous to me: they are all, at some level, questions about
+      signal, pattern, and coordination.
+    </p>
+  </NarrativeSection>
+
+  <Section>
+    <h2>What I Work On</h2>
+    <ul class="work-list" role="list">
+      <li>Protocol and infrastructure design</li>
+      <li>Distributed systems and production ML</li>
+      <li>Real-time detection and edge inference</li>
+      <li>Writing on verification, repression, and synthetic media</li>
+      <li>Research in music, sonification, and formal structure</li>
+    </ul>
+  </Section>
+
+  <FocusGrid />
+  <PrinciplesGrid />
+
+  <CallToActionBand
+    heading="Explore the work"
+    body="From engineering case studies to published research and long-form writing."
+    actions={[
+      { label: 'View Work', href: '/work', variant: 'primary' },
+      { label: 'Read Research', href: '/research', variant: 'secondary' },
+      { label: 'Get in Touch', href: '/contact', variant: 'secondary' },
+    ]}
+  />
+</BaseLayout>
+
+<style>
+  .work-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    margin-top: var(--sp-6);
+  }
+
+  .work-list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+</style>

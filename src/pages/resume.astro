@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import Button from '@/components/ui/Button.astro';
+import Section from '@/components/ui/Section.astro';
+import ResumeHighlights from '@/components/sections/ResumeHighlights.astro';
+import ExperienceTimeline from '@/components/sections/ExperienceTimeline.astro';
+import PublicationMiniList from '@/components/sections/PublicationMiniList.astro';
+import ToolchainTags from '@/components/sections/ToolchainTags.astro';
+import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+---
+
+<BaseLayout
+  title="Resume / CV"
+  description="A concise overview of technical leadership, systems work, research, and public writing."
+>
+  <PageHero
+    eyebrow="Resume"
+    title="Resume / CV"
+    body="A concise overview of technical leadership, systems work, research, and public writing."
+  >
+    <div class="hero-buttons">
+      <Button href="/resume.pdf">Download Resume</Button>
+      <Button href="/contact" variant="secondary">Contact</Button>
+    </div>
+  </PageHero>
+
+  <Section narrow>
+    <p class="snapshot">
+      I'm a protocol and infrastructure lead working across distributed systems, proofs, real-time
+      ML, and applied cryptography. The public version of that work includes secure and decentralized
+      systems, peer-reviewed research, and writing focused on verification, trust, and civilizational
+      constraint.
+    </p>
+  </Section>
+
+  <ResumeHighlights />
+  <ExperienceTimeline />
+  <PublicationMiniList />
+  <ToolchainTags />
+
+  <CallToActionBand
+    heading="Get the full picture"
+    body="Download the one-page resume or request a fuller CV and capabilities overview."
+    actions={[
+      { label: 'Download Resume', href: '/resume.pdf', variant: 'primary' },
+      { label: 'Request Full CV', href: '/contact', variant: 'secondary' },
+    ]}
+  />
+</BaseLayout>
+
+<style>
+  .hero-buttons {
+    display: flex;
+    gap: var(--sp-4);
+    margin-top: var(--sp-6);
+    flex-wrap: wrap;
+  }
+
+  .snapshot {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 42em;
+  }
+</style>

@@ -1,0 +1,90 @@
+---
+const groups = [
+  {
+    label: 'Languages',
+    items: ['Python', 'Rust', 'R', 'Bash', 'SQL', 'TypeScript'],
+  },
+  {
+    label: 'ML & Data',
+    items: ['PyTorch', 'Distributed Training', 'Edge Inference', 'Streaming Pipelines'],
+  },
+  {
+    label: 'Infrastructure',
+    items: ['Docker', 'Kubernetes', 'Slurm', 'GPU Systems', 'Cloud Infrastructure'],
+  },
+  {
+    label: 'Domains',
+    items: ['Protocol Design', 'Cryptography', 'Signal Processing', 'Sensor Fusion'],
+  },
+];
+---
+
+<section class="toolchain">
+  <div class="container">
+    <h2 class="toolchain__heading">Toolchain</h2>
+    <div class="toolchain__groups">
+      {groups.map((group) => (
+        <div class="toolchain__group">
+          <h3 class="toolchain__label">{group.label}</h3>
+          <div class="toolchain__tags">
+            {group.items.map((item) => (
+              <span class="toolchain__tag">{item}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .toolchain {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .toolchain__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-8);
+  }
+
+  .toolchain__groups {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-8);
+  }
+
+  .toolchain__label {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-slate);
+    margin-bottom: var(--sp-3);
+  }
+
+  .toolchain__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+  }
+
+  .toolchain__tag {
+    display: inline-flex;
+    padding: var(--sp-1) var(--sp-3);
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-button);
+    background-color: var(--color-card);
+  }
+
+  @media (max-width: 768px) {
+    .toolchain__groups {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

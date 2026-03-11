@@ -1,0 +1,74 @@
+---
+const principles = [
+  {
+    title: 'Verification over posture',
+    body: 'Proofs, receipts, threat models, reliable systems.',
+  },
+  {
+    title: 'Operations over demo value',
+    body: 'Production systems, latency, deployment, incentives, scale.',
+  },
+  {
+    title: 'Structure across domains',
+    body: 'Engineering, writing, music, and research as problems of form, signal, and coordination.',
+  },
+];
+---
+
+<section class="principles">
+  <div class="container">
+    <h2 class="principles__heading">Principles</h2>
+    <div class="principles__grid">
+      {principles.map((p) => (
+        <div class="principles__card">
+          <h3 class="principles__title">{p.title}</h3>
+          <p class="principles__body">{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .principles {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .principles__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-8);
+  }
+
+  .principles__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .principles__card {
+    padding: var(--sp-6);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .principles__title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: var(--sp-2);
+  }
+
+  .principles__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  @media (max-width: 768px) {
+    .principles__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

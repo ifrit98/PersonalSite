@@ -1,0 +1,57 @@
+:root {
+  /* Color palette */
+  --color-ink: #101826;
+  --color-bone: #F5F1E8;
+  --color-slate: #5E6875;
+  --color-brass: #A98752;
+  --color-oxblood: #4F2432;
+  --color-line: rgba(16, 24, 38, 0.12);
+  --color-card: rgba(255, 255, 255, 0.55);
+  --color-white: #ffffff;
+
+  /* Type scale — font-size / line-height */
+  --text-display: 4rem / 1.125;
+  --text-h1: 3rem / 1.167;
+  --text-h2: 2.125rem / 1.176;
+  --text-h3: 1.5rem / 1.25;
+  --text-body-lg: 1.25rem / 1.6;
+  --text-body: 1.125rem / 1.667;
+  --text-meta: 0.875rem / 1.571;
+  --text-mono-meta: 0.8125rem / 1.538;
+
+  /* Spacing */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
+
+  /* Radius */
+  --radius-none: 0;
+  --radius-button: 0.5rem;
+  --radius-card: 1rem;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(16, 24, 38, 0.06), 0 1px 2px rgba(16, 24, 38, 0.04);
+  --shadow-card-hover: 0 4px 12px rgba(16, 24, 38, 0.08), 0 2px 4px rgba(16, 24, 38, 0.04);
+
+  /* Layout */
+  --max-width: 72rem;
+  --content-width: 52rem;
+  --gutter: var(--sp-6);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+
+  /* Font families (set after @font-face loads) */
+  --font-serif: 'Newsreader', 'Georgia', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Menlo', monospace;
+}

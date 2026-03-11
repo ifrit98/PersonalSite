@@ -1,0 +1,117 @@
+---
+import { SITE, NAV_LINKS, ENDORSED_PROPERTIES } from '@/lib/site';
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <p class="footer__name">{SITE.name}</p>
+        <p class="footer__tagline">
+          Systems for truth, coordination, and value<br />under adversarial conditions.
+        </p>
+      </div>
+
+      <div class="footer__nav">
+        <p class="footer__heading">Navigation</p>
+        <ul class="footer__links" role="list">
+          {NAV_LINKS.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__external">
+        <p class="footer__heading">Properties & Contact</p>
+        <ul class="footer__links" role="list">
+          {ENDORSED_PROPERTIES.map((prop) => (
+            <li><a href={prop.url}>{prop.name}</a></li>
+          ))}
+          <li><a href={SITE.social.github}>GitHub</a></li>
+          <li><a href={SITE.social.linkedin}>LinkedIn</a></li>
+          <li><a href={`mailto:${SITE.email}`}>Email</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-line);
+    padding-block: var(--sp-16) var(--sp-8);
+    margin-top: var(--sp-24);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--sp-12);
+  }
+
+  .footer__name {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-3);
+  }
+
+  .footer__tagline {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 24em;
+  }
+
+  .footer__heading {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-slate);
+    margin-bottom: var(--sp-4);
+  }
+
+  .footer__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .footer__links a {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .footer__links a:hover {
+    color: var(--color-brass);
+  }
+
+  .footer__bottom {
+    margin-top: var(--sp-12);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .footer__bottom p {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-slate);
+  }
+
+  @media (max-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+      gap: var(--sp-8);
+    }
+  }
+</style>

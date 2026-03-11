@@ -1,0 +1,72 @@
+---
+import Button from '@/components/ui/Button.astro';
+
+interface Props {
+  heading?: string;
+  body?: string;
+  actions?: Array<{ label: string; href: string; variant?: 'primary' | 'secondary' | 'text' }>;
+}
+
+const {
+  heading = 'Get in touch',
+  body = 'Looking for technical depth, serious writing, or a clearer map of the work? Start with the selected work, the research archive, or get in touch directly.',
+  actions = [
+    { label: 'View Work', href: '/work', variant: 'primary' as const },
+    { label: 'View Research', href: '/research', variant: 'secondary' as const },
+    { label: 'Contact', href: '/contact', variant: 'secondary' as const },
+  ],
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="container container--narrow">
+    <div class="cta-band__inner">
+      {heading && <h2 class="cta-band__heading">{heading}</h2>}
+      {body && <p class="cta-band__body">{body}</p>}
+      <div class="cta-band__actions">
+        {actions.map((action) => (
+          <Button href={action.href} variant={action.variant || 'primary'}>
+            {action.label}
+          </Button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    padding-block: var(--sp-24);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .cta-band__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-band__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-4);
+  }
+
+  .cta-band__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 34em;
+    text-align: center;
+    margin-bottom: var(--sp-8);
+  }
+
+  .cta-band__actions {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>

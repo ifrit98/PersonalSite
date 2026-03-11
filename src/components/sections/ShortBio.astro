@@ -1,0 +1,42 @@
+---
+import Button from '@/components/ui/Button.astro';
+---
+
+<section class="bio">
+  <div class="container container--narrow">
+    <p class="bio__text">
+      I'm a protocol and infrastructure lead with a background in distributed systems, proofs,
+      real-time ML, and applied cryptography. I've worked across secure SCIF environments and
+      decentralized networks, translated research into operational systems, and built public writing
+      around the deeper civilizational questions these systems raise. I also come out of a parallel
+      life in music and education, which continues to shape how I think about structure, pattern, and
+      coordination.
+    </p>
+    <div class="bio__ctas">
+      <Button href="/about" variant="text">About Jason &rarr;</Button>
+      <Button href="/resume" variant="text">Resume &rarr;</Button>
+      <Button href="/contact" variant="text">Contact &rarr;</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bio {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .bio__text {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 42em;
+  }
+
+  .bio__ctas {
+    display: flex;
+    gap: var(--sp-6);
+    margin-top: var(--sp-6);
+    flex-wrap: wrap;
+  }
+</style>

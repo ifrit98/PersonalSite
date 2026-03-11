@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import NarrativeSection from '@/components/sections/NarrativeSection.astro';
+import PublicationList from '@/components/sections/PublicationList.astro';
+import ResearchInterestGrid from '@/components/sections/ResearchInterestGrid.astro';
+import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+---
+
+<BaseLayout
+  title="Research"
+  description="Published papers, formal investigations, and ongoing work on structure across sound, systems, and mathematics."
+>
+  <PageHero
+    eyebrow="Research"
+    title="Research"
+    body="Published papers, formal investigations, and ongoing work on structure across sound, systems, and mathematics."
+  />
+
+  <NarrativeSection>
+    <p>
+      My research work has two public anchors: peer-reviewed work in music generation and style
+      transfer, and sonification work for simulated black-hole merger data. Around that sits a
+      broader interest in form: how structure becomes legible across sound, geometry, symmetry,
+      dynamics, and computation.
+    </p>
+  </NarrativeSection>
+
+  <PublicationList />
+
+  <NarrativeSection>
+    <p>
+      I'm interested in research that is both formally serious and publicly legible: work that can
+      survive technical scrutiny without losing its ability to communicate to intelligent readers
+      outside the narrowest specialist context.
+    </p>
+  </NarrativeSection>
+
+  <ResearchInterestGrid />
+
+  <CallToActionBand
+    heading="Interested in the research?"
+    body="Read the published papers, explore ongoing investigations, or get in touch about collaboration."
+    actions={[
+      { label: 'Read the Papers', href: '#', variant: 'primary' },
+      { label: 'Get in Touch', href: '/contact', variant: 'secondary' },
+    ]}
+  />
+</BaseLayout>

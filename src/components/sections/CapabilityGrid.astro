@@ -1,0 +1,112 @@
+---
+interface Capability {
+  title: string;
+  body: string;
+  examples?: string[];
+}
+
+interface Props {
+  items?: Capability[];
+}
+
+const { items = [
+  {
+    title: 'Protocol & Mechanism Design',
+    body: 'Threat modeling, incentive design, privacy-preserving architecture, proofs and verification.',
+    examples: ['Ciphertext storage protocols', 'Interactive proof systems', 'Sliding-window reputation models'],
+  },
+  {
+    title: 'Distributed ML & Production Systems',
+    body: 'Training orchestration, multi-GPU environments, deployment pipelines, fault tolerance, production operations.',
+    examples: ['Distributed LLM fine-tuning', 'Federated and edge ML', 'Streaming inference pipelines'],
+  },
+  {
+    title: 'Real-Time Detection & Edge Inference',
+    body: 'Latency-sensitive systems, signal processing, sensor fusion, embedded deployment, measurable performance.',
+    examples: ['Sub-50ms sonar classification', 'UAV online learning', 'Jetson-optimized inference'],
+  },
+  {
+    title: 'Technical Leadership',
+    body: 'System architecture, technical capture, stakeholder translation, senior briefings, and getting ambitious work to operational status.',
+    examples: ['Architecture review', 'Multi-year program strategy', 'Cross-domain integration'],
+  },
+] } = Astro.props;
+---
+
+<section class="capabilities">
+  <div class="container">
+    <div class="capabilities__grid">
+      {items.map((cap) => (
+        <article class="capabilities__card">
+          <h3 class="capabilities__title">{cap.title}</h3>
+          <p class="capabilities__body">{cap.body}</p>
+          {cap.examples && (
+            <ul class="capabilities__examples" role="list">
+              {cap.examples.map((ex) => (
+                <li>{ex}</li>
+              ))}
+            </ul>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .capabilities {
+    padding-block: var(--sp-16);
+  }
+
+  .capabilities__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-8);
+  }
+
+  .capabilities__card {
+    padding: var(--sp-8);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card);
+  }
+
+  .capabilities__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-3);
+  }
+
+  .capabilities__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-4);
+  }
+
+  .capabilities__examples {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .capabilities__examples li {
+    font: var(--text-meta);
+    font-family: var(--font-mono);
+    color: var(--color-slate);
+  }
+
+  .capabilities__examples li::before {
+    content: '—';
+    margin-right: var(--sp-2);
+    color: var(--color-brass);
+  }
+
+  @media (max-width: 768px) {
+    .capabilities__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

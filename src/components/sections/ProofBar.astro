@@ -1,0 +1,79 @@
+---
+const proofBlocks = [
+  {
+    title: 'Protocols & Infrastructure',
+    body: 'Privacy-preserving systems, threat models, incentive design, verifiable compute.',
+  },
+  {
+    title: 'Real-Time ML',
+    body: 'Distributed training, edge inference, sensor fusion, operational latency.',
+  },
+  {
+    title: 'Writing & Research',
+    body: 'AfterFiat, Eschatology Report, peer-reviewed research, ongoing formal work.',
+  },
+];
+---
+
+<section class="proof-bar">
+  <div class="container">
+    <div class="proof-bar__grid">
+      {proofBlocks.map((block) => (
+        <div class="proof-bar__block">
+          <h3 class="proof-bar__title">{block.title}</h3>
+          <p class="proof-bar__body">{block.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .proof-bar {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .proof-bar__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-8);
+  }
+
+  .proof-bar__block {
+    padding-right: var(--sp-8);
+  }
+
+  .proof-bar__block:not(:last-child) {
+    border-right: 1px solid var(--color-line);
+  }
+
+  .proof-bar__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-3);
+  }
+
+  .proof-bar__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  @media (max-width: 768px) {
+    .proof-bar__grid {
+      grid-template-columns: 1fr;
+      gap: var(--sp-6);
+    }
+
+    .proof-bar__block:not(:last-child) {
+      border-right: none;
+      border-bottom: 1px solid var(--color-line);
+      padding-right: 0;
+      padding-bottom: var(--sp-6);
+    }
+  }
+</style>

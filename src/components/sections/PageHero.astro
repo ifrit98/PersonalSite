@@ -1,0 +1,55 @@
+---
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  body?: string;
+}
+
+const { eyebrow, title, body } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="container container--narrow">
+    {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+    <h1 class="page-hero__title">{title}</h1>
+    {body && <p class="page-hero__body">{body}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    padding-block: var(--sp-24) var(--sp-12);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .page-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-top: var(--sp-4);
+  }
+
+  .page-hero__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 38em;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding-block: var(--sp-16) var(--sp-8);
+    }
+
+    .page-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+  }
+</style>

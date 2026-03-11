@@ -1,0 +1,73 @@
+---
+import { ENDORSED_PROPERTIES } from '@/lib/site';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+---
+
+<section class="associated">
+  <div class="container">
+    <Eyebrow>Associated Work</Eyebrow>
+    <p class="associated__intro">
+      Associated work includes <strong>AfterFiat</strong>, <strong>Eschatology Report</strong>, and
+      <strong>AlchemicalAI</strong>, each focused on a different layer of the same underlying
+      problem: how to build more trustworthy systems in an increasingly synthetic world.
+    </p>
+    <div class="associated__grid">
+      {ENDORSED_PROPERTIES.map((prop) => (
+        <a href={prop.url} class="associated__card">
+          <span class="associated__name">{prop.name}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .associated {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .associated__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    margin-bottom: var(--sp-8);
+    max-width: 42em;
+  }
+
+  .associated__intro strong {
+    color: var(--color-ink);
+  }
+
+  .associated__grid {
+    display: flex;
+    gap: var(--sp-6);
+    flex-wrap: wrap;
+  }
+
+  .associated__card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-6) var(--sp-8);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .associated__card:hover {
+    border-color: var(--color-brass);
+    box-shadow: var(--shadow-card);
+  }
+
+  .associated__name {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+</style>

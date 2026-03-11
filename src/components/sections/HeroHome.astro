@@ -1,0 +1,137 @@
+---
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Button from '@/components/ui/Button.astro';
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <Eyebrow>Jason St George</Eyebrow>
+      <h1 class="hero__title">
+        Systems for truth, coordination, and value under adversarial conditions
+      </h1>
+      <p class="hero__body">
+        I build and write about protocol, infrastructure, and research problems where trust is
+        costly, failure is adversarial, and systems have to work outside ideal conditions. My work
+        spans distributed systems, proofs, real-time ML, long-form writing, and formal research.
+      </p>
+      <div class="hero__ctas">
+        <Button href="/work">View Selected Work</Button>
+        <Button href="/writing" variant="secondary">Read the Writing</Button>
+      </div>
+    </div>
+    <div class="hero__visual" aria-hidden="true">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="hero__svg">
+        <defs>
+          <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="var(--color-brass)" stop-opacity="0.3" />
+            <stop offset="100%" stop-color="var(--color-ink)" stop-opacity="0.08" />
+          </linearGradient>
+        </defs>
+        <!-- Geometric lattice / network motif -->
+        <g stroke="url(#line-grad)" stroke-width="0.75" fill="none">
+          <circle cx="200" cy="200" r="140" opacity="0.2" />
+          <circle cx="200" cy="200" r="100" opacity="0.15" />
+          <circle cx="200" cy="200" r="60" opacity="0.1" />
+          <line x1="60" y1="200" x2="340" y2="200" opacity="0.15" />
+          <line x1="200" y1="60" x2="200" y2="340" opacity="0.15" />
+          <line x1="100" y1="100" x2="300" y2="300" opacity="0.1" />
+          <line x1="300" y1="100" x2="100" y2="300" opacity="0.1" />
+          <!-- Nodes -->
+          <circle cx="200" cy="60" r="3" fill="var(--color-brass)" opacity="0.5" />
+          <circle cx="200" cy="340" r="3" fill="var(--color-brass)" opacity="0.5" />
+          <circle cx="60" cy="200" r="3" fill="var(--color-brass)" opacity="0.5" />
+          <circle cx="340" cy="200" r="3" fill="var(--color-brass)" opacity="0.5" />
+          <circle cx="100" cy="100" r="2.5" fill="var(--color-brass)" opacity="0.4" />
+          <circle cx="300" cy="100" r="2.5" fill="var(--color-brass)" opacity="0.4" />
+          <circle cx="100" cy="300" r="2.5" fill="var(--color-brass)" opacity="0.4" />
+          <circle cx="300" cy="300" r="2.5" fill="var(--color-brass)" opacity="0.4" />
+          <circle cx="200" cy="200" r="4" fill="var(--color-brass)" opacity="0.6" />
+          <!-- Lattice connections -->
+          <line x1="200" y1="60" x2="300" y2="100" opacity="0.12" />
+          <line x1="300" y1="100" x2="340" y2="200" opacity="0.12" />
+          <line x1="340" y1="200" x2="300" y2="300" opacity="0.12" />
+          <line x1="300" y1="300" x2="200" y2="340" opacity="0.12" />
+          <line x1="200" y1="340" x2="100" y2="300" opacity="0.12" />
+          <line x1="100" y1="300" x2="60" y2="200" opacity="0.12" />
+          <line x1="60" y1="200" x2="100" y2="100" opacity="0.12" />
+          <line x1="100" y1="100" x2="200" y2="60" opacity="0.12" />
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--sp-24) var(--sp-16);
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-12);
+    align-items: center;
+  }
+
+  .hero__title {
+    font: var(--text-display);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-top: var(--sp-4);
+    max-width: 16em;
+  }
+
+  .hero__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-6);
+    max-width: 32em;
+  }
+
+  .hero__ctas {
+    display: flex;
+    gap: var(--sp-4);
+    margin-top: var(--sp-8);
+    flex-wrap: wrap;
+  }
+
+  .hero__visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero__svg {
+    width: 100%;
+    max-width: 22rem;
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding-block: var(--sp-16) var(--sp-12);
+    }
+
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: var(--sp-8);
+    }
+
+    .hero__visual {
+      order: -1;
+    }
+
+    .hero__svg {
+      max-width: 14rem;
+    }
+
+    .hero__title {
+      font: var(--text-h1);
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+  }
+</style>

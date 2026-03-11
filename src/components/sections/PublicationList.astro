@@ -1,0 +1,143 @@
+---
+interface Publication {
+  title: string;
+  venue?: string;
+  year?: string;
+  authors?: string;
+  summary: string;
+  links?: Array<{ label: string; href: string }>;
+}
+
+interface Props {
+  items?: Publication[];
+}
+
+const { items = [
+  {
+    title: 'Music Style Transformer',
+    venue: 'Peer-reviewed',
+    year: '2023',
+    authors: 'Jason St George et al.',
+    summary: 'A Bayesian-factorized approach to raw-audio transcription, composition, and synthesis, with transformer-based music generation and style-transfer evaluated both quantitatively and perceptually.',
+    links: [{ label: 'Read Paper', href: '#' }],
+  },
+  {
+    title: 'Sonification of Simulated Black Hole Merger Data',
+    venue: 'Peer-reviewed',
+    year: '2022',
+    authors: 'Jason St George et al.',
+    summary: 'An auditory-display pipeline that sonifies CCRG merger simulations through velocity-modulated synthesis and HRTF spatialization, turning astrophysical dynamics into perceivable sonic form.',
+    links: [{ label: 'Read Paper', href: '#' }],
+  },
+] } = Astro.props;
+---
+
+<section class="publications">
+  <div class="container">
+    <h2 class="publications__heading">Published Papers</h2>
+    <div class="publications__list">
+      {items.map((pub) => (
+        <article class="publication">
+          <div class="publication__header">
+            <h3 class="publication__title">{pub.title}</h3>
+            {(pub.venue || pub.year) && (
+              <span class="publication__meta">
+                {[pub.venue, pub.year].filter(Boolean).join(' · ')}
+              </span>
+            )}
+          </div>
+          {pub.authors && <p class="publication__authors">{pub.authors}</p>}
+          <p class="publication__summary">{pub.summary}</p>
+          {pub.links && (
+            <div class="publication__links">
+              {pub.links.map((link) => (
+                <a href={link.href} class="publication__link">{link.label} &rarr;</a>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .publications {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .publications__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-8);
+  }
+
+  .publications__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+  }
+
+  .publication {
+    padding-bottom: var(--sp-8);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .publication:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .publication__header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--sp-2);
+  }
+
+  .publication__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+  }
+
+  .publication__meta {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-slate);
+  }
+
+  .publication__authors {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-3);
+  }
+
+  .publication__summary {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-4);
+  }
+
+  .publication__links {
+    display: flex;
+    gap: var(--sp-4);
+  }
+
+  .publication__link {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-brass);
+    text-decoration: none;
+  }
+
+  .publication__link:hover {
+    color: var(--color-oxblood);
+  }
+</style>

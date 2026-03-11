@@ -1,0 +1,60 @@
+---
+const engagements = [
+  'Architecture review',
+  'Protocol / threat-model analysis',
+  'Distributed ML systems advisory',
+  'Research memo / technical synthesis',
+  'Selective fractional technical leadership',
+];
+---
+
+<section class="engagements">
+  <div class="container">
+    <h2 class="engagements__heading">Engagement Types</h2>
+    <p class="engagements__intro">
+      I'm best suited for architecture-heavy work where the technical problem is real, the
+      constraints matter, and clarity is more valuable than volume.
+    </p>
+    <ul class="engagements__list" role="list">
+      {engagements.map((item) => (
+        <li class="engagements__item">{item}</li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .engagements {
+    padding-block: var(--sp-16);
+  }
+
+  .engagements__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-4);
+  }
+
+  .engagements__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-6);
+    max-width: 38em;
+  }
+
+  .engagements__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .engagements__item {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+</style>

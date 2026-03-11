@@ -1,0 +1,74 @@
+---
+const publications = [
+  {
+    title: 'Music Style Transformer',
+    desc: 'Bayesian-factorized approach to raw-audio transcription, composition, and style transfer.',
+    href: '#',
+  },
+  {
+    title: 'Sonification of Simulated Black Hole Merger Data',
+    desc: 'Velocity-modulated synthesis and HRTF spatialization of CCRG merger simulations.',
+    href: '#',
+  },
+];
+---
+
+<section class="pub-mini">
+  <div class="container">
+    <h2 class="pub-mini__heading">Publications</h2>
+    <div class="pub-mini__list">
+      {publications.map((pub) => (
+        <a href={pub.href} class="pub-mini__item">
+          <h3 class="pub-mini__title">{pub.title}</h3>
+          <p class="pub-mini__desc">{pub.desc}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pub-mini {
+    padding-block: var(--sp-16);
+  }
+
+  .pub-mini__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-6);
+  }
+
+  .pub-mini__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .pub-mini__item {
+    display: block;
+    padding: var(--sp-4);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .pub-mini__item:hover {
+    border-color: var(--color-brass);
+  }
+
+  .pub-mini__title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+  }
+
+  .pub-mini__desc {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+</style>

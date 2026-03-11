@@ -1,0 +1,106 @@
+---
+const experiences = [
+  {
+    period: 'Recent',
+    title: 'Distributed LLM Fine-Tuning — TS/SCI SCIF',
+    desc: 'Owned end-to-end capability for distributed LLM fine-tuning in an air-gapped classified environment, from data pipeline through orchestration and operator workflows.',
+  },
+  {
+    period: 'Recent',
+    title: 'UAV Fleet Online Learning Systems',
+    desc: 'Shipped online learning systems for UAV fleets, enabling adaptive model updates in operational contexts.',
+  },
+  {
+    period: 'Recent',
+    title: 'Real-Time Sonar Target Recognition',
+    desc: 'Delivered real-time sonar target recognition on Jetson hardware at sub-50ms latency, with hybrid DSP + ML pipeline design.',
+  },
+  {
+    period: 'Earlier',
+    title: 'Decentralized Storage Protocol',
+    desc: 'Designed and led production of a ciphertext-only storage network with interactive proof, Merkle-based verification, and incentive modeling. Operated at ~$7M avg MRR.',
+  },
+  {
+    period: 'Earlier',
+    title: 'RF Classification & Streaming ML',
+    desc: 'Production model deployment across streaming environments, RF classification, and earlier systems engineering work.',
+  },
+];
+---
+
+<section class="timeline">
+  <div class="container">
+    <h2 class="timeline__heading">Experience</h2>
+    <div class="timeline__list">
+      {experiences.map((exp) => (
+        <article class="timeline__item">
+          <span class="timeline__period">{exp.period}</span>
+          <div class="timeline__content">
+            <h3 class="timeline__title">{exp.title}</h3>
+            <p class="timeline__desc">{exp.desc}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    padding-block: var(--sp-16);
+  }
+
+  .timeline__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-8);
+  }
+
+  .timeline__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .timeline__item {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: var(--sp-4);
+    padding-bottom: var(--sp-6);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .timeline__item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .timeline__period {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-slate);
+    padding-top: 0.15em;
+  }
+
+  .timeline__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-2);
+    font-size: 1.125rem;
+  }
+
+  .timeline__desc {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  @media (max-width: 768px) {
+    .timeline__item {
+      grid-template-columns: 1fr;
+      gap: var(--sp-1);
+    }
+  }
+</style>

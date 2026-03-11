@@ -1,0 +1,75 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'text';
+  class?: string;
+}
+
+const { href, variant = 'primary', class: className } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag href={href} class:list={['btn', `btn--${variant}`, className]} data-variant={variant}>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    line-height: 1;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .btn--primary {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    border-radius: var(--radius-button);
+  }
+
+  .btn--primary:hover {
+    background-color: var(--color-oxblood);
+    color: var(--color-bone);
+  }
+
+  .btn--secondary {
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-button);
+  }
+
+  .btn--secondary:hover {
+    border-color: var(--color-brass);
+    color: var(--color-brass);
+  }
+
+  .btn--text {
+    padding: 0.25rem 0;
+    background: none;
+    color: var(--color-brass);
+    border-bottom: 1px solid transparent;
+  }
+
+  .btn--text:hover {
+    color: var(--color-oxblood);
+    border-bottom-color: currentColor;
+  }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 2px;
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  narrow?: boolean;
+  padded?: boolean;
+}
+
+const { id, class: className, narrow = false, padded = true } = Astro.props;
+---
+
+<section id={id} class:list={['section', { 'section--padded': padded }, className]}>
+  <div class:list={['container', { 'container--narrow': narrow }]}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section--padded {
+    padding-block: var(--sp-24);
+  }
+
+  @media (max-width: 768px) {
+    .section--padded {
+      padding-block: var(--sp-16);
+    }
+  }
+</style>

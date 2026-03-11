@@ -1,0 +1,165 @@
+---
+interface CaseStudy {
+  title: string;
+  problem: string;
+  narrative: string;
+  role: string;
+  constraints?: string;
+  outcomes?: string;
+  note?: string;
+}
+
+interface Props {
+  items?: CaseStudy[];
+}
+
+const { items = [
+  {
+    title: 'Secure Distributed ML',
+    problem: 'Enable distributed LLM fine-tuning inside a TS/SCI SCIF.',
+    narrative: 'Built and owned the full capability covering data pipeline through orchestration, deployment, and operator workflows. Designed for air-gapped, multi-GPU environments with strict compliance and operational security constraints.',
+    role: 'Technical lead, architecture, implementation',
+    constraints: 'Air-gapped SCIF, classified data handling, multi-GPU coordination',
+    outcomes: 'Operational capability delivered; platform adopted for ongoing production use.',
+  },
+  {
+    title: 'Real-Time Underwater Detection',
+    problem: 'Deliver real-time underwater threat detection with measurable Pd/Pfa.',
+    narrative: 'Led ML and engineering for a hybrid DSP + ML pipeline, optimized around detection probability and false-alarm rate at operational latency. Built supporting simulation and synthetic-data workflows for transfer from unclassified training to tactical deployment contexts.',
+    role: 'ML lead, pipeline architecture, system integration',
+    constraints: 'Sub-50ms latency on Jetson hardware, sonar domain, unclassified-to-classified transfer',
+    outcomes: 'Secured multi-year follow-on contract for the U.S. Navy.',
+  },
+  {
+    title: 'Adversarial Storage & Incentives',
+    problem: 'Design a ciphertext-only decentralized storage network resilient to adversarial behavior.',
+    narrative: 'Designed a storage protocol based on ongoing interactive proof, with time-local seed-chained challenges, commitment and Merkle-based verification, and a sliding-window incentive and reputation model. Operated at roughly $7M average MRR / ~$60M revenue.',
+    role: 'Protocol design lead, production operations',
+    constraints: 'Decentralized environment, adversarial assumptions, incentive alignment',
+    outcomes: '~$60M revenue, sustained network operation.',
+    note: 'Kept intentionally high-level; deeper material available on request.',
+  },
+] } = Astro.props;
+---
+
+<section class="case-studies">
+  <div class="container">
+    <h2 class="case-studies__heading">Selected Case Studies</h2>
+    <div class="case-studies__list">
+      {items.map((study) => (
+        <article class="case-study">
+          <h3 class="case-study__title">{study.title}</h3>
+          <p class="case-study__problem">
+            <strong>Problem:</strong> {study.problem}
+          </p>
+          <p class="case-study__narrative">{study.narrative}</p>
+          <dl class="case-study__meta">
+            <div class="case-study__meta-item">
+              <dt>Role</dt>
+              <dd>{study.role}</dd>
+            </div>
+            {study.constraints && (
+              <div class="case-study__meta-item">
+                <dt>Constraints</dt>
+                <dd>{study.constraints}</dd>
+              </div>
+            )}
+            {study.outcomes && (
+              <div class="case-study__meta-item">
+                <dt>Outcomes</dt>
+                <dd>{study.outcomes}</dd>
+              </div>
+            )}
+          </dl>
+          {study.note && <p class="case-study__note">{study.note}</p>}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-studies {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .case-studies__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-8);
+  }
+
+  .case-studies__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-12);
+  }
+
+  .case-study {
+    padding-bottom: var(--sp-12);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .case-study:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .case-study__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-3);
+  }
+
+  .case-study__problem {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    margin-bottom: var(--sp-4);
+  }
+
+  .case-study__problem strong {
+    color: var(--color-brass);
+    font-weight: 500;
+  }
+
+  .case-study__narrative {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-6);
+  }
+
+  .case-study__meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-4);
+  }
+
+  .case-study__meta-item dt {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-slate);
+    margin-bottom: var(--sp-1);
+  }
+
+  .case-study__meta-item dd {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+  }
+
+  .case-study__note {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    font-style: italic;
+    margin-top: var(--sp-4);
+  }
+</style>

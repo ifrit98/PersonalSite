@@ -1,0 +1,31 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<section class:list={['narrative', className]}>
+  <div class="container container--narrow">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .narrative {
+    padding-block: var(--sp-16);
+  }
+
+  .narrative :global(p) {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    margin-bottom: var(--sp-6);
+    max-width: 42em;
+  }
+
+  .narrative :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

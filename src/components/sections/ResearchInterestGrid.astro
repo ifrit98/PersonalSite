@@ -1,0 +1,83 @@
+---
+interface Props {
+  items?: Array<{ title: string; body: string }>;
+}
+
+const { items = [
+  {
+    title: 'Music Geometric Framework',
+    body: 'Manifold-style thinking about musical structure, form, and the relationship between sonic and geometric space.',
+  },
+  {
+    title: 'Sonification & Auditory Display',
+    body: 'Making hidden dynamics legible through sound: astrophysical data, network behavior, system states.',
+  },
+  {
+    title: 'Formal Structure & Invariants',
+    body: 'Symmetry, dynamics, and computation as tools for understanding pattern across domains.',
+  },
+  {
+    title: 'Verification & Proof Systems',
+    body: 'Extending formal verification ideas beyond code into broader systems of trust and coordination.',
+  },
+] } = Astro.props;
+---
+
+<section class="interests">
+  <div class="container">
+    <h2 class="interests__heading">Ongoing Investigations</h2>
+    <div class="interests__grid">
+      {items.map((item) => (
+        <div class="interests__card">
+          <h3 class="interests__title">{item.title}</h3>
+          <p class="interests__body">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .interests {
+    padding-block: var(--sp-16);
+  }
+
+  .interests__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-8);
+  }
+
+  .interests__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .interests__card {
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card);
+  }
+
+  .interests__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-2);
+  }
+
+  .interests__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  @media (max-width: 768px) {
+    .interests__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

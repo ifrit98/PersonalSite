@@ -1,0 +1,75 @@
+---
+const focuses = [
+  {
+    title: 'Infrastructure & Systems',
+    body: 'Protocol design, distributed ML, production operations, and systems that survive adversarial conditions.',
+  },
+  {
+    title: 'Writing & Publication',
+    body: 'Long-form work through AfterFiat and related essays on verification, synthetic media, and civilizational constraint.',
+  },
+  {
+    title: 'Formal & Musical Work',
+    body: 'Developing body of work connecting music, geometry, and mathematical structure.',
+  },
+];
+---
+
+<section class="focus">
+  <div class="container">
+    <h2 class="focus__heading">Current Focus</h2>
+    <div class="focus__grid">
+      {focuses.map((f) => (
+        <div class="focus__card">
+          <h3 class="focus__title">{f.title}</h3>
+          <p class="focus__body">{f.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .focus {
+    padding-block: var(--sp-16);
+  }
+
+  .focus__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-8);
+  }
+
+  .focus__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .focus__card {
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card);
+  }
+
+  .focus__title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: var(--sp-2);
+  }
+
+  .focus__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  @media (max-width: 768px) {
+    .focus__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

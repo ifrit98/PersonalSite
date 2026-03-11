@@ -1,0 +1,80 @@
+---
+import Button from '@/components/ui/Button.astro';
+
+const surfaces = [
+  {
+    title: 'AfterFiat',
+    body: 'A book-length thesis on verification, repression, synthetic media, and the infrastructure required for credible truth and value in the AI era.',
+    cta: 'Read AfterFiat',
+    href: '#',
+  },
+  {
+    title: 'Eschatology Report',
+    body: 'Long-form writing on AI acceleration, symbolic overload, civilizational drift, and the search for workable orientation.',
+    cta: 'Visit Eschatology Report',
+    href: '#',
+  },
+  {
+    title: 'Selected Essays & Memos',
+    body: 'Shorter pieces, notes, and research memos published independently or as part of ongoing investigations.',
+    cta: 'Browse Essays',
+    href: '#',
+  },
+];
+---
+
+<section class="writing-surfaces">
+  <div class="container">
+    <div class="writing-surfaces__grid">
+      {surfaces.map((s) => (
+        <article class="writing-surfaces__card">
+          <h3 class="writing-surfaces__title">{s.title}</h3>
+          <p class="writing-surfaces__body">{s.body}</p>
+          <Button href={s.href} variant="text">{s.cta} &rarr;</Button>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .writing-surfaces {
+    padding-block: var(--sp-16);
+  }
+
+  .writing-surfaces__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .writing-surfaces__card {
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .writing-surfaces__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-3);
+  }
+
+  .writing-surfaces__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-4);
+    flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    .writing-surfaces__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

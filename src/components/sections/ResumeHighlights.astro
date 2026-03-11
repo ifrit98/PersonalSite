@@ -1,0 +1,86 @@
+---
+const highlights = [
+  {
+    metric: '~$60M',
+    label: 'Revenue',
+    desc: 'Decentralized storage network, ~$7M avg MRR',
+  },
+  {
+    metric: '<50ms',
+    label: 'Latency',
+    desc: 'Real-time sonar classification on Jetson hardware',
+  },
+  {
+    metric: '7+',
+    label: 'Years',
+    desc: 'Architecting production systems across secure and decentralized environments',
+  },
+  {
+    metric: '2',
+    label: 'Peer-Reviewed Papers',
+    desc: 'Music generation, style transfer, and astrophysical sonification',
+  },
+];
+---
+
+<section class="highlights">
+  <div class="container">
+    <div class="highlights__grid">
+      {highlights.map((h) => (
+        <div class="highlights__card">
+          <span class="highlights__metric">{h.metric}</span>
+          <span class="highlights__label">{h.label}</span>
+          <p class="highlights__desc">{h.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .highlights {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .highlights__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .highlights__card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .highlights__metric {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1.1;
+  }
+
+  .highlights__label {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    margin-top: var(--sp-1);
+    margin-bottom: var(--sp-2);
+  }
+
+  .highlights__desc {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  @media (max-width: 768px) {
+    .highlights__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

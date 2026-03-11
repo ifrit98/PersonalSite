@@ -1,0 +1,113 @@
+---
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Button from '@/components/ui/Button.astro';
+
+const items = [
+  {
+    title: 'Secure Distributed ML',
+    desc: 'Built and owned distributed LLM fine-tuning capability in a TS/SCI SCIF.',
+    href: '/work',
+  },
+  {
+    title: 'Real-Time Underwater Detection',
+    desc: 'Hybrid DSP + ML pipeline optimized for Pd/Pfa and operational latency.',
+    href: '/work',
+  },
+  {
+    title: 'Adversarial Storage & Incentives',
+    desc: 'Ciphertext-only storage network with interactive proof and sliding-window incentive model.',
+    href: '/work',
+  },
+  {
+    title: 'Music Style Transformer',
+    desc: 'Bayesian-factorized approach to raw-audio transcription, composition, and style transfer.',
+    href: '/research',
+  },
+];
+---
+
+<section class="selected-work">
+  <div class="container">
+    <Eyebrow>Selected Work</Eyebrow>
+    <h2 class="selected-work__heading">Recent Projects & Research</h2>
+    <ul class="selected-work__list" role="list">
+      {items.map((item) => (
+        <li class="selected-work__item">
+          <a href={item.href} class="selected-work__link">
+            <div>
+              <h3 class="selected-work__title">{item.title}</h3>
+              <p class="selected-work__desc">{item.desc}</p>
+            </div>
+            <span class="selected-work__arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .selected-work {
+    padding-block: var(--sp-24);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .selected-work__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-top: var(--sp-4);
+    margin-bottom: var(--sp-8);
+  }
+
+  .selected-work__list {
+    list-style: none;
+  }
+
+  .selected-work__item {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .selected-work__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--sp-6);
+    text-decoration: none;
+    color: var(--color-ink);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .selected-work__link:hover {
+    color: var(--color-brass);
+  }
+
+  .selected-work__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-1);
+  }
+
+  .selected-work__desc {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  .selected-work__arrow {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-left: var(--sp-4);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .selected-work__link:hover .selected-work__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
