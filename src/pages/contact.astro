@@ -104,6 +104,7 @@ import { SITE } from '@/lib/site';
   .form__input,
   .form__select,
   .form__textarea {
+    width: 100%;
     font-family: var(--font-sans);
     font-size: 1rem;
     color: var(--color-ink);
@@ -177,6 +178,7 @@ import { SITE } from '@/lib/site';
     list-style: none;
     display: flex;
     gap: var(--sp-6);
+    flex-wrap: wrap;
   }
 
   .direct__links a {
@@ -184,6 +186,9 @@ import { SITE } from '@/lib/site';
     font-family: var(--font-sans);
     color: var(--color-brass);
     text-decoration: none;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
   }
 
   .direct__links a:hover {

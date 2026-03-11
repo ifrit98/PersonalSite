@@ -21,6 +21,9 @@ Thumbs.db
 *.swo
 *~
 
+# screenshots (browser testing artifacts)
+screenshots/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

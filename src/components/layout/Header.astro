@@ -33,6 +33,27 @@ const currentPath = Astro.url.pathname;
       <span class="header__hamburger"></span>
     </button>
   </div>
+
+  <div class="header__mobile-menu">
+    <nav aria-label="Mobile navigation">
+      <ul class="header__mobile-links" role="list">
+        {NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={['header__mobile-link', { 'header__mobile-link--active': currentPath.startsWith(link.href) }]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="header__mobile-utility">
+      <a href="https://afterfiat.xyz" class="header__cta">Read AfterFiat</a>
+      <a href="https://eschatologyreport.substack.com" class="header__utility-link">Eschatology Report</a>
+    </div>
+  </div>
 </header>
 
 <style>
@@ -132,12 +153,18 @@ const currentPath = Astro.url.pathname;
     color: var(--color-bone);
   }
 
+  /* Mobile toggle — 44px minimum touch target */
   .header__mobile-toggle {
     display: none;
     background: none;
     border: none;
     cursor: pointer;
-    padding: var(--sp-2);
+    padding: var(--sp-3);
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .header__hamburger,
@@ -147,7 +174,8 @@ const currentPath = Astro.url.pathname;
     width: 1.25rem;
     height: 2px;
     background-color: var(--color-ink);
-    transition: transform var(--duration-normal) var(--ease-out);
+    transition: transform var(--duration-normal) var(--ease-out),
+                opacity var(--duration-fast) var(--ease-out);
     position: relative;
   }
 
@@ -162,6 +190,26 @@ const currentPath = Astro.url.pathname;
   .header__hamburger::before { top: -6px; }
   .header__hamburger::after { top: 6px; }
 
+  /* Hamburger → X animation */
+  .header__mobile-toggle[aria-expanded="true"] .header__hamburger {
+    background-color: transparent;
+  }
+
+  .header__mobile-toggle[aria-expanded="true"] .header__hamburger::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .header__mobile-toggle[aria-expanded="true"] .header__hamburger::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  /* Mobile menu panel */
+  .header__mobile-menu {
+    display: none;
+  }
+
   @media (max-width: 960px) {
     .header__nav,
     .header__utility {
@@ -169,20 +217,77 @@ const currentPath = Astro.url.pathname;
     }
 
     .header__mobile-toggle {
+      display: flex;
+    }
+
+    .header__mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: var(--sp-6);
+      padding: var(--sp-6) var(--gutter) var(--sp-8);
+      border-top: 1px solid var(--color-line);
+      background-color: rgba(245, 241, 232, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .header--open .header__mobile-menu {
+      display: flex;
+    }
+
+    .header__mobile-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+    }
+
+    .header__mobile-link {
       display: block;
+      padding: var(--sp-3) 0;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-slate);
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-line);
+      min-height: 2.75rem;
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .header__mobile-link:hover,
+    .header__mobile-link--active {
+      color: var(--color-ink);
+    }
+
+    .header__mobile-utility {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      align-items: flex-start;
+    }
+
+    .header__mobile-utility .header__cta {
+      padding: 0.625rem 1.25rem;
+      font-size: 0.875rem;
+    }
+
+    .header__mobile-utility .header__utility-link {
+      padding: var(--sp-2) 0;
+      min-height: 2.75rem;
+      display: flex;
+      align-items: center;
     }
   }
 </style>
 
 <script>
+  const header = document.getElementById('site-header');
   const toggle = document.querySelector('.header__mobile-toggle');
-  const nav = document.querySelector('.header__nav');
-  const utility = document.querySelector('.header__utility');
 
   toggle?.addEventListener('click', () => {
     const expanded = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!expanded));
-    nav?.classList.toggle('header__nav--open');
-    utility?.classList.toggle('header__utility--open');
+    header?.classList.toggle('header--open');
   });
 </script>

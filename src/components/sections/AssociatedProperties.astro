@@ -70,4 +70,14 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
     font-weight: 500;
     color: var(--color-ink);
   }
+
+  @media (max-width: 768px) {
+    .associated__grid {
+      flex-direction: column;
+    }
+
+    .associated__card {
+      width: 100%;
+    }
+  }
 </style>
