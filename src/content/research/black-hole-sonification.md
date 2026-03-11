@@ -2,11 +2,11 @@
 title: Sonification of Simulated Black Hole Merger Data
 authors: Jason St George et al.
 venue: Peer-reviewed
-year: "2022"
+year: "2018"
 summary: An auditory-display pipeline that sonifies CCRG merger simulations through velocity-modulated synthesis and HRTF spatialization, turning astrophysical dynamics into perceivable sonic form.
 links:
-  - label: Read Paper
-    href: "#"
+  - label: Read Paper (PDF)
+    href: "/papers/black-hole-sonification.pdf"
 featured: true
 ---
 

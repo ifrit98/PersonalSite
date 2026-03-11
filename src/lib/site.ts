@@ -8,7 +8,7 @@ export const SITE = {
   email: 'jason@jasonstgeorge.com',
   social: {
     github: 'https://github.com/jasonstgeorge',
-    linkedin: 'https://linkedin.com/in/jasonstgeorge',
+    linkedin: 'https://linkedin.com/in/stgeorgejas',
   },
 } as const;
 
@@ -38,6 +38,6 @@ export const ENDORSED_PROPERTIES = [
     name: 'AlchemicalAI',
     description:
       'Studio and consultancy focused on trustworthy systems in an increasingly synthetic world.',
-    url: '#',
+    url: 'https://alchemicalai.com',
   },
 ] as const;
