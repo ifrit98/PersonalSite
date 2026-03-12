@@ -7,10 +7,14 @@ export const SITE = {
   author: 'Jason St George',
   email: 'jason@jasonstgeorge.com',
   social: {
-    github: 'https://github.com/jasonstgeorge',
+    github: 'https://github.com/ifrit98',
     linkedin: 'https://linkedin.com/in/stgeorgejas',
   },
 } as const;
+
+export const AFTERFIAT_URL = 'https://afterfiat.xyz';
+export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
+export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
 
 export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
@@ -24,20 +28,23 @@ export const NAV_LINKS = [
 export const ENDORSED_PROPERTIES = [
   {
     name: 'AfterFiat',
+    tagline: 'Thesis / Blueprint',
     description:
       'A book-length thesis on verification, repression, synthetic media, and the infrastructure required for credible truth and value in the AI era.',
-    url: 'https://afterfiat.xyz',
+    url: AFTERFIAT_URL,
   },
   {
     name: 'Eschatology Report',
+    tagline: 'Publication / Essays',
     description:
       'Long-form writing on AI acceleration, symbolic overload, civilizational drift, and the search for workable orientation.',
-    url: 'https://eschatologyreport.substack.com',
+    url: ESCHATOLOGY_URL,
   },
   {
     name: 'AlchemicalAI',
+    tagline: 'Applied Systems / Commercial',
     description:
-      'Studio and consultancy focused on trustworthy systems in an increasingly synthetic world.',
-    url: 'https://alchemicalai.com',
+      'Commercial product and applied-systems surface focused on operational AI and enterprise deployment.',
+    url: ALCHEMICALAI_URL,
   },
 ] as const;

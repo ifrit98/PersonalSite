@@ -1,8 +1,10 @@
 ---
 interface Publication {
+  id?: string;
   title: string;
   venue?: string;
   year?: string;
+  pages?: string;
   authors?: string;
   summary: string;
   links?: Array<{ label: string; href: string }>;
@@ -14,20 +16,24 @@ interface Props {
 
 const { items = [
   {
+    id: 'music-style-transformer',
     title: 'Music Style Transformer',
-    venue: 'Peer-reviewed',
+    venue: "ICAI '19",
     year: '2019',
-    authors: 'Jason St George et al.',
-    summary: 'A Bayesian-factorized approach to raw-audio transcription, composition, and synthesis, with transformer-based music generation and style-transfer evaluated both quantitatively and perceptually.',
-    links: [{ label: 'Read Paper (PDF)', href: '/papers/music-style-transformer.pdf' }],
+    pages: 'pp. 22–33',
+    authors: 'St. George, J., Bischof, H.P.',
+    summary: 'A Bayesian-factorized approach to raw-audio transcription, composition, and synthesis, with transformer-based music generation and style-transfer evaluated both quantitatively and perceptually. The model treats musical style as a factorizable prior over generation, enabling controlled manipulation of style dimensions while preserving structural coherence.',
+    links: [{ label: 'Download PDF', href: '/papers/music-style-transformer.pdf' }],
   },
   {
+    id: 'black-hole-sonification',
     title: 'Sonification of Simulated Black Hole Merger Data',
-    venue: 'Peer-reviewed',
+    venue: "MSV '18",
     year: '2018',
-    authors: 'Jason St George et al.',
-    summary: 'An auditory-display pipeline that sonifies CCRG merger simulations through velocity-modulated synthesis and HRTF spatialization, turning astrophysical dynamics into perceivable sonic form.',
-    links: [{ label: 'Read Paper (PDF)', href: '/papers/black-hole-sonification.pdf' }],
+    pages: 'pp. 3–9',
+    authors: 'St. George, J., Bischof, H.P., Kim, S.Y.',
+    summary: 'An auditory-display pipeline that sonifies CCRG merger simulations through velocity-modulated synthesis and HRTF spatialization, turning astrophysical dynamics into perceivable sonic form. The work demonstrates that auditory display can make multi-dimensional dynamics perceivable in ways that visual display cannot easily replicate.',
+    links: [{ label: 'Download PDF', href: '/papers/black-hole-sonification.pdf' }],
   },
 ] } = Astro.props;
 ---
@@ -37,12 +43,12 @@ const { items = [
     <h2 class="publications__heading">Published Papers</h2>
     <div class="publications__list">
       {items.map((pub) => (
-        <article class="publication">
+        <article class="publication" id={pub.id}>
           <div class="publication__header">
             <h3 class="publication__title">{pub.title}</h3>
-            {(pub.venue || pub.year) && (
+            {(pub.venue || pub.year || pub.pages) && (
               <span class="publication__meta">
-                {[pub.venue, pub.year].filter(Boolean).join(' · ')}
+                {[pub.venue, pub.pages, pub.year].filter(Boolean).join(' · ')}
               </span>
             )}
           </div>

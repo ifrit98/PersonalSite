@@ -1,29 +1,25 @@
 ---
 const experiences = [
   {
-    period: 'Recent',
-    title: 'Distributed LLM Fine-Tuning — TS/SCI SCIF',
-    desc: 'Owned end-to-end capability for distributed LLM fine-tuning in an air-gapped classified environment, from data pipeline through orchestration and operator workflows.',
+    period: '2020–Present',
+    org: 'Black River Systems Co.',
+    location: 'Utica, NY',
+    title: 'Senior Machine Learning Software Engineer',
+    desc: 'Distributed LLM fine-tuning in TS/SCI SCIF, real-time sonar target recognition on Jetson (sub-50ms), UAV fleet online learning systems, hybrid DSP + ML pipeline architecture.',
   },
   {
-    period: 'Recent',
-    title: 'UAV Fleet Online Learning Systems',
-    desc: 'Shipped online learning systems for UAV fleets, enabling adaptive model updates in operational contexts.',
+    period: '2019–2020',
+    org: 'Northeast Information Discovery, Inc.',
+    location: 'Canastota, NY',
+    title: 'Data Scientist I',
+    desc: 'RF modulation classification (+12pp via attention-based spectral encoders), streaming ML deployment across R, Python, and C++.',
   },
   {
-    period: 'Recent',
-    title: 'Real-Time Sonar Target Recognition',
-    desc: 'Delivered real-time sonar target recognition on Jetson hardware at sub-50ms latency, with hybrid DSP + ML pipeline design.',
-  },
-  {
-    period: 'Earlier',
-    title: 'Decentralized Storage Protocol',
-    desc: 'Designed and led production of a ciphertext-only storage network with interactive proof, Merkle-based verification, and incentive modeling. Operated at ~$7M avg MRR.',
-  },
-  {
-    period: 'Earlier',
-    title: 'RF Classification & Streaming ML',
-    desc: 'Production model deployment across streaming environments, RF classification, and earlier systems engineering work.',
+    period: '2018–2019',
+    org: 'Rochester Institute of Technology',
+    location: 'Rochester, NY',
+    title: 'Teaching Assistant — Advanced Object-Oriented Programming',
+    desc: 'Supported instruction for advanced OOP curriculum while completing M.S. in Computer Science.',
   },
 ];
 ---
@@ -37,6 +33,7 @@ const experiences = [
           <span class="timeline__period">{exp.period}</span>
           <div class="timeline__content">
             <h3 class="timeline__title">{exp.title}</h3>
+            <p class="timeline__org">{exp.org} — {exp.location}</p>
             <p class="timeline__desc">{exp.desc}</p>
           </div>
         </article>
@@ -65,7 +62,7 @@ const experiences = [
 
   .timeline__item {
     display: grid;
-    grid-template-columns: 5rem 1fr;
+    grid-template-columns: 8rem 1fr;
     gap: var(--sp-4);
     padding-bottom: var(--sp-6);
     border-bottom: 1px solid var(--color-line);
@@ -87,8 +84,15 @@ const experiences = [
     font: var(--text-h3);
     font-family: var(--font-serif);
     font-weight: 500;
-    margin-bottom: var(--sp-2);
+    margin-bottom: var(--sp-1);
     font-size: 1.125rem;
+  }
+
+  .timeline__org {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-brass);
+    margin-bottom: var(--sp-2);
   }
 
   .timeline__desc {

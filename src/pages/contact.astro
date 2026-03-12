@@ -16,6 +16,11 @@ import { SITE } from '@/lib/site';
   />
 
   <Section narrow>
+    <p class="inquiry-framing">
+      The most useful inquiries are architecture-heavy technical work, research collaborations,
+      publication or speaking requests, and selective advisory work. Include the problem, constraints,
+      and desired outcome if you can.
+    </p>
     <form class="form" method="POST" action="#" data-netlify="true" name="contact">
       <div class="form__group">
         <label for="name" class="form__label">Name</label>
@@ -59,7 +64,7 @@ import { SITE } from '@/lib/site';
         <input type="url" id="link" name="link" class="form__input" placeholder="https://" />
       </div>
 
-      <button type="submit" class="form__submit">Send Inquiry</button>
+      <button type="submit" class="form__submit">Send Message</button>
     </form>
   </Section>
 
@@ -76,6 +81,14 @@ import { SITE } from '@/lib/site';
 </BaseLayout>
 
 <style>
+  .inquiry-framing {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 36rem;
+    margin-bottom: var(--sp-8);
+  }
+
   .form {
     display: flex;
     flex-direction: column;

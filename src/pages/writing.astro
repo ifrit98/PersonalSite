@@ -4,8 +4,8 @@ import PageHero from '@/components/sections/PageHero.astro';
 import NarrativeSection from '@/components/sections/NarrativeSection.astro';
 import WritingSurfaceGrid from '@/components/sections/WritingSurfaceGrid.astro';
 import StartHereList from '@/components/sections/StartHereList.astro';
-import EssayList from '@/components/sections/EssayList.astro';
 import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+import { AFTERFIAT_URL, ESCHATOLOGY_URL } from '@/lib/site';
 ---
 
 <BaseLayout
@@ -29,14 +29,13 @@ import CallToActionBand from '@/components/sections/CallToActionBand.astro';
 
   <WritingSurfaceGrid />
   <StartHereList />
-  <EssayList />
 
   <CallToActionBand
     heading="Read the work"
-    body="Start with AfterFiat for the foundational thesis, then explore the broader writing."
+    body="Start with AfterFiat for the thesis, then continue into Eschatology Report for the ongoing publication work."
     actions={[
-      { label: 'Read AfterFiat', href: 'https://afterfiat.xyz', variant: 'primary' },
-      { label: 'Visit Eschatology Report', href: 'https://eschatologyreport.substack.com', variant: 'secondary' },
+      { label: 'Read AfterFiat', href: AFTERFIAT_URL, variant: 'primary' },
+      { label: 'Visit Eschatology Report', href: ESCHATOLOGY_URL, variant: 'secondary' },
       { label: 'Contact', href: '/contact', variant: 'secondary' },
     ]}
   />

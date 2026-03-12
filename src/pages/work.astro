@@ -6,6 +6,7 @@ import CapabilityGrid from '@/components/sections/CapabilityGrid.astro';
 import CaseStudyList from '@/components/sections/CaseStudyList.astro';
 import EngagementTypes from '@/components/sections/EngagementTypes.astro';
 import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+import { SITE } from '@/lib/site';
 ---
 
 <BaseLayout
@@ -26,6 +27,9 @@ import CallToActionBand from '@/components/sections/CallToActionBand.astro';
       protocol work, distributed training in secure environments, sensor and edge ML, and production
       systems built for reliability rather than demo value.
     </p>
+    <p class="evidence-strip">
+      Selected outcomes: sub-50ms Jetson inference · ~$5M Navy follow-on supported · 60% UAV data-egress reduction · multi-million-dollar decentralized network operations
+    </p>
   </NarrativeSection>
 
   <CapabilityGrid />
@@ -33,11 +37,20 @@ import CallToActionBand from '@/components/sections/CallToActionBand.astro';
   <EngagementTypes />
 
   <CallToActionBand
-    heading="Discuss an engagement"
+    heading="Discuss an Engagement"
     body="For architecture review, protocol analysis, distributed ML advisory, research memos, or select advisory work."
     actions={[
-      { label: 'Contact', href: '/contact', variant: 'primary' },
-      { label: 'Request Capabilities Overview', href: '/contact', variant: 'secondary' },
+      { label: 'Discuss an Engagement', href: '/contact', variant: 'primary' },
+      { label: 'Email for Capabilities Overview', href: `mailto:${SITE.email}?subject=Capabilities%20Overview%20Request`, variant: 'secondary' },
     ]}
   />
 </BaseLayout>
+
+<style>
+  .evidence-strip {
+    font: var(--text-mono-meta) !important;
+    font-family: var(--font-mono) !important;
+    color: var(--color-slate) !important;
+    line-height: 1.7 !important;
+  }
+</style>

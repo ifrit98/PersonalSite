@@ -3,14 +3,17 @@ const focuses = [
   {
     title: 'Infrastructure & Systems',
     body: 'Protocol design, distributed ML, production operations, and systems that survive adversarial conditions.',
+    href: '/work',
   },
   {
     title: 'Writing & Publication',
     body: 'Long-form work through AfterFiat and related essays on verification, synthetic media, and civilizational constraint.',
+    href: '/writing',
   },
   {
     title: 'Formal & Musical Work',
     body: 'Developing body of work connecting music, geometry, and mathematical structure.',
+    href: '/research',
   },
 ];
 ---
@@ -20,10 +23,10 @@ const focuses = [
     <h2 class="focus__heading">Current Focus</h2>
     <div class="focus__grid">
       {focuses.map((f) => (
-        <div class="focus__card">
+        <a href={f.href} class="focus__card">
           <h3 class="focus__title">{f.title}</h3>
           <p class="focus__body">{f.body}</p>
-        </div>
+        </a>
       ))}
     </div>
   </div>
@@ -48,16 +51,27 @@ const focuses = [
   }
 
   .focus__card {
+    display: block;
     padding: var(--sp-6);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
     background-color: var(--color-card);
+    text-decoration: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .focus__card:hover {
+    border-color: var(--color-brass);
+    box-shadow: var(--shadow-card);
   }
 
   .focus__title {
     font-family: var(--font-serif);
     font-size: 1.125rem;
     font-weight: 500;
+    color: var(--color-ink);
     margin-bottom: var(--sp-2);
   }
 

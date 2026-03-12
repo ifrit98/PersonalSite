@@ -19,6 +19,9 @@ import Button from '@/components/ui/Button.astro';
         <Button href="/work">View Selected Work</Button>
         <Button href="/writing" variant="secondary">Read the Writing</Button>
       </div>
+      <p class="hero__proof-strip">
+        7+ years across secure and decentralized systems · sub-50ms operational inference · multi-million-dollar protocol operations · 2 peer-reviewed papers
+      </p>
     </div>
     <div class="hero__visual" aria-hidden="true">
       <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="hero__svg">
@@ -96,6 +99,15 @@ import Button from '@/components/ui/Button.astro';
     gap: var(--sp-4);
     margin-top: var(--sp-8);
     flex-wrap: wrap;
+  }
+
+  .hero__proof-strip {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-slate);
+    margin-top: var(--sp-6);
+    max-width: 32em;
+    line-height: 1.7;
   }
 
   .hero__visual {

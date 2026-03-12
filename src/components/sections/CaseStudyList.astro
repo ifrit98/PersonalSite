@@ -1,5 +1,6 @@
 ---
 interface CaseStudy {
+  id?: string;
   title: string;
   problem: string;
   narrative: string;
@@ -15,6 +16,7 @@ interface Props {
 
 const { items = [
   {
+    id: 'secure-distributed-ml',
     title: 'Secure Distributed ML',
     problem: 'Enable distributed LLM fine-tuning inside a TS/SCI SCIF.',
     narrative: 'Built and owned the full capability covering data pipeline through orchestration, deployment, and operator workflows. Designed for air-gapped, multi-GPU environments with strict compliance and operational security constraints.',
@@ -23,6 +25,7 @@ const { items = [
     outcomes: 'Operational capability delivered; platform adopted for ongoing production use.',
   },
   {
+    id: 'real-time-underwater-detection',
     title: 'Real-Time Underwater Detection',
     problem: 'Deliver real-time underwater threat detection with measurable Pd/Pfa.',
     narrative: 'Led ML and engineering for a hybrid DSP + ML pipeline, optimized around detection probability and false-alarm rate at operational latency. Built supporting simulation and synthetic-data workflows for transfer from unclassified training to tactical deployment contexts.',
@@ -31,13 +34,23 @@ const { items = [
     outcomes: 'Secured multi-year follow-on contract for the U.S. Navy.',
   },
   {
+    id: 'adversarial-storage-incentives',
     title: 'Adversarial Storage & Incentives',
     problem: 'Design a ciphertext-only decentralized storage network resilient to adversarial behavior.',
-    narrative: 'Designed a storage protocol based on ongoing interactive proof, with time-local seed-chained challenges, commitment and Merkle-based verification, and a sliding-window incentive and reputation model. Operated at roughly $7M average MRR / ~$60M revenue.',
+    narrative: 'Designed and led production of a ciphertext-only decentralized storage network built around ongoing interactive proof of spacetime. Validators issue unpredictable, time-local, seed-chained challenges; miners must recompute chunk-level Pedersen commitments bound to the new seed, assemble a Merkle root, and return validator-indexed inclusion proofs. The system validates on encrypted user data, preserving privacy while resisting precomputation and amortized cheating. The network also used a sliding-window incentive and reputation model over reliability, uptime, latency, and correctness.',
     role: 'Protocol design lead, production operations',
-    constraints: 'Decentralized environment, adversarial assumptions, incentive alignment',
-    outcomes: '~$60M revenue, sustained network operation.',
-    note: 'Kept intentionally high-level; deeper material available on request.',
+    constraints: 'Decentralized and adversarial environment, encrypted user data, anti-precompute / anti-amortization challenge design, incentive alignment over time',
+    outcomes: 'Operated at roughly $7M average MRR / ~$60M revenue.',
+    note: 'Public-safe summary only; deeper material can be shared selectively.',
+  },
+  {
+    id: 'rf-classification-streaming-ml',
+    title: 'RF Classification & Streaming ML',
+    problem: 'Improve RF modulation classification accuracy and deploy models into streaming production.',
+    narrative: 'Prototyped an RF modulation classifier that improved accuracy by 12 percentage points via attention-based spectral encoders, then deployed models and APIs into streaming production environments across R, Python, and C++.',
+    role: 'ML engineer, model development, production deployment',
+    constraints: 'Multi-language production stack, streaming latency, spectral domain',
+    outcomes: '+12pp accuracy improvement; models deployed to production streaming pipeline.',
   },
 ] } = Astro.props;
 ---
@@ -47,7 +60,7 @@ const { items = [
     <h2 class="case-studies__heading">Selected Case Studies</h2>
     <div class="case-studies__list">
       {items.map((study) => (
-        <article class="case-study">
+        <article class="case-study" id={study.id}>
           <h3 class="case-study__title">{study.title}</h3>
           <p class="case-study__problem">
             <strong>Problem:</strong> {study.problem}

@@ -7,14 +7,16 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
   <div class="container">
     <Eyebrow>Associated Work</Eyebrow>
     <p class="associated__intro">
-      Associated work includes <strong>AfterFiat</strong>, <strong>Eschatology Report</strong>, and
-      <strong>AlchemicalAI</strong>, each focused on a different layer of the same underlying
-      problem: how to build more trustworthy systems in an increasingly synthetic world.
+      This site is the canonical layer for my engineering, research, and writing.
+      <strong>AfterFiat</strong> houses the core thesis. <strong>Eschatology Report</strong> carries
+      the publication work. <strong>AlchemicalAI</strong> is a separate commercial surface connected
+      to applied systems and product work.
     </p>
     <div class="associated__grid">
       {ENDORSED_PROPERTIES.map((prop) => (
         <a href={prop.url} class="associated__card">
           <span class="associated__name">{prop.name}</span>
+          <span class="associated__tagline">{prop.tagline}</span>
         </a>
       ))}
     </div>
@@ -48,12 +50,14 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
 
   .associated__card {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: var(--sp-6) var(--sp-8);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
     text-decoration: none;
+    gap: var(--sp-1);
     transition:
       border-color var(--duration-fast) var(--ease-out),
       box-shadow var(--duration-fast) var(--ease-out);
@@ -69,6 +73,12 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
     font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-ink);
+  }
+
+  .associated__tagline {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-slate);
   }
 
   @media (max-width: 768px) {
