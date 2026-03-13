@@ -14,6 +14,7 @@ export const SITE = {
 
 export const AFTERFIAT_URL = 'https://afterfiat.xyz';
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
+export const GAMUT_URL = 'https://shapeofmusicalpossibility.org';
 export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
 
 export const NAV_LINKS = [
@@ -39,6 +40,13 @@ export const ENDORSED_PROPERTIES = [
     description:
       'Long-form writing on AI acceleration, symbolic overload, civilizational drift, and the search for workable orientation.',
     url: ESCHATOLOGY_URL,
+  },
+  {
+    name: 'GAMUT',
+    tagline: 'Formal Research / Musical Geometry',
+    description:
+      'A formal mathematical framework for pitch-class space — cyclic autocorrelation, permutation fibers, and symplectic geometry — with interactive visualization, essays, and manuscripts.',
+    url: GAMUT_URL,
   },
   {
     name: 'AlchemicalAI',

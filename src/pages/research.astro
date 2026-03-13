@@ -5,6 +5,8 @@ import NarrativeSection from '@/components/sections/NarrativeSection.astro';
 import PublicationList from '@/components/sections/PublicationList.astro';
 import ResearchInterestGrid from '@/components/sections/ResearchInterestGrid.astro';
 import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+import Button from '@/components/ui/Button.astro';
+import { GAMUT_URL } from '@/lib/site';
 ---
 
 <BaseLayout
@@ -28,6 +30,47 @@ import CallToActionBand from '@/components/sections/CallToActionBand.astro';
 
   <PublicationList />
 
+  <section class="gamut" id="gamut">
+    <div class="container">
+      <h2 class="gamut__heading">GAMUT — Geometric-Algebraic Music Theory</h2>
+      <p class="gamut__body">
+        A rigorous mathematical formalization of musical pitch-class space, built from cyclic
+        autocorrelation, permutation fibers, and symplectic geometry. The framework constructs a
+        <strong>layered symplectic space</strong> for the twelve-tone universe: a content layer
+        (where pitch-class sets live as Fourier moduli), an order layer (where cyclic orderings live
+        as constrained gap words), and a symplectic thickening (where the full space carries a
+        canonical exact symplectic form with Hamiltonian transposition and anti-symplectic inversion).
+      </p>
+
+      <div class="gamut__columns">
+        <div class="gamut__column">
+          <h3 class="gamut__subheading">Key results</h3>
+          <ul class="gamut__list">
+            <li>Finite Wiener-Khinchin theorems for both content and order</li>
+            <li>Fourier characterization of Slonimsky interval cycles as sparse spectra</li>
+            <li>Injective layered Fourier embedding into a symplectic ambient space</li>
+            <li>Hamiltonian circle actions for transposition and cyclic reindexing</li>
+            <li>Cardinality-stratified symplectic structure</li>
+          </ul>
+        </div>
+        <div class="gamut__column">
+          <h3 class="gamut__subheading">Artifacts</h3>
+          <ul class="gamut__list">
+            <li>Two formal manuscripts (full proofs)</li>
+            <li>Three-part public essay series</li>
+            <li>Interactive Layered Bundle Explorer: 223 set classes, 14,166 orderings, semantic zoom, entropy coloring, guided tour</li>
+            <li>Python + Node.js data pipeline</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gamut__ctas">
+        <Button href={GAMUT_URL}>Visit GAMUT Site</Button>
+        <Button href={`${GAMUT_URL}/downloads/layered-symplectic-musical-space-amsart.pdf`} variant="secondary">Download Manuscript (PDF)</Button>
+      </div>
+    </div>
+  </section>
+
   <NarrativeSection>
     <p>
       I'm interested in research that is both formally serious and publicly legible: work that can
@@ -40,11 +83,81 @@ import CallToActionBand from '@/components/sections/CallToActionBand.astro';
 
   <CallToActionBand
     heading="Interested in the research?"
-    body="Download the published papers directly or get in touch about collaboration."
+    body="Download the published papers directly, explore the GAMUT framework, or get in touch about collaboration."
     actions={[
-      { label: 'Download Music Style Transformer', href: '/papers/music-style-transformer.pdf', variant: 'primary' },
-      { label: 'Download Black Hole Sonification', href: '/papers/black-hole-sonification.pdf', variant: 'secondary' },
+      { label: 'Visit GAMUT', href: GAMUT_URL, variant: 'primary' },
+      { label: 'Download Music Style Transformer', href: '/papers/music-style-transformer.pdf', variant: 'secondary' },
       { label: 'Contact About Research', href: '/contact', variant: 'secondary' },
     ]}
   />
 </BaseLayout>
+
+<style>
+  .gamut {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .gamut__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-6);
+  }
+
+  .gamut__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 42em;
+    margin-bottom: var(--sp-8);
+  }
+
+  .gamut__body strong {
+    color: var(--color-brass);
+    font-weight: 500;
+  }
+
+  .gamut__columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-8);
+    margin-bottom: var(--sp-8);
+  }
+
+  .gamut__subheading {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-slate);
+    margin-bottom: var(--sp-4);
+  }
+
+  .gamut__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .gamut__list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .gamut__ctas {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .gamut__columns {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
