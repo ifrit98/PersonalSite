@@ -1,30 +1,32 @@
 ---
 import Button from '@/components/ui/Button.astro';
 
+import { AFTERFIAT_URL, ESCHATOLOGY_URL, GAMUT_URL } from '@/lib/site';
+
 const features = [
   {
     title: 'AfterFiat',
     body: 'A book-length thesis on verification, repression, synthetic media, and the infrastructure required for credible truth and value in the AI era.',
-    href: 'https://afterfiat.xyz',
+    href: AFTERFIAT_URL,
     cta: 'Read More',
   },
   {
     title: 'Eschatology Report',
     body: 'Long-form writing on AI acceleration, symbolic overload, civilizational drift, and the search for workable orientation.',
-    href: 'https://eschatologyreport.substack.com',
+    href: ESCHATOLOGY_URL,
     cta: 'Visit',
+  },
+  {
+    title: 'GAMUT — The Shape of Musical Possibility',
+    body: 'A formal mathematical framework that constructs the geometry of twelve-tone pitch space — from cyclic autocorrelation through permutation fibers to symplectic form. Three essays, interactive explorer, and two manuscripts.',
+    href: GAMUT_URL,
+    cta: 'Explore GAMUT',
   },
   {
     title: 'Selected Systems Work',
     body: 'Engineering work across secure environments, distributed ML, real-time detection, and adversarial protocol design.',
     href: '/work',
     cta: 'View Work',
-  },
-  {
-    title: 'GAMUT — Musical Geometry',
-    body: 'A formal mathematical framework for pitch-class space: cyclic autocorrelation, permutation fibers, and a layered symplectic model — with an interactive explorer covering all 223 set classes.',
-    href: 'https://shapeofmusicalpossibility.org',
-    cta: 'Explore GAMUT',
   },
 ];
 ---

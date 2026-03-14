@@ -21,26 +21,55 @@ import { GAMUT_URL } from '@/lib/site';
 
   <NarrativeSection>
     <p>
-      My research work has two public anchors: peer-reviewed work in music generation and style
-      transfer, and sonification work for simulated black-hole merger data. Around that sits a
-      broader interest in form: how structure becomes legible across sound, geometry, symmetry,
-      dynamics, and computation.
+      My primary research program is GAMUT, a formal mathematical framework for the geometry of
+      twelve-tone pitch space. Earlier peer-reviewed work in music generation and astrophysical
+      sonification laid the groundwork; the broader interest is in form — how structure becomes
+      legible across sound, geometry, symmetry, dynamics, and computation.
     </p>
   </NarrativeSection>
 
-  <PublicationList />
-
   <section class="gamut" id="gamut">
     <div class="container">
-      <h2 class="gamut__heading">GAMUT — Geometric-Algebraic Music Theory</h2>
-      <p class="gamut__body">
-        A rigorous mathematical formalization of musical pitch-class space, built from cyclic
-        autocorrelation, permutation fibers, and symplectic geometry. The framework constructs a
-        <strong>layered symplectic space</strong> for the twelve-tone universe: a content layer
-        (where pitch-class sets live as Fourier moduli), an order layer (where cyclic orderings live
-        as constrained gap words), and a symplectic thickening (where the full space carries a
-        canonical exact symplectic form with Hamiltonian transposition and anti-symplectic inversion).
+      <p class="gamut__eyebrow">Primary Research Program</p>
+      <h2 class="gamut__heading">GAMUT — The Shape of Musical Possibility</h2>
+      <p class="gamut__lede">
+        A list can name musical objects. A geometry can let a mind move among them.
       </p>
+      <p class="gamut__body">
+        GAMUT constructs a <strong>layered symplectic space</strong> for the twelve-tone universe.
+        The argument begins with cyclic autocorrelation as a natural fingerprint of pitch content,
+        moves through the Fourier shadow that connects interval counting to spectral shape, then
+        attaches the missing structure: a fiber of cyclic orderings above each content class, forming
+        a layered bundle. When both layers are lifted into Fourier coordinates, the ambient space
+        acquires a canonical exact symplectic form — transposition acts as Hamiltonian phase rotation,
+        inversion as anti-symplectic reflection. The result is a stratified geometry in which all
+        223 content classes, their 14,166 permutation orderings, and the spectral continuum between
+        them are organized not just by adjacency but by a geometry of lawful motion.
+      </p>
+
+      <div class="gamut__essay-arc">
+        <h3 class="gamut__subheading">The essay arc</h3>
+        <ol class="gamut__essays">
+          <li>
+            <a href={`${GAMUT_URL}/essays/part-i-why-music-wants-a-geometry/`} class="gamut__essay-link">
+              <strong>Part I. Why Music Wants a Geometry</strong>
+              <span>Why the twelve-tone universe exceeds ordinary theory categories and why cyclic autocorrelation is the first serious fingerprint of content.</span>
+            </a>
+          </li>
+          <li>
+            <a href={`${GAMUT_URL}/essays/part-ii-attaching-order-to-content/`} class="gamut__essay-link">
+              <strong>Part II. Attaching Order to Content</strong>
+              <span>How rooted cyclic order, gap words, and local permutation geometry turn a content map into a fibered object.</span>
+            </a>
+          </li>
+          <li>
+            <a href={`${GAMUT_URL}/essays/part-iii-why-the-space-wants-a-symplectic-form/`} class="gamut__essay-link">
+              <strong>Part III. Why the Space Wants a Symplectic Form</strong>
+              <span>Why the Fourier lift of the layered construction naturally takes the argument from static geometry into a phase-space picture of musical motion.</span>
+            </a>
+          </li>
+        </ol>
+      </div>
 
       <div class="gamut__columns">
         <div class="gamut__column">
@@ -56,20 +85,23 @@ import { GAMUT_URL } from '@/lib/site';
         <div class="gamut__column">
           <h3 class="gamut__subheading">Artifacts</h3>
           <ul class="gamut__list">
-            <li>Two formal manuscripts (full proofs)</li>
-            <li>Three-part public essay series</li>
+            <li>Two formal manuscripts with full proofs</li>
+            <li>Three-part public essay series (above)</li>
             <li>Interactive Layered Bundle Explorer: 223 set classes, 14,166 orderings, semantic zoom, entropy coloring, guided tour</li>
-            <li>Python + Node.js data pipeline</li>
+            <li>Camera-ready volume, proof paper, technical paper — all downloadable</li>
           </ul>
         </div>
       </div>
 
       <div class="gamut__ctas">
         <Button href={GAMUT_URL}>Visit GAMUT Site</Button>
+        <Button href={`${GAMUT_URL}/essays/`} variant="secondary">Read the Essays</Button>
         <Button href={`${GAMUT_URL}/downloads/layered-symplectic-musical-space-amsart.pdf`} variant="secondary">Download Manuscript (PDF)</Button>
       </div>
     </div>
   </section>
+
+  <PublicationList />
 
   <NarrativeSection>
     <p>
@@ -94,14 +126,32 @@ import { GAMUT_URL } from '@/lib/site';
 
 <style>
   .gamut {
-    padding-block: var(--sp-16);
+    padding-block: var(--sp-24);
     border-top: 1px solid var(--color-line);
+  }
+
+  .gamut__eyebrow {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brass);
+    margin-bottom: var(--sp-3);
   }
 
   .gamut__heading {
     font: var(--text-h2);
     font-family: var(--font-serif);
     font-weight: 500;
+    margin-bottom: var(--sp-4);
+  }
+
+  .gamut__lede {
+    font: var(--text-body-lg);
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-slate);
+    max-width: 32em;
     margin-bottom: var(--sp-6);
   }
 
@@ -110,12 +160,55 @@ import { GAMUT_URL } from '@/lib/site';
     font-family: var(--font-sans);
     color: var(--color-ink);
     max-width: 42em;
-    margin-bottom: var(--sp-8);
+    margin-bottom: var(--sp-12);
   }
 
   .gamut__body strong {
     color: var(--color-brass);
     font-weight: 500;
+  }
+
+  .gamut__essay-arc {
+    margin-bottom: var(--sp-12);
+  }
+
+  .gamut__essays {
+    list-style: none;
+    counter-reset: essay;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .gamut__essay-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    padding: var(--sp-4) var(--sp-6);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .gamut__essay-link:hover {
+    border-color: var(--color-brass);
+    box-shadow: var(--shadow-card);
+  }
+
+  .gamut__essay-link strong {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .gamut__essay-link span {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
   }
 
   .gamut__columns {
