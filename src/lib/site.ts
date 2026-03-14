@@ -14,7 +14,7 @@ export const SITE = {
 
 export const AFTERFIAT_URL = 'https://afterfiat.xyz';
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
-export const GAMUT_URL = 'https://shapeofmusicalpossibility.org';
+export const GAMUT_URL = 'https://musicalgeometry.replit.app';
 export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
 
 export const NAV_LINKS = [
