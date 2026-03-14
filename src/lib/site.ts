@@ -47,7 +47,7 @@ export const ENDORSED_PROPERTIES = [
     description:
       'A formal mathematical framework for pitch-class space — cyclic autocorrelation, permutation fibers, and symplectic geometry — with interactive visualization, essays, and manuscripts.',
     url: GAMUT_URL,
-    image: '/3d-GAMUT.png',
+    image: '/3d-GAMUT2.png',
   },
   {
     name: 'AlchemicalAI',
