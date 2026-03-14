@@ -14,7 +14,10 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
     </p>
     <div class="associated__grid">
       {ENDORSED_PROPERTIES.map((prop) => (
-        <a href={prop.url} class="associated__card">
+        <a href={prop.url} class:list={['associated__card', { 'associated__card--has-image': 'image' in prop }]}>
+          {'image' in prop && (
+            <img src={(prop as any).image} alt="" class="associated__icon" loading="lazy" />
+          )}
           <span class="associated__name">{prop.name}</span>
           <span class="associated__tagline">{prop.tagline}</span>
         </a>
@@ -66,6 +69,14 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
   .associated__card:hover {
     border-color: var(--color-brass);
     box-shadow: var(--shadow-card);
+  }
+
+  .associated__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid var(--color-line);
   }
 
   .associated__name {
