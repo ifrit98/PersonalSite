@@ -1,5 +1,5 @@
 ---
-import { SITE, NAV_LINKS, AFTERFIAT_URL, ESCHATOLOGY_URL } from '@/lib/site';
+import { SITE, NAV_LINKS, AFTERFIAT_URL, ESCHATOLOGY_URL, GAMUT_URL } from '@/lib/site';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -25,6 +25,7 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <div class="header__utility">
+      <a href={GAMUT_URL} class="header__utility-link">GAMUT</a>
       <a href={ESCHATOLOGY_URL} class="header__utility-link">Eschatology Report</a>
       <a href={AFTERFIAT_URL} class="header__cta">Read AfterFiat</a>
     </div>
@@ -52,6 +53,7 @@ const currentPath = Astro.url.pathname;
     <div class="header__mobile-utility">
       <a href={AFTERFIAT_URL} class="header__cta">Read AfterFiat</a>
       <a href={ESCHATOLOGY_URL} class="header__utility-link">Eschatology Report</a>
+      <a href={GAMUT_URL} class="header__utility-link">GAMUT</a>
     </div>
   </div>
 </header>
