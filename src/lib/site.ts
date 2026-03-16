@@ -16,6 +16,7 @@ export const AFTERFIAT_URL = 'https://afterfiat.xyz';
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
 export const GAMUT_URL = 'https://musicalgeometry.replit.app';
 export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
+export const CAPABILITY_COMMONS_URL = '/work#capability-commons'; // swap to external URL when deployed
 
 export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
@@ -48,6 +49,13 @@ export const ENDORSED_PROPERTIES = [
       'A formal mathematical framework for pitch-class space — cyclic autocorrelation, permutation fibers, and symplectic geometry — with interactive visualization, essays, and manuscripts.',
     url: GAMUT_URL,
     image: '/3d-GAMUT2.png',
+  },
+  {
+    name: 'Capability Commons',
+    tagline: 'Knowledge Architecture / Public Infrastructure',
+    description:
+      'An open capability commons using AI to convert hidden competence into shared public capacity — mapping concepts to skills, skills to projects, and every learner to teach-forward transmission.',
+    url: CAPABILITY_COMMONS_URL,
   },
   {
     name: 'AlchemicalAI',
