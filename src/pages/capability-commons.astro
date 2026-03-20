@@ -1,0 +1,369 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { SITE } from '@/lib/site';
+
+const domains = [
+  'Water',
+  'Food',
+  'Shelter',
+  'Power',
+  'Repair',
+  'Gardening',
+  'Systems literacy',
+  'Community coordination',
+  'Teach-forward practice',
+];
+---
+
+<BaseLayout
+  title="Capability Commons — Open practical knowledge for public capability"
+  description="Capability Commons is an open knowledge system for practical literacy: water, food, shelter, power, repair, gardening, systems thinking, and teach-forward public competence."
+>
+  <section class="cc-hero">
+    <div class="container container--narrow">
+      <span class="cc-hero__eyebrow">Public Initiative</span>
+      <h1 class="cc-hero__title">Capability Commons</h1>
+      <p class="cc-hero__lede">
+        Open practical knowledge for resilience, systems literacy, and teach-forward public competence.
+      </p>
+      <p class="cc-hero__body">
+        Capability Commons is an open knowledge system that maps concepts to skills, skills to projects,
+        and projects to local deployment. Its aim is simple: recover practical knowledge, make it legible,
+        and help people teach it forward.
+      </p>
+      <div class="cc-hero__actions">
+        <Button href="#what-it-is">Start Here</Button>
+        <Button href="#what-is-live" variant="secondary">Browse the Commons</Button>
+        <Button href="#contribute" variant="secondary">Developer Docs</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cc-section" id="what-it-is">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">What it is</h2>
+      <p class="cc-section__body">
+        Most people do not need more information. They need clearer paths from understanding to action.
+      </p>
+      <p class="cc-section__body">
+        Capability Commons is built around reproducible capability. Each module is designed to help someone
+        understand a principle, perform a task, produce a durable artifact, and explain it clearly to someone else.
+      </p>
+      <p class="cc-section__body cc-section__body--accent">
+        This is not a content feed. It is a public capability system.
+      </p>
+    </div>
+  </section>
+
+  <section class="cc-section cc-section--domains" id="core-domains">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">Core domains</h2>
+      <ul class="cc-domains" role="list">
+        {domains.map((domain) => (
+          <li class="cc-domains__item">{domain}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="cc-section" id="how-it-works">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">How it works</h2>
+      <p class="cc-section__body">
+        Capability Commons organizes knowledge as a graph:
+      </p>
+      <ul class="cc-graph-list" role="list">
+        <li><strong>concepts</strong> explain what something is</li>
+        <li><strong>skills</strong> define what someone can do</li>
+        <li><strong>projects</strong> turn understanding into useful artifacts</li>
+        <li><strong>modules</strong> sequence the work into learnable paths</li>
+        <li><strong>teach-forward packets</strong> help each learner become a transmitter</li>
+      </ul>
+      <p class="cc-section__body">
+        Under the surface, the Commons is powered by a versioned evidence and retrieval layer so guidance
+        can be reviewed, updated, localized, and improved over time.
+      </p>
+    </div>
+  </section>
+
+  <section class="cc-section" id="why-now">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">Why now</h2>
+      <p class="cc-section__body">
+        Practical competence has become fragmented, gated, outsourced, or trapped behind institutions,
+        jargon, and disappearing local memory.
+      </p>
+      <p class="cc-section__body">
+        The point of Capability Commons is not nostalgia. It is public capacity.
+      </p>
+      <p class="cc-section__body">
+        If useful knowledge can be recovered, clarified, and taught forward, more people can become less
+        helpless in the face of fragile systems and more useful to one another.
+      </p>
+    </div>
+  </section>
+
+  <section class="cc-section" id="what-is-live">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">What is live now</h2>
+      <p class="cc-section__body">
+        The Commons is being built in public.
+      </p>
+      <p class="cc-section__body">Initial releases include:</p>
+      <ul class="cc-releases" role="list">
+        <li>starter learning paths</li>
+        <li>canonical module templates</li>
+        <li>worksheets and reference sheets</li>
+        <li>graph-based knowledge architecture</li>
+        <li>developer-facing infrastructure documentation</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cc-section" id="stewardship">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">Stewardship</h2>
+      <p class="cc-section__body">
+        Capability Commons is founded and stewarded by Jason St George.
+      </p>
+      <p class="cc-section__body">
+        The public initiative sits under a larger body of work on truth, coordination, verification,
+        and resilient systems under adversarial conditions. The technical substrate is powered by
+        Agentic Data Lite, which supports provenance, revision, evidence retrieval, and long-horizon
+        maintenance.
+      </p>
+    </div>
+  </section>
+
+  <section class="cc-section cc-section--contribute" id="contribute">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">Contribute</h2>
+      <p class="cc-section__body">
+        There are three ways to contribute:
+      </p>
+      <ul class="cc-contribute-list" role="list">
+        <li>improve the platform</li>
+        <li>improve the content</li>
+        <li>contribute field reports, local adaptations, and review notes</li>
+      </ul>
+      <p class="cc-section__body">
+        If you want to help build durable public capability, start here.
+      </p>
+      <div class="cc-section__actions">
+        <Button href={SITE.social.github}>View GitHub</Button>
+        <Button href="#what-is-live" variant="secondary">Read the Docs</Button>
+        <Button href="/contact" variant="secondary">Contact Jason</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cc-closing">
+    <div class="container container--narrow">
+      <p class="cc-closing__line">Open knowledge is not enough.</p>
+      <p class="cc-closing__line cc-closing__line--accent">The goal is usable capability.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Hero ── */
+  .cc-hero {
+    padding-block: var(--sp-24) var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .cc-hero__eyebrow {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brass);
+  }
+
+  .cc-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-top: var(--sp-4);
+  }
+
+  .cc-hero__lede {
+    font: var(--text-body-lg);
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 38em;
+  }
+
+  .cc-hero__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    margin-top: var(--sp-6);
+    max-width: 42em;
+  }
+
+  .cc-hero__actions {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    margin-top: var(--sp-8);
+  }
+
+  /* ── Sections ── */
+  .cc-section {
+    padding-block: var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .cc-section__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-6);
+  }
+
+  .cc-section__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 42em;
+    margin-bottom: var(--sp-6);
+  }
+
+  .cc-section__body:last-child {
+    margin-bottom: 0;
+  }
+
+  .cc-section__body--accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-brass);
+  }
+
+  .cc-section__actions {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    margin-top: var(--sp-8);
+  }
+
+  /* ── Core domains ── */
+  .cc-domains {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .cc-domains__item {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding: var(--sp-4) var(--sp-6);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card);
+    padding-left: var(--sp-6);
+    border-left: 3px solid var(--color-brass);
+  }
+
+  /* ── Graph list (how it works) ── */
+  .cc-graph-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-6);
+  }
+
+  .cc-graph-list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .cc-graph-list strong {
+    color: var(--color-brass);
+    font-weight: 500;
+  }
+
+  /* ── Releases list ── */
+  .cc-releases {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .cc-releases li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  /* ── Contribute list ── */
+  .cc-contribute-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-6);
+  }
+
+  .cc-contribute-list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  /* ── Closing ── */
+  .cc-closing {
+    padding-block: var(--sp-24);
+    text-align: center;
+  }
+
+  .cc-closing__line {
+    font: var(--text-body-lg);
+    font-family: var(--font-serif);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-2);
+  }
+
+  .cc-closing__line--accent {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .cc-hero {
+      padding-block: var(--sp-16) var(--sp-12);
+    }
+
+    .cc-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+
+    .cc-domains {
+      grid-template-columns: 1fr;
+    }
+
+    .cc-section {
+      padding-block: var(--sp-12);
+    }
+  }
+</style>
