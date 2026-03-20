@@ -29,7 +29,7 @@ const steps = [
 ];
 ---
 
-<section class="start-here">
+<section class="start-here fade-up">
   <div class="container">
     <h2 class="start-here__heading">Start Here</h2>
     <p class="start-here__intro">If you're new, this is a suggested reading path.</p>
@@ -95,6 +95,7 @@ const steps = [
     font-weight: 500;
     color: var(--color-ink);
     text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
   }
 
   .start-here__label:hover {

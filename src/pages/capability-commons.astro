@@ -158,7 +158,7 @@ const domains = [
     </div>
   </section>
 
-  <section class="cc-closing">
+  <section class="cc-closing fade-up">
     <div class="container container--narrow">
       <p class="cc-closing__line">Open knowledge is not enough.</p>
       <p class="cc-closing__line cc-closing__line--accent">The goal is usable capability.</p>
@@ -265,11 +265,20 @@ const domains = [
     font-family: var(--font-sans);
     color: var(--color-ink);
     padding: var(--sp-4) var(--sp-6);
-    border: 1px solid var(--color-line);
+    border: 1px solid rgba(16, 24, 38, 0.08);
     border-radius: var(--radius-card);
-    background-color: var(--color-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
     padding-left: var(--sp-6);
     border-left: 3px solid var(--color-brass);
+    transition:
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
+  }
+
+  .cc-domains__item:hover {
+    box-shadow: var(--shadow-card-lift);
+    transform: translateY(-1px);
   }
 
   /* ── Graph list (how it works) ── */

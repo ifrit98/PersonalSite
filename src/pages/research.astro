@@ -28,7 +28,7 @@ import { GAMUT_URL } from '@/lib/site';
     </p>
   </NarrativeSection>
 
-  <section class="gamut" id="gamut">
+  <section class="gamut fade-up" id="gamut">
     <div class="container">
       <div class="gamut__hero">
         <div class="gamut__hero-text">
@@ -214,17 +214,21 @@ import { GAMUT_URL } from '@/lib/site';
     flex-direction: column;
     gap: var(--sp-1);
     padding: var(--sp-4) var(--sp-6);
-    border: 1px solid var(--color-line);
+    border: 1px solid rgba(16, 24, 38, 0.08);
     border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
     text-decoration: none;
     transition:
-      border-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
+      border-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
   }
 
   .gamut__essay-link:hover {
     border-color: var(--color-brass);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-card-lift);
+    transform: translateY(-2px);
   }
 
   .gamut__essay-link strong {

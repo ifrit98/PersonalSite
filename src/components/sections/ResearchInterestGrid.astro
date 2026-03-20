@@ -23,7 +23,7 @@ const { items = [
 ] } = Astro.props;
 ---
 
-<section class="interests">
+<section class="interests fade-up">
   <div class="container">
     <h2 class="interests__heading">Ongoing Investigations</h2>
     <div class="interests__grid">
@@ -57,9 +57,18 @@ const { items = [
 
   .interests__card {
     padding: var(--sp-6);
-    border: 1px solid var(--color-line);
+    border: 1px solid rgba(16, 24, 38, 0.08);
     border-radius: var(--radius-card);
-    background-color: var(--color-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
+    transition:
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
+  }
+
+  .interests__card:hover {
+    box-shadow: var(--shadow-card-lift);
+    transform: translateY(-2px);
   }
 
   .interests__title {
