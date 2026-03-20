@@ -108,16 +108,138 @@ const domains = [
     <div class="container container--narrow">
       <h2 class="cc-section__heading">What is live now</h2>
       <p class="cc-section__body">
-        The Commons is being built in public.
+        The Commons is being built in public. Below is what currently exists and what is in progress.
       </p>
-      <p class="cc-section__body">Initial releases include:</p>
-      <ul class="cc-releases" role="list">
-        <li>starter learning paths</li>
-        <li>canonical module templates</li>
-        <li>worksheets and reference sheets</li>
-        <li>graph-based knowledge architecture</li>
-        <li>developer-facing infrastructure documentation</li>
-      </ul>
+
+      <div class="cc-modules">
+        <h3 class="cc-modules__heading">Starter Modules</h3>
+        <div class="cc-modules__grid">
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Water</span>
+            <h4 class="cc-modules__title">Household Water Resilience</h4>
+            <p class="cc-modules__desc">Storage, filtration, and emergency supply for a household of four. Includes decision tree, equipment list, and maintenance schedule.</p>
+            <span class="cc-modules__status cc-modules__status--draft">Template ready</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Food</span>
+            <h4 class="cc-modules__title">Seed-to-Table Kitchen Garden</h4>
+            <p class="cc-modules__desc">First-season garden planning from soil assessment through harvest. Zone-aware planting calendar, companion planting reference, yield tracking worksheet.</p>
+            <span class="cc-modules__status cc-modules__status--draft">Template ready</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Shelter</span>
+            <h4 class="cc-modules__title">Basic Home Weatherization</h4>
+            <p class="cc-modules__desc">Air sealing, insulation assessment, and thermal envelope basics. Audit worksheet, material reference, and cost-benefit calculator.</p>
+            <span class="cc-modules__status cc-modules__status--planned">In development</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Power</span>
+            <h4 class="cc-modules__title">Off-Grid Power Fundamentals</h4>
+            <p class="cc-modules__desc">Load calculation, battery sizing, solar panel selection. From principles through wiring to a functioning portable system.</p>
+            <span class="cc-modules__status cc-modules__status--planned">In development</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Systems Literacy</span>
+            <h4 class="cc-modules__title">Reading a System</h4>
+            <p class="cc-modules__desc">How to identify feedback loops, bottlenecks, failure modes, and leverage points in any system you depend on. Diagramming exercises and real-world case walkthroughs.</p>
+            <span class="cc-modules__status cc-modules__status--draft">Template ready</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Teach-Forward</span>
+            <h4 class="cc-modules__title">Teach-Forward Packet Design</h4>
+            <p class="cc-modules__desc">How to take what you have learned, compress it into a teachable unit, and transmit it reliably. Template, checklist, and example packets.</p>
+            <span class="cc-modules__status cc-modules__status--draft">Template ready</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cc-graph-preview">
+        <h3 class="cc-modules__heading">Knowledge Graph Architecture</h3>
+        <div class="cc-graph-preview__diagram">
+          <div class="cc-graph-preview__node cc-graph-preview__node--concept">Concept</div>
+          <div class="cc-graph-preview__arrow">&rarr;</div>
+          <div class="cc-graph-preview__node cc-graph-preview__node--skill">Skill</div>
+          <div class="cc-graph-preview__arrow">&rarr;</div>
+          <div class="cc-graph-preview__node cc-graph-preview__node--project">Project</div>
+          <div class="cc-graph-preview__arrow">&rarr;</div>
+          <div class="cc-graph-preview__node cc-graph-preview__node--module">Module</div>
+          <div class="cc-graph-preview__arrow">&rarr;</div>
+          <div class="cc-graph-preview__node cc-graph-preview__node--teach">Teach-Forward</div>
+        </div>
+        <p class="cc-section__body" style="margin-top: var(--sp-4);">
+          Each node type is a versioned knowledge object with provenance, evidence links, and revision history.
+          The graph connects explanation to action to transmission — every concept has a skill path,
+          every skill path produces an artifact, and every module ends with a teach-forward packet.
+        </p>
+      </div>
+
+      <div class="cc-docs-index">
+        <h3 class="cc-modules__heading">Infrastructure & Docs</h3>
+        <div class="cc-docs-index__grid">
+          <div class="cc-docs-index__item">
+            <span class="cc-docs-index__icon">&#9632;</span>
+            <div>
+              <strong>Module Schema</strong>
+              <p>Canonical structure for modules, skills, projects, and teach-forward packets.</p>
+            </div>
+          </div>
+          <div class="cc-docs-index__item">
+            <span class="cc-docs-index__icon">&#9632;</span>
+            <div>
+              <strong>Worksheet Templates</strong>
+              <p>Reusable reference sheets, decision trees, audit forms, and planning checklists.</p>
+            </div>
+          </div>
+          <div class="cc-docs-index__item">
+            <span class="cc-docs-index__icon">&#9632;</span>
+            <div>
+              <strong>Graph Specification</strong>
+              <p>Schema and API surface for the knowledge object registry and revision layer.</p>
+            </div>
+          </div>
+          <div class="cc-docs-index__item">
+            <span class="cc-docs-index__icon">&#9632;</span>
+            <div>
+              <strong>Governance & Brand</strong>
+              <p>Stewarded open-project model, contribution guidelines, and naming conventions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cc-roadmap">
+        <h3 class="cc-modules__heading">Roadmap & Changelog</h3>
+        <div class="cc-roadmap__timeline">
+          <div class="cc-roadmap__entry cc-roadmap__entry--done">
+            <span class="cc-roadmap__date">2026 Q1</span>
+            <div>
+              <strong>Foundation</strong>
+              <p>Project architecture, module schema, governance model, brand identity, public landing page, starter module templates for Water, Food, Systems Literacy, and Teach-Forward.</p>
+            </div>
+          </div>
+          <div class="cc-roadmap__entry cc-roadmap__entry--current">
+            <span class="cc-roadmap__date">2026 Q2</span>
+            <div>
+              <strong>First Public Artifacts</strong>
+              <p>3–5 complete modules with downloadable worksheets, first published learning path, graph API scaffold, developer docs site, initial community contribution workflow.</p>
+            </div>
+          </div>
+          <div class="cc-roadmap__entry">
+            <span class="cc-roadmap__date">2026 Q3</span>
+            <div>
+              <strong>Platform & Graph</strong>
+              <p>Knowledge graph explorer, revision and evidence layer integration via Agentic Data Lite, public review workflows, expanded domain coverage (Shelter, Power, Repair).</p>
+            </div>
+          </div>
+          <div class="cc-roadmap__entry">
+            <span class="cc-roadmap__date">2026 Q4</span>
+            <div>
+              <strong>Scale & Community</strong>
+              <p>Field report submission, local adaptation framework, community review board, 20+ published modules across all core domains.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -303,20 +425,238 @@ const domains = [
     font-weight: 500;
   }
 
-  /* ── Releases list ── */
-  .cc-releases {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-3);
+  /* ── Module cards ── */
+  .cc-modules {
+    margin-bottom: var(--sp-12);
   }
 
-  .cc-releases li {
-    font: var(--text-body);
-    font-family: var(--font-sans);
+  .cc-modules__heading {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    margin-bottom: var(--sp-4);
+  }
+
+  .cc-modules__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .cc-modules__card {
+    padding: var(--sp-5) var(--sp-6);
+    border: 1px solid rgba(16, 24, 38, 0.08);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    transition: box-shadow var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out);
+  }
+
+  .cc-modules__card:hover {
+    box-shadow: var(--shadow-card-lift);
+    transform: translateY(-1px);
+  }
+
+  .cc-modules__domain {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    font-size: 0.6875rem;
+  }
+
+  .cc-modules__title {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--color-ink);
-    padding-left: var(--sp-4);
-    border-left: 2px solid var(--color-brass);
+  }
+
+  .cc-modules__desc {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
+  }
+
+  .cc-modules__status {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    margin-top: auto;
+    padding-top: var(--sp-2);
+  }
+
+  .cc-modules__status--draft {
+    color: var(--color-brass);
+  }
+
+  .cc-modules__status--planned {
+    color: var(--color-slate);
+  }
+
+  /* ── Graph preview ── */
+  .cc-graph-preview {
+    margin-bottom: var(--sp-12);
+  }
+
+  .cc-graph-preview__diagram {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+    padding: var(--sp-6);
+    background-color: var(--color-warm-wash);
+    border-radius: var(--radius-card);
+  }
+
+  .cc-graph-preview__node {
+    padding: var(--sp-3) var(--sp-4);
+    border-radius: var(--radius-button);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .cc-graph-preview__node--concept {
+    background-color: rgba(169, 135, 82, 0.15);
+    color: var(--color-brass);
+    border: 1px solid rgba(169, 135, 82, 0.3);
+  }
+
+  .cc-graph-preview__node--skill {
+    background-color: rgba(16, 24, 38, 0.06);
+    color: var(--color-ink);
+    border: 1px solid rgba(16, 24, 38, 0.12);
+  }
+
+  .cc-graph-preview__node--project {
+    background-color: rgba(16, 24, 38, 0.06);
+    color: var(--color-ink);
+    border: 1px solid rgba(16, 24, 38, 0.12);
+  }
+
+  .cc-graph-preview__node--module {
+    background-color: rgba(16, 24, 38, 0.06);
+    color: var(--color-ink);
+    border: 1px solid rgba(16, 24, 38, 0.12);
+  }
+
+  .cc-graph-preview__node--teach {
+    background-color: rgba(169, 135, 82, 0.15);
+    color: var(--color-brass);
+    border: 1px solid rgba(169, 135, 82, 0.3);
+  }
+
+  .cc-graph-preview__arrow {
+    font-size: 1.25rem;
+    color: var(--color-slate);
+    opacity: 0.5;
+  }
+
+  /* ── Docs index ── */
+  .cc-docs-index {
+    margin-bottom: var(--sp-12);
+  }
+
+  .cc-docs-index__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .cc-docs-index__item {
+    display: flex;
+    gap: var(--sp-3);
+    align-items: flex-start;
+    padding: var(--sp-4);
+    border: 1px solid rgba(16, 24, 38, 0.06);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+  }
+
+  .cc-docs-index__icon {
+    color: var(--color-brass);
+    font-size: 0.625rem;
+    margin-top: 0.35em;
+    flex-shrink: 0;
+  }
+
+  .cc-docs-index__item strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+  }
+
+  .cc-docs-index__item p {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.5;
+  }
+
+  /* ── Roadmap ── */
+  .cc-roadmap {
+    margin-bottom: var(--sp-4);
+  }
+
+  .cc-roadmap__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .cc-roadmap__entry {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-6);
+    border-left: 2px solid var(--color-line);
+  }
+
+  .cc-roadmap__entry--done {
+    border-left-color: var(--color-brass);
+  }
+
+  .cc-roadmap__entry--current {
+    border-left-color: var(--color-brass);
+    background-color: var(--color-warm-wash);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  }
+
+  .cc-roadmap__date {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    white-space: nowrap;
+    margin-top: 0.2em;
+  }
+
+  .cc-roadmap__entry strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+  }
+
+  .cc-roadmap__entry p {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
   }
 
   /* ── Contribute list ── */
@@ -371,6 +711,30 @@ const domains = [
 
     .cc-domains {
       grid-template-columns: 1fr;
+    }
+
+    .cc-modules__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cc-docs-index__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cc-graph-preview__diagram {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+
+    .cc-graph-preview__arrow {
+      transform: rotate(90deg);
+      align-self: center;
+    }
+
+    .cc-roadmap__entry {
+      grid-template-columns: 1fr;
+      gap: var(--sp-2);
     }
 
     .cc-section {

@@ -4,38 +4,44 @@ import Button from '@/components/ui/Button.astro';
 
 const items = [
   {
-    title: 'Secure Distributed ML',
-    tag: 'Infrastructure',
-    desc: 'Built and owned distributed LLM fine-tuning capability in a TS/SCI SCIF.',
-    href: '/work#secure-distributed-ml',
+    title: 'Adversarial Storage & Incentives',
+    tag: 'Protocol Design',
+    year: '2023–2024',
+    desc: 'Ciphertext-only storage network with interactive proof-of-spacetime and tiered incentive model. ~$60M revenue.',
+    href: '/work#adversarial-storage-incentives',
   },
   {
     title: 'Real-Time Underwater Detection',
     tag: 'Defense / ML',
-    desc: 'Hybrid DSP + ML pipeline optimized for Pd/Pfa and operational latency.',
+    year: '2022–2024',
+    desc: 'Hybrid DSP + ML pipeline optimized for Pd/Pfa at sub-50ms latency on edge hardware.',
     href: '/work#real-time-underwater-detection',
   },
   {
-    title: 'Adversarial Storage & Incentives',
-    tag: 'Protocol Design',
-    desc: 'Ciphertext-only storage network with interactive proof and sliding-window incentive model.',
-    href: '/work#adversarial-storage-incentives',
+    title: 'Secure Distributed ML',
+    tag: 'Infrastructure',
+    year: '2023–2024',
+    desc: 'Distributed LLM fine-tuning capability inside a TS/SCI SCIF environment.',
+    href: '/work#secure-distributed-ml',
   },
   {
     title: 'Capability Commons',
     tag: 'Public Initiative',
+    year: 'Ongoing',
     desc: 'Open capability commons for practical literacy, local resilience, and teach-forward public infrastructure.',
     href: '/capability-commons',
   },
   {
     title: 'GAMUT — The Shape of Musical Possibility',
     tag: 'Research',
+    year: '2025–2026',
     desc: 'Formal geometry of twelve-tone pitch space: essays, proofs, interactive explorer, and two manuscripts.',
     href: '/research#gamut',
   },
   {
     title: 'Music Style Transformer',
     tag: 'Research',
+    year: '2020',
     desc: 'Bayesian-factorized approach to raw-audio transcription, composition, and style transfer.',
     href: '/research#music-style-transformer',
   },
@@ -54,6 +60,7 @@ const items = [
               <div class="selected-work__title-row">
                 <h3 class="selected-work__title">{item.title}</h3>
                 {item.tag && <span class="selected-work__tag">{item.tag}</span>}
+                {item.year && <span class="selected-work__year">{item.year}</span>}
               </div>
               <p class="selected-work__desc">{item.desc}</p>
             </div>
@@ -120,6 +127,15 @@ const items = [
     color: var(--color-brass);
     white-space: nowrap;
     flex-shrink: 0;
+  }
+
+  .selected-work__year {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-slate);
+    white-space: nowrap;
+    flex-shrink: 0;
+    opacity: 0.6;
   }
 
   .selected-work__desc {

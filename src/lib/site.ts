@@ -22,6 +22,7 @@ export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
   { label: 'Writing', href: '/writing' },
   { label: 'Research', href: '/research' },
+  { label: 'Capability Commons', href: '/capability-commons' },
   { label: 'About', href: '/about' },
   { label: 'Resume', href: '/resume' },
   { label: 'Contact', href: '/contact' },

@@ -2,11 +2,13 @@
 interface CaseStudy {
   id?: string;
   title: string;
+  meta?: string;
   problem: string;
   narrative: string;
   role: string;
   constraints?: string;
   outcomes?: string;
+  nonobvious?: string;
   note?: string;
 }
 
@@ -16,51 +18,59 @@ interface Props {
 
 const { items = [
   {
-    id: 'secure-distributed-ml',
-    title: 'Secure Distributed ML',
-    problem: 'Enable distributed LLM fine-tuning inside a TS/SCI SCIF.',
-    narrative: 'Built and owned the full capability covering data pipeline through orchestration, deployment, and operator workflows. Designed for air-gapped, multi-GPU environments with strict compliance and operational security constraints.',
-    role: 'Technical lead, architecture, implementation',
-    constraints: 'Air-gapped SCIF, classified data handling, multi-GPU coordination',
-    outcomes: 'Operational capability delivered; platform adopted for ongoing production use.',
+    id: 'adversarial-storage-incentives',
+    title: 'Adversarial Storage & Incentives',
+    meta: 'Infrastructure / Protocol Design',
+    problem: 'Design a ciphertext-only decentralized storage network resilient to adversarial behavior.',
+    narrative: 'Built and led production from the ground up of a ciphertext-only storage network where storage is an ongoing interactive proof, not a one-time upload. Validators issue unpredictable, time-local, seed-chained challenges; miners must respond by recomputing chunk-level Pedersen commitments bound to the new seed, assembling a Merkle root, and returning validator-indexed inclusion proofs plus the next link in the chain. The proof-of-spacetime algorithm has three phases: storage (initial commitment via ECC + Pedersen on encrypted data), challenge (random chunk selection, re-commitment with new seed, Merkle proof generation), and retrieval (chained verification with new seed before decryption). Paired with a tiered incentive/reputation model scored across four axes — availability (uptime), speed (normalized response time), correctness (proof success), and trustworthiness (Wilson Score over time) — with Diamond/Gold/Silver/Bronze tier mobility and sliding-window statistics.',
+    role: 'Protocol design lead, full production build and operations',
+    constraints: 'Fully decentralized and adversarial environment, encrypted user data only, anti-precompute / anti-amortization challenge design, incentive alignment over long horizons, multi-axis reputation scoring',
+    outcomes: 'Operated at ~$7M average MRR / ~$60M revenue. Four-tier miner ecosystem with meritocratic mobility.',
+    nonobvious: 'The hardest problem was not the cryptography — it was the incentive design. Naively rewarding storage volume creates a race to the bottom. The Wilson Score lower-bound approach solved the cold-start problem: new miners are not permanently punished for early failures, but sustained underperformance triggers automatic tier demotion. The chained challenge design prevents miners from precomputing responses or amortizing across challenges, because each response seeds the next.',
+    note: 'Public-safe summary; deeper technical material available selectively.',
   },
   {
     id: 'real-time-underwater-detection',
     title: 'Real-Time Underwater Detection',
-    problem: 'Deliver real-time underwater threat detection with measurable Pd/Pfa.',
-    narrative: 'Led ML and engineering for a hybrid DSP + ML pipeline, optimized around detection probability and false-alarm rate at operational latency. Built supporting simulation and synthetic-data workflows for transfer from unclassified training to tactical deployment contexts.',
+    meta: 'Defense / ML',
+    problem: 'Deliver real-time underwater threat detection with measurable Pd/Pfa on constrained edge hardware.',
+    narrative: 'Led ML and engineering for a hybrid DSP + ML pipeline optimized around detection probability and false-alarm rate at operational latency. The architecture combined classical signal processing for feature extraction with learned classifiers for final decision, deployed on Nvidia Jetson edge hardware. Built supporting simulation and synthetic-data workflows for transfer from unclassified training environments to tactical classified deployment contexts, including domain adaptation to handle the sim-to-real gap in sonar data.',
     role: 'ML lead, pipeline architecture, system integration',
-    constraints: 'Sub-50ms latency on Jetson hardware, sonar domain, unclassified-to-classified transfer',
-    outcomes: 'Secured multi-year follow-on contract for the U.S. Navy.',
+    constraints: 'Sub-50ms inference on Jetson hardware, sonar domain physics, unclassified-to-classified domain transfer, strict Pd/Pfa requirements at operational tempo',
+    outcomes: 'Delivered sub-50ms inference. Secured ~$5M multi-year follow-on contract for the U.S. Navy. 60% UAV data-egress reduction via on-device processing.',
+    nonobvious: 'The real constraint was not model accuracy — it was the unclassified-to-classified transfer gap. Models trained on unclassified simulation data had to perform on classified real-world sonar without retraining on classified data in the open. The synthetic-data pipeline and domain adaptation strategy were the actual load-bearing innovations.',
   },
   {
-    id: 'adversarial-storage-incentives',
-    title: 'Adversarial Storage & Incentives',
-    problem: 'Design a ciphertext-only decentralized storage network resilient to adversarial behavior.',
-    narrative: 'Designed and led production of a ciphertext-only decentralized storage network built around ongoing interactive proof of spacetime. Validators issue unpredictable, time-local, seed-chained challenges; miners must recompute chunk-level Pedersen commitments bound to the new seed, assemble a Merkle root, and return validator-indexed inclusion proofs. The system validates on encrypted user data, preserving privacy while resisting precomputation and amortized cheating. The network also used a sliding-window incentive and reputation model over reliability, uptime, latency, and correctness.',
-    role: 'Protocol design lead, production operations',
-    constraints: 'Decentralized and adversarial environment, encrypted user data, anti-precompute / anti-amortization challenge design, incentive alignment over time',
-    outcomes: 'Operated at roughly $7M average MRR / ~$60M revenue.',
-    note: 'Public-safe summary only; deeper material can be shared selectively.',
+    id: 'secure-distributed-ml',
+    title: 'Secure Distributed ML',
+    meta: 'Defense / Infrastructure',
+    problem: 'Enable distributed LLM fine-tuning inside a TS/SCI SCIF environment.',
+    narrative: 'Built and owned the full capability from data pipeline through orchestration, deployment, and operator workflows. Designed for air-gapped, multi-GPU environments with strict compliance and operational security constraints. The system handles model distribution, training coordination, checkpoint management, and inference serving in an environment where no external network connectivity exists and all software must be pre-approved and carried in physically.',
+    role: 'Technical lead, architecture, full-stack implementation',
+    constraints: 'Air-gapped SCIF with zero external connectivity, classified data handling, multi-GPU coordination, pre-approved software only, physical media transport',
+    outcomes: 'Operational capability delivered and adopted for ongoing production use across classified workflows.',
+    nonobvious: 'In an air-gapped environment, every dependency is a liability. The architecture had to be self-contained — no package managers, no external registries, no network calls. The operational challenge was as much about software supply chain and reproducible builds as it was about distributed training.',
   },
   {
     id: 'rf-classification-streaming-ml',
     title: 'RF Classification & Streaming ML',
+    meta: 'Defense / ML',
     problem: 'Improve RF modulation classification accuracy and deploy models into streaming production.',
     narrative: 'Prototyped an RF modulation classifier that improved accuracy by 12 percentage points via attention-based spectral encoders, then deployed models and APIs into streaming production environments across R, Python, and C++.',
     role: 'ML engineer, model development, production deployment',
-    constraints: 'Multi-language production stack, streaming latency, spectral domain',
+    constraints: 'Multi-language production stack (R, Python, C++), streaming latency requirements, spectral domain',
     outcomes: '+12pp accuracy improvement; models deployed to production streaming pipeline.',
   },
   {
     id: 'capability-commons',
     title: 'Capability Commons',
+    meta: 'Public Initiative / Ongoing',
     problem: 'Practical knowledge is trapped inside trades, institutions, guilds, paywalls, jargon, and credential barriers. Most adults cannot maintain the systems their households depend on.',
-    narrative: 'Designing an open capability commons that uses AI to convert hidden competence into shared public capacity. The architecture is three interlocking graphs — concept, skill, and deployment — organized by civilizational function rather than academic discipline. Every node is a typed knowledge object (concept, skill, or project) with prerequisites, context-aware facets, and durable output artifacts. The system maps concepts to skills, skills to projects, projects to local deployment, and every learner to teach-forward transmission. The v1 starter graph covers 25 nodes across 7 domains with a concentric-ring entry model from household resilience through community coordination.',
-    role: 'Architect, doctrine, knowledge graph design',
+    narrative: 'Designing an open capability commons that maps concepts to skills, skills to projects, projects to local deployment, and every learner to teach-forward transmission. The architecture is three interlocking graphs organized by civilizational function rather than academic discipline. Every node is a typed knowledge object with prerequisites, context-aware facets, and durable output artifacts. Powered by Agentic Data Lite for provenance, revision, and evidence retrieval.',
+    role: 'Founder, architect, knowledge graph design',
     constraints: 'Open by default, layered for beginners, locally adaptable, project-based, teach-forward at every level',
     outcomes: 'V1 graph: 25 nodes, 50 prerequisite edges, 27 navigation edges across 7 capability domains. Doctrine, ontology, and content templates complete.',
-    note: 'Active development. The unit of value is the reproducible capability, not the article.',
+    note: 'Active development — see the dedicated Capability Commons page.',
   },
 ] } = Astro.props;
 ---
@@ -71,6 +81,7 @@ const { items = [
     <div class="case-studies__list">
       {items.map((study) => (
         <article class="case-study" id={study.id}>
+          {study.meta && <span class="case-study__tag">{study.meta}</span>}
           <h3 class="case-study__title">{study.title}</h3>
           <p class="case-study__problem">
             <strong>Problem:</strong> {study.problem}
@@ -94,6 +105,12 @@ const { items = [
               </div>
             )}
           </dl>
+          {study.nonobvious && (
+            <details class="case-study__nonobvious">
+              <summary class="case-study__nonobvious-toggle">What was non-obvious</summary>
+              <p class="case-study__nonobvious-body">{study.nonobvious}</p>
+            </details>
+          )}
           {study.note && <p class="case-study__note">{study.note}</p>}
         </article>
       ))}
@@ -176,6 +193,46 @@ const { items = [
     font: var(--text-meta);
     font-family: var(--font-sans);
     color: var(--color-ink);
+  }
+
+  .case-study__tag {
+    display: inline-block;
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    margin-bottom: var(--sp-2);
+    font-size: 0.6875rem;
+  }
+
+  .case-study__nonobvious {
+    margin-top: var(--sp-4);
+    margin-bottom: var(--sp-2);
+  }
+
+  .case-study__nonobvious-toggle {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-ink);
+    cursor: pointer;
+    padding: var(--sp-2) 0;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .case-study__nonobvious-toggle:hover {
+    color: var(--color-brass);
+  }
+
+  .case-study__nonobvious-body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-3);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    line-height: 1.7;
   }
 
   .case-study__note {
