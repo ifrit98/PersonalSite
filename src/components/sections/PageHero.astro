@@ -10,7 +10,7 @@ interface Props {
 const { eyebrow, title, body } = Astro.props;
 ---
 
-<section class="page-hero">
+<section class="page-hero fade-up">
   <div class="container container--narrow">
     {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
     <h1 class="page-hero__title">{title}</h1>

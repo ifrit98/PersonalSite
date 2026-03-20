@@ -1,7 +1,7 @@
 ---
 interface Props {
   href?: string;
-  variant?: 'primary' | 'secondary' | 'text';
+  variant?: 'primary' | 'secondary' | 'text' | 'brass' | 'ghost';
   class?: string;
 }
 
@@ -66,6 +66,31 @@ const Tag = href ? 'a' : 'button';
 
   .btn--text:hover {
     color: var(--color-oxblood);
+    border-bottom-color: currentColor;
+  }
+
+  .btn--brass {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-brass);
+    color: var(--color-dark-surface);
+    border-radius: var(--radius-button);
+  }
+
+  .btn--brass:hover {
+    background-color: #BF9A62;
+    color: var(--color-dark-surface);
+  }
+
+  .btn--ghost {
+    padding: 0.25rem 0;
+    background: none;
+    color: var(--color-dark-muted);
+    border-bottom: 1px solid transparent;
+    min-height: 2.75rem;
+  }
+
+  .btn--ghost:hover {
+    color: var(--color-dark-text);
     border-bottom-color: currentColor;
   }
 

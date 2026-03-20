@@ -6,18 +6,21 @@ import { AFTERFIAT_URL, ESCHATOLOGY_URL, GAMUT_URL, CAPABILITY_COMMONS_URL } fro
 const features = [
   {
     title: 'AfterFiat',
+    meta: 'Publication / Thesis',
     body: 'A book-length thesis on verification, repression, synthetic media, and the infrastructure required for credible truth and value in the AI era.',
     href: AFTERFIAT_URL,
     cta: 'Read More',
   },
   {
     title: 'Eschatology Report',
+    meta: 'Publication / Essay Series',
     body: 'Long-form writing on AI acceleration, symbolic overload, civilizational drift, and the search for workable orientation.',
     href: ESCHATOLOGY_URL,
     cta: 'Visit',
   },
   {
     title: 'GAMUT — The Shape of Musical Possibility',
+    meta: 'Research / Formal Mathematics',
     body: 'A formal mathematical framework that constructs the geometry of twelve-tone pitch space — from cyclic autocorrelation through permutation fibers to symplectic form. Three essays, interactive explorer, and two manuscripts.',
     href: GAMUT_URL,
     cta: 'Explore GAMUT',
@@ -25,6 +28,7 @@ const features = [
   },
   {
     title: 'Capability Commons',
+    meta: 'Public Initiative / Ongoing',
     body: 'Open practical knowledge for resilience, systems literacy, and teach-forward public competence. It maps concepts to skills, skills to projects, and projects to real local deployment.',
     href: CAPABILITY_COMMONS_URL,
     cta: 'Start Here',
@@ -32,7 +36,7 @@ const features = [
 ];
 ---
 
-<section class="features">
+<section class="features fade-up">
   <div class="container">
     <h2 class="features__heading">Selected Domains</h2>
     <div class="features__grid">
@@ -44,9 +48,10 @@ const features = [
             </div>
           )}
           <div class="features__content">
+            {f.meta && <span class="features__meta">{f.meta}</span>}
             <h3 class="features__title">{f.title}</h3>
             <p class="features__body">{f.body}</p>
-            <Button href={f.href} variant="text">{f.cta} &rarr;</Button>
+            <Button href={f.href} variant="text" class="features__cta">{f.cta} &rarr;</Button>
           </div>
         </article>
       ))}
@@ -74,10 +79,13 @@ const features = [
 
   .features__card {
     padding: var(--sp-8);
-    background-color: var(--color-card);
-    border: 1px solid var(--color-line);
+    background-color: var(--color-card-elevated);
+    border: 1px solid rgba(16, 24, 38, 0.08);
     border-radius: var(--radius-card);
-    transition: box-shadow var(--duration-normal) var(--ease-out);
+    box-shadow: var(--shadow-card-rest);
+    transition:
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
   }
 
   .features__card--has-image {
@@ -88,7 +96,8 @@ const features = [
   }
 
   .features__card:hover {
-    box-shadow: var(--shadow-card-hover);
+    box-shadow: var(--shadow-card-lift);
+    transform: translateY(-2px);
   }
 
   .features__image-wrap {
@@ -106,6 +115,16 @@ const features = [
     object-fit: cover;
   }
 
+  .features__meta {
+    display: block;
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    margin-bottom: var(--sp-2);
+  }
+
   .features__title {
     font: var(--text-h3);
     font-family: var(--font-serif);
@@ -118,6 +137,15 @@ const features = [
     font-family: var(--font-sans);
     color: var(--color-slate);
     margin-bottom: var(--sp-4);
+  }
+
+  .features__card :global(.features__cta) {
+    opacity: 0.7;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .features__card:hover :global(.features__cta) {
+    opacity: 1;
   }
 
   @media (max-width: 768px) {

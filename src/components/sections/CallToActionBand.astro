@@ -18,7 +18,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="cta-band">
+<section class="cta-band fade-up">
   <div class="container container--narrow">
     <div class="cta-band__inner">
       {heading && <h2 class="cta-band__heading">{heading}</h2>}
@@ -38,6 +38,7 @@ const {
   .cta-band {
     padding-block: var(--sp-24);
     border-top: 1px solid var(--color-line);
+    background-color: var(--color-warm-wash);
   }
 
   .cta-band__inner {

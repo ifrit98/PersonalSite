@@ -33,14 +33,14 @@ const domains = [
         and help people teach it forward.
       </p>
       <div class="cc-hero__actions">
-        <Button href="#what-it-is">Start Here</Button>
-        <Button href="#what-is-live" variant="secondary">Browse the Commons</Button>
-        <Button href="#contribute" variant="secondary">Developer Docs</Button>
+        <Button href="#what-it-is" variant="brass">Start Here</Button>
+        <Button href="#what-is-live" variant="ghost">Browse the Commons &rarr;</Button>
+        <Button href="#contribute" variant="ghost">Developer Docs &rarr;</Button>
       </div>
     </div>
   </section>
 
-  <section class="cc-section" id="what-it-is">
+  <section class="cc-section fade-up" id="what-it-is">
     <div class="container container--narrow">
       <h2 class="cc-section__heading">What it is</h2>
       <p class="cc-section__body">
@@ -56,7 +56,7 @@ const domains = [
     </div>
   </section>
 
-  <section class="cc-section cc-section--domains" id="core-domains">
+  <section class="cc-section cc-section--domains fade-up" id="core-domains">
     <div class="container container--narrow">
       <h2 class="cc-section__heading">Core domains</h2>
       <ul class="cc-domains" role="list">
@@ -67,7 +67,7 @@ const domains = [
     </div>
   </section>
 
-  <section class="cc-section" id="how-it-works">
+  <section class="cc-section fade-up" id="how-it-works">
     <div class="container container--narrow">
       <h2 class="cc-section__heading">How it works</h2>
       <p class="cc-section__body">
@@ -87,7 +87,7 @@ const domains = [
     </div>
   </section>
 
-  <section class="cc-section" id="why-now">
+  <section class="cc-section fade-up" id="why-now">
     <div class="container container--narrow">
       <h2 class="cc-section__heading">Why now</h2>
       <p class="cc-section__body">
@@ -104,7 +104,7 @@ const domains = [
     </div>
   </section>
 
-  <section class="cc-section" id="what-is-live">
+  <section class="cc-section fade-up" id="what-is-live">
     <div class="container container--narrow">
       <h2 class="cc-section__heading">What is live now</h2>
       <p class="cc-section__body">
@@ -121,7 +121,7 @@ const domains = [
     </div>
   </section>
 
-  <section class="cc-section" id="stewardship">
+  <section class="cc-section fade-up" id="stewardship">
     <div class="container container--narrow">
       <h2 class="cc-section__heading">Stewardship</h2>
       <p class="cc-section__body">
@@ -136,7 +136,7 @@ const domains = [
     </div>
   </section>
 
-  <section class="cc-section cc-section--contribute" id="contribute">
+  <section class="cc-section cc-section--contribute fade-up" id="contribute">
     <div class="container container--narrow">
       <h2 class="cc-section__heading">Contribute</h2>
       <p class="cc-section__body">
@@ -167,10 +167,10 @@ const domains = [
 </BaseLayout>
 
 <style>
-  /* ── Hero ── */
+  /* ── Hero (dark surface) ── */
   .cc-hero {
+    background-color: var(--color-dark-surface);
     padding-block: var(--sp-24) var(--sp-16);
-    border-bottom: 1px solid var(--color-line);
   }
 
   .cc-hero__eyebrow {
@@ -185,7 +185,7 @@ const domains = [
     font: var(--text-h1);
     font-family: var(--font-serif);
     font-weight: 500;
-    color: var(--color-ink);
+    color: var(--color-dark-text);
     margin-top: var(--sp-4);
   }
 
@@ -193,7 +193,7 @@ const domains = [
     font: var(--text-body-lg);
     font-family: var(--font-serif);
     font-style: italic;
-    color: var(--color-slate);
+    color: var(--color-dark-muted);
     margin-top: var(--sp-4);
     max-width: 38em;
   }
@@ -201,14 +201,15 @@ const domains = [
   .cc-hero__body {
     font: var(--text-body-lg);
     font-family: var(--font-sans);
-    color: var(--color-ink);
+    color: var(--color-dark-muted);
     margin-top: var(--sp-6);
     max-width: 42em;
   }
 
   .cc-hero__actions {
     display: flex;
-    gap: var(--sp-4);
+    gap: var(--sp-6);
+    align-items: center;
     flex-wrap: wrap;
     margin-top: var(--sp-8);
   }
@@ -356,6 +357,7 @@ const domains = [
       font: var(--text-h2);
       font-family: var(--font-serif);
       font-weight: 500;
+      color: var(--color-dark-text);
     }
 
     .cc-domains {

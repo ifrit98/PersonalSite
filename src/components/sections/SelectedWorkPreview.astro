@@ -5,38 +5,44 @@ import Button from '@/components/ui/Button.astro';
 const items = [
   {
     title: 'Secure Distributed ML',
+    tag: 'Infrastructure',
     desc: 'Built and owned distributed LLM fine-tuning capability in a TS/SCI SCIF.',
     href: '/work#secure-distributed-ml',
   },
   {
     title: 'Real-Time Underwater Detection',
+    tag: 'Defense / ML',
     desc: 'Hybrid DSP + ML pipeline optimized for Pd/Pfa and operational latency.',
     href: '/work#real-time-underwater-detection',
   },
   {
     title: 'Adversarial Storage & Incentives',
+    tag: 'Protocol Design',
     desc: 'Ciphertext-only storage network with interactive proof and sliding-window incentive model.',
     href: '/work#adversarial-storage-incentives',
   },
   {
     title: 'Capability Commons',
+    tag: 'Public Initiative',
     desc: 'Open capability commons for practical literacy, local resilience, and teach-forward public infrastructure.',
     href: '/capability-commons',
   },
   {
     title: 'GAMUT — The Shape of Musical Possibility',
+    tag: 'Research',
     desc: 'Formal geometry of twelve-tone pitch space: essays, proofs, interactive explorer, and two manuscripts.',
     href: '/research#gamut',
   },
   {
     title: 'Music Style Transformer',
+    tag: 'Research',
     desc: 'Bayesian-factorized approach to raw-audio transcription, composition, and style transfer.',
     href: '/research#music-style-transformer',
   },
 ];
 ---
 
-<section class="selected-work">
+<section class="selected-work fade-up">
   <div class="container">
     <Eyebrow>Selected Work</Eyebrow>
     <h2 class="selected-work__heading">Selected Cases & Research</h2>
@@ -45,7 +51,10 @@ const items = [
         <li class="selected-work__item">
           <a href={item.href} class="selected-work__link">
             <div>
-              <h3 class="selected-work__title">{item.title}</h3>
+              <div class="selected-work__title-row">
+                <h3 class="selected-work__title">{item.title}</h3>
+                {item.tag && <span class="selected-work__tag">{item.tag}</span>}
+              </div>
               <p class="selected-work__desc">{item.desc}</p>
             </div>
             <span class="selected-work__arrow" aria-hidden="true">&rarr;</span>
@@ -92,11 +101,25 @@ const items = [
     color: var(--color-brass);
   }
 
+  .selected-work__title-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-1);
+  }
+
   .selected-work__title {
     font: var(--text-h3);
     font-family: var(--font-serif);
     font-weight: 500;
-    margin-bottom: var(--sp-1);
+  }
+
+  .selected-work__tag {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .selected-work__desc {

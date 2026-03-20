@@ -67,24 +67,29 @@ const currentPath = Astro.url.pathname;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-line);
+    transition: box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  :global(.header--scrolled) {
+    box-shadow: 0 1px 8px rgba(16, 24, 38, 0.06);
   }
 
   .header__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 4rem;
+    height: 4.5rem;
     gap: var(--sp-8);
   }
 
   .header__wordmark {
     font-family: var(--font-serif);
-    font-size: 1.125rem;
+    font-size: 1.1875rem;
     font-weight: 500;
     color: var(--color-ink);
     text-decoration: none;
     white-space: nowrap;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
 
   .header__wordmark:hover {
@@ -292,4 +297,15 @@ const currentPath = Astro.url.pathname;
     toggle.setAttribute('aria-expanded', String(!expanded));
     header?.classList.toggle('header--open');
   });
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        header?.classList.toggle('header--scrolled', window.scrollY > 20);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 </script>

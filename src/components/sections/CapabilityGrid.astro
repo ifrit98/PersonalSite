@@ -33,7 +33,7 @@ const { items = [
 ] } = Astro.props;
 ---
 
-<section class="capabilities">
+<section class="capabilities fade-up">
   <div class="container">
     <div class="capabilities__grid">
       {items.map((cap) => (
@@ -66,9 +66,18 @@ const { items = [
 
   .capabilities__card {
     padding: var(--sp-8);
-    border: 1px solid var(--color-line);
+    border: 1px solid rgba(16, 24, 38, 0.08);
     border-radius: var(--radius-card);
-    background-color: var(--color-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
+    transition:
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
+  }
+
+  .capabilities__card:hover {
+    box-shadow: var(--shadow-card-lift);
+    transform: translateY(-2px);
   }
 
   .capabilities__title {

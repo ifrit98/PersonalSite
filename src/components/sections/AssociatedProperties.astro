@@ -3,7 +3,7 @@ import { ENDORSED_PROPERTIES } from '@/lib/site';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
 ---
 
-<section class="associated">
+<section class="associated fade-up">
   <div class="container">
     <Eyebrow>Associated Work</Eyebrow>
     <p class="associated__intro">
@@ -57,18 +57,22 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
     align-items: center;
     justify-content: center;
     padding: var(--sp-6) var(--sp-8);
-    border: 1px solid var(--color-line);
+    border: 1px solid rgba(16, 24, 38, 0.08);
     border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
     text-decoration: none;
     gap: var(--sp-1);
     transition:
-      border-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
+      border-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
   }
 
   .associated__card:hover {
     border-color: var(--color-brass);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-card-lift);
+    transform: translateY(-2px);
   }
 
   .associated__icon {

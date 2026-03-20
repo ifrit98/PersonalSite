@@ -15,7 +15,7 @@ const proofBlocks = [
 ];
 ---
 
-<section class="proof-bar">
+<section class="proof-bar fade-up">
   <div class="container">
     <div class="proof-bar__grid">
       {proofBlocks.map((block) => (
@@ -31,7 +31,7 @@ const proofBlocks = [
 <style>
   .proof-bar {
     padding-block: var(--sp-16);
-    border-top: 1px solid var(--color-line);
+    background-color: var(--color-warm-wash);
     border-bottom: 1px solid var(--color-line);
   }
 
@@ -42,11 +42,8 @@ const proofBlocks = [
   }
 
   .proof-bar__block {
-    padding-right: var(--sp-8);
-  }
-
-  .proof-bar__block:not(:last-child) {
-    border-right: 1px solid var(--color-line);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
   }
 
   .proof-bar__title {
@@ -67,13 +64,6 @@ const proofBlocks = [
     .proof-bar__grid {
       grid-template-columns: 1fr;
       gap: var(--sp-6);
-    }
-
-    .proof-bar__block:not(:last-child) {
-      border-right: none;
-      border-bottom: 1px solid var(--color-line);
-      padding-right: 0;
-      padding-bottom: var(--sp-6);
     }
   }
 </style>
