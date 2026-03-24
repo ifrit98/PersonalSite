@@ -64,12 +64,13 @@ const { items = [
   {
     id: 'capability-commons',
     title: 'Capability Commons',
-    meta: 'Public Initiative / Ongoing',
+    meta: 'Public Initiative / Platform',
     problem: 'Practical knowledge is trapped inside trades, institutions, guilds, paywalls, jargon, and credential barriers. Most adults cannot maintain the systems their households depend on.',
-    narrative: 'Designing an open capability commons that maps concepts to skills, skills to projects, projects to local deployment, and every learner to teach-forward transmission. The architecture is three interlocking graphs organized by civilizational function rather than academic discipline. Every node is a typed knowledge object with prerequisites, context-aware facets, and durable output artifacts. Powered by Agentic Data Lite for provenance, revision, and evidence retrieval.',
-    role: 'Founder, architect, knowledge graph design',
-    constraints: 'Open by default, layered for beginners, locally adaptable, project-based, teach-forward at every level',
-    outcomes: 'V1 graph: 25 nodes, 50 prerequisite edges, 27 navigation edges across 7 capability domains. Doctrine, ontology, and content templates complete.',
+    narrative: 'Built a Postgres-first knowledge platform for practical public capability literacy. The architecture centers on three interlocking graphs — concept, skill, and deployment — organized by civilizational function rather than academic discipline. Every node is a versioned knowledge object with typed edges, context-aware facets (domain, audience, settlement type, budget profile, climate zone), prerequisite logic, and durable output artifacts. The platform runs on Postgres 16 + pgvector, FastAPI async API, SQLAlchemy 2 ORM (19 tables), Alembic migrations, and Docker Compose. The seeded graph covers 49 knowledge objects, 175 typed edges, 167+ context facets across 7 domains with a 12-week curriculum of modules and assessments. Working services include object/version CRUD with full lifecycle management, relational graph traversal, a retrieval planner with intent-specific edge sets, and Postgres full-text search. Powered by the Agentic Data Lite architecture.',
+    role: 'Founder, architect, full-stack platform build',
+    constraints: 'Open by default, Postgres-first single source of truth, versioned knowledge objects, typed edges with provenance, idempotent operations, barrier-lowering by design, teach-forward at every level',
+    outcomes: '49 knowledge objects seeded (25 capabilities + 12 modules + 12 assessments), 175 typed edges, 167+ context facets, 7 domains, 19 database tables, working API with CRUD/graph/search/retrieval.',
+    nonobvious: 'The hard problem is not storing knowledge — it is structuring it so a beginner who does not know the vocabulary can navigate from immediate need to reproducible capability. The three-graph architecture (concept/skill/deployment) exists because a single flat graph collapses the distinction between "what does this mean," "what can I do with it," and "does it work in my context." The five-format publishing rule (hook, primer, guide, reference, teach-forward kit) forces every topic through formats that serve different cognitive needs rather than defaulting to a single article shape.',
     note: 'Active development — see the dedicated Capability Commons page.',
   },
 ] } = Astro.props;

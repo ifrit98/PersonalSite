@@ -55,7 +55,7 @@ export const ENDORSED_PROPERTIES = [
     name: 'Capability Commons',
     tagline: 'Public Capability / Knowledge Infrastructure',
     description:
-      'Open practical knowledge for resilience, systems literacy, and teach-forward public competence. Maps concepts to skills, skills to projects, and projects to real local deployment.',
+      'A Postgres-first knowledge platform for practical public capability literacy. 49 knowledge objects, 175 typed edges, 7 domains, 12-week curriculum. Built on the Agentic Data Lite architecture.',
     url: CAPABILITY_COMMONS_URL,
   },
   {

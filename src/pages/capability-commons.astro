@@ -3,39 +3,56 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import { SITE } from '@/lib/site';
 
-const domains = [
-  'Water',
-  'Food',
-  'Shelter',
-  'Power',
-  'Repair',
-  'Gardening',
-  'Systems literacy',
-  'Community coordination',
-  'Teach-forward practice',
+const domainLayers = [
+  { layer: 'Foundation', domains: 'Epistemics, verification, AI/tool use, measurement, systems thinking, numeracy' },
+  { layer: 'Household', domains: 'Water, food, shelter, heat/cooling, electricity, backup power, sanitation, health, communications' },
+  { layer: 'Productive', domains: 'Gardening, food preservation, carpentry, repair, plumbing, electrical, small engines, fabrication' },
+  { layer: 'Community', domains: 'Mutual aid, group decision-making, local mapping, shared infrastructure, emergency coordination' },
+  { layer: 'Advanced', domains: 'Architecture, mechanical systems, energy design, networking, manufacturing, open-source hardware' },
+];
+
+const knowledgeTypes = [
+  { type: 'Concept note', code: 'concept_note', purpose: 'Principle, model, or mental framework' },
+  { type: 'Skill guide', code: 'skill_guide', purpose: 'Observable action with tools, steps, and failure modes' },
+  { type: 'Project blueprint', code: 'project_blueprint', purpose: 'Applied task that creates a useful artifact' },
+  { type: 'Module', code: 'module', purpose: 'Weekly curriculum unit covering multiple capabilities' },
+  { type: 'Assessment', code: 'assessment', purpose: 'Evaluation rubric for a module' },
+  { type: 'Reference sheet', code: 'reference_sheet', purpose: 'Specs, formulas, diagrams, checklists' },
+  { type: 'Learning path', code: 'learning_path', purpose: 'Sequenced progression through a domain' },
+  { type: 'Field report', code: 'field_report', purpose: 'Documented real-world application with results' },
+  { type: 'Teach-forward packet', code: 'teach_forward', purpose: 'Materials for passing knowledge to someone else' },
+];
+
+const graphStats = [
+  { label: 'Knowledge objects', value: '49', detail: '25 capabilities + 12 modules + 12 assessments' },
+  { label: 'Typed edges', value: '175', detail: 'prerequisite, next-step, contains, assessed-by, validated-by' },
+  { label: 'Context facets', value: '167+', detail: 'domain, audience, settlement type, budget profile' },
+  { label: 'Domains', value: '7', detail: 'foundation, water, food, shelter, repair, power, community' },
+  { label: 'Curriculum weeks', value: '12', detail: 'complete module + assessment sequence' },
+  { label: 'Database tables', value: '19', detail: 'Postgres 16 + pgvector, SQLAlchemy 2 ORM' },
 ];
 ---
 
 <BaseLayout
   title="Capability Commons — Open practical knowledge for public capability"
-  description="Capability Commons is an open knowledge system for practical literacy: water, food, shelter, power, repair, gardening, systems thinking, and teach-forward public competence."
+  description="A Postgres-first knowledge platform for practical public capability literacy. 49 knowledge objects, 175 typed edges, 7 domains, 12-week curriculum. Built on the Agentic Data Lite architecture."
 >
   <section class="cc-hero">
     <div class="container container--narrow">
       <span class="cc-hero__eyebrow">Public Initiative</span>
       <h1 class="cc-hero__title">Capability Commons</h1>
       <p class="cc-hero__lede">
-        Open practical knowledge for resilience, systems literacy, and teach-forward public competence.
+        A Postgres-first knowledge platform for practical, public capability literacy.
       </p>
       <p class="cc-hero__body">
-        Capability Commons is an open knowledge system that maps concepts to skills, skills to projects,
-        and projects to local deployment. Its aim is simple: recover practical knowledge, make it legible,
-        and help people teach it forward.
+        The unit of value is the reproducible capability: every node in the system explains something
+        people need to understand, trains something people need to do, or produces something people
+        can keep, use, and teach forward.
       </p>
       <div class="cc-hero__actions">
         <Button href="#what-it-is" variant="brass">Start Here</Button>
-        <Button href="#what-is-live" variant="ghost">Browse the Commons &rarr;</Button>
-        <Button href="#contribute" variant="ghost">Developer Docs &rarr;</Button>
+        <Button href="#what-is-live" variant="ghost">Browse the Graph &rarr;</Button>
+        <Button href="#architecture" variant="ghost">Architecture &rarr;</Button>
       </div>
     </div>
   </section>
@@ -45,44 +62,110 @@ const domains = [
       <h2 class="cc-section__heading">What it is</h2>
       <p class="cc-section__body">
         Most people do not need more information. They need clearer paths from understanding to action.
+        The internet has more information than anyone could consume. The problem is not content — it is
+        structure. Knowledge exists, but it is not organized for a beginner who needs to act, does not
+        know the vocabulary, and cannot afford to get it wrong.
       </p>
       <p class="cc-section__body">
-        Capability Commons is built around reproducible capability. Each module is designed to help someone
-        understand a principle, perform a task, produce a durable artifact, and explain it clearly to someone else.
+        Capability Commons takes knowledge that is normally trapped inside trades, institutions, guilds,
+        paywalls, jargon, and credential barriers, and converts it into structured, searchable, teachable
+        objects that anyone can use.
       </p>
       <p class="cc-section__body cc-section__body--accent">
-        This is not a content feed. It is a public capability system.
+        AI is not the product. AI is the compiler. It takes source material and helps transform it into
+        structured, plain-language capability objects. Human review and field testing decide what becomes canon.
+      </p>
+    </div>
+  </section>
+
+  <section class="cc-section fade-up" id="three-graphs">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">Three interlocking graphs</h2>
+      <p class="cc-section__body">
+        The system is not a document library. It is three graphs working together:
+      </p>
+      <ul class="cc-graph-list" role="list">
+        <li><strong>Concept graph</strong> — what things mean and how ideas relate. "What is thermal mass?" "How does soil pH affect nutrient availability?"</li>
+        <li><strong>Skill graph</strong> — what people can do, in what order, with what prerequisites. "What can I do next?" "What must I know first?"</li>
+        <li><strong>Deployment graph</strong> — where, when, and under what constraints something is useful. "Does this work in my apartment?" "What's the low-budget version?"</li>
+      </ul>
+      <p class="cc-section__body">
+        That combination is what lowers the barrier to entry. Not just explanation, but explanation
+        tied to action and context.
       </p>
     </div>
   </section>
 
   <section class="cc-section cc-section--domains fade-up" id="core-domains">
     <div class="container container--narrow">
-      <h2 class="cc-section__heading">Core domains</h2>
-      <ul class="cc-domains" role="list">
-        {domains.map((domain) => (
-          <li class="cc-domains__item">{domain}</li>
+      <h2 class="cc-section__heading">Capability domains</h2>
+      <p class="cc-section__body">
+        The corpus is organized by civilizational function, not academic discipline.
+      </p>
+      <div class="cc-domain-table">
+        {domainLayers.map((l) => (
+          <div class="cc-domain-table__row">
+            <span class="cc-domain-table__layer">{l.layer}</span>
+            <span class="cc-domain-table__domains">{l.domains}</span>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
 
   <section class="cc-section fade-up" id="how-it-works">
     <div class="container container--narrow">
-      <h2 class="cc-section__heading">How it works</h2>
+      <h2 class="cc-section__heading">Knowledge object model</h2>
       <p class="cc-section__body">
-        Capability Commons organizes knowledge as a graph:
+        Every node uses the same structure: a typed knowledge object with a canonical title,
+        plain-language explanation, structured payload, prerequisite logic, context-aware facets,
+        and durable output artifacts.
       </p>
-      <ul class="cc-graph-list" role="list">
-        <li><strong>concepts</strong> explain what something is</li>
-        <li><strong>skills</strong> define what someone can do</li>
-        <li><strong>projects</strong> turn understanding into useful artifacts</li>
-        <li><strong>modules</strong> sequence the work into learnable paths</li>
-        <li><strong>teach-forward packets</strong> help each learner become a transmitter</li>
-      </ul>
+      <div class="cc-type-grid">
+        {knowledgeTypes.map((t) => (
+          <div class="cc-type-grid__item">
+            <span class="cc-type-grid__code">{t.code}</span>
+            <strong class="cc-type-grid__name">{t.type}</strong>
+            <span class="cc-type-grid__purpose">{t.purpose}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cc-section fade-up" id="publishing-rule">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">Five-format publishing rule</h2>
       <p class="cc-section__body">
-        Under the surface, the Commons is powered by a versioned evidence and retrieval layer so guidance
-        can be reviewed, updated, localized, and improved over time.
+        Every core topic exists in five forms:
+      </p>
+      <ol class="cc-five-format" role="list">
+        <li><strong>Hook</strong> — a compelling 1–2 sentence pitch for why this matters</li>
+        <li><strong>Primer</strong> — plain-language background explanation</li>
+        <li><strong>Guide</strong> — step-by-step practical instructions</li>
+        <li><strong>Reference</strong> — specs, formulas, diagrams, checklists</li>
+        <li><strong>Teach-forward kit</strong> — how to pass it on (3-minute version, 10-minute outline, discussion prompts)</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="cc-section fade-up" id="entry-model">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">Entry model</h2>
+      <p class="cc-section__body">
+        People start with immediate needs and expand outward through concentric rings:
+      </p>
+      <ol class="cc-entry-rings" role="list">
+        <li><strong>Stay functional</strong> — verify information, store water, keep lights running, maintain heat</li>
+        <li><strong>Repair and maintain</strong> — hand tools, patching, sealing, diagnosing common failures</li>
+        <li><strong>Produce</strong> — gardening, preservation, rainwater, solar basics, local resource mapping</li>
+        <li><strong>Coordinate</strong> — shared inventories, mutual aid, tool libraries, communication plans</li>
+        <li><strong>Steward and transmit</strong> — documentation, teaching methods, archives, offline kits</li>
+      </ol>
+      <p class="cc-section__body">
+        Every module includes a plain-language version and zero-jargon glossary, cheap / better / best
+        paths, renter / homeowner / rural / urban adaptation, what you can do with minimal tools,
+        common mistakes, how to verify your work, and what to learn next.
       </p>
     </div>
   </section>
@@ -95,11 +178,10 @@ const domains = [
         jargon, and disappearing local memory.
       </p>
       <p class="cc-section__body">
-        The point of Capability Commons is not nostalgia. It is public capacity.
-      </p>
-      <p class="cc-section__body">
-        If useful knowledge can be recovered, clarified, and taught forward, more people can become less
-        helpless in the face of fragile systems and more useful to one another.
+        The point of Capability Commons is not nostalgia. It is public capacity. The metric is not
+        attention — it is replicated competence: modules completed by real people, tasks performed in
+        the physical world, people who teach another person what they learned, local variants documented,
+        offline kits distributed.
       </p>
     </div>
   </section>
@@ -108,136 +190,198 @@ const domains = [
     <div class="container container--narrow">
       <h2 class="cc-section__heading">What is live now</h2>
       <p class="cc-section__body">
-        The Commons is being built in public. Below is what currently exists and what is in progress.
+        The platform is being built in public. The following is operational.
       </p>
 
-      <div class="cc-modules">
-        <h3 class="cc-modules__heading">Starter Modules</h3>
-        <div class="cc-modules__grid">
-          <div class="cc-modules__card">
-            <span class="cc-modules__domain">Water</span>
-            <h4 class="cc-modules__title">Household Water Resilience</h4>
-            <p class="cc-modules__desc">Storage, filtration, and emergency supply for a household of four. Includes decision tree, equipment list, and maintenance schedule.</p>
-            <span class="cc-modules__status cc-modules__status--draft">Template ready</span>
+      <div class="cc-stats-grid">
+        {graphStats.map((s) => (
+          <div class="cc-stats-grid__item">
+            <span class="cc-stats-grid__value">{s.value}</span>
+            <span class="cc-stats-grid__label">{s.label}</span>
+            <span class="cc-stats-grid__detail">{s.detail}</span>
           </div>
-          <div class="cc-modules__card">
-            <span class="cc-modules__domain">Food</span>
-            <h4 class="cc-modules__title">Seed-to-Table Kitchen Garden</h4>
-            <p class="cc-modules__desc">First-season garden planning from soil assessment through harvest. Zone-aware planting calendar, companion planting reference, yield tracking worksheet.</p>
-            <span class="cc-modules__status cc-modules__status--draft">Template ready</span>
-          </div>
-          <div class="cc-modules__card">
-            <span class="cc-modules__domain">Shelter</span>
-            <h4 class="cc-modules__title">Basic Home Weatherization</h4>
-            <p class="cc-modules__desc">Air sealing, insulation assessment, and thermal envelope basics. Audit worksheet, material reference, and cost-benefit calculator.</p>
-            <span class="cc-modules__status cc-modules__status--planned">In development</span>
-          </div>
-          <div class="cc-modules__card">
-            <span class="cc-modules__domain">Power</span>
-            <h4 class="cc-modules__title">Off-Grid Power Fundamentals</h4>
-            <p class="cc-modules__desc">Load calculation, battery sizing, solar panel selection. From principles through wiring to a functioning portable system.</p>
-            <span class="cc-modules__status cc-modules__status--planned">In development</span>
-          </div>
-          <div class="cc-modules__card">
-            <span class="cc-modules__domain">Systems Literacy</span>
-            <h4 class="cc-modules__title">Reading a System</h4>
-            <p class="cc-modules__desc">How to identify feedback loops, bottlenecks, failure modes, and leverage points in any system you depend on. Diagramming exercises and real-world case walkthroughs.</p>
-            <span class="cc-modules__status cc-modules__status--draft">Template ready</span>
-          </div>
-          <div class="cc-modules__card">
-            <span class="cc-modules__domain">Teach-Forward</span>
-            <h4 class="cc-modules__title">Teach-Forward Packet Design</h4>
-            <p class="cc-modules__desc">How to take what you have learned, compress it into a teachable unit, and transmit it reliably. Template, checklist, and example packets.</p>
-            <span class="cc-modules__status cc-modules__status--draft">Template ready</span>
-          </div>
-        </div>
+        ))}
       </div>
 
       <div class="cc-graph-preview">
-        <h3 class="cc-modules__heading">Knowledge Graph Architecture</h3>
+        <h3 class="cc-modules__heading">Seeded Knowledge Graph</h3>
         <div class="cc-graph-preview__diagram">
-          <div class="cc-graph-preview__node cc-graph-preview__node--concept">Concept</div>
+          <div class="cc-graph-preview__node cc-graph-preview__node--concept">Concept Note</div>
           <div class="cc-graph-preview__arrow">&rarr;</div>
-          <div class="cc-graph-preview__node cc-graph-preview__node--skill">Skill</div>
+          <div class="cc-graph-preview__node cc-graph-preview__node--skill">Skill Guide</div>
           <div class="cc-graph-preview__arrow">&rarr;</div>
-          <div class="cc-graph-preview__node cc-graph-preview__node--project">Project</div>
+          <div class="cc-graph-preview__node cc-graph-preview__node--project">Project Blueprint</div>
           <div class="cc-graph-preview__arrow">&rarr;</div>
           <div class="cc-graph-preview__node cc-graph-preview__node--module">Module</div>
           <div class="cc-graph-preview__arrow">&rarr;</div>
           <div class="cc-graph-preview__node cc-graph-preview__node--teach">Teach-Forward</div>
         </div>
         <p class="cc-section__body" style="margin-top: var(--sp-4);">
-          Each node type is a versioned knowledge object with provenance, evidence links, and revision history.
-          The graph connects explanation to action to transmission — every concept has a skill path,
-          every skill path produces an artifact, and every module ends with a teach-forward packet.
+          Each node is a versioned knowledge object with provenance, evidence links, revision history,
+          and context-aware facets (domain, audience, settlement type, budget profile, climate zone).
+          Edges carry confidence, method, and status. The graph is loaded via two seed passes — 25
+          capability nodes and 24 curriculum nodes — and is idempotent on re-run.
         </p>
       </div>
 
+      <div class="cc-modules">
+        <h3 class="cc-modules__heading">Seeded Domains</h3>
+        <div class="cc-modules__grid">
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Foundation</span>
+            <h4 class="cc-modules__title">5 capability nodes</h4>
+            <p class="cc-modules__desc">Epistemics, verification, AI/tool use, measurement, systems thinking. The foundational layer that makes every other domain learnable.</p>
+            <span class="cc-modules__status cc-modules__status--live">Seeded</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Water</span>
+            <h4 class="cc-modules__title">4 capability nodes</h4>
+            <p class="cc-modules__desc">Storage, filtration, emergency supply, household resilience. Decision trees, equipment lists, and maintenance schedules.</p>
+            <span class="cc-modules__status cc-modules__status--live">Seeded</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Food</span>
+            <h4 class="cc-modules__title">5 capability nodes</h4>
+            <p class="cc-modules__desc">Soil assessment, seed selection, planting calendars, preservation, cooking fundamentals. Zone-aware and season-aware.</p>
+            <span class="cc-modules__status cc-modules__status--live">Seeded</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Shelter</span>
+            <h4 class="cc-modules__title">3 capability nodes</h4>
+            <p class="cc-modules__desc">Weatherization, thermal envelope, basic structural repair. Audit worksheets and cost-benefit calculators.</p>
+            <span class="cc-modules__status cc-modules__status--live">Seeded</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Power</span>
+            <h4 class="cc-modules__title">4 capability nodes</h4>
+            <p class="cc-modules__desc">Load calculation, battery sizing, solar selection, off-grid fundamentals. From principles through wiring to portable systems.</p>
+            <span class="cc-modules__status cc-modules__status--live">Seeded</span>
+          </div>
+          <div class="cc-modules__card">
+            <span class="cc-modules__domain">Repair + Community</span>
+            <h4 class="cc-modules__title">4 capability nodes</h4>
+            <p class="cc-modules__desc">Hand tools, diagnostics, patching and sealing; mutual aid logistics and group coordination.</p>
+            <span class="cc-modules__status cc-modules__status--live">Seeded</span>
+          </div>
+        </div>
+      </div>
+
       <div class="cc-docs-index">
-        <h3 class="cc-modules__heading">Infrastructure & Docs</h3>
+        <h3 class="cc-modules__heading">Working Services</h3>
         <div class="cc-docs-index__grid">
           <div class="cc-docs-index__item">
             <span class="cc-docs-index__icon">&#9632;</span>
             <div>
-              <strong>Module Schema</strong>
-              <p>Canonical structure for modules, skills, projects, and teach-forward packets.</p>
+              <strong>Object/Version CRUD</strong>
+              <p>Full lifecycle management: draft &rarr; reviewed &rarr; verified &rarr; published &rarr; deprecated.</p>
             </div>
           </div>
           <div class="cc-docs-index__item">
             <span class="cc-docs-index__icon">&#9632;</span>
             <div>
-              <strong>Worksheet Templates</strong>
-              <p>Reusable reference sheets, decision trees, audit forms, and planning checklists.</p>
+              <strong>Graph Traversal</strong>
+              <p>Relational neighbor queries, prerequisite chains, membership lookups across typed edges.</p>
             </div>
           </div>
           <div class="cc-docs-index__item">
             <span class="cc-docs-index__icon">&#9632;</span>
             <div>
-              <strong>Graph Specification</strong>
-              <p>Schema and API surface for the knowledge object registry and revision layer.</p>
+              <strong>Retrieval Planner</strong>
+              <p>Intent-specific edge sets and sufficiency threshold for evidence-pack assembly.</p>
+            </div>
+          </div>
+          <div class="cc-docs-index__item">
+            <span class="cc-docs-index__icon">&#9632;</span>
+            <div>
+              <strong>Full-Text Search</strong>
+              <p>Postgres full-text search across knowledge objects with chunking and ranking.</p>
+            </div>
+          </div>
+          <div class="cc-docs-index__item">
+            <span class="cc-docs-index__icon">&#9632;</span>
+            <div>
+              <strong>Idempotent Seed CLI</strong>
+              <p>Two-pass ingestion from YAML/CSV/JSONL canonical sources. Safe to re-run.</p>
             </div>
           </div>
           <div class="cc-docs-index__item">
             <span class="cc-docs-index__icon">&#9632;</span>
             <div>
               <strong>Governance & Brand</strong>
-              <p>Stewarded open-project model, contribution guidelines, and naming conventions.</p>
+              <p>Stewarded open-project model, contribution guidelines, lifecycle states, and naming conventions.</p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="cc-roadmap">
-        <h3 class="cc-modules__heading">Roadmap & Changelog</h3>
+        <h3 class="cc-modules__heading">Roadmap</h3>
         <div class="cc-roadmap__timeline">
           <div class="cc-roadmap__entry cc-roadmap__entry--done">
             <span class="cc-roadmap__date">2026 Q1</span>
             <div>
-              <strong>Foundation</strong>
-              <p>Project architecture, module schema, governance model, brand identity, public landing page, starter module templates for Water, Food, Systems Literacy, and Teach-Forward.</p>
+              <strong>Platform & Seed Graph</strong>
+              <p>Postgres 16 + pgvector, FastAPI async API, SQLAlchemy 2 ORM (19 tables), Alembic migrations, Docker Compose. Seeded 49 knowledge objects (25 capabilities + 12 modules + 12 assessments), 175 typed edges, 167+ context facets across 7 domains. Object/version CRUD, graph traversal, retrieval planner, full-text search. Governance, brand, and public landing page.</p>
             </div>
           </div>
           <div class="cc-roadmap__entry cc-roadmap__entry--current">
             <span class="cc-roadmap__date">2026 Q2</span>
             <div>
-              <strong>First Public Artifacts</strong>
-              <p>3–5 complete modules with downloadable worksheets, first published learning path, graph API scaffold, developer docs site, initial community contribution workflow.</p>
+              <strong>Public Artifacts & API</strong>
+              <p>Fully populated modules with downloadable worksheets and reference sheets. Public graph API endpoints. Vector embeddings active (pgvector). First published learning path. Developer documentation site. Community contribution workflow.</p>
             </div>
           </div>
           <div class="cc-roadmap__entry">
             <span class="cc-roadmap__date">2026 Q3</span>
             <div>
-              <strong>Platform & Graph</strong>
-              <p>Knowledge graph explorer, revision and evidence layer integration via Agentic Data Lite, public review workflows, expanded domain coverage (Shelter, Power, Repair).</p>
+              <strong>Explorer & Evidence Layer</strong>
+              <p>Interactive knowledge graph explorer. Evidence-pack assembly and contradiction workflows via Agentic Data Lite. Public review workflows. Expanded domain coverage into Productive and Advanced layers.</p>
             </div>
           </div>
           <div class="cc-roadmap__entry">
             <span class="cc-roadmap__date">2026 Q4</span>
             <div>
               <strong>Scale & Community</strong>
-              <p>Field report submission, local adaptation framework, community review board, 20+ published modules across all core domains.</p>
+              <p>Field report submission and local adaptation framework. Community review board. Entity merge and advanced contradiction detection. 50+ published objects across all domain layers. Offline kit generation.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cc-section fade-up" id="architecture">
+    <div class="container container--narrow">
+      <h2 class="cc-section__heading">Architecture</h2>
+      <p class="cc-section__body">
+        Capability Commons is built on the Agentic Data Lite architecture — a trimmed version of
+        the enterprise AgenticData stack focused on versioned knowledge objects, typed edges,
+        evidence provenance, and retrieval planning.
+      </p>
+      <div class="cc-arch-grid">
+        <div class="cc-arch-grid__item">
+          <strong>Postgres 16 + pgvector</strong>
+          <p>Single source of truth. 19 tables. Vector columns ready for embedding-based retrieval.</p>
+        </div>
+        <div class="cc-arch-grid__item">
+          <strong>FastAPI + SQLAlchemy 2</strong>
+          <p>Async API with v1 routes, health check, CORS, and dependency injection.</p>
+        </div>
+        <div class="cc-arch-grid__item">
+          <strong>Alembic Migrations</strong>
+          <p>Schema versioning for all 19 tables. Reproducible from scratch.</p>
+        </div>
+        <div class="cc-arch-grid__item">
+          <strong>Docker Compose</strong>
+          <p>One-command local development. Postgres on port 5433.</p>
+        </div>
+        <div class="cc-arch-grid__item">
+          <strong>Typed Edge System</strong>
+          <p>25 supported edge types with confidence, method, and status metadata.</p>
+        </div>
+        <div class="cc-arch-grid__item">
+          <strong>Extension Points</strong>
+          <p>Neo4j and OpenSearch adapter interfaces defined. Outbox, static export, and object storage stubs.</p>
         </div>
       </div>
     </div>
@@ -251,9 +395,15 @@ const domains = [
       </p>
       <p class="cc-section__body">
         The public initiative sits under a larger body of work on truth, coordination, verification,
-        and resilient systems under adversarial conditions. The technical substrate is powered by
-        Agentic Data Lite, which supports provenance, revision, evidence retrieval, and long-horizon
-        maintenance.
+        and resilient systems under adversarial conditions. The technical substrate — Agentic Data Lite —
+        provides versioned knowledge objects, typed edges with provenance, evidence-pack assembly,
+        contradiction workflows, and retrieval planning for long-horizon maintenance.
+      </p>
+      <p class="cc-section__body">
+        Lifecycle states for all objects: <code>DRAFT</code> &rarr; <code>IN_REVIEW</code> &rarr;
+        <code>REVIEWED</code> &rarr; <code>VERIFIED</code> &rarr; <code>PUBLISHED</code> &rarr;
+        <code>DEPRECATED</code>. Transparent version history, editorial standards, and subject-matter review.
+        No black-box canonical truth claims.
       </p>
     </div>
   </section>
@@ -265,16 +415,18 @@ const domains = [
         There are three ways to contribute:
       </p>
       <ul class="cc-contribute-list" role="list">
-        <li>improve the platform</li>
-        <li>improve the content</li>
-        <li>contribute field reports, local adaptations, and review notes</li>
+        <li><strong>Platform</strong> — FastAPI routes, graph adapters, search, embeddings, UI components</li>
+        <li><strong>Content</strong> — capability nodes, modules, assessments, worksheets, reference sheets</li>
+        <li><strong>Field work</strong> — field reports, local adaptations, review notes, teach-forward feedback</li>
       </ul>
       <p class="cc-section__body">
-        If you want to help build durable public capability, start here.
+        Seed data is in YAML (canonical), CSV (relational), and JSONL (document) formats. The CLI is
+        idempotent. Start with <code>docker compose up -d</code>, run migrations, seed, and you have the
+        full graph locally.
       </p>
       <div class="cc-section__actions">
         <Button href={SITE.social.github}>View GitHub</Button>
-        <Button href="#what-is-live" variant="secondary">Read the Docs</Button>
+        <Button href="#architecture" variant="secondary">Read the Architecture</Button>
         <Button href="/contact" variant="secondary">Contact Jason</Button>
       </div>
     </div>
@@ -374,36 +526,39 @@ const domains = [
     margin-top: var(--sp-8);
   }
 
-  /* ── Core domains ── */
-  .cc-domains {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--sp-4);
+  /* ── Domain table ── */
+  .cc-domain-table {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
   }
 
-  .cc-domains__item {
+  .cc-domain-table__row {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .cc-domain-table__layer {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    font-size: 0.6875rem;
+    margin-top: 0.2em;
+  }
+
+  .cc-domain-table__domains {
     font: var(--text-body);
     font-family: var(--font-sans);
     color: var(--color-ink);
-    padding: var(--sp-4) var(--sp-6);
-    border: 1px solid rgba(16, 24, 38, 0.08);
-    border-radius: var(--radius-card);
-    background-color: var(--color-card-elevated);
-    box-shadow: var(--shadow-card-rest);
-    padding-left: var(--sp-6);
-    border-left: 3px solid var(--color-brass);
-    transition:
-      box-shadow var(--duration-normal) var(--ease-out),
-      transform var(--duration-normal) var(--ease-out);
+    line-height: 1.6;
   }
 
-  .cc-domains__item:hover {
-    box-shadow: var(--shadow-card-lift);
-    transform: translateY(-1px);
-  }
-
-  /* ── Graph list (how it works) ── */
+  /* ── Graph list (three graphs) ── */
   .cc-graph-list {
     list-style: none;
     display: flex;
@@ -418,11 +573,157 @@ const domains = [
     color: var(--color-ink);
     padding-left: var(--sp-4);
     border-left: 2px solid var(--color-brass);
+    line-height: 1.7;
   }
 
   .cc-graph-list strong {
     color: var(--color-brass);
     font-weight: 500;
+  }
+
+  /* ── Knowledge type grid ── */
+  .cc-type-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-3);
+  }
+
+  .cc-type-grid__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    padding: var(--sp-4);
+    border: 1px solid rgba(16, 24, 38, 0.06);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+  }
+
+  .cc-type-grid__code {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-slate);
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+  }
+
+  .cc-type-grid__name {
+    font-family: var(--font-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .cc-type-grid__purpose {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.5;
+  }
+
+  /* ── Five-format + entry rings ── */
+  .cc-five-format,
+  .cc-entry-rings {
+    list-style: none;
+    counter-reset: item;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-6);
+  }
+
+  .cc-five-format li,
+  .cc-entry-rings li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    line-height: 1.7;
+  }
+
+  .cc-five-format strong,
+  .cc-entry-rings strong {
+    color: var(--color-brass);
+    font-weight: 500;
+  }
+
+  /* ── Stats grid ── */
+  .cc-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-12);
+  }
+
+  .cc-stats-grid__item {
+    padding: var(--sp-4) var(--sp-5);
+    border-left: 2px solid var(--color-brass);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .cc-stats-grid__value {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1;
+  }
+
+  .cc-stats-grid__label {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    font-size: 0.6875rem;
+  }
+
+  .cc-stats-grid__detail {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.4;
+  }
+
+  /* ── Architecture grid ── */
+  .cc-arch-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .cc-arch-grid__item {
+    padding: var(--sp-4) var(--sp-5);
+    border: 1px solid rgba(16, 24, 38, 0.06);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+  }
+
+  .cc-arch-grid__item strong {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+  }
+
+  .cc-arch-grid__item p {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.5;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.8125em;
+    color: var(--color-brass);
+    background-color: rgba(169, 135, 82, 0.08);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
   }
 
   /* ── Module cards ── */
@@ -494,8 +795,13 @@ const domains = [
     padding-top: var(--sp-2);
   }
 
+  .cc-modules__status--live {
+    color: var(--color-brass);
+  }
+
   .cc-modules__status--draft {
     color: var(--color-brass);
+    opacity: 0.7;
   }
 
   .cc-modules__status--planned {
@@ -709,7 +1015,20 @@ const domains = [
       color: var(--color-dark-text);
     }
 
-    .cc-domains {
+    .cc-domain-table__row {
+      grid-template-columns: 1fr;
+      gap: var(--sp-1);
+    }
+
+    .cc-type-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cc-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cc-arch-grid {
       grid-template-columns: 1fr;
     }
 
