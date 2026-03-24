@@ -17,6 +17,7 @@ export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
 export const GAMUT_URL = 'https://musicalgeometry.replit.app';
 export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
 export const CAPABILITY_COMMONS_URL = '/capability-commons';
+export const CAPABILITY_COMMONS_GITHUB = 'https://github.com/Granite-Labs-LLC/CapabilityCommons';
 
 export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
