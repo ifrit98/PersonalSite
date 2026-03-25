@@ -1,56 +1,583 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/sections/PageHero.astro';
-import NarrativeSection from '@/components/sections/NarrativeSection.astro';
-import CapabilityGrid from '@/components/sections/CapabilityGrid.astro';
-import CaseStudyList from '@/components/sections/CaseStudyList.astro';
-import EngagementTypes from '@/components/sections/EngagementTypes.astro';
-import CallToActionBand from '@/components/sections/CallToActionBand.astro';
-import { SITE } from '@/lib/site';
+import Button from '@/components/ui/Button.astro';
+import { SITE, AFTERFIAT_URL } from '@/lib/site';
+
+void SITE;
+void AFTERFIAT_URL;
 ---
 
 <BaseLayout
-  title="Selected Work"
-  description="Systems work across protocols, distributed ML, real-time inference, and production operations."
+  title="Work"
+  description="Selected systems work across protocols, distributed ML, edge inference, secure infrastructure, and architecture built for real constraints."
 >
-  <PageHero
-    eyebrow="Work"
-    title="Selected Work"
-    body="Systems work across protocols, distributed ML, real-time inference, and production operations."
-  />
+  <section class="work-hero fade-up" aria-labelledby="work-hero-heading">
+    <div class="container container--narrow">
+      <h1 id="work-hero-heading" class="work-hero__title">Selected Work</h1>
+      <p class="work-hero__body">
+        I do architecture-heavy systems work where the constraints are real: adversarial environments,
+        latency budgets, partial observability, secure deployment, or incentive misalignment. The
+        public record spans privacy-preserving protocols, distributed ML in air-gapped settings,
+        edge inference, and knowledge infrastructure built for actual use.
+      </p>
+    </div>
+  </section>
 
-  <NarrativeSection>
-    <p>
-      My engineering work focuses on systems that have to function under non-ideal conditions:
-      adversarial environments, tight latency budgets, operational constraints, partial
-      observability, or incentive misalignment. The public record includes privacy-preserving
-      protocol work, distributed training in secure environments, sensor and edge ML, and production
-      systems built for reliability rather than demo value.
-    </p>
-    <p class="evidence-strip">
-      Selected outcomes: sub-50ms Jetson inference · ~$5M Navy follow-on supported · 60% UAV data-egress reduction · multi-million-dollar decentralized network operations
-    </p>
-  </NarrativeSection>
+  <section class="outcomes fade-up" aria-label="Outcomes">
+    <div class="container">
+      <ul class="outcomes__list">
+        <li class="outcomes__item">Sub-50ms operational inference</li>
+        <li class="outcomes__item">Distributed ML in secure environments</li>
+        <li class="outcomes__item">Multi-million-dollar protocol operations</li>
+        <li class="outcomes__item">Public capability platform architecture</li>
+      </ul>
+    </div>
+  </section>
 
-  <CapabilityGrid />
-  <CaseStudyList />
-  <EngagementTypes />
+  <section class="operating fade-up" aria-labelledby="operating-heading">
+    <div class="container">
+      <h2 id="operating-heading" class="section-heading">Operating Areas</h2>
+      <p class="section-intro">
+        The work clusters around a few recurring operating domains, each shaped by non-ideal
+        conditions rather than clean-room assumptions.
+      </p>
+      <div class="operating__grid">
+        <article class="area-card">
+          <h3 class="area-card__title">Protocol &amp; Mechanism Design</h3>
+          <p class="area-card__body">
+            Threat modeling, incentive design, proofs, privacy-preserving architecture, and systems
+            that remain coherent under strategic behavior.
+          </p>
+        </article>
+        <article class="area-card">
+          <h3 class="area-card__title">Distributed ML &amp; Production Systems</h3>
+          <p class="area-card__body">
+            Training orchestration, multi-GPU environments, deployment workflows, fault tolerance,
+            and reproducible infrastructure in constrained settings.
+          </p>
+        </article>
+        <article class="area-card">
+          <h3 class="area-card__title">Real-Time Detection &amp; Edge Inference</h3>
+          <p class="area-card__body">
+            Latency-sensitive systems, signal processing, sensor fusion, embedded deployment, and
+            measurable performance on operational hardware.
+          </p>
+        </article>
+        <article class="area-card">
+          <h3 class="area-card__title">Systems Architecture &amp; Technical Leadership</h3>
+          <p class="area-card__body">
+            Cross-domain integration, technical translation, architecture review,
+            research-to-production handoff, and turning ambitious work into operational capability.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-  <CallToActionBand
-    heading="Discuss an Engagement"
-    body="For architecture review, protocol analysis, distributed ML advisory, research memos, or select advisory work."
-    actions={[
-      { label: 'Discuss an Engagement', href: '/contact', variant: 'primary' },
-      { label: 'Request Capabilities Overview', href: `mailto:${SITE.email}?subject=Capabilities%20Overview%20Request`, variant: 'secondary' },
-    ]}
-  />
+  <section class="cases fade-up" aria-labelledby="cases-heading">
+    <div class="container">
+      <h2 id="cases-heading" class="section-heading">Selected Case Studies</h2>
+      <p class="section-intro">
+        These cases show the kind of problems I am most drawn to: high consequence, real
+        constraints, and very little room for conceptual sloppiness.
+      </p>
+
+      <div class="cases__list">
+        <article class="case-card" id="adversarial-storage-incentives">
+          <span class="case-card__meta">Infrastructure / Protocol</span>
+          <h3 class="case-card__title">Adversarial Storage &amp; Incentives</h3>
+          <p class="case-card__role"><span class="case-card__label">Role</span> Protocol architect, technical leadership</p>
+          <p class="case-card__problem">
+            <span class="case-card__label">Problem</span>
+            Designed a ciphertext-only storage network where storage is an ongoing proof, not a
+            one-time claim.
+          </p>
+          <p class="case-card__narrative">
+            Built and led production of a ciphertext-only storage network where storage is proved
+            over time rather than claimed once. The core challenge was not only cryptography, but
+            incentive design: challenge generation, anti-precompute mechanics, long-horizon
+            reputation, and tier mobility that rewards sustained performance instead of easy gaming.
+          </p>
+          <dl class="case-card__dl">
+            <div class="case-card__dl-row">
+              <dt>Constraints</dt>
+              <dd>
+                Ciphertext-only, ongoing proof-of-spacetime, adversarial counterparties, incentive
+                alignment over long horizons
+              </dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Outcomes</dt>
+              <dd>Multi-million-dollar protocol operations; challenge/proof system in production.</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="case-card" id="real-time-underwater-detection">
+          <span class="case-card__meta">Defense / ML</span>
+          <h3 class="case-card__title">Real-Time Underwater Detection</h3>
+          <p class="case-card__role"><span class="case-card__label">Role</span> ML lead, architecture, edge deployment</p>
+          <p class="case-card__problem">
+            <span class="case-card__label">Problem</span>
+            Build latency-sensitive underwater threat detection that works under operational
+            conditions, not lab conditions.
+          </p>
+          <p class="case-card__narrative">
+            Led hybrid DSP + ML architecture for underwater threat detection on Jetson edge
+            hardware, optimized around operational detection metrics and latency rather than generic
+            benchmark scores. The load-bearing innovation was not just model design, but
+            synthetic-data and domain-adaptation workflows that made transfer from simulation to
+            tactical deployment possible.
+          </p>
+          <dl class="case-card__dl">
+            <div class="case-card__dl-row">
+              <dt>Constraints</dt>
+              <dd>Sub-50ms latency on Jetson, operational environment noise, simulation-to-real domain gap</dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Outcomes</dt>
+              <dd>
+                Sub-50ms inference on Jetson; Navy follow-on support; operational detection pipeline
+                deployed.
+              </dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="case-card" id="secure-distributed-ml">
+          <span class="case-card__meta">Defense / Infrastructure</span>
+          <h3 class="case-card__title">Secure Distributed ML Infrastructure</h3>
+          <p class="case-card__role"><span class="case-card__label">Role</span> ML infrastructure architect, secure deployment</p>
+          <p class="case-card__problem">
+            <span class="case-card__label">Problem</span>
+            Enable full-capability LLM fine-tuning and serving inside air-gapped, multi-GPU
+            environments with strict approval requirements.
+          </p>
+          <p class="case-card__narrative">
+            Built full distributed LLM fine-tuning capability inside air-gapped, multi-GPU
+            environments with strict approval and handling requirements. In these contexts,
+            software supply chain discipline matters as much as model training: every dependency,
+            artifact, and operator workflow has to survive without the conveniences of public
+            infrastructure.
+          </p>
+          <dl class="case-card__dl">
+            <div class="case-card__dl-row">
+              <dt>Constraints</dt>
+              <dd>TS/SCI SCIF environment, air-gapped, no external dependencies, strict artifact approval</dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Outcomes</dt>
+              <dd>Distributed fine-tuning and serving operational in classified environment.</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="case-card" id="rf-classification">
+          <span class="case-card__meta">Defense / ML</span>
+          <h3 class="case-card__title">RF Classification &amp; Streaming ML</h3>
+          <p class="case-card__role"><span class="case-card__label">Role</span> ML engineer, model development, production deployment</p>
+          <p class="case-card__problem">
+            <span class="case-card__label">Problem</span>
+            Improve RF modulation classification accuracy and deploy into streaming production.
+          </p>
+          <p class="case-card__narrative">
+            Improved RF modulation classification and helped deploy models into streaming production
+            environments spanning R, Python, and C++. The work combined model development with
+            the less glamorous but decisive layers of interfaces, APIs, and operational
+            compatibility.
+          </p>
+          <dl class="case-card__dl">
+            <div class="case-card__dl-row">
+              <dt>Constraints</dt>
+              <dd>Multi-language production stack (R, Python, C++), streaming latency requirements, spectral domain</dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Outcomes</dt>
+              <dd>+12pp accuracy improvement; models deployed to production streaming pipeline.</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="case-card" id="capability-commons">
+          <span class="case-card__meta">Public Initiative / Platform</span>
+          <h3 class="case-card__title">Capability Commons</h3>
+          <p class="case-card__role"><span class="case-card__label">Role</span> Founder, architect, full-stack platform build</p>
+          <p class="case-card__problem">
+            <span class="case-card__label">Problem</span>
+            Practical knowledge is trapped behind institutions, jargon, and credential barriers.
+          </p>
+          <p class="case-card__narrative">
+            Designed and built a Postgres-first knowledge platform for practical public capability.
+            The hard problem is not storing information. It is structuring it so a beginner can
+            move from immediate need to reproducible skill, in context, without already knowing the
+            jargon.
+          </p>
+          <dl class="case-card__dl">
+            <div class="case-card__dl-row">
+              <dt>Constraints</dt>
+              <dd>
+                Open by default, Postgres-first, versioned knowledge objects, typed edges with
+                provenance, barrier-lowering by design
+              </dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Outcomes</dt>
+              <dd>
+                49 knowledge objects, 175 typed edges, 167+ context facets, 7 domains, working API
+                with CRUD/graph/search/retrieval.
+              </dd>
+            </div>
+          </dl>
+          <p class="case-card__note">
+            Active development — see the dedicated
+            <a href="/capability-commons">Capability Commons</a> page.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="how fade-up" aria-labelledby="how-heading">
+    <div class="container container--narrow">
+      <h2 id="how-heading" class="section-heading">How I Work</h2>
+      <p class="how__body">
+        I am best suited to problems where architecture matters more than headcount and where
+        clarity matters more than performative velocity. That usually means protocol and
+        threat-model analysis, ML systems architecture, knowledge-platform design, technical
+        synthesis, and selective leadership where a team needs a sharper map of the problem before
+        it needs more code.
+      </p>
+    </div>
+  </section>
+
+  <section class="engagement fade-up" aria-labelledby="engagement-heading">
+    <div class="container container--narrow">
+      <h2 id="engagement-heading" class="section-heading">Engagement Fit</h2>
+      <ul class="engagement__list">
+        <li>Architecture review</li>
+        <li>Protocol and mechanism analysis</li>
+        <li>Distributed ML systems advisory</li>
+        <li>Research memo or technical synthesis</li>
+        <li>Selective fractional technical leadership</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="work-cta fade-up" aria-labelledby="work-cta-heading">
+    <div class="container container--narrow work-cta__inner">
+      <h2 id="work-cta-heading" class="visually-hidden">Get in touch</h2>
+      <p class="work-cta__body">
+        If the problem is technically real, constraint-heavy, and worth thinking through properly,
+        reach out with the problem, the constraints, and the desired outcome.
+      </p>
+      <div class="work-cta__actions">
+        <Button href="/contact" variant="primary">Discuss an Engagement</Button>
+        <Button href="/projects" variant="secondary">Explore Projects &amp; Labs</Button>
+        <Button href="/writing" variant="secondary">Read the Writing</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .evidence-strip {
-    font: var(--text-mono-meta) !important;
-    font-family: var(--font-mono) !important;
-    color: var(--color-slate) !important;
-    line-height: 1.7 !important;
+  .work-hero {
+    padding-block: var(--sp-24) var(--sp-12);
+    border-bottom: 1px solid var(--color-line);
+    background-color: var(--color-bone);
+  }
+
+  .work-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-top: var(--sp-4);
+  }
+
+  .work-hero__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 38em;
+  }
+
+  .outcomes {
+    padding-block: var(--sp-12);
+  }
+
+  .outcomes__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .outcomes__item {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 3px solid var(--color-brass);
+    line-height: 1.5;
+  }
+
+  .operating,
+  .cases,
+  .how,
+  .engagement {
+    padding-block: var(--sp-16);
+  }
+
+  .section-heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .section-intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 40em;
+  }
+
+  .operating__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+    margin-top: var(--sp-8);
+  }
+
+  .area-card {
+    background: var(--color-card-elevated);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card-rest);
+    padding: var(--sp-6);
+    transition: box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .area-card:hover {
+    box-shadow: var(--shadow-card-lift);
+  }
+
+  .area-card__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .area-card__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-3);
+    max-width: none;
+  }
+
+  .cases__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+    margin-top: var(--sp-8);
+  }
+
+  .case-card {
+    background: var(--color-card-elevated);
+    border: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-brass);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card-rest);
+    padding: var(--sp-6) var(--sp-6) var(--sp-6) calc(var(--sp-6) - 2px);
+  }
+
+  .case-card__meta {
+    display: inline-block;
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    letter-spacing: 0.02em;
+    margin-bottom: var(--sp-2);
+  }
+
+  .case-card__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .case-card__label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-brass);
+    margin-right: var(--sp-2);
+  }
+
+  .case-card__role,
+  .case-card__problem,
+  .case-card__narrative,
+  .case-card__note {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: none;
+  }
+
+  .case-card__problem {
+    color: var(--color-ink);
+  }
+
+  .case-card__dl {
+    margin-top: var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .case-card__dl-row {
+    display: grid;
+    grid-template-columns: minmax(6rem, 8rem) 1fr;
+    gap: var(--sp-4);
+    align-items: start;
+  }
+
+  .case-card__dl dt {
+    font: var(--text-meta);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--color-brass);
+  }
+
+  .case-card__dl dd {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin: 0;
+    max-width: none;
+  }
+
+  .case-card__note {
+    font: var(--text-meta);
+    color: var(--color-slate);
+    margin-top: var(--sp-6);
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .how__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: none;
+  }
+
+  .engagement__list {
+    list-style: none;
+    margin-top: var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .engagement__list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding: var(--sp-4) var(--sp-4) var(--sp-4) var(--sp-5);
+    border-left: 3px solid var(--color-brass);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .engagement__list li:first-child {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .work-cta {
+    padding-block: var(--sp-16) var(--sp-24);
+    background: var(--color-warm-wash);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .work-cta__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .work-cta__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 36em;
+    margin-inline: auto;
+  }
+
+  .work-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    justify-content: center;
+    margin-top: var(--sp-8);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 900px) {
+    .outcomes__list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .work-hero {
+      padding-block: var(--sp-16) var(--sp-8);
+    }
+
+    .work-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+
+    .outcomes__list {
+      grid-template-columns: 1fr;
+    }
+
+    .operating__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .case-card__dl-row {
+      grid-template-columns: 1fr;
+      gap: var(--sp-2);
+    }
+
+    .work-cta__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .work-cta__actions :global(.btn) {
+      justify-content: center;
+    }
   }
 </style>

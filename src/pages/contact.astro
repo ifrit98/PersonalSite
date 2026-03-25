@@ -1,190 +1,221 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/sections/PageHero.astro';
-import Section from '@/components/ui/Section.astro';
 import { SITE } from '@/lib/site';
+
+const inquiryCards = [
+  {
+    title: 'Architecture & Protocols',
+    body: 'System design, protocol analysis, threat modeling, proofs, mechanism design, and verification-heavy technical problems.',
+  },
+  {
+    title: 'ML Infrastructure & Secure Systems',
+    body: 'Distributed ML, deployment architecture, air-gapped or high-constraint environments, edge inference, and production workflows.',
+  },
+  {
+    title: 'Research, Writing & Technical Synthesis',
+    body: 'Research collaboration, technical memos, publication, long-form synthesis, and translating difficult systems questions into clear language.',
+  },
+  {
+    title: 'Knowledge Platforms & Public Capability',
+    body: 'Schema design, capability infrastructure, retrieval systems, curriculum architecture, and teach-forward knowledge products.',
+  },
+  {
+    title: 'Speaking & Interviews',
+    body: 'Conversations on verification, AI, money, capability, culture, institutional drift, and related systems questions.',
+  },
+] as const;
 ---
 
 <BaseLayout
   title="Contact"
-  description="For advisory, collaboration, writing, research, or speaking inquiries."
+  description="Get in touch for architecture-heavy technical work, research collaborations, writing, publication, speaking, and selective advisory work."
 >
-  <PageHero
-    eyebrow="Contact"
-    title="Contact"
-    body="For advisory, collaboration, writing, research, or speaking inquiries."
-  />
+  <section class="page-hero fade-up" aria-labelledby="contact-hero-title">
+    <div class="container container--narrow">
+      <h1 id="contact-hero-title" class="page-hero__title">Contact</h1>
+      <p class="page-hero__body">
+        For architecture-heavy technical work, research collaborations, writing, publication, speaking, or selective advisory
+        conversations.
+      </p>
+    </div>
+  </section>
 
-  <Section narrow>
-    <p class="inquiry-framing">
-      The most useful inquiries are architecture-heavy technical work, research collaborations,
-      publication or speaking requests, and selective advisory work. Include the problem, constraints,
-      and desired outcome if you can.
-    </p>
-    <form class="form" method="POST" action="#" data-netlify="true" name="contact">
-      <div class="form__group">
-        <label for="name" class="form__label">Name</label>
-        <input type="text" id="name" name="name" required class="form__input" />
+  <section class="intro fade-up" aria-labelledby="intro-heading">
+    <div class="container container--narrow">
+      <h2 id="intro-heading" class="sr-only">How to reach out</h2>
+      <p class="intro__text">
+        The most useful inquiries are clear about the problem, the constraints, and the desired outcome. A short, concrete
+        description beats a polished pitch every time.
+      </p>
+    </div>
+  </section>
+
+  <section class="best-fit fade-up" aria-labelledby="best-fit-heading">
+    <div class="container">
+      <h2 id="best-fit-heading" class="best-fit__heading">Best-Fit Inquiries</h2>
+      <p class="best-fit__intro">
+        These are the kinds of conversations that tend to be the best fit.
+      </p>
+      <div class="best-fit__grid">
+        {inquiryCards.map((card) => (
+          <article class="best-fit__card">
+            <h3 class="best-fit__card-title">{card.title}</h3>
+            <p class="best-fit__card-body">{card.body}</p>
+          </article>
+        ))}
       </div>
+    </div>
+  </section>
 
-      <div class="form__group">
-        <label for="email" class="form__label">Email</label>
-        <input type="email" id="email" name="email" required class="form__input" />
-      </div>
-
-      <div class="form__group">
-        <label for="organization" class="form__label">Organization <span class="form__optional">(optional)</span></label>
-        <input type="text" id="organization" name="organization" class="form__input" />
-      </div>
-
-      <div class="form__group">
-        <label for="inquiry-type" class="form__label">Inquiry Type</label>
-        <select id="inquiry-type" name="inquiry-type" required class="form__select">
-          <option value="" disabled selected>Select an inquiry type</option>
-          <option value="advisory">Advisory / Consulting</option>
-          <option value="collaboration">Technical Collaboration</option>
-          <option value="research">Research / Publication</option>
-          <option value="speaking">Speaking / Interview</option>
-          <option value="general">General</option>
-        </select>
-      </div>
-
-      <div class="form__group">
-        <label for="description" class="form__label">Brief Description</label>
-        <textarea id="description" name="description" required rows="5" class="form__textarea"></textarea>
-      </div>
-
-      <div class="form__group">
-        <label for="timeline" class="form__label">Timeline / Urgency <span class="form__optional">(optional)</span></label>
-        <input type="text" id="timeline" name="timeline" class="form__input" />
-      </div>
-
-      <div class="form__group">
-        <label for="link" class="form__label">Relevant Link <span class="form__optional">(optional)</span></label>
-        <input type="url" id="link" name="link" class="form__input" placeholder="https://" />
-      </div>
-
-      <button type="submit" class="form__submit">Send Message</button>
-    </form>
-  </Section>
-
-  <Section narrow>
-    <div class="direct">
-      <h2 class="direct__heading">Direct Contact</h2>
+  <section class="direct fade-up" aria-labelledby="direct-heading">
+    <div class="container container--narrow">
+      <h2 id="direct-heading" class="direct__heading">Direct Contact</h2>
+      <p class="direct__body">
+        If the form is overkill, email is fine. LinkedIn and GitHub are also here for context, prior work, and verification.
+      </p>
       <ul class="direct__links" role="list">
-        <li><a href={`mailto:${SITE.email}`}>Email Jason</a></li>
-        <li><a href={SITE.social.linkedin}>LinkedIn</a></li>
-        <li><a href={SITE.social.github}>GitHub</a></li>
+        <li>
+          <a href={`mailto:${SITE.email}`}>Email Jason</a>
+        </li>
+        <li>
+          <a href={SITE.social.linkedin}>LinkedIn</a>
+        </li>
+        <li>
+          <a href={SITE.social.github}>GitHub</a>
+        </li>
       </ul>
     </div>
-  </Section>
+  </section>
 </BaseLayout>
 
 <style>
-  .inquiry-framing {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .page-hero {
+    padding-block: var(--sp-24) var(--sp-12);
+    border-bottom: 1px solid var(--color-line);
+    background-color: var(--color-bone);
+  }
+
+  .page-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-top: var(--sp-4);
+  }
+
+  .page-hero__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 38em;
+  }
+
+  .intro {
+    padding-block: var(--sp-16);
+  }
+
+  .intro__text {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 42em;
+    margin: 0;
+  }
+
+  .best-fit {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .best-fit__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-4);
+  }
+
+  .best-fit__intro {
     font: var(--text-body);
     font-family: var(--font-sans);
     color: var(--color-slate);
-    max-width: 36rem;
     margin-bottom: var(--sp-8);
+    max-width: 38em;
   }
 
-  .form {
-    display: flex;
-    flex-direction: column;
+  .best-fit__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr));
     gap: var(--sp-6);
-    max-width: 36rem;
   }
 
-  .form__group {
+  .best-fit__card {
     display: flex;
     flex-direction: column;
     gap: var(--sp-2);
+    padding: var(--sp-6);
+    border: 1px solid rgba(16, 24, 38, 0.08);
+    border-left: 2px solid var(--color-brass);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
+    transition:
+      border-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
   }
 
-  .form__label {
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-ink);
-  }
-
-  .form__optional {
-    font-weight: 400;
-    color: var(--color-slate);
-  }
-
-  .form__input,
-  .form__select,
-  .form__textarea {
-    width: 100%;
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    color: var(--color-ink);
-    background-color: var(--color-white);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-button);
-    padding: 0.625rem 0.875rem;
-    transition: border-color var(--duration-fast) var(--ease-out);
-  }
-
-  .form__input:focus,
-  .form__select:focus,
-  .form__textarea:focus {
-    outline: none;
+  .best-fit__card:hover {
     border-color: var(--color-brass);
-    box-shadow: 0 0 0 3px rgba(169, 135, 82, 0.12);
+    box-shadow: var(--shadow-card-lift);
   }
 
-  .form__textarea {
-    resize: vertical;
-    min-height: 7rem;
-  }
-
-  .form__select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%235E6875' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.875rem center;
-    padding-right: 2.5rem;
-  }
-
-  .form__submit {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-    padding: 0.75rem 2rem;
-    font-family: var(--font-sans);
-    font-size: 0.9375rem;
+  .best-fit__card-title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
     font-weight: 500;
-    color: var(--color-bone);
-    background-color: var(--color-ink);
-    border: none;
-    border-radius: var(--radius-button);
-    cursor: pointer;
-    transition: background-color var(--duration-fast) var(--ease-out);
+    font-size: 1.125rem;
+    color: var(--color-ink);
+    margin: 0;
   }
 
-  .form__submit:hover {
-    background-color: var(--color-oxblood);
-  }
-
-  .form__submit:focus-visible {
-    outline: 2px solid var(--color-brass);
-    outline-offset: 2px;
+  .best-fit__card-body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin: 0;
+    max-width: none;
   }
 
   .direct {
-    padding-top: var(--sp-8);
+    padding-block: var(--sp-16);
     border-top: 1px solid var(--color-line);
   }
 
   .direct__heading {
-    font: var(--text-h3);
+    font: var(--text-h2);
     font-family: var(--font-serif);
     font-weight: 500;
     margin-bottom: var(--sp-4);
+  }
+
+  .direct__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-6);
+    max-width: 38em;
   }
 
   .direct__links {
@@ -192,6 +223,8 @@ import { SITE } from '@/lib/site';
     display: flex;
     gap: var(--sp-6);
     flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
   }
 
   .direct__links a {
@@ -202,9 +235,26 @@ import { SITE } from '@/lib/site';
     min-height: 2.75rem;
     display: inline-flex;
     align-items: center;
+    transition: color var(--duration-normal) var(--ease-out);
   }
 
   .direct__links a:hover {
     color: var(--color-oxblood);
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding-block: var(--sp-16) var(--sp-8);
+    }
+
+    .page-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+
+    .best-fit__grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

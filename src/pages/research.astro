@@ -1,298 +1,63 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/sections/PageHero.astro';
-import NarrativeSection from '@/components/sections/NarrativeSection.astro';
-import PublicationList from '@/components/sections/PublicationList.astro';
-import ResearchInterestGrid from '@/components/sections/ResearchInterestGrid.astro';
-import CallToActionBand from '@/components/sections/CallToActionBand.astro';
 import Button from '@/components/ui/Button.astro';
 import { GAMUT_URL } from '@/lib/site';
 ---
 
 <BaseLayout
   title="Research"
-  description="Published papers, formal investigations, and ongoing work on structure across sound, systems, and mathematics."
+  description="Research has moved to Projects & Labs. GAMUT and formal research live there now."
 >
-  <PageHero
-    eyebrow="Research"
-    title="Research"
-    body="Published papers, formal investigations, and ongoing work on structure across sound, systems, and mathematics."
-  />
-
-  <NarrativeSection>
-    <p>
-      My primary research program is GAMUT, a formal mathematical framework for the geometry of
-      twelve-tone pitch space. Earlier peer-reviewed work in music generation and astrophysical
-      sonification laid the groundwork; the broader interest is in form — how structure becomes
-      legible across sound, geometry, symmetry, dynamics, and computation.
-    </p>
-  </NarrativeSection>
-
-  <section class="gamut fade-up" id="gamut">
-    <div class="container">
-      <div class="gamut__hero">
-        <div class="gamut__hero-text">
-          <p class="gamut__eyebrow">Primary Research Program</p>
-          <h2 class="gamut__heading">GAMUT — The Shape of Musical Possibility</h2>
-        </div>
-        <div class="gamut__hero-image">
-          <img src="/3d-GAMUT.png" alt="Three-dimensional rendering of the layered musical bundle" class="gamut__visual" loading="lazy" />
-        </div>
-      </div>
-      <p class="gamut__lede">
-        A list can name musical objects. A geometry can let a mind move among them.
+  <section class="redirect fade-up">
+    <div class="container container--narrow">
+      <h1 class="redirect__title">Research has moved</h1>
+      <p class="redirect__body">
+        GAMUT and formal research now live under <a href="/projects">Projects & Labs</a>.
       </p>
-      <p class="gamut__body">
-        GAMUT constructs a <strong>layered symplectic space</strong> for the twelve-tone universe.
-        The argument begins with cyclic autocorrelation as a natural fingerprint of pitch content,
-        moves through the Fourier shadow that connects interval counting to spectral shape, then
-        attaches the missing structure: a fiber of cyclic orderings above each content class, forming
-        a layered bundle. When both layers are lifted into Fourier coordinates, the ambient space
-        acquires a canonical exact symplectic form — transposition acts as Hamiltonian phase rotation,
-        inversion as anti-symplectic reflection. The result is a stratified geometry in which all
-        223 content classes, their 14,166 permutation orderings, and the spectral continuum between
-        them are organized not just by adjacency but by a geometry of lawful motion.
-      </p>
-
-      <div class="gamut__essay-arc">
-        <h3 class="gamut__subheading">The essay arc</h3>
-        <ol class="gamut__essays">
-          <li>
-            <a href={`${GAMUT_URL}/essays/part-i-why-music-wants-a-geometry/`} class="gamut__essay-link">
-              <strong>Part I. Why Music Wants a Geometry</strong>
-              <span>Why the twelve-tone universe exceeds ordinary theory categories and why cyclic autocorrelation is the first serious fingerprint of content.</span>
-            </a>
-          </li>
-          <li>
-            <a href={`${GAMUT_URL}/essays/part-ii-attaching-order-to-content/`} class="gamut__essay-link">
-              <strong>Part II. Attaching Order to Content</strong>
-              <span>How rooted cyclic order, gap words, and local permutation geometry turn a content map into a fibered object.</span>
-            </a>
-          </li>
-          <li>
-            <a href={`${GAMUT_URL}/essays/part-iii-why-the-space-wants-a-symplectic-form/`} class="gamut__essay-link">
-              <strong>Part III. Why the Space Wants a Symplectic Form</strong>
-              <span>Why the Fourier lift of the layered construction naturally takes the argument from static geometry into a phase-space picture of musical motion.</span>
-            </a>
-          </li>
-        </ol>
-      </div>
-
-      <div class="gamut__columns">
-        <div class="gamut__column">
-          <h3 class="gamut__subheading">Key results</h3>
-          <ul class="gamut__list">
-            <li>Finite Wiener-Khinchin theorems for both content and order</li>
-            <li>Fourier characterization of Slonimsky interval cycles as sparse spectra</li>
-            <li>Injective layered Fourier embedding into a symplectic ambient space</li>
-            <li>Hamiltonian circle actions for transposition and cyclic reindexing</li>
-            <li>Cardinality-stratified symplectic structure</li>
-          </ul>
-        </div>
-        <div class="gamut__column">
-          <h3 class="gamut__subheading">Artifacts</h3>
-          <ul class="gamut__list">
-            <li>Two formal manuscripts with full proofs</li>
-            <li>Three-part public essay series (above)</li>
-            <li>Interactive Layered Bundle Explorer: 223 set classes, 14,166 orderings, semantic zoom, entropy coloring, guided tour</li>
-            <li>Camera-ready volume, proof paper, technical paper — all downloadable</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="gamut__ctas">
-        <Button href={GAMUT_URL}>Visit GAMUT Site</Button>
-        <Button href={`${GAMUT_URL}/essays/`} variant="secondary">Read the Essays</Button>
-        <Button href={`${GAMUT_URL}/downloads/layered-symplectic-musical-space-amsart.pdf`} variant="secondary">Download Manuscript (PDF)</Button>
+      <div class="redirect__actions">
+        <Button href="/projects">Go to Projects & Labs</Button>
+        <Button href={GAMUT_URL} variant="secondary">Visit GAMUT directly</Button>
       </div>
     </div>
   </section>
-
-  <PublicationList />
-
-  <NarrativeSection>
-    <p>
-      I'm interested in research that is both formally serious and publicly legible: work that can
-      survive technical scrutiny without losing its ability to communicate to intelligent readers
-      outside the narrowest specialist context.
-    </p>
-  </NarrativeSection>
-
-  <ResearchInterestGrid />
-
-  <CallToActionBand
-    heading="Interested in the research?"
-    body="Download the published papers directly, explore the GAMUT framework, or get in touch about collaboration."
-    actions={[
-      { label: 'Visit GAMUT', href: GAMUT_URL, variant: 'primary' },
-      { label: 'Download Music Style Transformer', href: '/papers/music-style-transformer.pdf', variant: 'secondary' },
-      { label: 'Contact About Research', href: '/contact', variant: 'secondary' },
-    ]}
-  />
 </BaseLayout>
 
 <style>
-  .gamut {
+  .redirect {
     padding-block: var(--sp-24);
-    border-top: 1px solid var(--color-line);
+    text-align: center;
   }
 
-  .gamut__hero {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--sp-8);
-    align-items: start;
-    margin-bottom: var(--sp-4);
-  }
-
-  .gamut__hero-image {
-    width: 8rem;
-    height: 8rem;
-    border-radius: var(--radius-card);
-    overflow: hidden;
-    border: 1px solid var(--color-line);
-    flex-shrink: 0;
-  }
-
-  .gamut__visual {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .gamut__eyebrow {
-    font: var(--text-mono-meta);
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-brass);
-    margin-bottom: var(--sp-3);
-  }
-
-  .gamut__heading {
+  .redirect__title {
     font: var(--text-h2);
     font-family: var(--font-serif);
     font-weight: 500;
-  }
-
-  .gamut__lede {
-    font: var(--text-body-lg);
-    font-family: var(--font-serif);
-    font-style: italic;
-    color: var(--color-slate);
-    max-width: 32em;
-    margin-bottom: var(--sp-6);
-  }
-
-  .gamut__body {
-    font: var(--text-body-lg);
-    font-family: var(--font-sans);
     color: var(--color-ink);
-    max-width: 42em;
-    margin-bottom: var(--sp-12);
-  }
-
-  .gamut__body strong {
-    color: var(--color-brass);
-    font-weight: 500;
-  }
-
-  .gamut__essay-arc {
-    margin-bottom: var(--sp-12);
-  }
-
-  .gamut__essays {
-    list-style: none;
-    counter-reset: essay;
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-4);
-  }
-
-  .gamut__essay-link {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-1);
-    padding: var(--sp-4) var(--sp-6);
-    border: 1px solid rgba(16, 24, 38, 0.08);
-    border-radius: var(--radius-card);
-    background-color: var(--color-card-elevated);
-    box-shadow: var(--shadow-card-rest);
-    text-decoration: none;
-    transition:
-      border-color var(--duration-normal) var(--ease-out),
-      box-shadow var(--duration-normal) var(--ease-out),
-      transform var(--duration-normal) var(--ease-out);
-  }
-
-  .gamut__essay-link:hover {
-    border-color: var(--color-brass);
-    box-shadow: var(--shadow-card-lift);
-    transform: translateY(-2px);
-  }
-
-  .gamut__essay-link strong {
-    font-family: var(--font-serif);
-    font-size: 1.0625rem;
-    font-weight: 500;
-    color: var(--color-ink);
-  }
-
-  .gamut__essay-link span {
-    font: var(--text-meta);
-    font-family: var(--font-sans);
-    color: var(--color-slate);
-  }
-
-  .gamut__columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--sp-8);
-    margin-bottom: var(--sp-8);
-  }
-
-  .gamut__subheading {
-    font: var(--text-mono-meta);
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-slate);
     margin-bottom: var(--sp-4);
   }
 
-  .gamut__list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-3);
-  }
-
-  .gamut__list li {
-    font: var(--text-body);
+  .redirect__body {
+    font: var(--text-body-lg);
     font-family: var(--font-sans);
-    color: var(--color-ink);
-    padding-left: var(--sp-4);
-    border-left: 2px solid var(--color-brass);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-8);
+    max-width: 32em;
+    margin-inline: auto;
   }
 
-  .gamut__ctas {
+  .redirect__body a {
+    color: var(--color-brass);
+    text-decoration: none;
+  }
+
+  .redirect__body a:hover {
+    text-decoration: underline;
+  }
+
+  .redirect__actions {
     display: flex;
     gap: var(--sp-4);
+    justify-content: center;
     flex-wrap: wrap;
-  }
-
-  @media (max-width: 768px) {
-    .gamut__hero {
-      grid-template-columns: 1fr;
-    }
-
-    .gamut__hero-image {
-      width: 5rem;
-      height: 5rem;
-    }
-
-    .gamut__columns {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

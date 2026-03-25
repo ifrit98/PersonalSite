@@ -1,119 +1,367 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/sections/PageHero.astro';
 import Button from '@/components/ui/Button.astro';
-import Section from '@/components/ui/Section.astro';
-import ResumeHighlights from '@/components/sections/ResumeHighlights.astro';
-import ExperienceTimeline from '@/components/sections/ExperienceTimeline.astro';
-import PublicationMiniList from '@/components/sections/PublicationMiniList.astro';
-import ToolchainTags from '@/components/sections/ToolchainTags.astro';
-import CallToActionBand from '@/components/sections/CallToActionBand.astro';
-import { SITE } from '@/lib/site';
+
+const highlights = [
+  'Multi-million-dollar protocol operations',
+  'Sub-50ms operational inference',
+  '7+ years across secure systems',
+  'Peer-reviewed research and public writing',
+] as const;
+
+const experiences = [
+  {
+    title: 'Principal Engineer — Banyan',
+    period: '2021–2024',
+    details:
+      'Led privacy-preserving and adversarial protocol design for a ciphertext-only storage network. Designed incentive systems, proof-of-spacetime mechanics, and reputation architecture for multi-million-dollar protocol operations.',
+  },
+  {
+    title: 'Senior ML Engineer — Kitware',
+    period: '2023–2024',
+    details:
+      'Led hybrid DSP + ML systems for underwater threat detection on Jetson hardware. Sub-50ms inference, domain adaptation pipelines, and Navy follow-on support. Also improved RF classification by 12pp and deployed streaming ML.',
+  },
+  {
+    title: 'ML Infrastructure Engineer — Booz Allen Hamilton',
+    period: '2024–Present',
+    details:
+      'Built distributed LLM fine-tuning and serving inside TS/SCI SCIF environments. Supply chain discipline, air-gapped deployment, and multi-GPU orchestration.',
+  },
+] as const;
+
+const publications = [
+  {
+    title: 'Anticipatory Music Transformer',
+    venue: 'International Society for Music Information Retrieval (ISMIR), 2023',
+  },
+  {
+    title: 'Music-to-Image Mapping via Continuous Embeddings',
+    venue: 'International Computer Music Conference (ICMC), 2023',
+  },
+] as const;
 ---
 
 <BaseLayout
   title="Resume / CV"
-  description="A concise overview of technical leadership, systems work, research, and public writing."
+  description="A concise overview of technical leadership, systems work, research, writing, and selected outcomes across secure and decentralized environments."
 >
-  <PageHero
-    eyebrow="Resume"
-    title="Resume / CV"
-    body="A concise overview of technical leadership, systems work, research, and public writing."
-  >
-    <div class="hero-buttons">
-      <Button href="/resume.pdf">Download Resume</Button>
-      <Button href="/contact" variant="secondary">Contact</Button>
+  <section class="page-hero fade-up" aria-labelledby="resume-hero-title">
+    <div class="container container--narrow">
+      <h1 id="resume-hero-title" class="page-hero__title">Resume / CV</h1>
+      <p class="page-hero__body">
+        A concise overview of technical leadership, systems work, research, writing, and selected outcomes across secure and
+        decentralized environments.
+      </p>
     </div>
-  </PageHero>
+  </section>
 
-  <Section narrow>
-    <p class="snapshot">
-      I'm a protocol and infrastructure lead working across distributed systems, proofs, real-time
-      ML, and applied cryptography. The public version of that work includes secure and decentralized
-      systems, peer-reviewed research, and writing focused on verification, trust, and civilizational
-      constraint.
-    </p>
-  </Section>
+  <section class="summary fade-up" aria-labelledby="summary-heading">
+    <div class="container container--narrow">
+      <h2 id="summary-heading" class="sr-only">Summary</h2>
+      <p class="summary__text">
+        I work across protocol design, distributed systems, real-time ML, secure infrastructure, long-form writing, and formal
+        research. The public record includes privacy-preserving protocols, distributed ML in high-constraint environments,
+        peer-reviewed publications, and public writing on verification, money, and civilizational systems.
+      </p>
+    </div>
+  </section>
 
-  <ResumeHighlights />
-  <ExperienceTimeline />
+  <section class="highlights fade-up" aria-label="Career highlights">
+    <div class="container">
+      <ul class="highlights__list" role="list">
+        {highlights.map((item) => (
+          <li class="highlights__item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
-  <Section>
-    <h2 class="section-heading">Education</h2>
-    <div class="education-list">
-      <div class="education-item">
-        <h3 class="education-degree">M.S., Computer Science</h3>
-        <p class="education-school">Rochester Institute of Technology</p>
-      </div>
-      <div class="education-item">
-        <h3 class="education-degree">B.M., Performance; Minor in Music Theory</h3>
-        <p class="education-school">University of North Texas</p>
+  <section class="experience fade-up" aria-labelledby="experience-heading">
+    <div class="container">
+      <h2 id="experience-heading" class="experience__heading">Experience</h2>
+      <p class="experience__intro">
+        Selected roles and projects focused on systems that have to remain reliable under adversarial, operational, or highly
+        constrained conditions.
+      </p>
+      <div class="experience__timeline">
+        {experiences.map((exp) => (
+          <article class="experience__entry">
+            <span class="experience__period">{exp.period}</span>
+            <div class="experience__content">
+              <h3 class="experience__title">{exp.title}</h3>
+              <p class="experience__details">{exp.details}</p>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
-  </Section>
+  </section>
 
-  <PublicationMiniList />
-  <ToolchainTags />
+  <section class="publications fade-up" aria-labelledby="publications-heading">
+    <div class="container">
+      <h2 id="publications-heading" class="publications__heading">Publications</h2>
+      <p class="publications__intro">
+        Formal and public-facing work across music generation, sonification, structure, verification, and civilizational systems.
+      </p>
+      <ul class="publications__list" role="list">
+        {publications.map((pub) => (
+          <li class="publications__item">
+            <span class="publications__title">&ldquo;{pub.title}&rdquo;</span>
+            <span class="publications__venue"> — {pub.venue}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
-  <CallToActionBand
-    heading="Get the full picture"
-    body="Download the one-page resume or request a fuller CV and capabilities overview."
-    actions={[
-      { label: 'Download Resume', href: '/resume.pdf', variant: 'primary' },
-      { label: 'Request Full CV', href: `mailto:${SITE.email}?subject=Full%20CV%20Request`, variant: 'secondary' },
-    ]}
-  />
+  <section class="cta-band fade-up" aria-labelledby="cta-heading">
+    <div class="container">
+      <div class="cta-band__inner">
+        <h2 id="cta-heading" class="sr-only">Next steps</h2>
+        <p class="cta-band__body">
+          For the short version, download the résumé. For the fuller picture, use the Work and Projects &amp; Labs pages.
+        </p>
+        <div class="cta-band__actions">
+          <Button href="/jason-st-george-resume.pdf" variant="primary">Download Resume</Button>
+          <Button href="/contact" variant="secondary">Get in Touch</Button>
+          <Button href="/work" variant="secondary">View Work</Button>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .hero-buttons {
-    display: flex;
-    gap: var(--sp-4);
-    margin-top: var(--sp-6);
-    flex-wrap: wrap;
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
-  .snapshot {
+  .page-hero {
+    padding-block: var(--sp-24) var(--sp-12);
+    border-bottom: 1px solid var(--color-line);
+    background-color: var(--color-bone);
+  }
+
+  .page-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-top: var(--sp-4);
+  }
+
+  .page-hero__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 38em;
+  }
+
+  .summary {
+    padding-block: var(--sp-16);
+  }
+
+  .summary__text {
     font: var(--text-body-lg);
     font-family: var(--font-sans);
     color: var(--color-ink);
     max-width: 42em;
+    margin: 0;
   }
 
-  .section-heading {
+  .highlights {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .highlights__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .highlights__item {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    margin: 0;
+  }
+
+  .experience {
+    padding-block: var(--sp-16);
+  }
+
+  .experience__heading {
     font: var(--text-h2);
     font-family: var(--font-serif);
     font-weight: 500;
-    margin-bottom: var(--sp-6);
+    margin-bottom: var(--sp-4);
   }
 
-  .education-list {
+  .experience__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-8);
+    max-width: 38em;
+  }
+
+  .experience__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .experience__entry {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: var(--sp-4);
+    padding-bottom: var(--sp-6);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .experience__entry:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .experience__period {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-slate);
+    padding-top: 0.15em;
+  }
+
+  .experience__content {
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .experience__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--color-ink);
+    margin: 0 0 var(--sp-2);
+  }
+
+  .experience__details {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin: 0;
+    max-width: none;
+  }
+
+  .publications {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .publications__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-4);
+  }
+
+  .publications__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-6);
+    max-width: 38em;
+  }
+
+  .publications__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: var(--sp-4);
   }
 
-  .education-item {
-    padding-bottom: var(--sp-4);
-    border-bottom: 1px solid var(--color-line);
-  }
-
-  .education-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .education-degree {
-    font-family: var(--font-serif);
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--color-ink);
-    margin-bottom: var(--sp-1);
-  }
-
-  .education-school {
-    font: var(--text-meta);
+  .publications__item {
+    font: var(--text-body);
     font-family: var(--font-sans);
-    color: var(--color-brass);
+    color: var(--color-slate);
+    margin: 0;
+    max-width: 42em;
+  }
+
+  .publications__title {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .publications__venue {
+    color: var(--color-slate);
+  }
+
+  .cta-band {
+    padding-block: var(--sp-24);
+    border-top: 1px solid var(--color-line);
+    background-color: var(--color-warm-wash);
+  }
+
+  .cta-band__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-band__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 34em;
+    text-align: center;
+    margin-bottom: var(--sp-8);
+  }
+
+  .cta-band__actions {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding-block: var(--sp-16) var(--sp-8);
+    }
+
+    .page-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+
+    .highlights__list {
+      grid-template-columns: 1fr;
+    }
+
+    .experience__entry {
+      grid-template-columns: 1fr;
+      gap: var(--sp-1);
+    }
   }
 </style>

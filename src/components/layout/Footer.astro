@@ -1,5 +1,5 @@
 ---
-import { SITE, NAV_LINKS, ENDORSED_PROPERTIES } from '@/lib/site';
+import { SITE, NAV_LINKS, UTILITY_LINKS, ENDORSED_PROPERTIES } from '@/lib/site';
 ---
 
 <footer class="footer">
@@ -8,7 +8,7 @@ import { SITE, NAV_LINKS, ENDORSED_PROPERTIES } from '@/lib/site';
       <div class="footer__brand">
         <p class="footer__name">{SITE.name}</p>
         <p class="footer__tagline">
-          Systems for truth, coordination, and value<br />under adversarial conditions.
+          Systems for verification, capability, and value<br />under adversarial conditions.
         </p>
       </div>
 
@@ -16,6 +16,9 @@ import { SITE, NAV_LINKS, ENDORSED_PROPERTIES } from '@/lib/site';
         <p class="footer__heading">Navigation</p>
         <ul class="footer__links" role="list">
           {NAV_LINKS.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+          {UTILITY_LINKS.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
           ))}
         </ul>
@@ -27,8 +30,6 @@ import { SITE, NAV_LINKS, ENDORSED_PROPERTIES } from '@/lib/site';
           {ENDORSED_PROPERTIES.map((prop) => (
             <li><a href={prop.url}>{prop.name} <span class="footer__prop-tag">— {prop.tagline}</span></a></li>
           ))}
-          <li><a href={SITE.social.github}>GitHub</a></li>
-          <li><a href={SITE.social.linkedin}>LinkedIn</a></li>
           <li><a href={`mailto:${SITE.email}`}>Contact Jason</a></li>
         </ul>
       </div>

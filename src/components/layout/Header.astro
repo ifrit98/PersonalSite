@@ -1,5 +1,5 @@
 ---
-import { SITE, NAV_LINKS, AFTERFIAT_URL, ESCHATOLOGY_URL, GAMUT_URL } from '@/lib/site';
+import { SITE, NAV_LINKS, UTILITY_LINKS, AFTERFIAT_URL } from '@/lib/site';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -25,8 +25,9 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <div class="header__utility">
-      <a href={GAMUT_URL} class="header__utility-link">GAMUT</a>
-      <a href={ESCHATOLOGY_URL} class="header__utility-link">Eschatology Report</a>
+      {UTILITY_LINKS.map((link) => (
+        <a href={link.href} class="header__utility-link">{link.label}</a>
+      ))}
       <a href={AFTERFIAT_URL} class="header__cta">Read AfterFiat</a>
     </div>
 
@@ -52,8 +53,9 @@ const currentPath = Astro.url.pathname;
     </nav>
     <div class="header__mobile-utility">
       <a href={AFTERFIAT_URL} class="header__cta">Read AfterFiat</a>
-      <a href={ESCHATOLOGY_URL} class="header__utility-link">Eschatology Report</a>
-      <a href={GAMUT_URL} class="header__utility-link">GAMUT</a>
+      {UTILITY_LINKS.map((link) => (
+        <a href={link.href} class="header__utility-link">{link.label}</a>
+      ))}
     </div>
   </div>
 </header>
@@ -160,7 +162,6 @@ const currentPath = Astro.url.pathname;
     color: var(--color-bone);
   }
 
-  /* Mobile toggle — 44px minimum touch target */
   .header__mobile-toggle {
     display: none;
     background: none;
@@ -197,7 +198,6 @@ const currentPath = Astro.url.pathname;
   .header__hamburger::before { top: -6px; }
   .header__hamburger::after { top: 6px; }
 
-  /* Hamburger → X animation */
   .header__mobile-toggle[aria-expanded="true"] .header__hamburger {
     background-color: transparent;
   }
@@ -212,7 +212,6 @@ const currentPath = Astro.url.pathname;
     transform: rotate(-45deg);
   }
 
-  /* Mobile menu panel */
   .header__mobile-menu {
     display: none;
   }

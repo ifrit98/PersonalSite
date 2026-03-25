@@ -1,20 +1,617 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import HeroHome from '@/components/sections/HeroHome.astro';
-import ProofBar from '@/components/sections/ProofBar.astro';
-import FeatureGrid from '@/components/sections/FeatureGrid.astro';
-import SelectedWorkPreview from '@/components/sections/SelectedWorkPreview.astro';
-import AssociatedProperties from '@/components/sections/AssociatedProperties.astro';
-import ShortBio from '@/components/sections/ShortBio.astro';
-import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+import Button from '@/components/ui/Button.astro';
+import {
+  SITE,
+  AFTERFIAT_URL,
+  ESCHATOLOGY_URL,
+  GAMUT_URL,
+  CAPABILITY_COMMONS_URL,
+  ALCHEMICALAI_URL,
+} from '@/lib/site';
 ---
 
-<BaseLayout>
-  <HeroHome />
-  <ProofBar />
-  <FeatureGrid />
-  <SelectedWorkPreview />
-  <AssociatedProperties />
-  <ShortBio />
-  <CallToActionBand />
+<BaseLayout description={SITE.description}>
+  <section class="home-hero fade-up">
+    <div class="container container--narrow">
+      <h1 class="home-hero__title">Systems for verification, capability, and value under adversarial conditions</h1>
+      <p class="home-hero__body">
+        I design systems that have to remain legible when trust degrades: protocols, ML infrastructure,
+        knowledge platforms, long-form writing, and formal research. My work sits at the boundary
+        between computation, institutions, culture, and lived capability.
+      </p>
+      <div class="home-hero__actions">
+        <Button href="/work" variant="brass">View Work</Button>
+        <Button href="/projects" variant="ghost">Explore Projects &amp; Labs</Button>
+        <Button href={AFTERFIAT_URL} variant="ghost">Read AfterFiat</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-proof fade-up" aria-label="Experience highlights">
+    <div class="container">
+      <ul class="home-proof__list">
+        <li class="home-proof__item">7+ years across secure and decentralized systems</li>
+        <li class="home-proof__item">Sub-50ms operational inference on constrained hardware</li>
+        <li class="home-proof__item">Distributed ML in classified and air-gapped environments</li>
+        <li class="home-proof__item">Peer-reviewed research and long-form public writing</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="home-build fade-up" aria-labelledby="home-build-heading">
+    <div class="container">
+      <h2 id="home-build-heading" class="home-build__heading">What I Build</h2>
+      <p class="home-build__intro">
+        The work has several public faces, but the underlying question is the same: what still works
+        when soft guarantees fail?
+      </p>
+      <div class="home-build__grid">
+        <article class="home-card">
+          <h3 class="home-card__title">Protocols &amp; Verification</h3>
+          <p class="home-card__body">
+            Threat models, incentive design, proofs, privacy-preserving architecture, and systems
+            built to remain credible when counterparties are strategic.
+          </p>
+        </article>
+        <article class="home-card">
+          <h3 class="home-card__title">ML Infrastructure &amp; Edge Systems</h3>
+          <p class="home-card__body">
+            Distributed training, secure deployment, latency-sensitive inference, sensor fusion, and
+            production workflows designed for actual operating conditions.
+          </p>
+        </article>
+        <article class="home-card">
+          <h3 class="home-card__title">Knowledge Systems &amp; Public Capability</h3>
+          <p class="home-card__body">
+            Platforms that turn scattered information into usable skill through structured retrieval,
+            versioned knowledge objects, and clear paths from need to action.
+          </p>
+        </article>
+        <article class="home-card">
+          <h3 class="home-card__title">Writing, Money &amp; Civilizational Systems</h3>
+          <p class="home-card__body">
+            Long-form work on verification collapse, synthetic media, repression, sovereignty, money,
+            coordination, and the search for durable value.
+          </p>
+        </article>
+        <article class="home-card">
+          <h3 class="home-card__title">Music, Form &amp; Research</h3>
+          <p class="home-card__body">
+            Formal work in musical geometry, sonification, and structure — the research thread
+            underneath how I think about pattern, invariants, and lawful motion.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-properties fade-up" aria-labelledby="home-properties-heading">
+    <div class="container">
+      <h2 id="home-properties-heading" class="home-properties__heading">Featured Properties</h2>
+      <p class="home-properties__intro">
+        These are the main public surfaces of the work: thesis, essays, research, capability
+        infrastructure, and applied systems.
+      </p>
+      <div class="home-properties__grid">
+        <a href={AFTERFIAT_URL} class="home-property">
+          <span class="home-property__eyebrow">Thesis / Blueprint</span>
+          <span class="home-property__name">AfterFiat</span>
+          <p class="home-property__desc">
+            A book-length thesis on privacy, proofs, and verified compute as monetary primitives for a
+            dense digital civilization.
+          </p>
+        </a>
+        <a href={ESCHATOLOGY_URL} class="home-property">
+          <span class="home-property__eyebrow">Publication / Essays</span>
+          <span class="home-property__name">Eschatology Report</span>
+          <p class="home-property__desc">
+            Essays and dossiers on AI, culture, institutional drift, symbolic overload, and the search
+            for workable orientation.
+          </p>
+        </a>
+        <a href={CAPABILITY_COMMONS_URL} class="home-property">
+          <span class="home-property__eyebrow">Public Infrastructure / Knowledge Platform</span>
+          <span class="home-property__name">Capability Commons</span>
+          <p class="home-property__desc">
+            A structured knowledge platform for practical public capability across water, food,
+            shelter, power, repair, and community.
+          </p>
+        </a>
+        <a href={GAMUT_URL} class="home-property">
+          <span class="home-property__eyebrow">Research Program / Formal Mathematics</span>
+          <span class="home-property__name">GAMUT</span>
+          <p class="home-property__desc">
+            A formal research program on the geometry of musical possibility, from pitch content and
+            cyclic order to symplectic structure.
+          </p>
+        </a>
+        <a href={ALCHEMICALAI_URL} class="home-property">
+          <span class="home-property__eyebrow">Applied Systems / Commercial</span>
+          <span class="home-property__name">AlchemicalAI</span>
+          <p class="home-property__desc">
+            The applied and commercial surface for selected architecture, infrastructure, and systems
+            work.
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-work fade-up" aria-labelledby="home-work-heading">
+    <div class="container">
+      <h2 id="home-work-heading" class="home-work__heading">Selected Work Preview</h2>
+      <p class="home-work__intro">
+        A few examples of the broader thesis expressed in shipped systems, operational constraints, and
+        public infrastructure.
+      </p>
+      <ul class="home-work__list">
+        <li>
+          <a href="/work#adversarial-storage-incentives" class="home-work__link">
+            <div class="home-work__text">
+              <span class="home-work__title">Adversarial Storage &amp; Incentives</span>
+              <span class="home-work__summary">
+                Built and led a ciphertext-only storage network where storage is proved over time rather
+                than claimed once, paired with long-horizon incentive and reputation design.
+              </span>
+            </div>
+            <span class="home-work__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="/work#real-time-underwater-detection" class="home-work__link">
+            <div class="home-work__text">
+              <span class="home-work__title">Real-Time Detection &amp; Edge Inference</span>
+              <span class="home-work__summary">
+                Led hybrid DSP + ML systems for latency-sensitive classification on edge hardware,
+                optimized around operational metrics rather than lab-only accuracy.
+              </span>
+            </div>
+            <span class="home-work__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="/work#secure-distributed-ml" class="home-work__link">
+            <div class="home-work__text">
+              <span class="home-work__title">Secure Distributed ML Infrastructure</span>
+              <span class="home-work__summary">
+                Built distributed fine-tuning and serving workflows inside air-gapped environments where
+                every dependency, artifact, and operator workflow had to justify itself.
+              </span>
+            </div>
+            <span class="home-work__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="/capability-commons" class="home-work__link">
+            <div class="home-work__text">
+              <span class="home-work__title">Capability Commons</span>
+              <span class="home-work__summary">
+                Designed a Postgres-first knowledge platform for practical literacy across water, food,
+                shelter, power, repair, and community-scale competence.
+              </span>
+            </div>
+            <span class="home-work__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+      <div class="home-work__cta">
+        <Button href="/work" variant="primary">View Work</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-throughline fade-up">
+    <div class="container container--narrow">
+      <div class="home-throughline__inner">
+        <p>
+          Some people arrive here through protocols. Others through writing, research, knowledge
+          systems, or music. The underlying problem is the same: when persuasion scales faster than
+          proof, what structures still let people verify reality, coordinate action, and preserve value?
+        </p>
+        <p>
+          Some of my work answers that in code. Some answers it in writing. Some answers it in formal
+          research or public capability infrastructure. To me these are not separate careers. They are
+          different surfaces of the same question.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-final fade-up">
+    <div class="container container--narrow">
+      <p class="home-final__body">
+        Start with shipped systems. Then follow the thread into the writing, the research, and the
+        longer-lived labs.
+      </p>
+      <div class="home-final__actions">
+        <Button href="/work" variant="primary">Start with Work</Button>
+        <Button href="/projects" variant="secondary">Explore Projects &amp; Labs</Button>
+        <Button href="/contact" variant="secondary">Get in Touch</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .home-hero {
+    background-color: var(--color-dark-surface);
+    color: var(--color-dark-text);
+    padding-block: var(--sp-24) var(--sp-16);
+    border-bottom: 1px solid var(--color-dark-line);
+  }
+
+  .home-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-dark-text);
+    letter-spacing: -0.01em;
+    max-width: 20ch;
+  }
+
+  .home-hero__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-dark-muted);
+    margin-top: var(--sp-6);
+    max-width: 38em;
+  }
+
+  .home-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-4) var(--sp-6);
+    margin-top: var(--sp-8);
+  }
+
+  .home-proof {
+    padding-block: var(--sp-12);
+    background-color: var(--color-bone);
+    background-image: linear-gradient(
+      180deg,
+      var(--color-warm-wash) 0%,
+      transparent 100%
+    );
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .home-proof__list {
+    list-style: none;
+    display: grid;
+    gap: var(--sp-6);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .home-proof__list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .home-proof__list {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--sp-8);
+    }
+  }
+
+  .home-proof__item {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    padding-left: var(--sp-4);
+    border-left: 3px solid var(--color-brass);
+  }
+
+  .home-build {
+    padding-block: var(--sp-16);
+    background-color: var(--color-bone);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .home-build__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-4);
+  }
+
+  .home-build__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 42em;
+    margin-bottom: var(--sp-8);
+  }
+
+  .home-build__grid {
+    display: grid;
+    gap: var(--sp-6);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .home-build__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .home-build__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .home-card {
+    background-color: var(--color-card-elevated);
+    border-radius: var(--radius-card);
+    padding: var(--sp-6);
+    box-shadow: var(--shadow-card-rest);
+    border: 1px solid var(--color-line);
+    transition:
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
+  }
+
+  .home-card:hover {
+    box-shadow: var(--shadow-card-lift);
+  }
+
+  .home-card__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-3);
+  }
+
+  .home-card__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: none;
+  }
+
+  .home-properties {
+    padding-block: var(--sp-16);
+    background-color: var(--color-bone);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .home-properties__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-4);
+  }
+
+  .home-properties__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 42em;
+    margin-bottom: var(--sp-8);
+  }
+
+  .home-properties__grid {
+    display: grid;
+    gap: var(--sp-6);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .home-properties__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .home-properties__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .home-property {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    padding: var(--sp-6);
+    background-color: var(--color-card-elevated);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-card-rest);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      box-shadow var(--duration-normal) var(--ease-out),
+      border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .home-property:hover {
+    box-shadow: var(--shadow-card-lift);
+    border-color: rgba(169, 135, 82, 0.35);
+  }
+
+  .home-property__eyebrow {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+  }
+
+  .home-property__name {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .home-property__desc {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-2);
+    max-width: none;
+  }
+
+  .home-work {
+    padding-block: var(--sp-16);
+    background-color: var(--color-bone);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .home-work__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-4);
+  }
+
+  .home-work__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 42em;
+    margin-bottom: var(--sp-8);
+  }
+
+  .home-work__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .home-work__list li {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .home-work__link {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding-block: var(--sp-6);
+    color: inherit;
+    text-decoration: none;
+    transition: background-color var(--duration-normal) var(--ease-out);
+  }
+
+  .home-work__link:hover {
+    background-color: var(--color-warm-wash);
+  }
+
+  .home-work__link:hover .home-work__arrow {
+    color: var(--color-brass);
+    transform: translateX(4px);
+  }
+
+  .home-work__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    min-width: 0;
+  }
+
+  .home-work__title {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .home-work__summary {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  .home-work__arrow {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    color: var(--color-brass);
+    line-height: 1.4;
+    transition:
+      color var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
+  }
+
+  .home-work__cta {
+    margin-top: var(--sp-8);
+  }
+
+  .home-throughline {
+    padding-block: var(--sp-24) var(--sp-20);
+    background-color: var(--color-bone);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .home-throughline__inner {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .home-throughline__inner p {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 38em;
+    margin-inline: auto;
+  }
+
+  .home-throughline__inner p + p {
+    margin-top: var(--sp-6);
+  }
+
+  .home-final {
+    padding-block: var(--sp-16) var(--sp-24);
+    background-color: var(--color-bone);
+    background-image: linear-gradient(
+      180deg,
+      var(--color-warm-wash) 0%,
+      transparent 55%
+    );
+    border-top: 1px solid var(--color-line);
+    text-align: center;
+  }
+
+  .home-final__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 36em;
+    margin-inline: auto;
+  }
+
+  .home-final__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-4);
+    margin-top: var(--sp-8);
+  }
+
+  @media (max-width: 768px) {
+    .home-hero {
+      padding-block: var(--sp-16) var(--sp-12);
+    }
+
+    .home-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+
+    .home-work__link {
+      padding-block: var(--sp-4);
+    }
+  }
+</style>

@@ -1,164 +1,222 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/sections/PageHero.astro';
-import NarrativeSection from '@/components/sections/NarrativeSection.astro';
-import WritingSurfaceGrid from '@/components/sections/WritingSurfaceGrid.astro';
-import StartHereList from '@/components/sections/StartHereList.astro';
-import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+import Button from '@/components/ui/Button.astro';
 import { AFTERFIAT_URL, ESCHATOLOGY_URL } from '@/lib/site';
 
 const themes = [
   {
-    label: 'Verification & Trust',
-    desc: 'What happens when soft guarantees fail and cheap verification replaces institutional authority.',
+    title: 'Verification & Synthetic Media',
+    body:
+      'How do proof, provenance, and legibility survive in an environment saturated with cheap persuasion and machine-scale forgery?',
   },
   {
-    label: 'Synthetic Media & Epistemic Collapse',
-    desc: 'Deepfakes, AI-generated reality, and the structural crisis of knowing what is real.',
+    title: 'Money, Sovereignty & Repression',
+    body:
+      'What becomes necessary when settlement, speech, identity, and ownership can no longer rely on soft guarantees alone?',
   },
   {
-    label: 'Money, Repression & Sovereignty',
-    desc: 'Post-Bretton Woods monetary drift, financial repression, and the search for neutral stores of value.',
+    title: 'AI, Institutions & Culture',
+    body:
+      'How do technical systems reshape culture, authority, labor, and symbolic life long before anyone agrees on a final theory?',
   },
   {
-    label: 'Coordination & Civilizational Constraint',
-    desc: 'How systems hold together — or fail to — under adversarial conditions and institutional decline.',
+    title: 'Form, Meaning & Orientation',
+    body:
+      'What kinds of structure still help people think clearly when the surrounding environment becomes accelerated, noisy, and strategically distorted?',
   },
-  {
-    label: 'Existential Orientation',
-    desc: 'Agency, dignity, and the problem of modern selfhood when inherited scripts stop working.',
-  },
-  {
-    label: 'Practical Public Capability',
-    desc: 'Recovering and transmitting useful knowledge as infrastructure — teach-forward literacy for resilience.',
-  },
-];
+] as const;
 
-const featured = [
+const startPaths = [
   {
-    title: 'Next-Gen Store of Value: Privacy, Proofs, Compute',
-    type: 'Thesis',
-    surface: 'AfterFiat',
-    blurb: 'The core argument: post-Bretton Woods money is compliance-backed, not reserve-backed. When compliance becomes weaponized, savings need privacy the way ships need hulls. Three cryptographic capacities — privacy, proofs, and compute — can function as monetary primitives. The thesis builds a seven-layer cypherpunk stack from verifiable machines up through settlement and governance.',
-    href: AFTERFIAT_URL,
+    n: '01',
+    label: 'For systems builders',
+    body:
+      'Start with AfterFiat if you want the most explicit argument about verification, proofs, compute, settlement, and the architecture of durable value.',
   },
   {
-    title: 'The Failure of Soft Guarantees',
-    type: 'Chapter / Essay',
-    surface: 'AfterFiat §1',
-    blurb: 'The twentieth century ran on soft guarantees: the promise that money would preserve purchasing power, that televised images would correspond to facts, that institutions would be slow, sober, and legible. The twenty-first runs on different physics. When the symbols of trust are cheaper to counterfeit than to maintain, the market seeks a new substrate.',
-    href: `${AFTERFIAT_URL}/v/1.0/read/part-i/1-failure-of-soft-guarantees/`,
+    n: '02',
+    label: 'For general readers',
+    body:
+      'Start with Eschatology Report if you want the wider field: AI, culture, institutions, symbolic overload, and civilizational mood.',
   },
   {
-    title: 'The World Forces New Monetary Primitives',
-    type: 'Chapter / Essay',
-    surface: 'AfterFiat §2',
-    blurb: 'Total global debt sits at roughly 2.4x world GDP. Historically, such overhangs are closed via financial repression — inflation plus regulation that imposes negative real returns. When repression becomes the spread, capital quietly rotates to neutral, bearer-like rails. Enter the triad: privacy as anti-seizure hull, proofs as cheap public verification, compute as non-coupon revenue base.',
-    href: `${AFTERFIAT_URL}/v/1.0/read/part-i/2-world-forces-new-monetary-primitives/`,
+    n: '03',
+    label: 'For people mapping the whole body of work',
+    body:
+      'Read the writing alongside the Work and Projects & Labs pages. The thesis becomes clearer when you can see the engineering, research, and public infrastructure around it.',
   },
-  {
-    title: 'Why Music Wants a Geometry',
-    type: 'Essay / Part I',
-    surface: 'GAMUT',
-    blurb: 'The opening essay in a three-part mathematical series. The moment one stops asking for the familiar and instead asks for the possible, the floor drops away: 4,096 subsets, 479 million ordered rows, 1.3 billion ordered collections. Cyclic autocorrelation gives the first serious fingerprint of content — and its Fourier shadow plants the seed for everything that follows.',
-    href: 'https://musicalgeometry.replit.app/essays/part-i-why-music-wants-a-geometry/',
-  },
-];
+] as const;
 ---
 
 <BaseLayout
   title="Writing"
-  description="Essays, theses, and long-form work on verification, synthetic media, civilizational constraint, and the search for workable orientation."
+  description="Essays, theses, and long-form work on verification, synthetic media, sovereignty, money, and civilizational constraint."
 >
-  <PageHero
-    eyebrow="Writing"
-    title="Writing"
-    body="Essays, theses, and long-form work on verification, synthetic media, civilizational constraint, and the search for workable orientation."
-  />
-
-  <NarrativeSection>
-    <p>
-      The writing extends the same core problem explored in the systems work: what survives when
-      institutional legibility fails and synthetic persuasion scales. The throughline is
-      straightforward — when trust becomes expensive and synthetic noise becomes cheap, how do we
-      maintain signal, coordination, and genuine value?
-    </p>
-    <p>
-      The two primary surfaces are <strong>AfterFiat</strong>, a book-length thesis on the
-      infrastructure of credible truth and value in the AI era, and <strong>Eschatology Report</strong>,
-      an ongoing publication on philosophy, AI, culture, and civilizational systems. Both are
-      summarized below with enough context to evaluate the work before following any outbound link.
-    </p>
-  </NarrativeSection>
-
-  <WritingSurfaceGrid />
-
-  <section class="themes fade-up">
-    <div class="container">
-      <h2 class="themes__heading">Thematic Map</h2>
-      <p class="themes__intro">
-        The writing moves across these interlocking themes. Each appears in both the thesis and the
-        ongoing essay work; the separation is organizational, not ideological.
+  <section class="writing-hero fade-up">
+    <div class="container container--narrow">
+      <h1 class="writing-hero__title">Writing</h1>
+      <p class="writing-hero__body">
+        The writing extends the same core problem explored in the systems work: what survives when
+        institutional legibility fails and synthetic persuasion scales? The two main public surfaces
+        are AfterFiat, a thesis on privacy, proofs, and compute as monetary primitives, and
+        Eschatology Report, a publication on AI, culture, coordination, and orientation.
       </p>
-      <div class="themes__grid">
-        {themes.map((t) => (
-          <div class="themes__item">
-            <h3 class="themes__label">{t.label}</h3>
-            <p class="themes__desc">{t.desc}</p>
-          </div>
-        ))}
+    </div>
+  </section>
+
+  <section class="writing-overview fade-up">
+    <div class="container container--narrow">
+      <p class="writing-overview__text">
+        I write because systems problems eventually become civilizational problems. When trust
+        becomes expensive and synthetic noise becomes cheap, technical architecture alone is not
+        enough. You also need language, frameworks, and public arguments strong enough to help people
+        see what is changing and why it matters.
+      </p>
+    </div>
+  </section>
+
+  <section class="writing-surfaces fade-up">
+    <div class="container">
+      <h2 class="writing-surfaces__heading">Writing Surfaces</h2>
+      <p class="writing-surfaces__intro">
+        One surface is thesis-driven and architectural. The other is essayistic, exploratory, and
+        responsive to the broader cultural field.
+      </p>
+      <div class="writing-surfaces__grid">
+        <a href={AFTERFIAT_URL} class="surface-card">
+          <p class="surface-card__eyebrow">Thesis / Blueprint</p>
+          <h3 class="surface-card__title">AfterFiat</h3>
+          <p class="surface-card__body">
+            AfterFiat is a book-length thesis on the infrastructure of credible truth and durable
+            value in the AI era. It argues that privacy-preserving settlement, portable proofs, and
+            verified compute are not peripheral technical features but emerging monetary primitives
+            for a world shaped by repression, forgery, synthetic media, and epistemic decay.
+          </p>
+          <span class="surface-card__cta">Read AfterFiat →</span>
+        </a>
+        <a href={ESCHATOLOGY_URL} class="surface-card">
+          <p class="surface-card__eyebrow">Publication / Essays</p>
+          <h3 class="surface-card__title">Eschatology Report</h3>
+          <p class="surface-card__body">
+            Eschatology Report is the essay and publication layer: writing on AI acceleration,
+            symbolic overload, institutional drift, culture, philosophy, and the search for
+            workable orientation. It is where the broader atmosphere around the systems questions
+            becomes visible.
+          </p>
+          <span class="surface-card__cta">Read Eschatology Report →</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="featured fade-up">
+  <section class="writing-themes fade-up">
     <div class="container">
-      <h2 class="featured__heading">Featured Pieces</h2>
-      <p class="featured__intro">
-        Selected work that represents the range and seriousness of the writing project.
+      <h2 class="writing-themes__heading">Themes</h2>
+      <p class="writing-themes__intro">
+        The writing returns to a handful of themes often enough that they function like a standing
+        research agenda.
       </p>
-      <div class="featured__list">
-        {featured.map((f) => (
-          <a href={f.href} class="featured__card">
-            <div class="featured__card-meta">
-              <span class="featured__type">{f.type}</span>
-              <span class="featured__surface">{f.surface}</span>
-            </div>
-            <h3 class="featured__title">{f.title}</h3>
-            <p class="featured__blurb">{f.blurb}</p>
-          </a>
-        ))}
-      </div>
+      <ul class="writing-themes__list">
+        {
+          themes.map((t) => (
+            <li class="theme-item">
+              <h3 class="theme-item__title">{t.title}</h3>
+              <p class="theme-item__body">{t.body}</p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
-  <StartHereList />
+  <section class="writing-start fade-up">
+    <div class="container container--narrow">
+      <h2 class="writing-start__heading">Start Here</h2>
+      <p class="writing-start__intro">
+        If this is your first time here, choose the entry point that matches the question you are
+        really trying to answer.
+      </p>
+      <ul class="writing-start__list">
+        {
+          startPaths.map((p) => (
+            <li class="start-path">
+              <span class="start-path__num" aria-hidden="true">
+                {p.n}
+              </span>
+              <div class="start-path__content">
+                <p class="start-path__label">{p.label}</p>
+                <p class="start-path__body">{p.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
-  <CallToActionBand
-    heading="Read the work"
-    body="Start with AfterFiat for the thesis, then continue into Eschatology Report for the ongoing publication work."
-    actions={[
-      { label: 'Read AfterFiat', href: AFTERFIAT_URL, variant: 'primary' },
-      { label: 'Visit Eschatology Report', href: ESCHATOLOGY_URL, variant: 'secondary' },
-      { label: 'Contact Jason', href: '/contact', variant: 'secondary' },
-    ]}
-  />
+  <section class="writing-cta fade-up">
+    <div class="container container--narrow">
+      <p class="writing-cta__body">
+        Read the thesis for the architecture. Read the essays for the atmosphere. Use both if you
+        want the full picture.
+      </p>
+      <div class="writing-cta__actions">
+        <Button href={AFTERFIAT_URL} variant="primary">Read AfterFiat</Button>
+        <Button href={ESCHATOLOGY_URL} variant="secondary">Read Eschatology Report</Button>
+        <Button href="/work" variant="secondary">View Work</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .themes {
-    padding-block: var(--sp-16);
-    border-top: 1px solid var(--color-line);
+  .writing-hero {
+    padding-block: var(--sp-24) var(--sp-12);
+    background-color: var(--color-bone);
+    border-bottom: 1px solid var(--color-line);
   }
 
-  .themes__heading {
+  .writing-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .writing-hero__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 38em;
+  }
+
+  .writing-overview {
+    padding-block: var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .writing-overview__text {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 42em;
+  }
+
+  .writing-surfaces {
+    padding-block: var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .writing-surfaces__heading {
     font: var(--text-h2);
     font-family: var(--font-serif);
     font-weight: 500;
+    color: var(--color-ink);
     margin-bottom: var(--sp-2);
   }
 
-  .themes__intro {
+  .writing-surfaces__intro {
     font: var(--text-body);
     font-family: var(--font-sans);
     color: var(--color-slate);
@@ -166,118 +224,223 @@ const featured = [
     max-width: 42em;
   }
 
-  .themes__grid {
+  .writing-surfaces__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--sp-4);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+    align-items: stretch;
   }
 
-  .themes__item {
-    padding: var(--sp-5) var(--sp-6);
-    border-left: 2px solid var(--color-brass);
-  }
-
-  .themes__label {
-    font: var(--text-body);
-    font-family: var(--font-serif);
-    font-weight: 500;
-    color: var(--color-ink);
-    margin-bottom: var(--sp-2);
-  }
-
-  .themes__desc {
-    font: var(--text-meta);
-    font-family: var(--font-sans);
-    color: var(--color-slate);
-    line-height: 1.6;
-  }
-
-  .featured {
-    padding-block: var(--sp-16);
-    border-top: 1px solid var(--color-line);
-  }
-
-  .featured__heading {
-    font: var(--text-h2);
-    font-family: var(--font-serif);
-    font-weight: 500;
-    margin-bottom: var(--sp-2);
-  }
-
-  .featured__intro {
-    font: var(--text-body);
-    font-family: var(--font-sans);
-    color: var(--color-slate);
-    margin-bottom: var(--sp-8);
-  }
-
-  .featured__list {
+  .surface-card {
     display: flex;
     flex-direction: column;
-    gap: var(--sp-4);
-  }
-
-  .featured__card {
-    display: block;
-    padding: var(--sp-6);
-    border: 1px solid rgba(16, 24, 38, 0.08);
-    border-radius: var(--radius-card);
+    padding: var(--sp-8) var(--sp-8);
     background-color: var(--color-card-elevated);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-line);
+    border-top: 3px solid var(--color-brass);
     box-shadow: var(--shadow-card-rest);
     text-decoration: none;
+    color: inherit;
     transition:
       box-shadow var(--duration-normal) var(--ease-out),
       transform var(--duration-normal) var(--ease-out);
   }
 
-  .featured__card:hover {
+  .surface-card:hover {
     box-shadow: var(--shadow-card-lift);
     transform: translateY(-2px);
   }
 
-  .featured__card-meta {
-    display: flex;
-    gap: var(--sp-3);
-    margin-bottom: var(--sp-2);
-  }
-
-  .featured__type {
+  .surface-card__eyebrow {
     font: var(--text-mono-meta);
     font-family: var(--font-mono);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--color-brass);
-    font-size: 0.6875rem;
+    margin-bottom: var(--sp-3);
+    max-width: none;
   }
 
-  .featured__surface {
-    font: var(--text-mono-meta);
-    font-family: var(--font-mono);
-    letter-spacing: 0.04em;
-    color: var(--color-slate);
-    font-size: 0.6875rem;
-  }
-
-  .featured__title {
+  .surface-card__title {
     font: var(--text-h3);
     font-family: var(--font-serif);
     font-weight: 500;
     color: var(--color-ink);
-    margin-bottom: var(--sp-3);
-    font-size: 1.0625rem;
+    margin-bottom: var(--sp-4);
   }
 
-  .featured__blurb {
+  .surface-card__body {
     font: var(--text-body);
     font-family: var(--font-sans);
     color: var(--color-slate);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: var(--sp-6);
+    max-width: none;
+  }
+
+  .surface-card__cta {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-brass);
+  }
+
+  .surface-card:hover .surface-card__cta {
+    color: var(--color-oxblood);
+  }
+
+  .writing-themes {
+    padding-block: var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .writing-themes__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-2);
+  }
+
+  .writing-themes__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-8);
+    max-width: 42em;
+  }
+
+  .writing-themes__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .theme-item {
+    padding: var(--sp-6);
+    border-left: 3px solid var(--color-brass);
+  }
+
+  .theme-item__title {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-2);
+  }
+
+  .theme-item__body {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
     max-width: 50em;
-    line-height: 1.7;
+  }
+
+  .writing-start {
+    padding-block: var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .writing-start__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-2);
+  }
+
+  .writing-start__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-8);
+    max-width: 42em;
+  }
+
+  .writing-start__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+  }
+
+  .start-path {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--sp-4) var(--sp-6);
+    align-items: start;
+  }
+
+  .start-path__num {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    color: var(--color-brass);
+    padding-top: 0.15em;
+  }
+
+  .start-path__label {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-2);
+    max-width: none;
+  }
+
+  .start-path__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.65;
+    max-width: none;
+  }
+
+  .writing-cta {
+    padding-block: var(--sp-24);
+    background-color: var(--color-warm-wash);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .writing-cta__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    text-align: center;
+    margin-inline: auto;
+    margin-bottom: var(--sp-8);
+    max-width: 34em;
+  }
+
+  .writing-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-4);
+    justify-content: center;
+    align-items: center;
   }
 
   @media (max-width: 768px) {
-    .themes__grid {
+    .writing-hero {
+      padding-block: var(--sp-16) var(--sp-8);
+    }
+
+    .writing-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+
+    .writing-surfaces__grid {
       grid-template-columns: 1fr;
+    }
+
+    .surface-card {
+      padding: var(--sp-6) var(--sp-6);
     }
   }
 </style>
