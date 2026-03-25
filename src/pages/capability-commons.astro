@@ -582,41 +582,42 @@ const graphStats = [
   .cc-type-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--sp-3);
-    align-items: stretch;
+    gap: var(--sp-6);
+    grid-auto-rows: 1fr;
   }
 
   .cc-type-grid__item {
     display: flex;
     flex-direction: column;
-    gap: var(--sp-1);
-    padding: var(--sp-4) var(--sp-5);
-    border: 1px solid rgba(16, 24, 38, 0.06);
+    gap: var(--sp-2);
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
     border-left: 3px solid var(--color-brass);
     border-radius: var(--radius-card);
     background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
   }
 
   .cc-type-grid__code {
     font: var(--text-mono-meta);
     font-family: var(--font-mono);
     color: var(--color-slate);
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     letter-spacing: 0.04em;
   }
 
   .cc-type-grid__name {
     font-family: var(--font-serif);
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-ink);
   }
 
   .cc-type-grid__purpose {
-    font: var(--text-meta);
+    font: var(--text-body);
     font-family: var(--font-sans);
     color: var(--color-slate);
-    line-height: 1.5;
+    line-height: 1.6;
     flex: 1;
   }
 
@@ -656,7 +657,7 @@ const graphStats = [
   }
 
   .cc-stats-grid__item {
-    padding: var(--sp-4) var(--sp-5);
+    padding: var(--sp-4);
     border-left: 2px solid var(--color-brass);
     display: flex;
     flex-direction: column;
@@ -691,19 +692,20 @@ const graphStats = [
   .cc-arch-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--sp-4);
-    align-items: stretch;
+    gap: var(--sp-6);
+    grid-auto-rows: 1fr;
   }
 
   .cc-arch-grid__item {
-    padding: var(--sp-5) var(--sp-6);
+    padding: var(--sp-6);
     border: 1px solid rgba(16, 24, 38, 0.06);
     border-left: 3px solid var(--color-brass);
     border-radius: var(--radius-card);
     background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
     display: flex;
     flex-direction: column;
-    gap: var(--sp-2);
+    gap: var(--sp-3);
   }
 
   .cc-arch-grid__item strong {
@@ -718,8 +720,8 @@ const graphStats = [
     font: var(--text-body);
     font-family: var(--font-sans);
     color: var(--color-slate);
-    line-height: 1.55;
-    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
   }
 
   code {
@@ -748,16 +750,13 @@ const graphStats = [
   .cc-modules__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--sp-4);
-  }
-
-  .cc-modules__grid {
-    align-items: stretch;
+    gap: var(--sp-6);
+    grid-auto-rows: 1fr;
   }
 
   .cc-modules__card {
-    padding: var(--sp-5) var(--sp-6);
-    border: 1px solid rgba(16, 24, 38, 0.08);
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
     border-left: 3px solid var(--color-brass);
     border-radius: var(--radius-card);
     background-color: var(--color-card-elevated);
@@ -784,13 +783,13 @@ const graphStats = [
 
   .cc-modules__title {
     font-family: var(--font-serif);
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-ink);
   }
 
   .cc-modules__desc {
-    font: var(--text-meta);
+    font: var(--text-body);
     font-family: var(--font-sans);
     color: var(--color-slate);
     line-height: 1.6;
@@ -800,7 +799,7 @@ const graphStats = [
   .cc-modules__status {
     font: var(--text-mono-meta);
     font-family: var(--font-mono);
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     margin-top: var(--sp-2);
@@ -889,19 +888,20 @@ const graphStats = [
   .cc-docs-index__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--sp-4);
-    align-items: stretch;
+    gap: var(--sp-6);
+    grid-auto-rows: 1fr;
   }
 
   .cc-docs-index__item {
     display: flex;
     gap: var(--sp-3);
     align-items: flex-start;
-    padding: var(--sp-5) var(--sp-5);
-    border: 1px solid rgba(16, 24, 38, 0.06);
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
     border-left: 3px solid var(--color-brass);
     border-radius: var(--radius-card);
     background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
   }
 
   .cc-docs-index__icon {
@@ -914,17 +914,17 @@ const graphStats = [
   .cc-docs-index__item strong {
     display: block;
     font-family: var(--font-serif);
-    font-size: 0.9375rem;
+    font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-ink);
-    margin-bottom: var(--sp-1);
+    margin-bottom: var(--sp-2);
   }
 
   .cc-docs-index__item p {
-    font: var(--text-meta);
+    font: var(--text-body);
     font-family: var(--font-sans);
     color: var(--color-slate);
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
   /* ── Roadmap ── */
