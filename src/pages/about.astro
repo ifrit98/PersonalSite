@@ -1,93 +1,374 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/sections/PageHero.astro';
-import NarrativeSection from '@/components/sections/NarrativeSection.astro';
-import Section from '@/components/ui/Section.astro';
-import FocusGrid from '@/components/sections/FocusGrid.astro';
-import PrinciplesGrid from '@/components/sections/PrinciplesGrid.astro';
-import CallToActionBand from '@/components/sections/CallToActionBand.astro';
+import Button from '@/components/ui/Button.astro';
 ---
 
 <BaseLayout
   title="About"
-  description="Background, throughline, and current focus — protocol design, infrastructure, real-time ML, writing, and formal research."
+  description="Protocol, infrastructure, ML, writing, and research shaped by a deeper concern for verification, form, and systems that survive pressure."
 >
-  <PageHero
-    eyebrow="About"
-    title="About"
-    body="I work on systems that need to remain credible under pressure."
-  />
+  <section class="page-hero fade-up" aria-labelledby="about-hero-title">
+    <div class="container container--narrow">
+      <h1 id="about-hero-title" class="page-hero__title">About</h1>
+      <p class="page-hero__body">
+        I work on systems that need to remain credible under pressure.
+      </p>
+    </div>
+  </section>
 
-  <NarrativeSection>
-    <p>
-      My background sits at the intersection of protocol design, infrastructure, real-time machine
-      learning, and long-form research. On the engineering side, that has meant building
-      privacy-preserving and adversarial systems, working on distributed ML pipelines, and shipping
-      real-time detection systems in operational settings. On the research and writing side, it has
-      meant trying to articulate what happens to trust, coordination, and value when verification
-      remains expensive but persuasion and forgery become cheap.
-    </p>
-    <p>
-      Recent public-facing work includes distributed LLM fine-tuning in TS/SCI environments,
-      real-time underwater detection work supporting Navy follow-on programs, AfterFiat, and two
-      peer-reviewed papers spanning music generation and astrophysical sonification.
-    </p>
-    <p>
-      I'm most interested in systems that do not assume benign conditions. That includes threat
-      modeling, incentive design, production operations, and the design of mechanisms that remain
-      legible and resilient when the surrounding environment becomes noisy, strategic, or
-      adversarial. In practice, that has included work across decentralized storage protocols,
-      distributed LLM fine-tuning, real-time underwater detection, and formal research in music and
-      sonification.
-    </p>
-    <p>
-      A second thread running through all of this is form. I studied music formally before moving
-      into computer science, and I still think in terms of structure, counterpoint, invariants,
-      tension, and resolution. That is one reason my work tends to move across engineering, writing,
-      and research without feeling discontinuous to me: they are all, at some level, questions about
-      signal, pattern, and coordination.
-    </p>
-  </NarrativeSection>
+  <section class="narrative fade-up" aria-labelledby="narrative-heading">
+    <div class="container container--narrow">
+      <h2 id="narrative-heading" class="sr-only">Background</h2>
+      <div class="narrative__body">
+        <p>
+          My background crosses protocol design, infrastructure, real-time machine learning,
+          long-form writing, and formal research. What connects those domains is not résumé
+          variety. It is a recurring problem: how do you preserve signal, coordination, and
+          durable value when the surrounding environment becomes noisy, strategic, or adversarial?
+        </p>
+        <p>
+          I came into technical work through music. Long before I was thinking about threat
+          models or distributed systems, I was thinking about counterpoint, tension and
+          resolution, invariants, motion, and form. That training never disappeared. It still
+          shapes how I approach engineering, research, and writing.
+        </p>
+        <p>
+          In practice, that has meant building privacy-preserving and adversarial systems,
+          working on distributed ML and secure infrastructure, shipping latency-sensitive
+          detection systems, and writing about verification collapse, synthetic media, money,
+          sovereignty, and institutional drift. It has also meant trying to make serious work
+          publicly legible rather than hiding it inside specialist language.
+        </p>
+        <p>
+          I am not interested only in software abstractions. I care about the systems households
+          and communities actually depend on: power, water, shelter, repair, tools, local
+          competence, and the transmission of usable knowledge. That concern sits directly behind
+          Capability Commons. Public capability is not a side interest. It is part of the same
+          broader architecture.
+        </p>
+      </div>
+    </div>
+  </section>
 
-  <Section>
-    <h2>What I Work On</h2>
-    <ul class="work-list" role="list">
-      <li>Protocol and infrastructure design</li>
-      <li>Distributed systems and production ML</li>
-      <li>Real-time detection and edge inference</li>
-      <li>Writing on verification, repression, and synthetic media</li>
-      <li>Research in music, sonification, and formal structure</li>
-    </ul>
-  </Section>
+  <section class="work-on fade-up" aria-labelledby="work-on-heading">
+    <div class="container">
+      <h2 id="work-on-heading" class="section-heading">What I Work On</h2>
+      <p class="section-intro">
+        The visible work spans several domains, but they all feed the same deeper concern.
+      </p>
+      <div class="work-on__grid">
+        <article class="work-on__card">
+          <h3 class="work-on__title">Protocols, Proofs &amp; Incentives</h3>
+          <p class="work-on__body">
+            Verification, mechanism design, privacy-preserving systems, and structures that
+            remain legible under strategic behavior.
+          </p>
+        </article>
+        <article class="work-on__card">
+          <h3 class="work-on__title">ML Infrastructure &amp; Operational Systems</h3>
+          <p class="work-on__body">
+            Distributed training, secure deployment, real-time inference, edge systems, and
+            production workflows built for reality rather than theater.
+          </p>
+        </article>
+        <article class="work-on__card">
+          <h3 class="work-on__title">Writing on Money, AI &amp; Civilizational Systems</h3>
+          <p class="work-on__body">
+            Long-form work on verification, synthetic media, coordination, repression,
+            sovereignty, and durable value.
+          </p>
+        </article>
+        <article class="work-on__card">
+          <h3 class="work-on__title">Knowledge Architecture &amp; Public Capability</h3>
+          <p class="work-on__body">
+            Platforms, schemas, retrieval systems, and teach-forward structures that help people
+            move from information to action.
+          </p>
+        </article>
+        <article class="work-on__card">
+          <h3 class="work-on__title">Music, Geometry &amp; Formal Research</h3>
+          <p class="work-on__body">
+            Research into sound, symmetry, lawful form, and the deeper structures that continue
+            to shape how I think.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-  <FocusGrid />
-  <PrinciplesGrid />
+  <section class="principles fade-up" aria-labelledby="principles-heading">
+    <div class="container">
+      <h2 id="principles-heading" class="section-heading">Principles</h2>
+      <p class="section-intro">
+        A few principles show up often enough that they function as a working philosophy.
+      </p>
+      <div class="principles__list">
+        <article class="principles__item">
+          <h3 class="principles__title">Verification over posture</h3>
+          <p class="principles__body">
+            I trust proofs, receipts, clear mechanisms, and measurable behavior more than
+            slogans, vibes, or borrowed prestige.
+          </p>
+        </article>
+        <article class="principles__item">
+          <h3 class="principles__title">Operations over theater</h3>
+          <p class="principles__body">
+            I care about what survives contact with latency, logistics, budgets, adversaries,
+            partial observability, and actual conditions of use.
+          </p>
+        </article>
+        <article class="principles__item">
+          <h3 class="principles__title">Structure across domains</h3>
+          <p class="principles__body">
+            Engineering, writing, music, and research all become clearer when treated as problems
+            of form: relation, motion, tension, invariants, and composition.
+          </p>
+        </article>
+        <article class="principles__item">
+          <h3 class="principles__title">Public legibility matters</h3>
+          <p class="principles__body">
+            Serious work should survive scrutiny without becoming unreadable. Depth and clarity
+            are not enemies.
+          </p>
+        </article>
+        <article class="principles__item">
+          <h3 class="principles__title">Digital systems meet physical reality</h3>
+          <p class="principles__body">
+            Software eventually lands in bodies, homes, households, tools, grids, and
+            institutions. I care about that full stack.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-  <CallToActionBand
-    heading="Explore the work"
-    body="From engineering case studies to published research and long-form writing."
-    actions={[
-      { label: 'View Work', href: '/work', variant: 'primary' },
-      { label: 'Read Research', href: '/research', variant: 'secondary' },
-      { label: 'Get in Touch', href: '/contact', variant: 'secondary' },
-    ]}
-  />
+  <section class="current-focus fade-up" aria-labelledby="focus-heading">
+    <div class="container container--narrow">
+      <h2 id="focus-heading" class="section-heading">Current Focus</h2>
+      <p class="current-focus__body">
+        Right now, the work clusters around systems that preserve signal under adversarial
+        conditions, writing on verification and monetary architecture, knowledge infrastructure
+        for practical public capability, and formal research on music, geometry, and lawful
+        structure. I also take on selective architecture-heavy work where the problem is real and
+        the constraints matter.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-band fade-up" aria-labelledby="about-cta-heading">
+    <div class="container">
+      <div class="cta-band__inner">
+        <h2 id="about-cta-heading" class="sr-only">Where to start</h2>
+        <p class="cta-band__body">
+          If you want shipped systems, start with Work. If you want the larger map, go to
+          Projects &amp; Labs. If you want to talk, reach out.
+        </p>
+        <div class="cta-band__actions">
+          <Button href="/work" variant="primary">View Work</Button>
+          <Button href="/projects" variant="secondary">Explore Projects &amp; Labs</Button>
+          <Button href="/contact" variant="secondary">Get in Touch</Button>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .work-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-3);
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .page-hero {
+    padding-block: var(--sp-24) var(--sp-12);
+    border-bottom: 1px solid var(--color-line);
+    background-color: var(--color-bone);
+  }
+
+  .page-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-top: var(--sp-4);
+  }
+
+  .page-hero__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 38em;
+  }
+
+  .narrative {
+    padding-block: var(--sp-16);
+  }
+
+  .narrative__body p {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 42em;
+    margin: 0;
+  }
+
+  .narrative__body p + p {
     margin-top: var(--sp-6);
   }
 
-  .work-list li {
+  .section-heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .section-intro {
     font: var(--text-body);
     font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 40em;
+  }
+
+  .work-on {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .work-on__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+    margin-top: var(--sp-8);
+  }
+
+  .work-on__card {
+    background: var(--color-card-elevated);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card-rest);
+    padding: var(--sp-6);
+    transition: box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .work-on__card:hover {
+    box-shadow: var(--shadow-card-lift);
+  }
+
+  .work-on__title {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
     color: var(--color-ink);
-    padding-left: var(--sp-4);
-    border-left: 2px solid var(--color-brass);
+  }
+
+  .work-on__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-3);
+    max-width: none;
+  }
+
+  .principles {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .principles__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: var(--sp-8);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .principles__item {
+    padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
+    border-bottom: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-brass);
+  }
+
+  .principles__title {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-2);
+  }
+
+  .principles__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin: 0;
+    max-width: none;
+  }
+
+  .current-focus {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .current-focus__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-top: var(--sp-4);
+    max-width: 42em;
+  }
+
+  .cta-band {
+    padding-block: var(--sp-24);
+    border-top: 1px solid var(--color-line);
+    background-color: var(--color-warm-wash);
+  }
+
+  .cta-band__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-band__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 34em;
+    text-align: center;
+    margin-bottom: var(--sp-8);
+  }
+
+  .cta-band__actions {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding-block: var(--sp-16) var(--sp-8);
+    }
+
+    .page-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+    }
+
+    .work-on__grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
