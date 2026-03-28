@@ -1,0 +1,62 @@
+---
+const isChat = Astro.url.pathname.startsWith('/chat');
+---
+
+{!isChat && (
+  <a href="/chat" class="chat-fab" aria-label="Ask about my work">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <span class="chat-fab__label">Ask</span>
+  </a>
+)}
+
+<style>
+  .chat-fab {
+    position: fixed;
+    bottom: var(--sp-6);
+    right: var(--sp-6);
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: var(--sp-3) var(--sp-5);
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-bone);
+    background: var(--color-ink);
+    border-radius: 2rem;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(16, 24, 38, 0.18);
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .chat-fab:hover {
+    background: var(--color-oxblood);
+    color: var(--color-bone);
+    box-shadow: 0 6px 20px rgba(16, 24, 38, 0.22);
+    transform: translateY(-1px);
+  }
+
+  .chat-fab__label {
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 640px) {
+    .chat-fab__label {
+      display: none;
+    }
+
+    .chat-fab {
+      padding: var(--sp-3);
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      justify-content: center;
+    }
+  }
+</style>

@@ -1,0 +1,16 @@
+import OpenAI from 'openai';
+
+let _client: OpenAI | null = null;
+
+export function getOpenAI(): OpenAI {
+  if (_client) return _client;
+
+  const apiKey = import.meta.env.OPENAI_API_KEY ?? process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('Missing OPENAI_API_KEY');
+  }
+
+  _client = new OpenAI({ apiKey });
+  return _client;
+}

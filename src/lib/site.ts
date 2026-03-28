@@ -25,6 +25,7 @@ export const NAV_LINKS = [
   { label: 'Projects & Labs', href: '/projects' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
+  { label: 'Ask', href: '/chat' },
 ] as const;
 
 export const UTILITY_LINKS = [

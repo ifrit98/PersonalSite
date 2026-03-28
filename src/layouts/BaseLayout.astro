@@ -1,6 +1,7 @@
 ---
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
+import ChatButton from '@/components/chat/ChatButton.astro';
 import { buildMeta, type SEOProps } from '@/lib/seo';
 import '@/styles/global.css';
 
@@ -36,6 +37,7 @@ const meta = buildMeta(Astro.props);
       <slot />
     </main>
     <Footer />
+    <ChatButton />
     <script>
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const observer = new IntersectionObserver(
