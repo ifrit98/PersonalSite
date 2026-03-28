@@ -1,12 +1,53 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
+import {
+  AFTERFIAT_URL,
+  ESCHATOLOGY_URL,
+  CAPABILITY_COMMONS_URL,
+  GAMUT_URL,
+  ALCHEMICALAI_URL,
+} from '@/lib/site';
 
 const highlights = [
   'Multi-million-dollar protocol operations',
   'Sub-50ms operational inference',
   '7+ years across secure systems',
   'Peer-reviewed research and public writing',
+  '5 originated public properties and programs',
+] as const;
+
+const programs = [
+  {
+    name: 'AfterFiat',
+    role: 'Author',
+    desc: 'Thesis on privacy, proofs, and verified compute as monetary primitives',
+    href: AFTERFIAT_URL,
+  },
+  {
+    name: 'Eschatology Report',
+    role: 'Author / Editor',
+    desc: 'Publication on AI, culture, institutions, and civilizational systems',
+    href: ESCHATOLOGY_URL,
+  },
+  {
+    name: 'Capability Commons',
+    role: 'Founder / Architect',
+    desc: 'Public knowledge platform for practical capability across water, food, shelter, power, repair, and community',
+    href: CAPABILITY_COMMONS_URL,
+  },
+  {
+    name: 'GAMUT',
+    role: 'Researcher',
+    desc: 'Formal research program on the geometry of musical possibility and lawful form',
+    href: GAMUT_URL,
+  },
+  {
+    name: 'AlchemicalAI',
+    role: 'Founder',
+    desc: 'Applied systems and commercial surface for selected architecture and infrastructure work',
+    href: ALCHEMICALAI_URL,
+  },
 ] as const;
 
 const experiences = [
@@ -143,6 +184,28 @@ const toolchain = {
     </div>
   </section>
 
+  <section class="programs fade-up" aria-labelledby="programs-heading">
+    <div class="container">
+      <h2 id="programs-heading" class="section__heading">Independent Programs &amp; Publications</h2>
+      <p class="section__intro">
+        Originated properties, research programs, and public writing — each built from scratch as part of the same architecture.
+      </p>
+      <div class="programs__list">
+        {programs.map((p) => (
+          <a
+            href={p.href}
+            class="programs__entry"
+            {...(p.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+          >
+            <span class="programs__name">{p.name}</span>
+            <span class="programs__role">{p.role}</span>
+            <span class="programs__desc">{p.desc}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="experience fade-up" aria-labelledby="experience-heading">
     <div class="container">
       <h2 id="experience-heading" class="section__heading">Work Experience</h2>
@@ -234,7 +297,7 @@ const toolchain = {
           For the short version, download the résumé. For the fuller picture, use the Work and Projects &amp; Labs pages.
         </p>
         <div class="cta-band__actions">
-          <Button href="/jason-st-george-resume.pdf" variant="primary">Download Resume</Button>
+          <Button href="/papers/resume.pdf" variant="primary">Download Resume</Button>
           <Button href="/contact" variant="secondary">Get in Touch</Button>
           <Button href="/work" variant="secondary">View Work</Button>
         </div>
@@ -365,6 +428,54 @@ const toolchain = {
     color: var(--color-slate);
     margin: 0;
     line-height: 1.6;
+  }
+
+  .programs {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .programs__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .programs__entry {
+    display: grid;
+    grid-template-columns: 10rem 9rem 1fr;
+    gap: var(--sp-4);
+    align-items: baseline;
+    padding: var(--sp-4) var(--sp-4) var(--sp-4) var(--sp-5);
+    border-bottom: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-brass);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--duration-normal) var(--ease-out);
+  }
+
+  .programs__entry:hover {
+    background-color: var(--color-warm-wash);
+  }
+
+  .programs__name {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .programs__role {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+  }
+
+  .programs__desc {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
   }
 
   .experience {
@@ -621,6 +732,11 @@ const toolchain = {
 
     .proof-points__list {
       grid-template-columns: 1fr;
+    }
+
+    .programs__entry {
+      grid-template-columns: 1fr;
+      gap: var(--sp-1);
     }
 
     .experience__entry,
