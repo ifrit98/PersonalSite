@@ -18,6 +18,7 @@ export const GAMUT_URL = 'https://musicalgeometry.replit.app';
 export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
 export const CAPABILITY_COMMONS_URL = '/capability-commons';
 export const CAPABILITY_COMMONS_GITHUB = 'https://github.com/Granite-Labs-LLC/CapabilityCommons';
+export const STRUCTURE_LAB_URL = '/work#structure-lab';
 
 export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
@@ -70,5 +71,12 @@ export const ENDORSED_PROPERTIES = [
     description:
       'The applied and commercial surface for selected architecture, infrastructure, and systems work.',
     url: ALCHEMICALAI_URL,
+  },
+  {
+    name: 'Structure Lab',
+    tagline: 'Quantitative Finance / Optimization',
+    description:
+      'An options payoff-engineering platform that uses MILP optimization to construct optimal multi-leg structures from user-defined intent.',
+    url: STRUCTURE_LAB_URL,
   },
 ] as const;

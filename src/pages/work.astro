@@ -30,6 +30,7 @@ void AFTERFIAT_URL;
         <li class="outcomes__item">Distributed ML in secure environments</li>
         <li class="outcomes__item">Multi-million-dollar protocol operations</li>
         <li class="outcomes__item">Public capability platform architecture</li>
+        <li class="outcomes__item">MILP-optimized financial construction</li>
       </ul>
     </div>
   </section>
@@ -64,6 +65,14 @@ void AFTERFIAT_URL;
           </p>
         </article>
         <article class="area-card fade-up" style="--stagger: 240ms">
+          <h3 class="area-card__title">Quantitative Systems &amp; Mathematical Optimization</h3>
+          <p class="area-card__body">
+            Constrained optimization, payoff engineering, combinatorial construction problems,
+            deterministic reproducibility, and two-language architectures bridging quant engines
+            with production web stacks.
+          </p>
+        </article>
+        <article class="area-card fade-up" style="--stagger: 320ms">
           <h3 class="area-card__title">Systems Architecture &amp; Technical Leadership</h3>
           <p class="area-card__body">
             Cross-domain integration, technical translation, architecture review,
@@ -198,6 +207,51 @@ void AFTERFIAT_URL;
           </dl>
         </article>
 
+        <article class="case-card" id="structure-lab">
+          <span class="case-card__meta">Quantitative Finance / Optimization</span>
+          <h3 class="case-card__title">Structure Lab (GEX)</h3>
+          <p class="case-card__role"><span class="case-card__label">Role</span> Architect, full-stack, quant engine design</p>
+          <p class="case-card__problem">
+            <span class="case-card__label">Problem</span>
+            Options structure construction is a combinatorially explosive problem. Traders navigate it
+            by heuristic — choosing familiar patterns rather than systematically optimizing for cost,
+            robustness, and simplicity.
+          </p>
+          <p class="case-card__narrative">
+            Built a payoff-engineering platform that replaces heuristic structure selection with
+            mixed-integer linear programming (MILP). The user describes a target payoff shape —
+            floor, cap, horizon, symbol — and the system constructs the optimal multi-leg option
+            structures via branch-and-bound optimization over the listed chain. Three solver passes
+            with different objective weight profiles explore the Pareto frontier, a multi-dimensional
+            scorer evaluates each solution across cost, simplicity, robustness, and liquidity, and a
+            selector returns exactly three distinct candidates: cheapest, simplest, most robust.
+          </p>
+          <dl class="case-card__dl">
+            <div class="case-card__dl-row">
+              <dt>Constraints</dt>
+              <dd>
+                Integer contract quantities (MILP), 10-second solve budget per pass, deterministic
+                reproducibility, two-language split (TypeScript web stack + Python quant engine),
+                piecewise-linear payoff matching across 9 grid points
+              </dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Stack</dt>
+              <dd>
+                Next.js 15 / React 19, Express, FastAPI, OR-Tools CBC solver, PostgreSQL, Docker Compose,
+                Turborepo monorepo
+              </dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Outcomes</dt>
+              <dd>
+                3–15s full pipeline (chain generation → optimization → scoring → selection); 35 quant
+                engine tests; 2 templates live (Phase 1), 8 planned; deterministic version-stamped outputs
+              </dd>
+            </div>
+          </dl>
+        </article>
+
         <article class="case-card" id="capability-commons">
           <span class="case-card__meta">Public Initiative / Platform</span>
           <h3 class="case-card__title">Capability Commons</h3>
@@ -309,7 +363,7 @@ void AFTERFIAT_URL;
   .outcomes__list {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: var(--sp-6);
   }
 
@@ -546,9 +600,9 @@ void AFTERFIAT_URL;
     border: 0;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
     .outcomes__list {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 

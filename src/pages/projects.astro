@@ -7,6 +7,7 @@ import {
   GAMUT_URL,
   CAPABILITY_COMMONS_URL,
   ALCHEMICALAI_URL,
+  STRUCTURE_LAB_URL,
 } from '@/lib/site';
 
 const coreProperties = [
@@ -45,6 +46,13 @@ const coreProperties = [
     body: 'The commercial and applied surface for selected architecture, infrastructure, and systems work.',
     external: true,
   },
+  {
+    name: 'Structure Lab',
+    href: STRUCTURE_LAB_URL,
+    tagline: 'Quantitative Finance / Optimization',
+    body: 'An options payoff-engineering platform using MILP optimization to construct optimal multi-leg structures from user-defined payoff intent.',
+    external: false,
+  },
 ] as const;
 
 const labDirections = [
@@ -59,6 +67,10 @@ const labDirections = [
   {
     title: 'Public Capability & Local Resilience',
     body: 'Tools and knowledge systems — grounded in real household and community conditions — that help people recover practical competence across infrastructure, maintenance, and everyday dependence.',
+  },
+  {
+    title: 'Quantitative Finance & Construction Quality',
+    body: 'Mathematical optimization applied to financial instrument construction — replacing heuristic selection with constrained solvers that produce provably good structures along cost, robustness, and simplicity dimensions.',
   },
   {
     title: 'Music, Geometry & Lawful Form',
@@ -143,8 +155,10 @@ const labDirections = [
         AfterFiat asks what kind of epistemic and monetary architecture becomes necessary when soft
         guarantees fail. Eschatology Report widens that question into culture, institutions, and
         orientation. Capability Commons turns part of the answer into public infrastructure. GAMUT
-        carries the older research thread on form, order, and lawful motion. AlchemicalAI is the
-        applied surface where some of these ideas meet clients, systems, and implementation.
+        carries the older research thread on form, order, and lawful motion. Structure Lab applies
+        mathematical optimization to financial construction — the same instinct toward provable
+        quality over heuristic familiarity. AlchemicalAI is the applied surface where some of these
+        ideas meet clients, systems, and implementation.
       </p>
       <p class="map__text map__text--emphasis">
         Taken together, they form one map rather than several disconnected brands.
