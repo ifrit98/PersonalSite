@@ -162,8 +162,8 @@ const toolchain = {
   <section class="highlights fade-up" aria-label="Career highlights">
     <div class="container">
       <ul class="highlights__list" role="list">
-        {highlights.map((item) => (
-          <li class="highlights__item">{item}</li>
+        {highlights.map((item, i) => (
+          <li class="highlights__item fade-up" style={`--stagger: ${i * 80}ms`}>{item}</li>
         ))}
       </ul>
     </div>
@@ -174,8 +174,8 @@ const toolchain = {
       <h2 id="proof-heading" class="section__heading">Proof Points</h2>
       <p class="section__intro">Selected wins with transferable outcomes.</p>
       <div class="proof-points__list">
-        {proofPoints.map((pp) => (
-          <article class="proof-points__item">
+        {proofPoints.map((pp, i) => (
+          <article class="proof-points__item fade-up" style={`--stagger: ${i * 80}ms`}>
             <h3 class="proof-points__title">{pp.title}</h3>
             <p class="proof-points__body">{pp.body}</p>
           </article>
@@ -191,10 +191,11 @@ const toolchain = {
         Originated properties, research programs, and public writing — each built from scratch as part of the same architecture.
       </p>
       <div class="programs__list">
-        {programs.map((p) => (
+        {programs.map((p, i) => (
           <a
             href={p.href}
-            class="programs__entry"
+            class="programs__entry fade-up"
+            style={`--stagger: ${i * 60}ms`}
             {...(p.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
           >
             <span class="programs__name">{p.name}</span>

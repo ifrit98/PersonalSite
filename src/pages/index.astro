@@ -13,18 +13,70 @@ import {
 
 <BaseLayout description={SITE.description}>
   <section class="home-hero fade-up">
-    <div class="container container--narrow">
-      <h1 class="home-hero__title">Systems for verification, capability, and value under adversarial conditions</h1>
-      <p class="home-hero__body">
-        I build and originate the systems, platforms, and public properties that have to remain
-        legible when trust degrades: protocols, ML infrastructure, knowledge platforms, long-form
-        writing, and formal research. My work sits at the boundary between computation,
-        institutions, culture, and lived capability.
-      </p>
-      <div class="home-hero__actions">
-        <Button href="/work" variant="brass">View Work</Button>
-        <Button href="/projects" variant="ghost">Explore Projects &amp; Labs</Button>
-        <Button href={AFTERFIAT_URL} variant="ghost">Read AfterFiat</Button>
+    <div class="container home-hero__grid">
+      <div class="home-hero__content">
+        <h1 class="home-hero__title">Systems for verification, capability, and value under adversarial conditions</h1>
+        <p class="home-hero__body">
+          I build and originate the systems, platforms, and public properties that have to remain
+          legible when trust degrades: protocols, ML infrastructure, knowledge platforms, long-form
+          writing, and formal research. My work sits at the boundary between computation,
+          institutions, culture, and lived capability.
+        </p>
+        <div class="home-hero__actions">
+          <Button href="/work" variant="brass">View Work</Button>
+          <Button href="/projects" variant="ghost">Explore Projects &amp; Labs</Button>
+          <Button href={AFTERFIAT_URL} variant="ghost">Read AfterFiat</Button>
+        </div>
+      </div>
+      <div class="home-hero__visual" aria-hidden="true">
+        <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" class="home-hero__svg">
+          <defs>
+            <radialGradient id="motif-glow" cx="40%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(169,135,82,0.04)" />
+              <stop offset="100%" stop-color="transparent" />
+            </radialGradient>
+          </defs>
+          <circle cx="250" cy="250" r="220" fill="url(#motif-glow)" />
+          <g stroke="rgba(169,135,82,0.27)" stroke-width="0.75" fill="none">
+            <circle cx="250" cy="250" r="190" />
+            <circle cx="250" cy="250" r="140" />
+            <circle cx="250" cy="250" r="90" />
+            <circle cx="250" cy="250" r="40" opacity="0.5" />
+            <line x1="60" y1="250" x2="440" y2="250" />
+            <line x1="250" y1="60" x2="250" y2="440" />
+            <line x1="115" y1="115" x2="385" y2="385" opacity="0.6" />
+            <line x1="385" y1="115" x2="115" y2="385" opacity="0.6" />
+            <line x1="250" y1="60" x2="385" y2="115" opacity="0.45" />
+            <line x1="385" y1="115" x2="440" y2="250" opacity="0.45" />
+            <line x1="440" y1="250" x2="385" y2="385" opacity="0.45" />
+            <line x1="385" y1="385" x2="250" y2="440" opacity="0.45" />
+            <line x1="250" y1="440" x2="115" y2="385" opacity="0.45" />
+            <line x1="115" y1="385" x2="60" y2="250" opacity="0.45" />
+            <line x1="60" y1="250" x2="115" y2="115" opacity="0.45" />
+            <line x1="115" y1="115" x2="250" y2="60" opacity="0.45" />
+            <line x1="250" y1="110" x2="340" y2="160" opacity="0.3" />
+            <line x1="340" y1="160" x2="390" y2="250" opacity="0.3" />
+            <line x1="390" y1="250" x2="340" y2="340" opacity="0.3" />
+            <line x1="340" y1="340" x2="250" y2="390" opacity="0.3" />
+            <line x1="250" y1="390" x2="160" y2="340" opacity="0.3" />
+            <line x1="160" y1="340" x2="110" y2="250" opacity="0.3" />
+            <line x1="110" y1="250" x2="160" y2="160" opacity="0.3" />
+            <line x1="160" y1="160" x2="250" y2="110" opacity="0.3" />
+          </g>
+          <circle cx="250" cy="60" r="4" fill="var(--color-brass)" opacity="0.75" />
+          <circle cx="250" cy="440" r="4" fill="var(--color-brass)" opacity="0.75" />
+          <circle cx="60" cy="250" r="4" fill="var(--color-brass)" opacity="0.75" />
+          <circle cx="440" cy="250" r="4" fill="var(--color-brass)" opacity="0.75" />
+          <circle cx="115" cy="115" r="3" fill="var(--color-brass)" opacity="0.5" />
+          <circle cx="385" cy="115" r="3" fill="var(--color-brass)" opacity="0.5" />
+          <circle cx="115" cy="385" r="3" fill="var(--color-brass)" opacity="0.5" />
+          <circle cx="385" cy="385" r="3" fill="var(--color-brass)" opacity="0.5" />
+          <circle cx="250" cy="110" r="2.5" fill="var(--color-brass)" opacity="0.4" />
+          <circle cx="390" cy="250" r="2.5" fill="var(--color-brass)" opacity="0.4" />
+          <circle cx="250" cy="390" r="2.5" fill="var(--color-brass)" opacity="0.4" />
+          <circle cx="110" cy="250" r="2.5" fill="var(--color-brass)" opacity="0.4" />
+          <circle cx="250" cy="250" r="5" fill="var(--color-brass)" opacity="0.8" />
+        </svg>
       </div>
     </div>
   </section>
@@ -32,10 +84,10 @@ import {
   <section class="home-proof fade-up" aria-label="Experience highlights">
     <div class="container">
       <ul class="home-proof__list">
-        <li class="home-proof__item">7+ years across secure and decentralized systems</li>
-        <li class="home-proof__item">Sub-50ms operational inference on constrained hardware</li>
-        <li class="home-proof__item">Distributed ML in classified and air-gapped environments</li>
-        <li class="home-proof__item">Peer-reviewed research and long-form public writing</li>
+        <li class="home-proof__item fade-up" style="--stagger: 0ms">7+ years across secure and decentralized systems</li>
+        <li class="home-proof__item fade-up" style="--stagger: 80ms">Sub-50ms operational inference on constrained hardware</li>
+        <li class="home-proof__item fade-up" style="--stagger: 160ms">Distributed ML in classified and air-gapped environments</li>
+        <li class="home-proof__item fade-up" style="--stagger: 240ms">Peer-reviewed research and long-form public writing</li>
       </ul>
     </div>
   </section>
@@ -48,21 +100,21 @@ import {
         when soft guarantees fail?
       </p>
       <div class="home-build__grid">
-        <article class="home-card">
+        <article class="home-card fade-up" style="--stagger: 0ms">
           <h3 class="home-card__title">Protocols &amp; Verification</h3>
           <p class="home-card__body">
             Threat models, incentive design, proofs, privacy-preserving architecture, and systems
             built to remain credible when counterparties are strategic.
           </p>
         </article>
-        <article class="home-card">
+        <article class="home-card fade-up" style="--stagger: 80ms">
           <h3 class="home-card__title">ML Infrastructure &amp; Edge Systems</h3>
           <p class="home-card__body">
             Distributed training, secure deployment, latency-sensitive inference, sensor fusion, and
             production workflows designed for actual operating conditions.
           </p>
         </article>
-        <article class="home-card">
+        <article class="home-card fade-up" style="--stagger: 160ms">
           <h3 class="home-card__title">Knowledge Systems &amp; Public Capability</h3>
           <p class="home-card__body">
             Platforms that turn scattered information into usable skill — across water, shelter,
@@ -70,14 +122,14 @@ import {
             objects, and clear paths from need to action.
           </p>
         </article>
-        <article class="home-card">
+        <article class="home-card fade-up" style="--stagger: 240ms">
           <h3 class="home-card__title">Writing, Money &amp; Civilizational Systems</h3>
           <p class="home-card__body">
             Long-form work on verification collapse, synthetic media, repression, sovereignty, money,
             coordination, and the search for durable value.
           </p>
         </article>
-        <article class="home-card">
+        <article class="home-card fade-up" style="--stagger: 320ms">
           <h3 class="home-card__title">Music, Form &amp; Research</h3>
           <p class="home-card__body">
             Formal work in musical geometry, sonification, and structure — the research thread
@@ -97,7 +149,7 @@ import {
         architecture.
       </p>
       <div class="home-properties__grid">
-        <a href={AFTERFIAT_URL} class="home-property">
+        <a href={AFTERFIAT_URL} class="home-property fade-up" style="--stagger: 0ms">
           <span class="home-property__eyebrow">Thesis / Blueprint</span>
           <span class="home-property__name">AfterFiat</span>
           <p class="home-property__desc">
@@ -105,7 +157,7 @@ import {
             dense digital civilization.
           </p>
         </a>
-        <a href={ESCHATOLOGY_URL} class="home-property">
+        <a href={ESCHATOLOGY_URL} class="home-property fade-up" style="--stagger: 80ms">
           <span class="home-property__eyebrow">Publication / Essays</span>
           <span class="home-property__name">Eschatology Report</span>
           <p class="home-property__desc">
@@ -113,7 +165,7 @@ import {
             for workable orientation.
           </p>
         </a>
-        <a href={CAPABILITY_COMMONS_URL} class="home-property">
+        <a href={CAPABILITY_COMMONS_URL} class="home-property fade-up" style="--stagger: 160ms">
           <span class="home-property__eyebrow">Public Infrastructure / Knowledge Platform</span>
           <span class="home-property__name">Capability Commons</span>
           <p class="home-property__desc">
@@ -121,7 +173,7 @@ import {
             shelter, power, repair, and community.
           </p>
         </a>
-        <a href={GAMUT_URL} class="home-property">
+        <a href={GAMUT_URL} class="home-property fade-up" style="--stagger: 240ms">
           <span class="home-property__eyebrow">Research Program / Formal Mathematics</span>
           <span class="home-property__name">GAMUT</span>
           <p class="home-property__desc">
@@ -129,7 +181,7 @@ import {
             cyclic order to symplectic structure.
           </p>
         </a>
-        <a href={ALCHEMICALAI_URL} class="home-property">
+        <a href={ALCHEMICALAI_URL} class="home-property fade-up" style="--stagger: 320ms">
           <span class="home-property__eyebrow">Applied Systems / Commercial</span>
           <span class="home-property__name">AlchemicalAI</span>
           <p class="home-property__desc">
@@ -237,11 +289,24 @@ import {
 </BaseLayout>
 
 <style>
+  @keyframes slow-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
   .home-hero {
     background-color: var(--color-dark-surface);
     color: var(--color-dark-text);
     padding-block: var(--sp-24) var(--sp-16);
     border-bottom: 1px solid var(--color-dark-line);
+    overflow: hidden;
+  }
+
+  .home-hero__grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--sp-12);
+    align-items: center;
   }
 
   .home-hero__title {
@@ -269,6 +334,26 @@ import {
     margin-top: var(--sp-8);
   }
 
+  .home-hero__visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: -3rem;
+  }
+
+  .home-hero__svg {
+    width: 120%;
+    max-width: 28rem;
+    height: auto;
+    animation: slow-rotate 120s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-hero__svg {
+      animation: none;
+    }
+  }
+
   .home-proof {
     padding-block: var(--sp-12);
     background-color: var(--color-bone);
@@ -278,6 +363,18 @@ import {
       transparent 100%
     );
     border-bottom: 1px solid var(--color-line);
+    position: relative;
+  }
+
+  .home-proof::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3rem;
+    height: 2px;
+    background-color: var(--color-brass);
   }
 
   .home-proof__list {
@@ -363,6 +460,7 @@ import {
 
   .home-card:hover {
     box-shadow: var(--shadow-card-lift);
+    transform: translateY(-2px);
   }
 
   .home-card__title {
@@ -434,12 +532,14 @@ import {
     color: inherit;
     transition:
       box-shadow var(--duration-normal) var(--ease-out),
-      border-color var(--duration-normal) var(--ease-out);
+      border-color var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
   }
 
   .home-property:hover {
     box-shadow: var(--shadow-card-lift);
     border-color: rgba(169, 135, 82, 0.35);
+    transform: translateY(-2px);
   }
 
   .home-property__eyebrow {
@@ -558,6 +658,18 @@ import {
     padding-block: var(--sp-24) var(--sp-20);
     background-color: var(--color-bone);
     border-top: 1px solid var(--color-line);
+    position: relative;
+  }
+
+  .home-throughline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3rem;
+    height: 2px;
+    background-color: var(--color-brass);
   }
 
   .home-throughline__inner {
@@ -565,16 +677,24 @@ import {
     margin-inline: auto;
   }
 
-  .home-throughline__inner p {
-    font: var(--text-body-lg);
-    font-family: var(--font-sans);
+  .home-throughline__inner p:first-child {
+    font-size: 1.375rem;
+    line-height: 1.55;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: italic;
     color: var(--color-ink);
-    max-width: 38em;
+    max-width: 34em;
     margin-inline: auto;
   }
 
   .home-throughline__inner p + p {
     margin-top: var(--sp-6);
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 38em;
+    margin-inline: auto;
   }
 
   .home-final {
@@ -608,6 +728,33 @@ import {
   @media (max-width: 768px) {
     .home-hero {
       padding-block: var(--sp-16) var(--sp-12);
+      position: relative;
+    }
+
+    .home-hero__grid {
+      grid-template-columns: 1fr;
+      gap: var(--sp-4);
+    }
+
+    .home-hero__visual {
+      order: -1;
+      margin-right: 0;
+      opacity: 0.15;
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .home-hero__svg {
+      width: 16rem;
+      max-width: none;
+    }
+
+    .home-hero__content {
+      position: relative;
+      z-index: 1;
     }
 
     .home-hero__title {

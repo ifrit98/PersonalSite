@@ -103,6 +103,7 @@ body::after {
   transition:
     opacity var(--duration-entrance) var(--ease-entrance),
     transform var(--duration-entrance) var(--ease-entrance);
+  transition-delay: var(--stagger, 0ms);
 }
 
 .fade-up.is-visible {

@@ -101,10 +101,11 @@ const labDirections = [
         These are the main long-lived properties through which the work becomes publicly legible.
       </p>
       <div class="core__grid" role="list">
-        {coreProperties.map((prop) => (
+        {coreProperties.map((prop, i) => (
           <a
             href={prop.href}
-            class="core__card"
+            class="core__card fade-up"
+            style={`--stagger: ${i * 80}ms`}
             role="listitem"
             {...(prop.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           >
@@ -125,8 +126,8 @@ const labDirections = [
         than a finished brand.
       </p>
       <ul class="lab__list" role="list">
-        {labDirections.map((item) => (
-          <li class="lab__item">
+        {labDirections.map((item, i) => (
+          <li class="lab__item fade-up" style={`--stagger: ${i * 60}ms`}>
             <span class="lab__title">{item.title}</span>
             <span class="lab__text">{item.body}</span>
           </li>
@@ -376,9 +377,21 @@ const labDirections = [
 
   /* CTA */
   .cta-band {
+    position: relative;
     padding-block: var(--sp-24);
     border-top: 1px solid var(--color-line);
     background-color: var(--color-warm-wash);
+  }
+
+  .cta-band::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3rem;
+    height: 2px;
+    background-color: var(--color-brass);
   }
 
   .cta-band__inner {

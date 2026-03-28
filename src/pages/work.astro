@@ -42,28 +42,28 @@ void AFTERFIAT_URL;
         conditions rather than clean-room assumptions.
       </p>
       <div class="operating__grid">
-        <article class="area-card">
+        <article class="area-card fade-up" style="--stagger: 0ms">
           <h3 class="area-card__title">Protocol &amp; Mechanism Design</h3>
           <p class="area-card__body">
             Threat modeling, incentive design, proofs, privacy-preserving architecture, and systems
             that remain coherent under strategic behavior.
           </p>
         </article>
-        <article class="area-card">
+        <article class="area-card fade-up" style="--stagger: 80ms">
           <h3 class="area-card__title">Distributed ML &amp; Production Systems</h3>
           <p class="area-card__body">
             Training orchestration, multi-GPU environments, deployment workflows, fault tolerance,
             and reproducible infrastructure in constrained settings.
           </p>
         </article>
-        <article class="area-card">
+        <article class="area-card fade-up" style="--stagger: 160ms">
           <h3 class="area-card__title">Real-Time Detection &amp; Edge Inference</h3>
           <p class="area-card__body">
             Latency-sensitive systems, signal processing, sensor fusion, embedded deployment, and
             measurable performance on operational hardware.
           </p>
         </article>
-        <article class="area-card">
+        <article class="area-card fade-up" style="--stagger: 240ms">
           <h3 class="area-card__title">Systems Architecture &amp; Technical Leadership</h3>
           <p class="area-card__body">
             Cross-domain integration, technical translation, architecture review,
@@ -359,11 +359,14 @@ void AFTERFIAT_URL;
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card-rest);
     padding: var(--sp-6);
-    transition: box-shadow var(--duration-normal) var(--ease-out);
+    transition:
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
   }
 
   .area-card:hover {
     box-shadow: var(--shadow-card-lift);
+    transform: translateY(-2px);
   }
 
   .area-card__title {

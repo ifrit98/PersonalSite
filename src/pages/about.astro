@@ -60,7 +60,7 @@ import Button from '@/components/ui/Button.astro';
         The visible work spans several domains, but they all feed the same deeper concern.
       </p>
       <div class="work-on__grid">
-        <article class="work-on__card">
+        <article class="work-on__card fade-up" style="--stagger: 0ms">
           <h3 class="work-on__title">Protocols, Proofs &amp; Incentives</h3>
           <p class="work-on__body">
             Verification, mechanism design, privacy-preserving systems, and structures that
@@ -106,35 +106,35 @@ import Button from '@/components/ui/Button.astro';
         A few principles show up often enough that they function as a working philosophy.
       </p>
       <div class="principles__list">
-        <article class="principles__item">
+        <article class="principles__item fade-up" style="--stagger: 0ms">
           <h3 class="principles__title">Verification over posture</h3>
           <p class="principles__body">
             I trust proofs, receipts, clear mechanisms, and measurable behavior more than
             slogans, vibes, or borrowed prestige.
           </p>
         </article>
-        <article class="principles__item">
+        <article class="principles__item fade-up" style="--stagger: 60ms">
           <h3 class="principles__title">Operations over theater</h3>
           <p class="principles__body">
             I care about what survives contact with latency, logistics, budgets, adversaries,
             partial observability, and actual conditions of use.
           </p>
         </article>
-        <article class="principles__item">
+        <article class="principles__item fade-up" style="--stagger: 120ms">
           <h3 class="principles__title">Structure across domains</h3>
           <p class="principles__body">
             Engineering, writing, music, and research all become clearer when treated as problems
             of form: relation, motion, tension, invariants, and composition.
           </p>
         </article>
-        <article class="principles__item">
+        <article class="principles__item fade-up" style="--stagger: 180ms">
           <h3 class="principles__title">Public legibility matters</h3>
           <p class="principles__body">
             Serious work should survive scrutiny without becoming unreadable. Depth and clarity
             are not enemies.
           </p>
         </article>
-        <article class="principles__item">
+        <article class="principles__item fade-up" style="--stagger: 240ms">
           <h3 class="principles__title">Digital systems meet physical reality</h3>
           <p class="principles__body">
             Software eventually lands in bodies, homes, households, tools, grids, and
@@ -262,11 +262,14 @@ import Button from '@/components/ui/Button.astro';
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card-rest);
     padding: var(--sp-6);
-    transition: box-shadow var(--duration-normal) var(--ease-out);
+    transition:
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
   }
 
   .work-on__card:hover {
     box-shadow: var(--shadow-card-lift);
+    transform: translateY(-2px);
   }
 
   .work-on__title {
