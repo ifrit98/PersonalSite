@@ -268,11 +268,18 @@ import { SITE } from '@/lib/site';
     margin: 1em 0;
   }
 
-  .chat-msg--assistant .chat-msg__bubble .katex-display {
+  .chat-msg--assistant .chat-msg__bubble .katex-block {
     margin: 1em 0;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: var(--sp-3) 0;
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble .katex-display {
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 
   .chat-msg--assistant .chat-msg__bubble .katex {
@@ -470,40 +477,44 @@ import { SITE } from '@/lib/site';
   }
 
   function renderMarkdown(raw: string): string {
-    const placeholders: string[] = [];
+    try {
+      const placeholders: string[] = [];
+      const PH_DISPLAY = 'KATEX_DISPLAY_';
+      const PH_INLINE = 'KATEX_INLINE_';
 
-    function stashDisplay(tex: string): string {
-      const idx = placeholders.length;
-      placeholders.push(renderLatex(tex.trim(), true));
-      return `\n\n<div class="katex-placeholder" data-idx="${idx}"></div>\n\n`;
+      function stashDisplay(tex: string): string {
+        const idx = placeholders.length;
+        placeholders.push(renderLatex(tex.trim(), true));
+        return `\n\n${PH_DISPLAY}${idx}\n\n`;
+      }
+
+      function stashInline(tex: string): string {
+        const idx = placeholders.length;
+        placeholders.push(renderLatex(tex.trim(), false));
+        return `${PH_INLINE}${idx}`;
+      }
+
+      let processed = raw;
+
+      processed = processed.replace(/\$\$([\s\S]+?)\$\$/g, (_m, t) => stashDisplay(t));
+      processed = processed.replace(/\\\[([\s\S]+?)\\\]/g, (_m, t) => stashDisplay(t));
+
+      processed = processed.replace(/\$([^\$\n]+?)\$/g, (_m, t) => stashInline(t));
+      processed = processed.replace(/\\\((.+?)\\\)/g, (_m, t) => stashInline(t));
+
+      let html = marked.parse(processed, { async: false }) as string;
+
+      html = html.replace(new RegExp(`${PH_DISPLAY}(\\d+)`, 'g'),
+        (_m, idx) => `<div class="katex-block">${placeholders[parseInt(idx, 10)] ?? ''}</div>`);
+      html = html.replace(new RegExp(`${PH_INLINE}(\\d+)`, 'g'),
+        (_m, idx) => placeholders[parseInt(idx, 10)] ?? '');
+
+      return html;
+    } catch (err) {
+      console.error('renderMarkdown failed:', err);
+      const escaped = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return `<p>${escaped.replace(/\n/g, '<br>')}</p>`;
     }
-
-    function stashInline(tex: string): string {
-      const idx = placeholders.length;
-      placeholders.push(renderLatex(tex.trim(), false));
-      return `<span class="katex-placeholder" data-idx="${idx}"></span>`;
-    }
-
-    let processed = raw;
-
-    processed = processed.replace(/\$\$([\s\S]+?)\$\$/g, (_m, t) => stashDisplay(t));
-    processed = processed.replace(/\\\[([\s\S]+?)\\\]/g, (_m, t) => stashDisplay(t));
-
-    processed = processed.replace(/\$([^\$\n]+?)\$/g, (_m, t) => stashInline(t));
-    processed = processed.replace(/\\\((.+?)\\\)/g, (_m, t) => stashInline(t));
-    processed = processed.replace(/\(\s*(\\[a-zA-Z]+(?:\{[^}]*\}|[^)]*?))\s*\)/g, (_m, t) => {
-      if (/\\[a-zA-Z]/.test(t)) return stashInline(t);
-      return _m;
-    });
-
-    let html = marked.parse(processed, { async: false }) as string;
-
-    html = html.replace(
-      /<(?:div|span) class="katex-placeholder" data-idx="(\d+)"><\/(?:div|span)>/g,
-      (_match, idx) => placeholders[parseInt(idx, 10)] ?? '',
-    );
-
-    return html;
   }
 
   const messagesEl = document.getElementById('chat-messages')!;
@@ -708,7 +719,11 @@ import { SITE } from '@/lib/site';
       }
 
       bubble.classList.remove('is-streaming');
-      bubble.innerHTML = renderMarkdown(fullContent);
+      let html = renderMarkdown(fullContent);
+      html = html.replace(/\(\\([a-zA-Z]+)\)/g, (_m, cmd) => {
+        return renderLatex('\\' + cmd, false);
+      });
+      bubble.innerHTML = html;
 
       history.push({ role: 'assistant', content: fullContent });
       if (assistantWrapper) addSourceTags(sources, assistantWrapper);
