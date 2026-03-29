@@ -62,17 +62,24 @@ function stripMarkdown(raw: string): string {
     .trim();
 }
 
+function sanitizeUnicode(text: string): string {
+  // eslint-disable-next-line no-control-regex
+  return text.replace(/[\uD800-\uDFFF]/g, '');
+}
+
 async function extractPdf(filePath: string): Promise<string> {
   const { PDFParse } = await import('pdf-parse');
   const buffer = fs.readFileSync(filePath);
   const parser = new PDFParse(new Uint8Array(buffer));
   await parser.load();
   const result = await parser.getText();
-  return (result as { pages: { text: string }[] }).pages
-    .map((p) => p.text)
-    .join('\n')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return sanitizeUnicode(
+    (result as { pages: { text: string }[] }).pages
+      .map((p) => p.text)
+      .join('\n')
+      .replace(/\s+/g, ' ')
+      .trim(),
+  );
 }
 
 /* ------------------------------------------------------------------ */
@@ -304,7 +311,7 @@ async function upsertChunks(chunks: DocChunk[]) {
     const embeddings = await embedBatch(batch.map((c) => c.content));
 
     const rows = batch.map((chunk, j) => ({
-      content: chunk.content,
+      content: sanitizeUnicode(chunk.content),
       metadata: chunk.metadata,
       embedding: embeddings[j],
     }));
