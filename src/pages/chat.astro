@@ -453,7 +453,10 @@ import { SITE } from '@/lib/site';
         body: JSON.stringify({ messages: history }),
       });
 
-      if (!res.ok) throw new Error('HTTP ' + res.status);
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errBody.error || 'HTTP ' + res.status);
+      }
 
       typingEl.remove();
       assistantWrapper = createMsgEl('assistant', '');
@@ -491,10 +494,11 @@ import { SITE } from '@/lib/site';
       if (assistantWrapper) addSourceTags(sources, assistantWrapper);
     } catch (err) {
       typingEl.remove();
+      const detail = err instanceof Error ? err.message : String(err);
       if (!assistantWrapper) {
-        createMsgEl('assistant', 'Sorry, something went wrong. Please try again.');
+        createMsgEl('assistant', 'Sorry, something went wrong: ' + detail);
       }
-      console.error('Chat error:', err);
+      console.error('Chat error:', detail);
     } finally {
       streaming = false;
       sendBtn.disabled = false;
