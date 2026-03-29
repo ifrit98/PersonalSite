@@ -85,7 +85,6 @@ export const POST: APIRoute = async ({ request }) => {
       messages: chatMessages,
       stream: true,
       max_completion_tokens: 1024,
-      temperature: 0.4,
     });
 
     const sources = (docs ?? []).map(
