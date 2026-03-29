@@ -30,6 +30,7 @@ const meta = buildMeta(Astro.props);
     <meta name="twitter:description" content={meta.description} />
     <meta name="twitter:image" content={meta.ogImage} />
     <meta name="generator" content={Astro.generator} />
+    <slot name="head" />
   </head>
   <body>
     <Header />

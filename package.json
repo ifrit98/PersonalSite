@@ -17,6 +17,7 @@
     "@astrojs/sitemap": "^3.3.0",
     "@supabase/supabase-js": "^2.100.1",
     "astro": "^5.5.0",
+    "katex": "^0.16.44",
     "marked": "^17.0.5",
     "openai": "^6.33.0",
     "pdf-parse": "^2.4.5"

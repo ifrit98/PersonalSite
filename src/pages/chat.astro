@@ -4,6 +4,7 @@ import { SITE } from '@/lib/site';
 ---
 
 <BaseLayout title="Ask" description={`Ask questions about ${SITE.author}'s work, research, projects, and background.`}>
+  <link slot="head" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" />
   <div class="chat-page">
     <header class="chat-header fade-up">
       <div class="container container--narrow">
@@ -245,6 +246,17 @@ import { SITE } from '@/lib/site';
     font-style: italic;
   }
 
+  .chat-msg--assistant .chat-msg__bubble .katex-display {
+    margin: 0.8em 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: var(--sp-2) 0;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble .katex {
+    font-size: 1em;
+  }
+
   .chat-msg--user .chat-msg__bubble {
     background: var(--color-ink);
     color: var(--color-dark-text);
@@ -414,14 +426,44 @@ import { SITE } from '@/lib/site';
 
 <script>
   import { marked } from 'marked';
+  import katex from 'katex';
 
   marked.setOptions({
     breaks: true,
     gfm: true,
   });
 
+  function renderLatex(text: string, displayMode: boolean): string {
+    try {
+      return katex.renderToString(text, { displayMode, throwOnError: false });
+    } catch {
+      return text;
+    }
+  }
+
   function renderMarkdown(raw: string): string {
-    return marked.parse(raw, { async: false }) as string;
+    const placeholders: string[] = [];
+
+    let processed = raw.replace(/\$\$([\s\S]+?)\$\$/g, (_match, tex) => {
+      const idx = placeholders.length;
+      placeholders.push(renderLatex(tex.trim(), true));
+      return `\n\n<div class="katex-placeholder" data-idx="${idx}"></div>\n\n`;
+    });
+
+    processed = processed.replace(/\$([^\$\n]+?)\$/g, (_match, tex) => {
+      const idx = placeholders.length;
+      placeholders.push(renderLatex(tex.trim(), false));
+      return `<span class="katex-placeholder" data-idx="${idx}"></span>`;
+    });
+
+    let html = marked.parse(processed, { async: false }) as string;
+
+    html = html.replace(
+      /<(?:div|span) class="katex-placeholder" data-idx="(\d+)"><\/(?:div|span)>/g,
+      (_match, idx) => placeholders[parseInt(idx, 10)] ?? '',
+    );
+
+    return html;
   }
 
   const messagesEl = document.getElementById('chat-messages')!;
