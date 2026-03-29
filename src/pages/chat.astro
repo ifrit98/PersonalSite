@@ -169,8 +169,80 @@ import { SITE } from '@/lib/site';
     line-height: 1.6;
     font-family: var(--font-sans);
     font-size: 0.9375rem;
-    white-space: pre-wrap;
     word-break: break-word;
+  }
+
+  .chat-msg__bubble.is-streaming {
+    white-space: pre-wrap;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble p {
+    margin: 0 0 0.6em;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble p:last-child {
+    margin-bottom: 0;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble ul,
+  .chat-msg--assistant .chat-msg__bubble ol {
+    margin: 0.4em 0 0.8em;
+    padding-left: 1.4em;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble li {
+    margin-bottom: 0.3em;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble li::marker {
+    color: var(--color-slate);
+  }
+
+  .chat-msg--assistant .chat-msg__bubble strong {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .chat-msg--assistant .chat-msg__bubble em {
+    font-style: italic;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble pre {
+    margin: 0.6em 0;
+    padding: var(--sp-3) var(--sp-4);
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble pre code {
+    background: none;
+    padding: 0;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble h3,
+  .chat-msg--assistant .chat-msg__bubble h4 {
+    font-weight: 600;
+    margin: 0.8em 0 0.3em;
+    font-size: 0.9375rem;
+  }
+
+  .chat-msg--assistant .chat-msg__bubble blockquote {
+    border-left: 2px solid var(--color-brass);
+    margin: 0.6em 0;
+    padding-left: var(--sp-4);
+    color: var(--color-slate);
+    font-style: italic;
   }
 
   .chat-msg--user .chat-msg__bubble {
@@ -341,6 +413,17 @@ import { SITE } from '@/lib/site';
 </style>
 
 <script>
+  import { marked } from 'marked';
+
+  marked.setOptions({
+    breaks: true,
+    gfm: true,
+  });
+
+  function renderMarkdown(raw: string): string {
+    return marked.parse(raw, { async: false }) as string;
+  }
+
   const messagesEl = document.getElementById('chat-messages')!;
   const welcomeEl = document.getElementById('chat-welcome')!;
   const form = document.getElementById('chat-form') as HTMLFormElement;
@@ -387,6 +470,9 @@ import { SITE } from '@/lib/site';
 
     const bubble = document.createElement('div');
     bubble.className = 'chat-msg__bubble';
+    if (role === 'assistant') {
+      bubble.classList.add('is-streaming');
+    }
     bubble.textContent = text;
 
     wrapper.appendChild(label);
@@ -534,6 +620,9 @@ import { SITE } from '@/lib/site';
           } catch { /* skip malformed lines */ }
         }
       }
+
+      bubble.classList.remove('is-streaming');
+      bubble.innerHTML = renderMarkdown(fullContent);
 
       history.push({ role: 'assistant', content: fullContent });
       if (assistantWrapper) addSourceTags(sources, assistantWrapper);
