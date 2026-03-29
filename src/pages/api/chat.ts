@@ -14,7 +14,7 @@ Guidelines:
 - Do not fabricate facts, URLs, or credentials not present in the context.`;
 
 interface ChatMessage {
-  role: 'user' | 'assistant' | 'system';
+  role: 'user' | 'assistant' | 'system' | 'developer';
   content: string;
 }
 
@@ -76,12 +76,12 @@ export const POST: APIRoute = async ({ request }) => {
       : `${SYSTEM_PROMPT}\n\n(No matching documents found for this query.)`;
 
     const chatMessages: ChatMessage[] = [
-      { role: 'system', content: systemMessage },
+      { role: 'developer', content: systemMessage },
       ...messages.slice(-10),
     ];
 
     const stream = await ai.chat.completions.create({
-      model: 'gpt-5-mini',
+      model: 'gpt-4o-mini',
       messages: chatMessages,
       stream: true,
       max_completion_tokens: 1024,
