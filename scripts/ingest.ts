@@ -63,10 +63,16 @@ function stripMarkdown(raw: string): string {
 }
 
 async function extractPdf(filePath: string): Promise<string> {
-  const pdfParse = (await import('pdf-parse')).default;
+  const { PDFParse } = await import('pdf-parse');
   const buffer = fs.readFileSync(filePath);
-  const data = await pdfParse(buffer);
-  return data.text.replace(/\s+/g, ' ').trim();
+  const parser = new PDFParse(new Uint8Array(buffer));
+  await parser.load();
+  const result = await parser.getText();
+  return (result as { pages: { text: string }[] }).pages
+    .map((p) => p.text)
+    .join('\n')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /* ------------------------------------------------------------------ */

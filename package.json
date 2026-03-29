@@ -4,13 +4,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "astro dev --host",
+    "dev": "astro dev",
     "build": "astro build",
-    "start": "node dist/server/entry.mjs",
+    "start": "HOST=0.0.0.0 PORT=5000 node dist/server/entry.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "ingest": "tsx scripts/ingest.ts",
-    "ingest:fresh": "tsx scripts/ingest.ts --fresh"
+    "ingest": "node --env-file=.env --import tsx/esm scripts/ingest.ts",
+    "ingest:fresh": "node --env-file=.env --import tsx/esm scripts/ingest.ts --fresh"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.5",
