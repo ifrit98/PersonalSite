@@ -43,10 +43,10 @@ function stripAstro(raw: string): string {
   return withoutFrontmatter
     .replace(/<style[\s\S]*?<\/style>/gi, '')
     .replace(/<script[\s\S]*?<\/script>/gi, '')
-    .replace(/{[\s\S]*?}/g, ' ')            // template expressions
     .replace(/<[^>]+>/g, ' ')               // HTML tags
-    .replace(/import\s+.*?from\s+['"].*?['"];?/g, '') // imports
+    .replace(/import\s+.*?from\s+['"].*?['"];?/g, '')
     .replace(/export\s+(const|let|var|function)\s+.*?[;=]/g, '')
+    .replace(/[{}]/g, ' ')                  // remaining braces
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -221,6 +221,27 @@ async function collectPdfs(dir: string): Promise<DocChunk[]> {
   return chunks;
 }
 
+function humanizeDirName(dirName: string): string {
+  return dirName
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/[-_]/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+const VECTOR_DIR_ALIASES: Record<string, string> = {
+  GeometricAlgebraicMusicTheory: 'GAMUT (Geometric Algebraic Music Theory)',
+  GEX: 'Structure Lab (GEX)',
+  CapabilityCommons: 'Capability Commons',
+  AfterFiat: 'AfterFiat',
+  DecentralizedStorageNetwork: 'Decentralized Storage Network (DSN)',
+  EschatologyReport: 'Eschatology Report',
+};
+
+function vectorProjectLabel(rel: string): string {
+  const topDir = rel.split(path.sep)[0];
+  return VECTOR_DIR_ALIASES[topDir] ?? humanizeDirName(topDir);
+}
+
 function collectVectorDir(): DocChunk[] {
   const dir = path.join(ROOT, 'vector');
   if (!fs.existsSync(dir)) return [];
@@ -238,16 +259,19 @@ function collectVectorDir(): DocChunk[] {
     } else if (ext === '.txt') {
       text = fs.readFileSync(full, 'utf-8').replace(/\s+/g, ' ').trim();
     } else {
-      continue; // PDFs in vector/ handled separately
+      continue;
     }
 
     if (text.length < 50) continue;
-    const title = titleFromFilename(rel);
+    const project = vectorProjectLabel(rel);
+    const fileTitle = titleFromFilename(rel);
+    const title = `${project} — ${fileTitle}`;
+    const contextPrefix = `[Project: ${project}] `;
     const textChunks = chunkText(text);
 
     for (let i = 0; i < textChunks.length; i++) {
       chunks.push({
-        content: textChunks[i],
+        content: contextPrefix + textChunks[i],
         metadata: { source: `vector/${rel}`, title, chunkIndex: i },
       });
     }
@@ -269,11 +293,14 @@ async function collectVectorPdfs(): Promise<DocChunk[]> {
     const text = await extractPdf(full);
     if (text.length < 50) continue;
 
-    const title = titleFromFilename(rel);
+    const project = vectorProjectLabel(rel);
+    const fileTitle = titleFromFilename(rel);
+    const title = `${project} — ${fileTitle}`;
+    const contextPrefix = `[Project: ${project}] `;
     const textChunks = chunkText(text);
     for (let i = 0; i < textChunks.length; i++) {
       chunks.push({
-        content: textChunks[i],
+        content: contextPrefix + textChunks[i],
         metadata: { source: `vector/${rel}`, title, chunkIndex: i },
       });
     }

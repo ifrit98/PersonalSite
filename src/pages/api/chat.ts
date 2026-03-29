@@ -51,7 +51,7 @@ export const POST: APIRoute = async ({ request }) => {
       'match_documents',
       {
         query_embedding: queryEmbedding,
-        match_threshold: 0.5,
+        match_threshold: 0.3,
         match_count: 6,
       },
     );
