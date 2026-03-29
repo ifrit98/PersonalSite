@@ -8,8 +8,8 @@ import OpenAI from 'openai';
 /* ------------------------------------------------------------------ */
 
 const EMBEDDING_MODEL = 'text-embedding-3-small';
-const CHUNK_SIZE = 1500;      // chars (~375 tokens)
-const CHUNK_OVERLAP = 200;    // chars overlap between chunks
+const CHUNK_SIZE = 2500;      // chars (~625 tokens) — larger to keep math and narrative together
+const CHUNK_OVERLAP = 300;    // chars overlap between chunks
 const BATCH_SIZE = 20;        // embeddings per API call
 
 const ROOT = path.resolve(import.meta.dirname, '..');

@@ -30,8 +30,8 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const userMessage = messages.filter((m) => m.role === 'user').pop();
-    if (!userMessage) {
+    const userMessages = messages.filter((m) => m.role === 'user');
+    if (!userMessages.length) {
       return new Response(JSON.stringify({ error: 'No user message found' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
@@ -41,9 +41,14 @@ export const POST: APIRoute = async ({ request }) => {
     const ai = getOpenAI();
     const sb = getSupabase();
 
+    const searchQuery = userMessages
+      .slice(-3)
+      .map((m) => m.content)
+      .join('\n');
+
     const embeddingRes = await ai.embeddings.create({
       model: 'text-embedding-3-small',
-      input: userMessage.content,
+      input: searchQuery,
     });
     const queryEmbedding = embeddingRes.data[0].embedding;
 
@@ -51,8 +56,8 @@ export const POST: APIRoute = async ({ request }) => {
       'match_documents',
       {
         query_embedding: queryEmbedding,
-        match_threshold: 0.3,
-        match_count: 6,
+        match_threshold: 0.25,
+        match_count: 8,
       },
     );
 
