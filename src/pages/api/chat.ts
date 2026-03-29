@@ -41,10 +41,12 @@ export const POST: APIRoute = async ({ request }) => {
     const ai = getOpenAI();
     const sb = getSupabase();
 
-    const searchQuery = userMessages
-      .slice(-3)
-      .map((m) => m.content)
-      .join('\n');
+    const latest = userMessages[userMessages.length - 1].content;
+    const SHORT_FOLLOWUP = 40;
+    const searchQuery =
+      latest.length < SHORT_FOLLOWUP && userMessages.length > 1
+        ? userMessages[userMessages.length - 2].content + '\n' + latest
+        : latest;
 
     const embeddingRes = await ai.embeddings.create({
       model: 'text-embedding-3-small',
