@@ -126,9 +126,10 @@ export const POST: APIRoute = async ({ request }) => {
       },
     });
   } catch (err) {
-    console.error('Chat API error:', err);
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('Chat API error:', message);
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
+      JSON.stringify({ error: message }),
       { status: 500, headers: { 'Content-Type': 'application/json' } },
     );
   }
