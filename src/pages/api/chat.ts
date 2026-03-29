@@ -81,10 +81,10 @@ export const POST: APIRoute = async ({ request }) => {
     ];
 
     const stream = await ai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-5-mini',
       messages: chatMessages,
       stream: true,
-      max_tokens: 1024,
+      max_completion_tokens: 1024,
       temperature: 0.4,
     });
 
