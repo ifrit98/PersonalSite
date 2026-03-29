@@ -81,7 +81,7 @@ export const POST: APIRoute = async ({ request }) => {
     ];
 
     const stream = await ai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-5-nano',
       messages: chatMessages,
       stream: true,
       max_completion_tokens: 1024,
