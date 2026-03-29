@@ -84,7 +84,8 @@ export const POST: APIRoute = async ({ request }) => {
       model: 'gpt-5-nano',
       messages: chatMessages,
       stream: true,
-      max_completion_tokens: 1024,
+      max_completion_tokens: 16384,
+      reasoning_effort: 'low',
     });
 
     const sources = (docs ?? []).map(
