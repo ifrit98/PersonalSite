@@ -32,6 +32,7 @@ void AFTERFIAT_URL;
         <li class="outcomes__item">Public capability platform architecture</li>
         <li class="outcomes__item">MILP-optimized financial construction</li>
         <li class="outcomes__item">Agent-coordinated audited research</li>
+        <li class="outcomes__item">Enterprise evidence-graph retrieval</li>
       </ul>
     </div>
   </section>
@@ -81,11 +82,12 @@ void AFTERFIAT_URL;
           </p>
         </article>
         <article class="area-card fade-up" style="--stagger: 400ms">
-          <h3 class="area-card__title">Collective Intelligence &amp; Agent Coordination</h3>
+          <h3 class="area-card__title">Collective Intelligence, Agent Coordination &amp; Agentic Retrieval</h3>
           <p class="area-card__body">
-            Multi-agent research platforms, artifact-first knowledge systems, structured claim graphs,
-            lease-based task orchestration, and closed-loop scientific workflows with reproducibility
-            and verification enforced at the substrate level.
+            Multi-agent research platforms, event-sourced context graphs, agentic retrieval
+            planners, structured claim graphs, lease-based task orchestration, and knowledge
+            systems where relevance is defined by causality and organizational state rather
+            than vector similarity alone.
           </p>
         </article>
       </div>
@@ -313,6 +315,61 @@ void AFTERFIAT_URL;
           </p>
         </article>
 
+        <article class="case-card" id="agentic-data">
+          <span class="case-card__meta">Enterprise Infrastructure / Retrieval Engine</span>
+          <h3 class="case-card__title">Agentic Data</h3>
+          <p class="case-card__role"><span class="case-card__label">Role</span> Architect, platform design, full-stack</p>
+          <p class="case-card__problem">
+            <span class="case-card__label">Problem</span>
+            Enterprise knowledge is scattered across dozens of systems. The connections between
+            artifacts — this PR caused that incident, which led to this RCA, which changed this
+            decision — live only in people's heads and disappear when they leave.
+          </p>
+          <p class="case-card__narrative">
+            Built an enterprise context graph and agentic retrieval engine that captures
+            institutional knowledge as typed, timestamped, permissioned Context Objects linked by
+            35 edge types spanning causal, decisional, lifecycle, and structural relationships.
+            Instead of top-k cosine similarity, the retrieval planner runs an iterative control
+            loop: interpret intent, select strategy (causal chain, decision rationale, impact
+            analysis), search with hybrid lexical + dense RRF fusion, expand through the graph
+            via multi-hop typed edges, rerank by five-component sufficiency scoring (coverage,
+            recency, authority, diversity, completeness), and stop when the evidence threshold
+            is met or the budget is exhausted. A self-correcting canonical memory layer maintains
+            truth through supersession chains, contradiction detection, and reconsolidation loops.
+          </p>
+          <dl class="case-card__dl">
+            <div class="case-card__dl-row">
+              <dt>Constraints</dt>
+              <dd>
+                Four-store architecture (each for what it does best), 35 typed edge taxonomy with
+                confidence scoring, budget-aware retrieval with sufficiency verification,
+                self-correcting canonical memory with truth maintenance, ACL-filtered graph
+                traversals, multi-resolution memory (raw → episodic → canonical)
+              </dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Stack</dt>
+              <dd>
+                Python / FastAPI / SQLAlchemy 2 (async), PostgreSQL (21 tables), OpenSearch (KNN + lexical),
+                Neo4j (Cypher graph traversals), S3/MinIO, JWT/RBAC, Docker Compose, 315 tests
+              </dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Outcomes</dt>
+              <dd>
+                27 API endpoints; 21-table relational schema; 35 typed edge taxonomy; iterative
+                retrieval planner with 5 intent-driven strategies; hybrid search with RRF fusion;
+                multi-hop graph expansion; truth maintenance with supersession and reconsolidation;
+                315 passing tests; GitHub/Jira/PagerDuty connectors
+              </dd>
+            </div>
+          </dl>
+          <p class="case-card__note">
+            Active development — see the dedicated
+            <a href="/agentic-data">Agentic Data</a> page.
+          </p>
+        </article>
+
         <article class="case-card" id="capability-commons">
           <span class="case-card__meta">Public Initiative / Platform</span>
           <h3 class="case-card__title">Capability Commons</h3>
@@ -424,7 +481,7 @@ void AFTERFIAT_URL;
   .outcomes__list {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
     gap: var(--sp-6);
   }
 
@@ -663,7 +720,7 @@ void AFTERFIAT_URL;
 
   @media (max-width: 1024px) {
     .outcomes__list {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
     }
   }
 

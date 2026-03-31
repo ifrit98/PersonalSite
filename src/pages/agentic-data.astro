@@ -1,0 +1,1035 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { AGENTICDATA_GITHUB } from '@/lib/site';
+
+const pillars = [
+  {
+    name: 'Event-Sourced Context Graph',
+    body: 'Every piece of enterprise knowledge is normalized into a typed, timestamped, permissioned Context Object with actors, entities, summaries, provenance, and validity windows. COs are linked by 35 typed edges spanning causal, decisional, lifecycle, structural, and customer relationships.',
+  },
+  {
+    name: 'Multi-Resolution Memory',
+    body: 'Raw data enters at full fidelity, then exists at multiple levels of abstraction: immutable originals in object storage, chunked and embedded segments for hybrid search, and structured canonical Notes that represent "what we believe now" — editable, version-tracked, with evidence citations and confidence scores.',
+  },
+  {
+    name: 'Agentic Retrieval',
+    body: 'Not embed-and-retrieve. An iterative control loop: interpret task, select strategy, hybrid search with RRF fusion, graph expansion via typed edges, five-component sufficiency scoring, budget-aware stop conditions. The retrieval equivalent of a database query planner.',
+  },
+];
+
+const edgeCategories = [
+  { category: 'Causal', edges: 'root_caused_by, triggers_incident, introduces_issue, fixes_issue, contributes_to, mitigates' },
+  { category: 'Decisional', edges: 'decides, rationale_for, approves, rejects, accepts_risk, sets_policy' },
+  { category: 'Lifecycle', edges: 'supersedes, deprecated_by, reverted_by, implements, invalidated_by' },
+  { category: 'Structural', edges: 'part_of, references, mentions, summarizes, same_as' },
+  { category: 'Customer', edges: 'requested_by_customer, impacts_customer, escalated_by' },
+];
+
+const retrievalStrategies = [
+  { intent: 'debug / root_cause', strategy: 'Causal Chain', edges: 'root_caused_by, triggers_incident, fixes_issue' },
+  { intent: 'decision_rationale', strategy: 'Current State + Deltas', edges: 'supersedes, decides, rationale_for' },
+  { intent: 'impact_analysis', strategy: 'Timeline Reconstruction', edges: 'references, triggers_incident, mitigates' },
+  { intent: 'policy_question', strategy: 'Precedent Search', edges: 'sets_policy, approves, accepts_risk' },
+  { intent: 'customer_answer', strategy: 'Hybrid', edges: 'Mix of all edge types' },
+];
+
+const stores = [
+  { name: 'PostgreSQL', purpose: 'Source of truth, OLTP, ACLs', detail: '21 tables: COs, entities, edges, ACLs, audit trails, segments, embeddings' },
+  { name: 'OpenSearch', purpose: 'Hybrid lexical + dense vector search', detail: 'co_segments_v1 index with KNN vectors (HNSW, cosine), RRF fusion' },
+  { name: 'Neo4j', purpose: 'Causal/temporal graph traversals', detail: 'CO nodes, Entity nodes, 35 typed edge relationships, Cypher queries' },
+  { name: 'S3 / MinIO', purpose: 'Raw payload storage', detail: 'Original documents, attachments, diffs, content-addressed keys' },
+];
+
+const platformStats = [
+  { label: 'API Routes', value: '27', detail: 'Ingest, retrieve, graph, notes, audit, connectors, jobs, health' },
+  { label: 'Tests', value: '315', detail: 'All with mocked external services, no Docker required' },
+  { label: 'Edge Types', value: '35', detail: 'Causal, decisional, lifecycle, structural, customer' },
+  { label: 'Postgres Tables', value: '21', detail: 'COs, entities, edges, ACLs, audit, segments, embeddings' },
+  { label: 'Retrieval Strategies', value: '5', detail: 'Causal chain, current state, timeline, precedent, hybrid' },
+  { label: 'Sufficiency Dimensions', value: '5', detail: 'Coverage, recency, authority, diversity, completeness' },
+];
+
+const graphQueries = [
+  { name: 'Traverse', desc: 'Expand from seed nodes by typed edges with hop depth control' },
+  { name: 'Subgraph', desc: 'Extract subgraph among a node set, preserving typed connections' },
+  { name: 'Root Cause Chain', desc: 'Trace causal chain from an incident up to 4 hops' },
+  { name: 'Supersession', desc: 'Follow supersession chain to find the current canonical version' },
+  { name: 'Decision Chain', desc: 'Reconstruct the decision rationale chain for a service or entity' },
+];
+
+const connectors = [
+  { name: 'GitHub', desc: 'Pull requests, commits, issues — fetches items updated since last sync' },
+  { name: 'Jira', desc: 'Tickets, epics, sprints — normalized into Context Objects with typed edges' },
+  { name: 'PagerDuty', desc: 'Incidents, alerts, escalations — with causal chain extraction' },
+];
+---
+
+<BaseLayout
+  title="Agentic Data"
+  description="An enterprise context graph and agentic retrieval planner that turns fragmented institutional knowledge into a temporal, permissioned evidence graph with budget-aware, iterative retrieval."
+>
+  <section class="ad-hero">
+    <div class="container container--narrow">
+      <span class="ad-hero__eyebrow">Enterprise Infrastructure</span>
+      <h1 class="ad-hero__title">Agentic Data</h1>
+      <p class="ad-hero__lede">
+        An enterprise context graph and agentic retrieval planner that turns fragmented
+        institutional knowledge into a temporal, permissioned evidence graph — then assembles
+        exactly what an AI agent needs through an iterative, budget-aware retrieval loop.
+      </p>
+      <p class="ad-hero__thesis">
+        Retrieval is not a feature of an AI agent. It is the core product.
+      </p>
+      <div class="ad-hero__actions">
+        <Button href="#thesis" variant="brass">The Thesis</Button>
+        <Button href="#architecture" variant="ghost">Architecture &rarr;</Button>
+        <Button href="#retrieval" variant="ghost">Retrieval Loop &rarr;</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="thesis">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">The problem</h2>
+      <p class="ad-section__body">
+        Enterprise knowledge is dying. Every organization generates a continuous stream of
+        institutional knowledge — pull requests, incident timelines, RCA documents, architecture
+        decisions, customer escalations, deployment logs. These artifacts are scattered across
+        GitHub, Jira, Slack, Confluence, PagerDuty, ServiceNow, and dozens more systems.
+      </p>
+      <p class="ad-section__body">
+        The connections between them — this PR caused that incident, which led to this RCA,
+        which changed this decision, which was later reverted — live only in people's heads.
+        When those people leave, the connections disappear. The organization retains its
+        documents but loses its understanding.
+      </p>
+      <p class="ad-section__body ad-section__body--accent">
+        This is not a search problem. You can find the documents. What you can't find is the
+        meaning between them.
+      </p>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="not-rag">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Not RAG</h2>
+      <p class="ad-section__body">
+        The retrieval layer we have today — embed, top-k, stuff into prompt — is fundamentally
+        insufficient for enterprise knowledge.
+      </p>
+      <ul class="ad-why-list" role="list">
+        <li><strong>Documents are not the unit of knowledge. Events are.</strong> A PR, an incident, a decision — these are episodes that happened at a specific time, involved specific actors, and had specific consequences.</li>
+        <li><strong>Similarity is not relevance.</strong> When you ask "why did the payment service go down?", the answer is a causal chain through time, not the 10 most semantically similar paragraphs.</li>
+        <li><strong>Retrieval is not a single call.</strong> It is an iterative control loop that plans what evidence it needs, searches, evaluates what's missing, expands through graph traversal, and stops when sufficient — or admits that it isn't.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="pillars">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Three interlocking ideas</h2>
+      <div class="ad-pillars">
+        {pillars.map((p) => (
+          <div class="ad-pillars__item">
+            <strong class="ad-pillars__name">{p.name}</strong>
+            <p class="ad-pillars__body">{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="edges">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">35 typed edges</h2>
+      <p class="ad-section__body">
+        Each edge is directional, carries a confidence score (0.0–1.0), provenance method
+        (deterministic rule, LLM extraction, human verified), evidence spans pointing back to
+        source text, and validity windows.
+      </p>
+      <div class="ad-edge-table">
+        {edgeCategories.map((e) => (
+          <div class="ad-edge-table__row">
+            <span class="ad-edge-table__category">{e.category}</span>
+            <span class="ad-edge-table__edges">{e.edges}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="retrieval">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Agentic retrieval loop</h2>
+      <p class="ad-section__body">
+        Instead of <code>embed(query) → top-k → stuff into prompt</code>, the retrieval planner
+        runs an iterative control loop that hunts for a sufficient evidence graph.
+      </p>
+      <div class="ad-loop">
+        <div class="ad-loop__step ad-loop__step--interpret">
+          <span class="ad-loop__label">Interpret</span>
+          <span class="ad-loop__desc">Extract intent, entities, temporal constraints</span>
+        </div>
+        <div class="ad-loop__arrow">&rarr;</div>
+        <div class="ad-loop__step ad-loop__step--strategy">
+          <span class="ad-loop__label">Strategy</span>
+          <span class="ad-loop__desc">Select retrieval strategy by intent</span>
+        </div>
+        <div class="ad-loop__arrow">&rarr;</div>
+        <div class="ad-loop__step ad-loop__step--search">
+          <span class="ad-loop__label">Search</span>
+          <span class="ad-loop__desc">Hybrid lexical + dense, RRF fusion</span>
+        </div>
+        <div class="ad-loop__arrow">&rarr;</div>
+        <div class="ad-loop__step ad-loop__step--expand">
+          <span class="ad-loop__label">Expand</span>
+          <span class="ad-loop__desc">Multi-hop graph traversal via typed edges</span>
+        </div>
+        <div class="ad-loop__arrow">&rarr;</div>
+        <div class="ad-loop__step ad-loop__step--rerank">
+          <span class="ad-loop__label">Rerank</span>
+          <span class="ad-loop__desc">5-component sufficiency scoring</span>
+        </div>
+        <div class="ad-loop__arrow">&rarr;</div>
+        <div class="ad-loop__step ad-loop__step--check">
+          <span class="ad-loop__label">Check</span>
+          <span class="ad-loop__desc">Sufficient? Assemble. Else refine, iterate.</span>
+        </div>
+      </div>
+      <p class="ad-section__body" style="margin-top: var(--sp-6);">
+        The loop is budget-aware (max retrieval calls, graph hops, latency, model calls) and
+        stops on three conditions: sufficiency threshold reached, budget exhausted, or diminishing
+        returns detected.
+      </p>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="strategies">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Intent-driven strategies</h2>
+      <p class="ad-section__body">
+        The retrieval planner selects a strategy based on the query's intent, determining which
+        edge types to prioritize during graph expansion.
+      </p>
+      <div class="ad-strategy-table">
+        {retrievalStrategies.map((s) => (
+          <div class="ad-strategy-table__row">
+            <span class="ad-strategy-table__intent">{s.intent}</span>
+            <span class="ad-strategy-table__strategy">{s.strategy}</span>
+            <span class="ad-strategy-table__edges">{s.edges}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="what-is-live">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">What is live now</h2>
+      <p class="ad-section__body">
+        Agentic Data is operational. The following infrastructure is built and tested.
+      </p>
+      <div class="ad-stats-grid">
+        {platformStats.map((s) => (
+          <div class="ad-stats-grid__item">
+            <span class="ad-stats-grid__value">{s.value}</span>
+            <span class="ad-stats-grid__label">{s.label}</span>
+            <span class="ad-stats-grid__detail">{s.detail}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="architecture">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Architecture</h2>
+      <p class="ad-section__body">
+        Four data stores, each for what it's best at. FastAPI + SQLAlchemy 2 (async) ties the
+        layers together with JWT auth, RBAC, rate limiting, and Docker Compose for local and
+        staged deployments.
+      </p>
+      <div class="ad-stores-grid">
+        {stores.map((s) => (
+          <div class="ad-stores-grid__item">
+            <strong class="ad-stores-grid__name">{s.name}</strong>
+            <span class="ad-stores-grid__purpose">{s.purpose}</span>
+            <p class="ad-stores-grid__detail">{s.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="graph-queries">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Graph query API</h2>
+      <p class="ad-section__body">
+        Beyond flat search, the graph API provides structured traversals for the questions that
+        actually matter in enterprise operations.
+      </p>
+      <div class="ad-queries-grid">
+        {graphQueries.map((q) => (
+          <div class="ad-queries-grid__item">
+            <strong class="ad-queries-grid__name">{q.name}</strong>
+            <p class="ad-queries-grid__desc">{q.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="truth">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Truth maintenance</h2>
+      <p class="ad-section__body">
+        A knowledge system that only accumulates and never revises will inevitably hallucinate
+        with confidence. The canonical memory layer is self-correcting.
+      </p>
+      <ul class="ad-truth-list" role="list">
+        <li><strong>Supersession chains</strong> — when a new note replaces an old one, the chain is preserved so you can trace how understanding evolved</li>
+        <li><strong>Deprecation markers</strong> — disputed or outdated notes are flagged, not deleted, maintaining the full audit trail</li>
+        <li><strong>Contradiction detection</strong> — new evidence is checked against existing canonical notes for conflicts</li>
+        <li><strong>Reconsolidation loops</strong> — detected contradictions trigger review workflows: suggest update, approve/reject, verify</li>
+        <li><strong>Validity windows</strong> — notes and COs carry explicit valid_from/valid_to bounds; expired items are automatically caught by maintenance jobs</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="connectors">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Connectors</h2>
+      <p class="ad-section__body">
+        Source system integrations that fetch items updated since a timestamp and ingest them
+        through the full pipeline (persist → extract edges → index → graph sync).
+      </p>
+      <div class="ad-connectors-grid">
+        {connectors.map((c) => (
+          <div class="ad-connectors-grid__item">
+            <strong class="ad-connectors-grid__name">{c.name}</strong>
+            <p class="ad-connectors-grid__desc">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="philosophy">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Design philosophy</h2>
+      <ul class="ad-philosophy-list" role="list">
+        <li><strong>Relevance is not similarity.</strong> Two documents can be semantically identical and one can be wrong (superseded, reverted). Relevance is defined by causality, temporal validity, authority, and organizational state.</li>
+        <li><strong>Permissions are not a bolt-on.</strong> ACL filtering happens before any model sees any content. Graph traversals cannot leak restricted nodes. Every piece of evidence carries provenance.</li>
+        <li><strong>Don't just retrieve more.</strong> If answer quality degrades as you add context, the system collapses under scale. Aggressive reranking, evidence budgets, and sufficiency-based stop conditions are architectural requirements.</li>
+        <li><strong>The graph is the product.</strong> The context graph is the durable asset that compounds over time. Every ingested document makes it richer. Every query validates or challenges existing connections. This is the flywheel.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="roadmap">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Roadmap</h2>
+      <div class="ad-roadmap__timeline">
+        <div class="ad-roadmap__entry ad-roadmap__entry--done">
+          <span class="ad-roadmap__date">2026 Q1</span>
+          <div>
+            <strong>Core Platform</strong>
+            <p>Python/FastAPI with 27 endpoints. 21-table Postgres schema. OpenSearch hybrid indexing. Neo4j graph store. S3 object storage. 35 typed edges. Agentic retrieval planner with 5 strategies. Truth maintenance. JWT/RBAC auth. 315 passing tests. GitHub/Jira/PagerDuty connectors. Docker Compose.</p>
+          </div>
+        </div>
+        <div class="ad-roadmap__entry ad-roadmap__entry--current">
+          <span class="ad-roadmap__date">2026 Q2</span>
+          <div>
+            <strong>Production Hardening</strong>
+            <p>OpenAI + cross-encoder embedding/reranking providers. Full Alembic migration suite. Expanded connector coverage (Slack, Confluence, ServiceNow). Contradiction detection with LLM backend. Interactive evidence explorer UI.</p>
+          </div>
+        </div>
+        <div class="ad-roadmap__entry">
+          <span class="ad-roadmap__date">2026 Q3</span>
+          <div>
+            <strong>Scale &amp; Intelligence</strong>
+            <p>Proactive knowledge maintenance (stale note detection, missing rationale surfacing). Multi-tenant deployment. Evaluation framework with golden question sets. CI/CD with full integration tests.</p>
+          </div>
+        </div>
+        <div class="ad-roadmap__entry">
+          <span class="ad-roadmap__date">2026 Q4</span>
+          <div>
+            <strong>Infrastructure Layer</strong>
+            <p>Agent-facing API for external AI systems. Webhook-based real-time ingestion. Federated graph queries across tenants. Scale to trillions of tokens without degrading retrieval quality.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-section fade-up" id="maxim">
+    <div class="container container--narrow">
+      <blockquote class="ad-maxim">
+        <p>The graph is not an implementation detail.</p>
+        <p class="ad-maxim__chain">It is the durable asset that compounds over time.</p>
+        <p>Every ingested document makes it richer. Every query validates or challenges existing connections. Every new edge makes future queries more precise. This is the flywheel.</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="ad-section ad-section--contribute fade-up" id="contribute">
+    <div class="container container--narrow">
+      <h2 class="ad-section__heading">Get involved</h2>
+      <p class="ad-section__body">
+        Agentic Data is being built in public. The core platform is functional with 315 passing
+        tests and active development toward production hardening and expanded connector coverage.
+      </p>
+      <div class="ad-section__actions">
+        <Button href={AGENTICDATA_GITHUB}>View GitHub</Button>
+        <Button href="#architecture" variant="secondary">Read the Architecture</Button>
+        <Button href="/contact" variant="secondary">Contact Jason</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="ad-closing fade-up">
+    <div class="container container--narrow">
+      <p class="ad-closing__line">Similarity is not relevance.</p>
+      <p class="ad-closing__line ad-closing__line--accent">Causality is.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ad-hero {
+    background-color: var(--color-dark-surface);
+    padding-block: var(--sp-24) var(--sp-16);
+  }
+
+  .ad-hero__eyebrow {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brass);
+  }
+
+  .ad-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-dark-text);
+    margin-top: var(--sp-4);
+  }
+
+  .ad-hero__lede {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-dark-muted);
+    margin-top: var(--sp-4);
+    max-width: 40em;
+  }
+
+  .ad-hero__thesis {
+    font: var(--text-body-lg);
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-brass);
+    margin-top: var(--sp-6);
+    max-width: 36em;
+  }
+
+  .ad-hero__actions {
+    display: flex;
+    gap: var(--sp-4);
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: var(--sp-8);
+  }
+
+  .ad-section {
+    padding-block: var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .ad-section__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-6);
+  }
+
+  .ad-section__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 42em;
+    margin-bottom: var(--sp-6);
+  }
+
+  .ad-section__body:last-child {
+    margin-bottom: 0;
+  }
+
+  .ad-section__body--accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-brass);
+  }
+
+  .ad-section__actions {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    margin-top: var(--sp-8);
+  }
+
+  .ad-section--contribute {
+    border-bottom: none;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.8125em;
+    color: var(--color-brass);
+    background-color: rgba(169, 135, 82, 0.08);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+
+  /* ── Why list (not RAG) ── */
+  .ad-why-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .ad-why-list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    line-height: 1.7;
+  }
+
+  .ad-why-list strong {
+    color: var(--color-brass);
+    font-weight: 500;
+  }
+
+  /* ── Pillars ── */
+  .ad-pillars {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--sp-6);
+  }
+
+  .ad-pillars__item {
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-brass);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .ad-pillars__name {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .ad-pillars__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── Edge taxonomy table ── */
+  .ad-edge-table {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .ad-edge-table__row {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .ad-edge-table__category {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    font-size: 0.6875rem;
+    margin-top: 0.2em;
+  }
+
+  .ad-edge-table__edges {
+    font: var(--text-body);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+
+  /* ── Retrieval loop visualization ── */
+  .ad-loop {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+    padding: var(--sp-6);
+    background-color: var(--color-warm-wash);
+    border-radius: var(--radius-card);
+  }
+
+  .ad-loop__step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    padding: var(--sp-3) var(--sp-4);
+    border-radius: var(--radius-button);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .ad-loop__step--interpret,
+  .ad-loop__step--check {
+    background-color: rgba(169, 135, 82, 0.15);
+    color: var(--color-brass);
+    border: 1px solid rgba(169, 135, 82, 0.3);
+  }
+
+  .ad-loop__step--strategy,
+  .ad-loop__step--search,
+  .ad-loop__step--expand,
+  .ad-loop__step--rerank {
+    background-color: rgba(16, 24, 38, 0.06);
+    color: var(--color-ink);
+    border: 1px solid rgba(16, 24, 38, 0.12);
+  }
+
+  .ad-loop__label {
+    font-weight: 600;
+    font-size: 0.8125rem;
+  }
+
+  .ad-loop__desc {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    color: var(--color-slate);
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .ad-loop__arrow {
+    font-size: 1.25rem;
+    color: var(--color-slate);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  /* ── Strategy table ── */
+  .ad-strategy-table {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .ad-strategy-table__row {
+    display: grid;
+    grid-template-columns: 10rem 10rem 1fr;
+    gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .ad-strategy-table__intent {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    font-size: 0.75rem;
+    margin-top: 0.15em;
+  }
+
+  .ad-strategy-table__strategy {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .ad-strategy-table__edges {
+    font: var(--text-body);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-slate);
+    line-height: 1.5;
+  }
+
+  /* ── Stats grid ── */
+  .ad-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .ad-stats-grid__item {
+    padding: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .ad-stats-grid__value {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1;
+  }
+
+  .ad-stats-grid__label {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    font-size: 0.6875rem;
+  }
+
+  .ad-stats-grid__detail {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.4;
+  }
+
+  /* ── Stores grid ── */
+  .ad-stores-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+    grid-auto-rows: 1fr;
+  }
+
+  .ad-stores-grid__item {
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-brass);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .ad-stores-grid__name {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .ad-stores-grid__purpose {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-brass);
+    font-size: 0.6875rem;
+  }
+
+  .ad-stores-grid__detail {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── Graph queries ── */
+  .ad-queries-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .ad-queries-grid__item {
+    padding: var(--sp-4) var(--sp-5);
+    border-left: 2px solid var(--color-brass);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .ad-queries-grid__name {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .ad-queries-grid__desc {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ── Truth maintenance ── */
+  .ad-truth-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .ad-truth-list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    line-height: 1.7;
+  }
+
+  .ad-truth-list strong {
+    color: var(--color-brass);
+    font-weight: 500;
+  }
+
+  /* ── Connectors ── */
+  .ad-connectors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .ad-connectors-grid__item {
+    padding: var(--sp-5);
+    border-left: 2px solid var(--color-brass);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .ad-connectors-grid__name {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .ad-connectors-grid__desc {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ── Philosophy ── */
+  .ad-philosophy-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .ad-philosophy-list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    line-height: 1.7;
+  }
+
+  .ad-philosophy-list strong {
+    color: var(--color-brass);
+    font-weight: 500;
+  }
+
+  /* ── Roadmap ── */
+  .ad-roadmap__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .ad-roadmap__entry {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-6);
+    border-left: 2px solid var(--color-line);
+  }
+
+  .ad-roadmap__entry--done {
+    border-left-color: var(--color-brass);
+  }
+
+  .ad-roadmap__entry--current {
+    border-left-color: var(--color-brass);
+    background-color: var(--color-warm-wash);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  }
+
+  .ad-roadmap__date {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    white-space: nowrap;
+    margin-top: 0.2em;
+  }
+
+  .ad-roadmap__entry strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+  }
+
+  .ad-roadmap__entry p {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
+  }
+
+  /* ── Maxim ── */
+  .ad-maxim {
+    padding: var(--sp-8);
+    background-color: var(--color-warm-wash);
+    border-left: 3px solid var(--color-brass);
+    border-radius: var(--radius-card);
+    margin: 0;
+  }
+
+  .ad-maxim p {
+    font: var(--text-body-lg);
+    font-family: var(--font-serif);
+    color: var(--color-ink);
+    margin-bottom: var(--sp-4);
+    max-width: 42em;
+  }
+
+  .ad-maxim p:last-child {
+    margin-bottom: 0;
+    color: var(--color-slate);
+    font-style: italic;
+  }
+
+  .ad-maxim__chain {
+    font-weight: 500;
+    color: var(--color-brass) !important;
+    font-style: normal !important;
+    font-size: 1.125rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Closing ── */
+  .ad-closing {
+    padding-block: var(--sp-24);
+    text-align: center;
+    border-bottom: none;
+  }
+
+  .ad-closing__line {
+    font: var(--text-body-lg);
+    font-family: var(--font-serif);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-2);
+  }
+
+  .ad-closing__line--accent {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .ad-hero {
+      padding-block: var(--sp-16) var(--sp-12);
+    }
+
+    .ad-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+      color: var(--color-dark-text);
+    }
+
+    .ad-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ad-stores-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ad-queries-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ad-connectors-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ad-edge-table__row {
+      grid-template-columns: 1fr;
+      gap: var(--sp-1);
+    }
+
+    .ad-strategy-table__row {
+      grid-template-columns: 1fr;
+      gap: var(--sp-1);
+    }
+
+    .ad-loop {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+
+    .ad-loop__arrow {
+      transform: rotate(90deg);
+      align-self: center;
+    }
+
+    .ad-roadmap__entry {
+      grid-template-columns: 1fr;
+      gap: var(--sp-2);
+    }
+
+    .ad-section {
+      padding-block: var(--sp-12);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ad-stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

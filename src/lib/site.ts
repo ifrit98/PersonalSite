@@ -21,6 +21,8 @@ export const CAPABILITY_COMMONS_GITHUB = 'https://github.com/Granite-Labs-LLC/Ca
 export const STRUCTURE_LAB_URL = '/work#structure-lab';
 export const SWARMOS_URL = '/swarmos';
 export const SWARMOS_GITHUB = 'https://github.com/ifrit98/swarmos';
+export const AGENTICDATA_URL = '/agentic-data';
+export const AGENTICDATA_GITHUB = 'https://github.com/ifrit98/AgenticData';
 
 export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
@@ -87,5 +89,12 @@ export const ENDORSED_PROPERTIES = [
     description:
       'A collective intelligence research platform that coordinates specialized AI agents to perform continuous, audited scientific research with artifact-level provenance and reproducibility.',
     url: SWARMOS_URL,
+  },
+  {
+    name: 'Agentic Data',
+    tagline: 'Enterprise Infrastructure / Retrieval Engine',
+    description:
+      'An enterprise context graph and agentic retrieval planner that turns fragmented institutional knowledge into a temporal, permissioned evidence graph with budget-aware, iterative retrieval.',
+    url: AGENTICDATA_URL,
   },
 ] as const;

@@ -138,6 +138,7 @@ const PAGE_URL_MAP: Record<string, string> = {
   'resume.astro': '/resume',
   'research.astro': '/research',
   'capability-commons.astro': '/capability-commons',
+  'agentic-data.astro': '/agentic-data',
 };
 
 function collectAstroPages(): DocChunk[] {
@@ -236,6 +237,7 @@ const VECTOR_DIR_ALIASES: Record<string, string> = {
   DecentralizedStorageNetwork: 'Decentralized Storage Network (DSN)',
   EschatologyReport: 'Eschatology Report',
   SwarmOS: 'SwarmOS',
+  AgenticData: 'Agentic Data',
 };
 
 function vectorProjectLabel(rel: string): string {
