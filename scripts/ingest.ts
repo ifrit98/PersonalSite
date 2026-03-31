@@ -235,6 +235,7 @@ const VECTOR_DIR_ALIASES: Record<string, string> = {
   AfterFiat: 'AfterFiat',
   DecentralizedStorageNetwork: 'Decentralized Storage Network (DSN)',
   EschatologyReport: 'Eschatology Report',
+  SwarmOS: 'SwarmOS',
 };
 
 function vectorProjectLabel(rel: string): string {

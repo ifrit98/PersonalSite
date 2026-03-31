@@ -7,7 +7,7 @@ const work = defineCollection({
     title: z.string(),
     summary: z.string(),
     role: z.string(),
-    status: z.enum(['public', 'selective']).default('public'),
+    status: z.enum(['public', 'selective', 'active']).default('public'),
     order: z.number().default(0),
     tags: z.array(z.string()).default([]),
     year: z.string().optional(),

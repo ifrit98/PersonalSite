@@ -1,0 +1,949 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { SITE, SWARMOS_GITHUB } from '@/lib/site';
+
+const corePrinciples = [
+  {
+    name: 'Artifact-First',
+    body: 'Everything is an artifact with a content hash, lineage, and permissions. Re-ingesting unchanged source produces identical hashes — deduplication is automatic and provenance is auditable.',
+  },
+  {
+    name: 'Evidence Graphs Over Chat Logs',
+    body: 'The knowledge layer is a structured claim graph where each claim has a formal statement, supporting and counter-evidence, a calibrated confidence distribution, and a verification grade.',
+  },
+  {
+    name: 'Separation of Duties',
+    body: 'The proposer of a hypothesis cannot verify it. Canonical promotion requires at least one critic pass, one replicator pass, and arbiter approval — with optional human gating by risk tier.',
+  },
+  {
+    name: 'Reproducibility by Default',
+    body: 'Every computational run produces an environment spec, command, parameters, seeds, input artifacts, output artifacts, and replay instructions. Runs can be replayed from their bundle.',
+  },
+  {
+    name: 'Budgeted Autonomy',
+    body: 'Agents operate within explicit compute, cost, and risk budgets. High-risk actions require human approval gates. The system tracks consumption at program, task, and agent level.',
+  },
+  {
+    name: 'Continuous Evaluation',
+    body: 'Agents must continuously outperform baselines on agreed metrics. The evaluation service detects regressions and can demote underperforming agents — evolutionary pressure without manual curation.',
+  },
+];
+
+const agentTypes = [
+  { type: 'Ingestion', role: 'Parse, clean, extract, normalize incoming data' },
+  { type: 'Mapper', role: 'Build concept maps and knowledge graph edges' },
+  { type: 'Hypothesis', role: 'Propose claims with assumptions and test plans' },
+  { type: 'Experiment Designer', role: 'Design computational and experimental tests' },
+  { type: 'Runner', role: 'Execute simulations, training, theorem proving' },
+  { type: 'Critic', role: 'Adversarial review — find confounders, missing citations' },
+  { type: 'Replicator', role: 'Reproduce results independently' },
+  { type: 'Synthesizer', role: 'Write periodic syntheses and "what changed" diffs' },
+  { type: 'Arbiter', role: 'Resolve conflicts, choose next actions via VOI' },
+  { type: 'Safety Sentinel', role: 'Monitor for policy violations and dual-use patterns' },
+];
+
+const services = [
+  { name: 'Program Service', desc: 'Research program lifecycle, membership management, objectives, milestones, budgets, and risk posture.' },
+  { name: 'Artifact Service', desc: 'Content-addressed deduplication, object storage (S3/MinIO), multipart uploads with presigned URLs, lineage tracking.' },
+  { name: 'Knowledge Service', desc: 'Structured claim graph with evidence, counterevidence, verification grades (A/B/C/contested/unknown), and canonical promotion rules.' },
+  { name: 'Task Service', desc: 'DAG-based task lifecycle with validated state machine: queued → running → done/blocked/failed, retry logic, and approval gates.' },
+  { name: 'Compute Service', desc: 'Run execution tracking with environment specs, parameters, seeds, output artifacts, cost metrics, and deterministic replay.' },
+  { name: 'Agent Runtime', desc: 'Agent registry, lease-based task assignment with heartbeating, reputation scoring, and stale lease expiration.' },
+  { name: 'Observability', desc: 'Immutable audit logging with actor identity, timestamps, and resource references. Queryable by program, resource, action, and time range.' },
+  { name: 'Eval Service', desc: 'Agent benchmarking and performance scoring: success rate, cost efficiency, duration metrics, and regression detection.' },
+];
+
+const platformStats = [
+  { label: 'Packages', value: '13', detail: 'Shared, database, events, auth, 8 domain services, API gateway' },
+  { label: 'API Endpoints', value: '30+', detail: 'Auth, programs, artifacts, claims, tasks, runs, uploads' },
+  { label: 'Agent Types', value: '10', detail: 'Ingestion through safety sentinel, each with typed contracts' },
+  { label: 'Verification Grades', value: '5', detail: 'A (replicated), B (critiqued + replicated), C (critiqued), contested, unknown' },
+  { label: 'Event Bus', value: 'Redis Streams', detail: 'CloudEvents 1.0 envelopes, consumer groups, at-least-once delivery' },
+  { label: 'Storage', value: 'Content-addressed', detail: 'S3/MinIO with multipart upload, presigned URLs, automatic deduplication' },
+];
+
+const targetDomains = [
+  { domain: 'Biology', approach: 'Causal graph + intervention loop: build multi-omics knowledge graph, propose causal subgraphs, prioritize interventions, simulate, update causal model.' },
+  { domain: 'Civilization Dynamics', approach: 'Policy stress test: formalize objectives, build incentive models, run adversarial scenarios, compute robustness.' },
+  { domain: 'Materials Discovery', approach: 'Candidate funnel: generate candidates, run HPC simulations, rank with uncertainty, replicate, produce lab handoff.' },
+  { domain: 'Deep History', approach: 'Cross-modal consilience: ingest archaeology + aDNA + texts + climate proxies, propose competing narratives, test with cultural evolution models.' },
+  { domain: 'Paradigm Science', approach: 'Conjecture-proof-refute engine: mine patterns, generate conjectures, attempt proofs/counterexamples, track theory compression.' },
+];
+---
+
+<BaseLayout
+  title="SwarmOS"
+  description="A collective intelligence research platform coordinating specialized AI agents for continuous, audited scientific research with artifact-level provenance and reproducibility."
+>
+  <section class="so-hero">
+    <div class="container container--narrow">
+      <span class="so-hero__eyebrow">Research Platform</span>
+      <h1 class="so-hero__title">SwarmOS</h1>
+      <p class="so-hero__lede">
+        A collective intelligence research platform that coordinates large populations of
+        specialized AI agents to perform continuous, audited scientific research — treating
+        research as a closed-loop control system rather than a sequence of isolated papers.
+      </p>
+      <div class="so-hero__actions">
+        <Button href="#thesis" variant="brass">The Thesis</Button>
+        <Button href="#architecture" variant="ghost">View Architecture &rarr;</Button>
+        <Button href="#research-loop" variant="ghost">Research Loop &rarr;</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="thesis">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">The thesis</h2>
+      <p class="so-section__body so-section__body--accent">
+        Research quality scales with the quality of the substrate, not the quantity of agents.
+      </p>
+      <p class="so-section__body">
+        If the substrate is correct — if every artifact has a hash, every claim has evidence,
+        every result has a reproduction bundle, and every verification has a grade — then adding
+        more agents, more compute, and more data strictly improves outcomes. If the substrate is
+        wrong, more agents just means more garbage, faster.
+      </p>
+      <p class="so-section__body">
+        Modern research is bottlenecked by fragmented evidence spanning papers, datasets, code,
+        and instruments; combinatorial search spaces that defeat brute-force exploration; reproducibility
+        breakdowns that erode trust; human bandwidth limits that prevent synthesis; and non-stationarity
+        that makes static models decay. AI agents can help — but only within a system that enforces
+        provenance, verification, and structured reasoning.
+      </p>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="principles">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">Core principles</h2>
+      <p class="so-section__body">
+        These are architectural constraints, not aspirations. They are enforced by the system, not by convention.
+      </p>
+      <div class="so-principles-grid">
+        {corePrinciples.map((p) => (
+          <div class="so-principles-grid__item">
+            <strong class="so-principles-grid__name">{p.name}</strong>
+            <p class="so-principles-grid__body">{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="research-loop">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">The research loop</h2>
+      <p class="so-section__body">
+        SwarmOS implements a continuous cycle that runs per-program. Each step is decomposed into
+        typed tasks, assigned to specialized agents, executed within budgets, and verified by
+        independent agents.
+      </p>
+      <div class="so-loop">
+        <div class="so-loop__step so-loop__step--observe">
+          <span class="so-loop__label">Observe</span>
+          <span class="so-loop__desc">Ingest new data, papers, experimental results</span>
+        </div>
+        <div class="so-loop__arrow">&rarr;</div>
+        <div class="so-loop__step so-loop__step--model">
+          <span class="so-loop__label">Model</span>
+          <span class="so-loop__desc">Update knowledge graph and claim graph</span>
+        </div>
+        <div class="so-loop__arrow">&rarr;</div>
+        <div class="so-loop__step so-loop__step--propose">
+          <span class="so-loop__label">Propose</span>
+          <span class="so-loop__desc">Generate hypotheses, design experiments</span>
+        </div>
+        <div class="so-loop__arrow">&rarr;</div>
+        <div class="so-loop__step so-loop__step--test">
+          <span class="so-loop__label">Test</span>
+          <span class="so-loop__desc">Execute simulations, computations, analyses</span>
+        </div>
+        <div class="so-loop__arrow">&rarr;</div>
+        <div class="so-loop__step so-loop__step--verify">
+          <span class="so-loop__label">Verify</span>
+          <span class="so-loop__desc">Replicate results, adversarial critiques</span>
+        </div>
+        <div class="so-loop__arrow">&rarr;</div>
+        <div class="so-loop__step so-loop__step--update">
+          <span class="so-loop__label">Update</span>
+          <span class="so-loop__desc">Promote verified claims, deprecate refuted</span>
+        </div>
+      </div>
+      <p class="so-section__body" style="margin-top: var(--sp-6);">
+        The cycle runs continuously, not on a paper-publishing cadence. Publish, monitor, and
+        priority adjustment happen alongside every iteration.
+      </p>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="agents">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">Agent model</h2>
+      <p class="so-section__body">
+        SwarmOS defines a minimum viable set of agent types, each with a clear role. Every agent
+        must consume typed task inputs, produce typed outputs with metadata, emit structured logs
+        and citations, declare uncertainties and failure modes, and operate within its assigned
+        budget and tool permissions.
+      </p>
+      <div class="so-agent-grid">
+        {agentTypes.map((a) => (
+          <div class="so-agent-grid__item">
+            <strong class="so-agent-grid__type">{a.type}</strong>
+            <span class="so-agent-grid__role">{a.role}</span>
+          </div>
+        ))}
+      </div>
+      <div class="so-protocol">
+        <h3 class="so-protocol__heading">Debate Protocol (Propose-Critique-Judge)</h3>
+        <ol class="so-protocol__list" role="list">
+          <li><strong>Proposer</strong> outputs a claim with assumptions, predicted signatures, and a test plan</li>
+          <li><strong>Critics</strong> output strongest counterarguments, alternative explanations, and missing evidence</li>
+          <li><strong>Arbiter</strong> decides: accept, revise, or reject — and prioritizes next experiments by expected information gain</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="what-is-live">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">What is live now</h2>
+      <p class="so-section__body">
+        SwarmOS MVP is operational. The following infrastructure is built and functional.
+      </p>
+      <div class="so-stats-grid">
+        {platformStats.map((s) => (
+          <div class="so-stats-grid__item">
+            <span class="so-stats-grid__value">{s.value}</span>
+            <span class="so-stats-grid__label">{s.label}</span>
+            <span class="so-stats-grid__detail">{s.detail}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="architecture">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">Architecture</h2>
+      <p class="so-section__body">
+        SwarmOS is a TypeScript monorepo using pnpm workspaces and Turborepo. It follows a layered,
+        service-oriented architecture where each service owns its domain logic and data, connected by
+        a typed event bus. Every service defines a repository interface — concrete implementations
+        are injected at the container level, making services testable in isolation and storage-agnostic.
+      </p>
+      <div class="so-services-grid">
+        {services.map((s) => (
+          <div class="so-services-grid__item">
+            <strong class="so-services-grid__name">{s.name}</strong>
+            <p class="so-services-grid__desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="infra">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">Infrastructure</h2>
+      <div class="so-infra-grid">
+        <div class="so-infra-grid__item">
+          <strong>PostgreSQL 16 + pgvector</strong>
+          <p>Primary database with vector search capability. Drizzle ORM schema with 13 tables: users, programs, artifacts, claims, tasks, runs, agents, leases, audit log, uploads, and idempotency keys.</p>
+        </div>
+        <div class="so-infra-grid__item">
+          <strong>Redis 7 (Streams)</strong>
+          <p>Event bus using Redis Streams with consumer groups for at-least-once delivery. CloudEvents 1.0 envelopes provide decoupled coordination and a natural audit trail.</p>
+        </div>
+        <div class="so-infra-grid__item">
+          <strong>MinIO / S3</strong>
+          <p>Content-addressed object storage with multipart upload support. Presigned URLs for direct client uploads. Automatic deduplication via content hashing.</p>
+        </div>
+        <div class="so-infra-grid__item">
+          <strong>Fastify API Gateway</strong>
+          <p>30+ endpoints with CORS, rate limiting, JWT authentication, RBAC guards on admin endpoints, and program membership guards on resources.</p>
+        </div>
+        <div class="so-infra-grid__item">
+          <strong>JWT / RBAC / ABAC</strong>
+          <p>HS256 tokens with role hierarchy (admin through operator). Attribute-based access control for fine-grained permissions. Data classification tiers with enforcement.</p>
+        </div>
+        <div class="so-infra-grid__item">
+          <strong>Sandbox Execution</strong>
+          <p>No outbound network by default, resource quotas, filesystem isolation. Prompt injection mitigation — extracted content treated as untrusted input, separated from control instructions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="so-section so-section--domains fade-up" id="domains">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">Target domains</h2>
+      <p class="so-section__body">
+        SwarmOS provides domain-specific workflow templates for the hardest class of scientific
+        and societal challenges.
+      </p>
+      <div class="so-domains-list">
+        {targetDomains.map((d) => (
+          <div class="so-domains-list__item">
+            <span class="so-domains-list__name">{d.domain}</span>
+            <span class="so-domains-list__approach">{d.approach}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="safety">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">Safety &amp; trust</h2>
+      <p class="so-section__body">
+        Defense in depth, not defense by hope.
+      </p>
+      <ul class="so-safety-list" role="list">
+        <li><strong>Data classification tiers</strong> (public/internal/restricted/secret) with ABAC enforcement</li>
+        <li><strong>Sandbox execution</strong> with no outbound network by default, resource quotas, and filesystem isolation</li>
+        <li><strong>Prompt injection mitigation</strong> — extracted content treated as untrusted input, separated from control instructions</li>
+        <li><strong>Dual-use monitoring</strong> — safety sentinel agents and policy gates for sensitive domains</li>
+        <li><strong>Kill switches</strong> — rate limits, anomaly detection, and the ability to quarantine programs or agents</li>
+        <li><strong>Immutable audit ledger</strong> — every action logged with actor identity, timestamp, and resource references</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="roadmap">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">Roadmap</h2>
+      <div class="so-roadmap__timeline">
+        <div class="so-roadmap__entry so-roadmap__entry--done">
+          <span class="so-roadmap__date">2026 Q1</span>
+          <div>
+            <strong>Platform MVP</strong>
+            <p>Full TypeScript monorepo with 13 packages. API gateway with 30+ endpoints. JWT/RBAC/ABAC authentication. In-memory repository layer for all services. Artifact upload pipeline with S3 multipart support. Task state machine with validated transitions. Claim graph with evidence/counterevidence/verification. Agent registry with lease management. Audit logging.</p>
+          </div>
+        </div>
+        <div class="so-roadmap__entry so-roadmap__entry--current">
+          <span class="so-roadmap__date">2026 Q2</span>
+          <div>
+            <strong>Database &amp; Event Integration</strong>
+            <p>Connect PostgreSQL via Drizzle repositories. Run database migrations. Redis Streams event bus integration in services. Semantic search via pgvector embeddings. Agent orchestration engine (task routing, scheduling).</p>
+          </div>
+        </div>
+        <div class="so-roadmap__entry">
+          <span class="so-roadmap__date">2026 Q3</span>
+          <div>
+            <strong>Agent Orchestration &amp; UI</strong>
+            <p>WebSocket real-time updates. UI dashboard for program directors and scientists. Comprehensive test suite. OpenAPI/Swagger documentation. CI/CD pipeline.</p>
+          </div>
+        </div>
+        <div class="so-roadmap__entry">
+          <span class="so-roadmap__date">2026 Q4</span>
+          <div>
+            <strong>Domain Templates &amp; Scale</strong>
+            <p>Biology, civilization dynamics, materials discovery, and deep history workflow templates. Multi-program orchestration. Community deployment documentation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="so-section fade-up" id="maxim">
+    <div class="container container--narrow">
+      <blockquote class="so-maxim">
+        <p>If you only get one thing "perfect," make it this chain:</p>
+        <p class="so-maxim__chain">Artifact &rarr; Claim &rarr; Evidence &rarr; Reproduction Bundle &rarr; Verification Grade</p>
+        <p>Everything else — agents, orchestration, prioritization — becomes dramatically easier once the substrate is correct.</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="so-section so-section--contribute fade-up" id="contribute">
+    <div class="container container--narrow">
+      <h2 class="so-section__heading">Get involved</h2>
+      <p class="so-section__body">
+        SwarmOS is being built in public. The platform is functional and actively developing toward
+        full database integration and agent orchestration.
+      </p>
+      <div class="so-section__actions">
+        <Button href={SWARMOS_GITHUB}>View GitHub</Button>
+        <Button href="#architecture" variant="secondary">Read the Architecture</Button>
+        <Button href="/contact" variant="secondary">Contact Jason</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="so-closing fade-up">
+    <div class="container container--narrow">
+      <p class="so-closing__line">More agents is not the answer.</p>
+      <p class="so-closing__line so-closing__line--accent">A correct substrate is.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .so-hero {
+    background-color: var(--color-dark-surface);
+    padding-block: var(--sp-24) var(--sp-16);
+  }
+
+  .so-hero__eyebrow {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brass);
+  }
+
+  .so-hero__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-dark-text);
+    margin-top: var(--sp-4);
+  }
+
+  .so-hero__lede {
+    font: var(--text-body-lg);
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-dark-muted);
+    margin-top: var(--sp-4);
+    max-width: 38em;
+  }
+
+  .so-hero__actions {
+    display: flex;
+    gap: var(--sp-6);
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: var(--sp-8);
+  }
+
+  .so-section {
+    padding-block: var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .so-section__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-6);
+  }
+
+  .so-section__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    max-width: 42em;
+    margin-bottom: var(--sp-6);
+  }
+
+  .so-section__body:last-child {
+    margin-bottom: 0;
+  }
+
+  .so-section__body--accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-brass);
+  }
+
+  .so-section__actions {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    margin-top: var(--sp-8);
+  }
+
+  /* ── Principles grid ── */
+  .so-principles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+    grid-auto-rows: 1fr;
+  }
+
+  .so-principles-grid__item {
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-brass);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .so-principles-grid__name {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .so-principles-grid__body {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+  }
+
+  /* ── Research loop ── */
+  .so-loop {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+    padding: var(--sp-6);
+    background-color: var(--color-warm-wash);
+    border-radius: var(--radius-card);
+  }
+
+  .so-loop__step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    padding: var(--sp-3) var(--sp-4);
+    border-radius: var(--radius-button);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .so-loop__step--observe,
+  .so-loop__step--verify {
+    background-color: rgba(169, 135, 82, 0.15);
+    color: var(--color-brass);
+    border: 1px solid rgba(169, 135, 82, 0.3);
+  }
+
+  .so-loop__step--model,
+  .so-loop__step--propose,
+  .so-loop__step--test,
+  .so-loop__step--update {
+    background-color: rgba(16, 24, 38, 0.06);
+    color: var(--color-ink);
+    border: 1px solid rgba(16, 24, 38, 0.12);
+  }
+
+  .so-loop__label {
+    font-weight: 600;
+    font-size: 0.8125rem;
+  }
+
+  .so-loop__desc {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    color: var(--color-slate);
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .so-loop__arrow {
+    font-size: 1.25rem;
+    color: var(--color-slate);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  /* ── Agent grid ── */
+  .so-agent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-8);
+  }
+
+  .so-agent-grid__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    padding: var(--sp-4) var(--sp-5);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .so-agent-grid__type {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .so-agent-grid__role {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.5;
+  }
+
+  /* ── Protocol ── */
+  .so-protocol {
+    padding: var(--sp-6);
+    background-color: var(--color-warm-wash);
+    border-radius: var(--radius-card);
+  }
+
+  .so-protocol__heading {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    margin-bottom: var(--sp-4);
+  }
+
+  .so-protocol__list {
+    list-style: none;
+    counter-reset: item;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .so-protocol__list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    line-height: 1.7;
+  }
+
+  .so-protocol__list strong {
+    color: var(--color-brass);
+    font-weight: 500;
+  }
+
+  /* ── Stats grid ── */
+  .so-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .so-stats-grid__item {
+    padding: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .so-stats-grid__value {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1;
+  }
+
+  .so-stats-grid__label {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brass);
+    font-size: 0.6875rem;
+  }
+
+  .so-stats-grid__detail {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.4;
+  }
+
+  /* ── Services grid ── */
+  .so-services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+    grid-auto-rows: 1fr;
+  }
+
+  .so-services-grid__item {
+    padding: var(--sp-6);
+    border: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-brass);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .so-services-grid__name {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .so-services-grid__desc {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── Infrastructure grid ── */
+  .so-infra-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+    grid-auto-rows: 1fr;
+  }
+
+  .so-infra-grid__item {
+    padding: var(--sp-6);
+    border: 1px solid rgba(16, 24, 38, 0.06);
+    border-left: 3px solid var(--color-brass);
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-elevated);
+    box-shadow: var(--shadow-card-rest);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .so-infra-grid__item strong {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .so-infra-grid__item p {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── Domains list ── */
+  .so-domains-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .so-domains-list__item {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .so-domains-list__name {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .so-domains-list__approach {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
+  }
+
+  /* ── Safety list ── */
+  .so-safety-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .so-safety-list li {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--color-brass);
+    line-height: 1.7;
+  }
+
+  .so-safety-list strong {
+    color: var(--color-brass);
+    font-weight: 500;
+  }
+
+  /* ── Roadmap ── */
+  .so-roadmap__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .so-roadmap__entry {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-6);
+    border-left: 2px solid var(--color-line);
+  }
+
+  .so-roadmap__entry--done {
+    border-left-color: var(--color-brass);
+  }
+
+  .so-roadmap__entry--current {
+    border-left-color: var(--color-brass);
+    background-color: var(--color-warm-wash);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  }
+
+  .so-roadmap__date {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    white-space: nowrap;
+    margin-top: 0.2em;
+  }
+
+  .so-roadmap__entry strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+  }
+
+  .so-roadmap__entry p {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    line-height: 1.6;
+  }
+
+  /* ── Maxim ── */
+  .so-maxim {
+    padding: var(--sp-8);
+    background-color: var(--color-warm-wash);
+    border-left: 3px solid var(--color-brass);
+    border-radius: var(--radius-card);
+    margin: 0;
+  }
+
+  .so-maxim p {
+    font: var(--text-body-lg);
+    font-family: var(--font-serif);
+    color: var(--color-ink);
+    margin-bottom: var(--sp-4);
+    max-width: 42em;
+  }
+
+  .so-maxim p:last-child {
+    margin-bottom: 0;
+    color: var(--color-slate);
+    font-style: italic;
+  }
+
+  .so-maxim__chain {
+    font-weight: 500;
+    color: var(--color-brass) !important;
+    font-style: normal !important;
+    font-size: 1.125rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Closing ── */
+  .so-closing {
+    padding-block: var(--sp-24);
+    text-align: center;
+    border-bottom: none;
+  }
+
+  .so-closing__line {
+    font: var(--text-body-lg);
+    font-family: var(--font-serif);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-2);
+  }
+
+  .so-closing__line--accent {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .so-hero {
+      padding-block: var(--sp-16) var(--sp-12);
+    }
+
+    .so-hero__title {
+      font: var(--text-h2);
+      font-family: var(--font-serif);
+      font-weight: 500;
+      color: var(--color-dark-text);
+    }
+
+    .so-principles-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .so-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .so-services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .so-infra-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .so-agent-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .so-domains-list__item {
+      grid-template-columns: 1fr;
+      gap: var(--sp-2);
+    }
+
+    .so-loop {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+
+    .so-loop__arrow {
+      transform: rotate(90deg);
+      align-self: center;
+    }
+
+    .so-roadmap__entry {
+      grid-template-columns: 1fr;
+      gap: var(--sp-2);
+    }
+
+    .so-section {
+      padding-block: var(--sp-12);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .so-stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -8,6 +8,7 @@ import {
   CAPABILITY_COMMONS_URL,
   ALCHEMICALAI_URL,
   STRUCTURE_LAB_URL,
+  SWARMOS_URL,
 } from '@/lib/site';
 
 const coreProperties = [
@@ -53,6 +54,13 @@ const coreProperties = [
     body: 'An options payoff-engineering platform using MILP optimization to construct optimal multi-leg structures from user-defined payoff intent.',
     external: false,
   },
+  {
+    name: 'SwarmOS',
+    href: SWARMOS_URL,
+    tagline: 'Research Platform / Agent Infrastructure',
+    body: 'A collective intelligence platform coordinating specialized AI agents for continuous, audited scientific research with artifact-level provenance and reproducibility by default.',
+    external: false,
+  },
 ] as const;
 
 const labDirections = [
@@ -71,6 +79,10 @@ const labDirections = [
   {
     title: 'Quantitative Finance & Construction Quality',
     body: 'Mathematical optimization applied to financial instrument construction — replacing heuristic selection with constrained solvers that produce provably good structures along cost, robustness, and simplicity dimensions.',
+  },
+  {
+    title: 'Collective Intelligence & Agent Coordination',
+    body: 'Multi-agent research substrates with content-addressed artifacts, structured claim graphs, separation of duties, budgeted autonomy, and continuous evaluation — enforcing research quality at the platform level.',
   },
   {
     title: 'Music, Geometry & Lawful Form',
@@ -157,7 +169,7 @@ const labDirections = [
         orientation. Capability Commons turns part of the answer into public infrastructure. GAMUT
         carries the older research thread on form, order, and lawful motion. Structure Lab applies
         mathematical optimization to financial construction — the same instinct toward provable
-        quality over heuristic familiarity. AlchemicalAI is the applied surface where some of these
+        quality over heuristic familiarity. SwarmOS extends that instinct into research itself: a platform where agents must prove their claims, reproduce their results, and earn their continued operation. AlchemicalAI is the applied surface where some of these
         ideas meet clients, systems, and implementation.
       </p>
       <p class="map__text map__text--emphasis">

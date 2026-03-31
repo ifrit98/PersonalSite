@@ -31,6 +31,7 @@ void AFTERFIAT_URL;
         <li class="outcomes__item">Multi-million-dollar protocol operations</li>
         <li class="outcomes__item">Public capability platform architecture</li>
         <li class="outcomes__item">MILP-optimized financial construction</li>
+        <li class="outcomes__item">Agent-coordinated audited research</li>
       </ul>
     </div>
   </section>
@@ -77,6 +78,14 @@ void AFTERFIAT_URL;
           <p class="area-card__body">
             Cross-domain integration, technical translation, architecture review,
             research-to-production handoff, and turning ambitious work into operational capability.
+          </p>
+        </article>
+        <article class="area-card fade-up" style="--stagger: 400ms">
+          <h3 class="area-card__title">Collective Intelligence &amp; Agent Coordination</h3>
+          <p class="area-card__body">
+            Multi-agent research platforms, artifact-first knowledge systems, structured claim graphs,
+            lease-based task orchestration, and closed-loop scientific workflows with reproducibility
+            and verification enforced at the substrate level.
           </p>
         </article>
       </div>
@@ -252,6 +261,58 @@ void AFTERFIAT_URL;
           </dl>
         </article>
 
+        <article class="case-card" id="swarmos">
+          <span class="case-card__meta">Agent Infrastructure / Research Platform</span>
+          <h3 class="case-card__title">SwarmOS</h3>
+          <p class="case-card__role"><span class="case-card__label">Role</span> Architect, platform design, full-stack</p>
+          <p class="case-card__problem">
+            <span class="case-card__label">Problem</span>
+            Modern research is bottlenecked by fragmented evidence, combinatorial search spaces,
+            reproducibility breakdowns, and human bandwidth limits. Existing AI tools amplify noise
+            without enforcing provenance or verification.
+          </p>
+          <p class="case-card__narrative">
+            Built a collective intelligence platform that coordinates specialized AI agents to
+            perform continuous, audited scientific research. The core design bet is substrate quality
+            over agent quantity: every artifact is content-addressed with lineage tracking, every
+            claim lives in a structured evidence graph with counterevidence and calibrated confidence,
+            and every computational run produces a deterministic reproduction bundle. Agents operate
+            within explicit compute/cost/risk budgets, acquire tasks via exclusive leases with
+            heartbeating, and must continuously outperform baselines to remain active. A separation-of-duties
+            protocol ensures proposers cannot verify their own claims — independent critics,
+            replicators, and arbiters enforce epistemic discipline.
+          </p>
+          <dl class="case-card__dl">
+            <div class="case-card__dl-row">
+              <dt>Constraints</dt>
+              <dd>
+                Content-addressed deduplication, structured claim graphs with verification grades,
+                separation of duties (proposer ≠ verifier ≠ integrator), budgeted autonomy with
+                human approval gates, lease-based task assignment with fault tolerance
+              </dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Stack</dt>
+              <dd>
+                TypeScript monorepo (pnpm + Turborepo), Fastify, Drizzle ORM, PostgreSQL (pgvector),
+                Redis Streams (CloudEvents), MinIO/S3, JWT/RBAC/ABAC, 13 packages, 30+ API endpoints
+              </dd>
+            </div>
+            <div class="case-card__dl-row">
+              <dt>Outcomes</dt>
+              <dd>
+                13-package service-oriented architecture; 30+ authenticated API endpoints; full
+                artifact lifecycle with multipart upload; claim graph with evidence/counterevidence/verification;
+                task state machine with retry and approval gates; agent registry with lease management
+              </dd>
+            </div>
+          </dl>
+          <p class="case-card__note">
+            Active development — see the dedicated
+            <a href="/swarmos">SwarmOS</a> page.
+          </p>
+        </article>
+
         <article class="case-card" id="capability-commons">
           <span class="case-card__meta">Public Initiative / Platform</span>
           <h3 class="case-card__title">Capability Commons</h3>
@@ -363,7 +424,7 @@ void AFTERFIAT_URL;
   .outcomes__list {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: var(--sp-6);
   }
 

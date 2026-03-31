@@ -19,6 +19,8 @@ export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
 export const CAPABILITY_COMMONS_URL = '/capability-commons';
 export const CAPABILITY_COMMONS_GITHUB = 'https://github.com/Granite-Labs-LLC/CapabilityCommons';
 export const STRUCTURE_LAB_URL = '/work#structure-lab';
+export const SWARMOS_URL = '/swarmos';
+export const SWARMOS_GITHUB = 'https://github.com/ifrit98/swarmos';
 
 export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
@@ -78,5 +80,12 @@ export const ENDORSED_PROPERTIES = [
     description:
       'An options payoff-engineering platform that uses MILP optimization to construct optimal multi-leg structures from user-defined intent.',
     url: STRUCTURE_LAB_URL,
+  },
+  {
+    name: 'SwarmOS',
+    tagline: 'Research Platform / Agent Infrastructure',
+    description:
+      'A collective intelligence research platform that coordinates specialized AI agents to perform continuous, audited scientific research with artifact-level provenance and reproducibility.',
+    url: SWARMOS_URL,
   },
 ] as const;
