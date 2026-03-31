@@ -8,6 +8,9 @@ import {
   GAMUT_URL,
   CAPABILITY_COMMONS_URL,
   ALCHEMICALAI_URL,
+  STRUCTURE_LAB_URL,
+  SWARMOS_URL,
+  AGENTICDATA_URL,
 } from '@/lib/site';
 ---
 
@@ -100,58 +103,58 @@ import {
         when soft guarantees fail?
       </p>
       <div class="home-build__grid">
-        <article class="home-card fade-up" style="--stagger: 0ms">
+        <a href={AFTERFIAT_URL} class="home-card fade-up" style="--stagger: 0ms">
           <h3 class="home-card__title">Protocols &amp; Verification</h3>
           <p class="home-card__body">
             Threat models, incentive design, proofs, privacy-preserving architecture, and systems
             built to remain credible when counterparties are strategic.
           </p>
-        </article>
-        <article class="home-card fade-up" style="--stagger: 80ms">
+        </a>
+        <a href="/work#secure-distributed-ml" class="home-card fade-up" style="--stagger: 80ms">
           <h3 class="home-card__title">ML Infrastructure &amp; Edge Systems</h3>
           <p class="home-card__body">
             Distributed training, secure deployment, latency-sensitive inference, sensor fusion, and
             production workflows designed for actual operating conditions.
           </p>
-        </article>
-        <article class="home-card fade-up" style="--stagger: 160ms">
+        </a>
+        <a href={CAPABILITY_COMMONS_URL} class="home-card fade-up" style="--stagger: 160ms">
           <h3 class="home-card__title">Knowledge Systems &amp; Public Capability</h3>
           <p class="home-card__body">
             Platforms that turn scattered information into usable skill — across water, shelter,
             power, repair, and community — through structured retrieval, versioned knowledge
             objects, and clear paths from need to action.
           </p>
-        </article>
-        <article class="home-card fade-up" style="--stagger: 240ms">
+        </a>
+        <a href={ESCHATOLOGY_URL} class="home-card fade-up" style="--stagger: 240ms" target="_blank" rel="noopener noreferrer">
           <h3 class="home-card__title">Writing, Money &amp; Civilizational Systems</h3>
           <p class="home-card__body">
             Long-form work on verification collapse, synthetic media, repression, sovereignty, money,
             coordination, and the search for durable value.
           </p>
-        </article>
-        <article class="home-card fade-up" style="--stagger: 320ms">
+        </a>
+        <a href={STRUCTURE_LAB_URL} class="home-card fade-up" style="--stagger: 320ms">
           <h3 class="home-card__title">Quantitative Systems &amp; Optimization</h3>
           <p class="home-card__body">
             Mathematical optimization applied to financial construction — MILP solvers, payoff
             engineering, multi-dimensional scoring, and provably good structures over heuristic
             familiarity.
           </p>
-        </article>
-        <article class="home-card fade-up" style="--stagger: 400ms">
+        </a>
+        <a href={GAMUT_URL} class="home-card fade-up" style="--stagger: 400ms" target="_blank" rel="noopener noreferrer">
           <h3 class="home-card__title">Music, Form &amp; Research</h3>
           <p class="home-card__body">
             Formal work in musical geometry, sonification, and structure — the research thread
             underneath how I think about pattern, invariants, and lawful motion.
           </p>
-        </article>
-        <article class="home-card fade-up" style="--stagger: 480ms">
+        </a>
+        <a href={SWARMOS_URL} class="home-card fade-up" style="--stagger: 480ms">
           <h3 class="home-card__title">Collective Intelligence, Agents &amp; Retrieval</h3>
           <p class="home-card__body">
             Multi-agent research platforms, enterprise context graphs, agentic retrieval
             planners, and knowledge systems where relevance is defined by causality and
             organizational state — not vector similarity alone.
           </p>
-        </article>
+        </a>
       </div>
     </div>
   </section>
@@ -462,21 +465,50 @@ import {
     }
   }
 
-  .home-card {
+  a.home-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
     background-color: var(--color-card-elevated);
     border-radius: var(--radius-card);
     padding: var(--sp-6);
     box-shadow: var(--shadow-card-rest);
     border: 1px solid var(--color-line);
     border-left: 3px solid var(--color-brass);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
     transition:
+      border-color var(--duration-normal) var(--ease-out),
       box-shadow var(--duration-normal) var(--ease-out),
       transform var(--duration-normal) var(--ease-out);
   }
 
-  .home-card:hover {
+  a.home-card::after {
+    content: '→';
+    position: absolute;
+    top: var(--sp-6);
+    right: var(--sp-6);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--color-brass);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
+  }
+
+  a.home-card:hover {
+    border-color: var(--color-brass);
+    border-left-color: var(--color-brass);
     box-shadow: var(--shadow-card-lift);
     transform: translateY(-2px);
+  }
+
+  a.home-card:hover::after {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .home-card__title {
