@@ -138,3 +138,25 @@ body::after {
   white-space: nowrap;
   border-width: 0;
 }
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--sp-4);
+  z-index: 200;
+  padding: var(--sp-3) var(--sp-6);
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-button);
+  text-decoration: none;
+  transition: top var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: var(--sp-4);
+  color: var(--color-bone);
+}

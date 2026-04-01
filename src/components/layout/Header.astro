@@ -1,5 +1,5 @@
 ---
-import { SITE, NAV_LINKS, UTILITY_LINKS, AFTERFIAT_URL } from '@/lib/site';
+import { SITE, NAV_LINKS, UTILITY_LINKS, CONTACT_URL } from '@/lib/site';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -28,7 +28,7 @@ const currentPath = Astro.url.pathname;
       {UTILITY_LINKS.map((link) => (
         <a href={link.href} class="header__utility-link">{link.label}</a>
       ))}
-      <a href={AFTERFIAT_URL} class="header__cta">Read AfterFiat</a>
+      <a href={CONTACT_URL} class="header__cta" data-track="nav_primary_cta_click">Discuss an Engagement</a>
     </div>
 
     <button class="header__mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -52,7 +52,7 @@ const currentPath = Astro.url.pathname;
       </ul>
     </nav>
     <div class="header__mobile-utility">
-      <a href={AFTERFIAT_URL} class="header__cta">Read AfterFiat</a>
+      <a href={CONTACT_URL} class="header__cta" data-track="nav_primary_cta_click">Discuss an Engagement</a>
       {UTILITY_LINKS.map((link) => (
         <a href={link.href} class="header__utility-link">{link.label}</a>
       ))}

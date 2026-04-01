@@ -1,8 +1,8 @@
 export const SITE = {
   name: 'Jason St George',
-  title: 'Jason St George | Verification, Systems, and Capability',
+  title: 'Jason St George | Secure ML, Verification & Knowledge Systems',
   description:
-    'Protocols, ML infrastructure, knowledge systems, writing, and research on verification, capability, and value under adversarial conditions.',
+    'I help teams operating in adversarial, high-security, latency-sensitive, or high-consequence environments design systems that stay credible under pressure — from air-gapped distributed ML and real-time edge inference to protocol architecture and retrieval systems.',
   url: 'https://jasonstgeorge.com',
   author: 'Jason St George',
   email: 'jason@jasonstgeorge.com',
@@ -11,6 +11,8 @@ export const SITE = {
     linkedin: 'https://linkedin.com/in/stgeorgejas',
   },
 } as const;
+
+export const CONTACT_URL = '/contact#engagement';
 
 export const AFTERFIAT_URL = 'https://afterfiat.xyz';
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';

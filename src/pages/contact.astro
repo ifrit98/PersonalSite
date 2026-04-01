@@ -1,8 +1,19 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
 import { SITE } from '@/lib/site';
 
-const inquiryCards = [
+const inquiryTypes = [
+  'Architecture Review',
+  'Protocol / Threat-Model Memo',
+  'Secure ML Infrastructure',
+  'Knowledge / Retrieval Systems',
+  'Technical Synthesis / Fractional Leadership',
+  'Speaking / Research Collaboration',
+  'Other',
+] as const;
+
+const bestFitCards = [
   {
     title: 'Architecture & Protocols',
     body: 'System design, protocol analysis, threat modeling, proofs, mechanism design, and verification-heavy technical problems.',
@@ -28,7 +39,7 @@ const inquiryCards = [
 
 <BaseLayout
   title="Contact"
-  description="Get in touch for architecture-heavy technical work, research collaborations, writing, publication, speaking, and selective advisory work."
+  description="Discuss an engagement for architecture-heavy technical work, research collaborations, writing, publication, speaking, and selective advisory work."
 >
   <section class="page-hero fade-up" aria-labelledby="contact-hero-title">
     <div class="container container--narrow">
@@ -40,13 +51,82 @@ const inquiryCards = [
     </div>
   </section>
 
-  <section class="intro fade-up" aria-labelledby="intro-heading">
+  <section class="inquiry-form fade-up" id="engagement" aria-labelledby="inquiry-heading">
     <div class="container container--narrow">
-      <h2 id="intro-heading" class="sr-only">How to reach out</h2>
-      <p class="intro__text">
-        The most useful inquiries are clear about the problem, the constraints, and the desired outcome. A short, concrete
-        description beats a polished pitch every time.
+      <h2 id="inquiry-heading" class="inquiry-form__heading">Discuss an Engagement</h2>
+      <p class="inquiry-form__intro">
+        A short, concrete description beats a polished pitch.
       </p>
+
+      <form id="contact-form" class="form" novalidate>
+        <div class="form__row form__row--half">
+          <div class="form__field">
+            <label for="field-name" class="form__label">Name <span class="form__required">*</span></label>
+            <input type="text" id="field-name" name="name" required class="form__input" autocomplete="name" />
+          </div>
+          <div class="form__field">
+            <label for="field-email" class="form__label">Email <span class="form__required">*</span></label>
+            <input type="email" id="field-email" name="email" required class="form__input" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="form__row form__row--half">
+          <div class="form__field">
+            <label for="field-org" class="form__label">Organization</label>
+            <input type="text" id="field-org" name="organization" class="form__input" autocomplete="organization" />
+          </div>
+          <div class="form__field">
+            <label for="field-type" class="form__label">Inquiry Type <span class="form__required">*</span></label>
+            <select id="field-type" name="inquiry_type" required class="form__input form__select">
+              <option value="" disabled selected>Select one</option>
+              {inquiryTypes.map((t) => (
+                <option value={t}>{t}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div class="form__field">
+          <label for="field-problem" class="form__label">Problem <span class="form__required">*</span></label>
+          <textarea id="field-problem" name="problem" required rows="3" class="form__input form__textarea" placeholder="What are you trying to solve?"></textarea>
+        </div>
+
+        <div class="form__field">
+          <label for="field-constraints" class="form__label">Constraints</label>
+          <textarea id="field-constraints" name="constraints" rows="2" class="form__input form__textarea" placeholder="Security requirements, timelines, regulatory, environment constraints..."></textarea>
+        </div>
+
+        <div class="form__field">
+          <label for="field-outcome" class="form__label">Desired Outcome</label>
+          <textarea id="field-outcome" name="desired_outcome" rows="2" class="form__input form__textarea" placeholder="What does success look like?"></textarea>
+        </div>
+
+        <div class="form__row form__row--half">
+          <div class="form__field">
+            <label for="field-timeline" class="form__label">Timeline</label>
+            <input type="text" id="field-timeline" name="timeline" class="form__input" placeholder="e.g. 2-week sprint, ongoing, Q3 2026" />
+          </div>
+          <div class="form__field">
+            <label for="field-budget" class="form__label">Budget Range <span class="form__optional">(optional)</span></label>
+            <input type="text" id="field-budget" name="budget_range" class="form__input" placeholder="e.g. $10k–25k, TBD" />
+          </div>
+        </div>
+
+        <div class="form__field">
+          <label for="field-message" class="form__label">Additional Notes</label>
+          <textarea id="field-message" name="message" rows="2" class="form__input form__textarea" placeholder="Anything else relevant..."></textarea>
+        </div>
+
+        <div class="form__actions">
+          <Button variant="brass" class="form__submit" data-track="contact_form_submit">Send Inquiry</Button>
+        </div>
+
+        <div id="form-status" class="form__status" aria-live="polite"></div>
+      </form>
+
+      <div class="form__fallback">
+        <p>Prefer email? Write directly to <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with the problem, constraints, and desired outcome.</p>
+      </div>
     </div>
   </section>
 
@@ -57,7 +137,7 @@ const inquiryCards = [
         These are the kinds of conversations that tend to be the best fit.
       </p>
       <div class="best-fit__grid">
-        {inquiryCards.map((card) => (
+        {bestFitCards.map((card) => (
           <article class="best-fit__card">
             <h3 class="best-fit__card-title">{card.title}</h3>
             <p class="best-fit__card-body">{card.body}</p>
@@ -123,18 +203,159 @@ const inquiryCards = [
     max-width: 38em;
   }
 
-  .intro {
+  /* Inquiry form section */
+  .inquiry-form {
     padding-block: var(--sp-16);
   }
 
-  .intro__text {
-    font: var(--text-body-lg);
-    font-family: var(--font-sans);
-    color: var(--color-ink);
-    max-width: 42em;
-    margin: 0;
+  .inquiry-form__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-4);
   }
 
+  .inquiry-form__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-8);
+  }
+
+  /* Form styles */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .form__row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .form__row--half {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--sp-6);
+  }
+
+  @media (min-width: 640px) {
+    .form__row--half {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .form__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .form__label {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-ink);
+    letter-spacing: 0.01em;
+  }
+
+  .form__required {
+    color: var(--color-oxblood);
+  }
+
+  .form__optional {
+    color: var(--color-slate);
+    font-weight: 400;
+  }
+
+  .form__input {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-ink);
+    background-color: var(--color-card-elevated);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-button);
+    padding: 0.625rem 0.875rem;
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .form__input:focus {
+    outline: none;
+    border-color: var(--color-brass);
+    box-shadow: 0 0 0 3px rgba(169, 135, 82, 0.15);
+  }
+
+  .form__input::placeholder {
+    color: var(--color-slate);
+    opacity: 0.6;
+  }
+
+  .form__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235E6875' d='M1.41.59L6 5.17 10.59.59 12 2 6 8 0 2z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  .form__textarea {
+    resize: vertical;
+    min-height: 3rem;
+  }
+
+  .form__actions {
+    display: flex;
+    gap: var(--sp-4);
+    margin-top: var(--sp-2);
+  }
+
+  .form__status {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    padding: var(--sp-4);
+    border-radius: var(--radius-button);
+    display: none;
+  }
+
+  .form__status--success {
+    display: block;
+    background-color: rgba(169, 135, 82, 0.08);
+    border: 1px solid rgba(169, 135, 82, 0.3);
+    color: var(--color-ink);
+  }
+
+  .form__status--error {
+    display: block;
+    background-color: rgba(79, 36, 50, 0.06);
+    border: 1px solid rgba(79, 36, 50, 0.2);
+    color: var(--color-oxblood);
+  }
+
+  .form__status--loading {
+    display: block;
+    color: var(--color-slate);
+  }
+
+  .form__fallback {
+    margin-top: var(--sp-8);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--color-line);
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  .form__fallback a {
+    color: var(--color-brass);
+  }
+
+  /* Best-fit section */
   .best-fit {
     padding-block: var(--sp-16);
     border-top: 1px solid var(--color-line);
@@ -199,6 +420,7 @@ const inquiryCards = [
     max-width: none;
   }
 
+  /* Direct contact */
   .direct {
     padding-block: var(--sp-16);
     border-top: 1px solid var(--color-line);
@@ -259,3 +481,42 @@ const inquiryCards = [
     }
   }
 </style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const statusEl = document.getElementById('form-status');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!statusEl) return;
+
+    statusEl.className = 'form__status form__status--loading';
+    statusEl.textContent = 'Sending...';
+
+    const fd = new FormData(form);
+    const payload: Record<string, string> = {};
+    fd.forEach((v, k) => { payload[k] = v.toString(); });
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        statusEl.className = 'form__status form__status--success';
+        statusEl.textContent = 'Inquiry sent. I will follow up within a few business days.';
+        form.reset();
+      } else {
+        statusEl.className = 'form__status form__status--error';
+        statusEl.textContent = data.error || 'Something went wrong. Please try email instead.';
+      }
+    } catch {
+      statusEl.className = 'form__status form__status--error';
+      statusEl.textContent = 'Network error. Please try email instead.';
+    }
+  });
+</script>

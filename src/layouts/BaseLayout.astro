@@ -3,11 +3,33 @@ import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
 import ChatButton from '@/components/chat/ChatButton.astro';
 import { buildMeta, type SEOProps } from '@/lib/seo';
+import { SITE } from '@/lib/site';
 import '@/styles/global.css';
 
 interface Props extends SEOProps {}
 
 const meta = buildMeta(Astro.props);
+
+const structuredData = JSON.stringify([
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Jason St George',
+    url: SITE.url,
+    jobTitle: 'Independent Builder & Researcher',
+    description: SITE.description,
+    sameAs: [
+      SITE.social.github,
+      SITE.social.linkedin,
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: SITE.url,
+  },
+]);
 ---
 
 <!doctype html>
@@ -30,9 +52,11 @@ const meta = buildMeta(Astro.props);
     <meta name="twitter:description" content={meta.description} />
     <meta name="twitter:image" content={meta.ogImage} />
     <meta name="generator" content={Astro.generator} />
+    <script type="application/ld+json" set:html={structuredData} />
     <slot name="head" />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <Header />
     <main id="main-content">
       <slot />
@@ -56,6 +80,21 @@ const meta = buildMeta(Astro.props);
       } else {
         document.querySelectorAll('.fade-up').forEach((el) => el.classList.add('is-visible'));
       }
+
+      document.addEventListener('click', (e) => {
+        const target = (e.target as HTMLElement).closest('[data-track]');
+        if (!target) return;
+        const event = target.getAttribute('data-track');
+        if (!event) return;
+
+        if (typeof (window as any).plausible === 'function') {
+          (window as any).plausible(event);
+        }
+
+        if (typeof navigator.sendBeacon === 'function') {
+          navigator.sendBeacon('/api/track', JSON.stringify({ event, ts: Date.now() }));
+        }
+      });
     </script>
   </body>
 </html>
