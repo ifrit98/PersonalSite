@@ -282,6 +282,49 @@ function collectVectorDir(): DocChunk[] {
   return chunks;
 }
 
+function collectScraped(): DocChunk[] {
+  const dir = path.join(ROOT, 'scraped');
+  if (!fs.existsSync(dir)) return [];
+  const subdirs = fs.readdirSync(dir).filter((d) =>
+    fs.statSync(path.join(dir, d)).isDirectory(),
+  );
+  const chunks: DocChunk[] = [];
+
+  for (const sub of subdirs) {
+    const subPath = path.join(dir, sub);
+    const files = fs.readdirSync(subPath).filter((f) => f.endsWith('.txt'));
+
+    for (const file of files) {
+      const raw = fs.readFileSync(path.join(subPath, file), 'utf-8');
+
+      // parse header: URL and Title are on the first two lines
+      const urlMatch = raw.match(/^URL:\s*(.+)$/m);
+      const titleMatch = raw.match(/^Title:\s*(.+)$/m);
+      const url = urlMatch?.[1]?.trim();
+      const title = titleMatch?.[1]?.trim() || file.replace(/\.txt$/, '');
+
+      // strip the header (everything before the first double newline after ===)
+      const bodyStart = raw.indexOf('\n\n', raw.indexOf('==='));
+      const text = bodyStart > -1 ? raw.slice(bodyStart).trim() : raw.trim();
+      if (text.length < 50) continue;
+
+      const textChunks = chunkText(text);
+      for (let i = 0; i < textChunks.length; i++) {
+        chunks.push({
+          content: textChunks[i],
+          metadata: {
+            source: `scraped/${sub}/${file}`,
+            title,
+            url,
+            chunkIndex: i,
+          },
+        });
+      }
+    }
+  }
+  return chunks;
+}
+
 async function collectVectorPdfs(): Promise<DocChunk[]> {
   const dir = path.join(ROOT, 'vector');
   if (!fs.existsSync(dir)) return [];
@@ -385,6 +428,9 @@ async function main() {
   const vectorPdfs = await collectVectorPdfs();
   console.log(`  vector/ PDFs: ${vectorPdfs.length} chunks`);
 
+  const scraped = collectScraped();
+  console.log(`  scraped/ sites: ${scraped.length} chunks`);
+
   const all = [
     ...astro,
     ...workMd,
@@ -393,6 +439,7 @@ async function main() {
     ...pdfs,
     ...vectorText,
     ...vectorPdfs,
+    ...scraped,
   ];
   console.log(`\nTotal: ${all.length} chunks\n`);
 
