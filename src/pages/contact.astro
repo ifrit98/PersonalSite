@@ -62,11 +62,13 @@ const bestFitCards = [
         <div class="form__row form__row--half">
           <div class="form__field">
             <label for="field-name" class="form__label">Name <span class="form__required">*</span></label>
-            <input type="text" id="field-name" name="name" required class="form__input" autocomplete="name" />
+            <input type="text" id="field-name" name="name" required class="form__input" autocomplete="name" aria-describedby="field-name-error" />
+            <span id="field-name-error" class="form__error">Name is required.</span>
           </div>
           <div class="form__field">
             <label for="field-email" class="form__label">Email <span class="form__required">*</span></label>
-            <input type="email" id="field-email" name="email" required class="form__input" autocomplete="email" />
+            <input type="email" id="field-email" name="email" required class="form__input" autocomplete="email" aria-describedby="field-email-error" />
+            <span id="field-email-error" class="form__error">A valid email is required.</span>
           </div>
         </div>
 
@@ -77,18 +79,20 @@ const bestFitCards = [
           </div>
           <div class="form__field">
             <label for="field-type" class="form__label">Inquiry Type <span class="form__required">*</span></label>
-            <select id="field-type" name="inquiry_type" required class="form__input form__select">
+            <select id="field-type" name="inquiry_type" required class="form__input form__select" aria-describedby="field-type-error">
               <option value="" disabled selected>Select one</option>
               {inquiryTypes.map((t) => (
                 <option value={t}>{t}</option>
               ))}
             </select>
+            <span id="field-type-error" class="form__error">Please select an inquiry type.</span>
           </div>
         </div>
 
         <div class="form__field">
           <label for="field-problem" class="form__label">Problem <span class="form__required">*</span></label>
-          <textarea id="field-problem" name="problem" required rows="3" class="form__input form__textarea" placeholder="What are you trying to solve?"></textarea>
+          <textarea id="field-problem" name="problem" required rows="3" class="form__input form__textarea" placeholder="What are you trying to solve?" aria-describedby="field-problem-error"></textarea>
+          <span id="field-problem-error" class="form__error">Please describe the problem.</span>
         </div>
 
         <div class="form__field">
@@ -342,6 +346,22 @@ const bestFitCards = [
     color: var(--color-slate);
   }
 
+  .form__field--error .form__input {
+    border-color: var(--color-oxblood);
+  }
+
+  .form__error {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-oxblood);
+    margin-top: var(--sp-1);
+    display: none;
+  }
+
+  .form__field--error .form__error {
+    display: block;
+  }
+
   .form__fallback {
     margin-top: var(--sp-8);
     padding-top: var(--sp-6);
@@ -486,9 +506,48 @@ const bestFitCards = [
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const statusEl = document.getElementById('form-status');
 
+  function isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function setFieldError(fieldId: string, hasError: boolean) {
+    const field = document.getElementById(fieldId);
+    const wrapper = field?.closest('.form__field');
+    if (!wrapper) return;
+    wrapper.classList.toggle('form__field--error', hasError);
+  }
+
+  function validateForm(): boolean {
+    let valid = true;
+    const name = (document.getElementById('field-name') as HTMLInputElement).value.trim();
+    const email = (document.getElementById('field-email') as HTMLInputElement).value.trim();
+    const type = (document.getElementById('field-type') as HTMLSelectElement).value;
+    const problem = (document.getElementById('field-problem') as HTMLTextAreaElement).value.trim();
+
+    setFieldError('field-name', !name);
+    if (!name) valid = false;
+
+    setFieldError('field-email', !email || !isValidEmail(email));
+    if (!email || !isValidEmail(email)) valid = false;
+
+    setFieldError('field-type', !type);
+    if (!type) valid = false;
+
+    setFieldError('field-problem', !problem);
+    if (!problem) valid = false;
+
+    return valid;
+  }
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!statusEl) return;
+
+    if (!validateForm()) {
+      statusEl.className = 'form__status form__status--error';
+      statusEl.textContent = 'Please fill in all required fields.';
+      return;
+    }
 
     statusEl.className = 'form__status form__status--loading';
     statusEl.textContent = 'Sending...';
@@ -510,6 +569,7 @@ const bestFitCards = [
         statusEl.className = 'form__status form__status--success';
         statusEl.textContent = 'Inquiry sent. I will follow up within a few business days.';
         form.reset();
+        form.querySelectorAll('.form__field--error').forEach(el => el.classList.remove('form__field--error'));
       } else {
         statusEl.className = 'form__status form__status--error';
         statusEl.textContent = data.error || 'Something went wrong. Please try email instead.';

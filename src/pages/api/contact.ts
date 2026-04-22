@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getSupabase } from '@/lib/supabase';
+import { isRateLimited, rateLimitResponse } from '@/lib/rate-limit';
 
 export const prerender = false;
 
@@ -10,6 +11,9 @@ function isValidEmail(email: string): boolean {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  if (isRateLimited(`contact:${ip}`, 5)) return rateLimitResponse();
+
   try {
     const body = await request.json();
 

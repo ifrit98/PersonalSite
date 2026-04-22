@@ -3,73 +3,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import {
   AFTERFIAT_URL,
-  ESCHATOLOGY_URL,
-  GAMUT_URL,
   CAPABILITY_COMMONS_URL,
-  ALCHEMICALAI_URL,
-  STRUCTURE_LAB_URL,
-  SWARMOS_URL,
-  AGENTICDATA_URL,
+  ENDORSED_PROPERTIES,
 } from '@/lib/site';
 
-const coreProperties = [
-  {
-    name: 'AfterFiat',
-    href: AFTERFIAT_URL,
-    tagline: 'Thesis / Blueprint',
-    body: 'A thesis and blueprint on privacy, proofs, and verified compute as monetary primitives for the next civilizational stack.',
-    external: true,
-  },
-  {
-    name: 'Eschatology Report',
-    href: ESCHATOLOGY_URL,
-    tagline: 'Publication / Essays',
-    body: 'An essay publication on AI, culture, institutional drift, existential orientation, and the changing conditions of meaning.',
-    external: true,
-  },
-  {
-    name: 'Capability Commons',
-    href: CAPABILITY_COMMONS_URL,
-    tagline: 'Public Infrastructure / Knowledge Platform',
-    body: 'A structured knowledge platform for practical public capability: concepts, skills, projects, assessments, and teach-forward infrastructure.',
-    external: false,
-  },
-  {
-    name: 'GAMUT',
-    href: GAMUT_URL,
-    tagline: 'Research Program / Formal Mathematics',
-    body: 'A formal mathematical framework for the geometry of musical possibility and a research surface for structure across sound, symmetry, and form.',
-    external: true,
-  },
-  {
-    name: 'AlchemicalAI',
-    href: ALCHEMICALAI_URL,
-    tagline: 'Applied Systems / Commercial',
-    body: 'The commercial and applied surface for selected architecture, infrastructure, and systems work.',
-    external: true,
-  },
-  {
-    name: 'Structure Lab',
-    href: STRUCTURE_LAB_URL,
-    tagline: 'Quantitative Finance / Optimization',
-    body: 'An options payoff-engineering platform using MILP optimization to construct optimal multi-leg structures from user-defined payoff intent.',
-    external: false,
-  },
-  {
-    name: 'SwarmOS',
-    href: SWARMOS_URL,
-    tagline: 'Research Platform / Agent Infrastructure',
-    body: 'A collective intelligence platform coordinating specialized AI agents for continuous, audited scientific research with artifact-level provenance and reproducibility by default.',
-    external: false,
-  },
-  {
-    name: 'Agentic Data',
-    href: AGENTICDATA_URL,
-    tagline: 'Enterprise Infrastructure / Retrieval Engine',
-    body: 'An enterprise context graph and agentic retrieval planner where relevance is defined by causality, versioning, and organizational state — not vector similarity alone.',
-    external: false,
-  },
-] as const;
+const coreProperties = ENDORSED_PROPERTIES.map((p) => ({
+  name: p.name,
+  href: p.url,
+  tagline: p.tagline,
+  body: p.description,
+  external: p.external,
+}));
 
 const labDirections = [
   {

@@ -48,6 +48,7 @@ export const ENDORSED_PROPERTIES = [
     description:
       'A book-length thesis on privacy, proofs, and verified compute as monetary primitives for a dense digital civilization.',
     url: AFTERFIAT_URL,
+    external: true,
   },
   {
     name: 'Eschatology Report',
@@ -55,6 +56,7 @@ export const ENDORSED_PROPERTIES = [
     description:
       'Essays and dossiers on AI, culture, institutional drift, symbolic overload, and the search for workable orientation.',
     url: ESCHATOLOGY_URL,
+    external: true,
   },
   {
     name: 'Capability Commons',
@@ -62,6 +64,7 @@ export const ENDORSED_PROPERTIES = [
     description:
       'A structured knowledge platform for practical public capability across water, food, shelter, power, repair, and community.',
     url: CAPABILITY_COMMONS_URL,
+    external: false,
   },
   {
     name: 'GAMUT',
@@ -70,6 +73,7 @@ export const ENDORSED_PROPERTIES = [
       'A formal mathematical framework for the geometry of musical possibility and a research surface for structure across sound, symmetry, and form.',
     url: GAMUT_URL,
     image: '/3d-GAMUT2.png',
+    external: true,
   },
   {
     name: 'AlchemicalAI',
@@ -77,6 +81,7 @@ export const ENDORSED_PROPERTIES = [
     description:
       'The applied and commercial surface for selected architecture, infrastructure, and systems work.',
     url: ALCHEMICALAI_URL,
+    external: true,
   },
   {
     name: 'Structure Lab',
@@ -84,6 +89,7 @@ export const ENDORSED_PROPERTIES = [
     description:
       'An options payoff-engineering platform that uses MILP optimization to construct optimal multi-leg structures from user-defined intent.',
     url: STRUCTURE_LAB_URL,
+    external: false,
   },
   {
     name: 'SwarmOS',
@@ -91,6 +97,7 @@ export const ENDORSED_PROPERTIES = [
     description:
       'A collective intelligence research platform that coordinates specialized AI agents to perform continuous, audited scientific research with artifact-level provenance and reproducibility.',
     url: SWARMOS_URL,
+    external: false,
   },
   {
     name: 'Agentic Data',
@@ -98,5 +105,6 @@ export const ENDORSED_PROPERTIES = [
     description:
       'An enterprise context graph and agentic retrieval planner that turns fragmented institutional knowledge into a temporal, permissioned evidence graph with budget-aware, iterative retrieval.',
     url: AGENTICDATA_URL,
+    external: false,
   },
 ] as const;

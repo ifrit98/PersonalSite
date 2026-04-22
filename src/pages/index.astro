@@ -5,9 +5,7 @@ import {
   SITE,
   AFTERFIAT_URL,
   ESCHATOLOGY_URL,
-  CAPABILITY_COMMONS_URL,
-  ALCHEMICALAI_URL,
-  SWARMOS_URL,
+  ENDORSED_PROPERTIES,
   CONTACT_URL,
 } from '@/lib/site';
 
@@ -63,43 +61,16 @@ const caseStudies = [
   },
 ] as const;
 
-const propertyCards = [
-  {
-    name: 'AfterFiat',
-    stage: 'Thesis / Blueprint',
-    desc: 'A book-length thesis on privacy, proofs, and verified compute as monetary primitives for a dense digital civilization.',
-    href: AFTERFIAT_URL,
-    external: true,
-  },
-  {
-    name: 'Eschatology Report',
-    stage: 'Publication / Essays',
-    desc: 'Essays and dossiers on AI, culture, institutional drift, symbolic overload, and the search for workable orientation.',
-    href: ESCHATOLOGY_URL,
-    external: true,
-  },
-  {
-    name: 'Capability Commons',
-    stage: 'Public Infrastructure',
-    desc: 'A structured knowledge platform for practical public capability across water, food, shelter, power, repair, and community.',
-    href: CAPABILITY_COMMONS_URL,
-    external: false,
-  },
-  {
-    name: 'AlchemicalAI',
-    stage: 'Commercial',
-    desc: 'The applied and commercial surface for selected architecture, infrastructure, and systems work.',
-    href: ALCHEMICALAI_URL,
-    external: true,
-  },
-  {
-    name: 'SwarmOS',
-    stage: 'Active Build',
-    desc: 'A collective intelligence research platform coordinating specialized AI agents with artifact provenance and reproducibility.',
-    href: SWARMOS_URL,
-    external: false,
-  },
-] as const;
+const homePropertyNames = ['AfterFiat', 'Eschatology Report', 'Capability Commons', 'AlchemicalAI', 'SwarmOS'];
+const propertyCards = ENDORSED_PROPERTIES
+  .filter((p) => homePropertyNames.includes(p.name))
+  .map((p) => ({
+    name: p.name,
+    stage: p.tagline,
+    desc: p.description,
+    href: p.url,
+    external: p.external,
+  }));
 
 const finalCards = [
   {

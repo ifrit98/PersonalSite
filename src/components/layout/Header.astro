@@ -31,12 +31,12 @@ const currentPath = Astro.url.pathname;
       <a href={CONTACT_URL} class="header__cta" data-track="nav_primary_cta_click">Discuss an Engagement</a>
     </div>
 
-    <button class="header__mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <button class="header__mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
       <span class="header__hamburger"></span>
     </button>
   </div>
 
-  <div class="header__mobile-menu">
+  <div class="header__mobile-menu" id="mobile-menu">
     <nav aria-label="Mobile navigation">
       <ul class="header__mobile-links" role="list">
         {NAV_LINKS.map((link) => (
@@ -289,12 +289,55 @@ const currentPath = Astro.url.pathname;
 
 <script>
   const header = document.getElementById('site-header');
-  const toggle = document.querySelector('.header__mobile-toggle');
+  const toggle = document.querySelector('.header__mobile-toggle') as HTMLButtonElement | null;
+  const menu = document.getElementById('mobile-menu');
+
+  function openMenu() {
+    toggle?.setAttribute('aria-expanded', 'true');
+    header?.classList.add('header--open');
+    document.body.style.overflow = 'hidden';
+    const first = menu?.querySelector<HTMLElement>('a, button');
+    first?.focus();
+  }
+
+  function closeMenu() {
+    toggle?.setAttribute('aria-expanded', 'false');
+    header?.classList.remove('header--open');
+    document.body.style.overflow = '';
+    toggle?.focus();
+  }
+
+  function isMenuOpen() {
+    return toggle?.getAttribute('aria-expanded') === 'true';
+  }
 
   toggle?.addEventListener('click', () => {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    header?.classList.toggle('header--open');
+    isMenuOpen() ? closeMenu() : openMenu();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!isMenuOpen()) return;
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeMenu();
+      return;
+    }
+
+    if (e.key === 'Tab' && menu) {
+      const focusable = menu.querySelectorAll<HTMLElement>('a, button');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
 
   let ticking = false;

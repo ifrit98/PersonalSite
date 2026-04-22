@@ -1,0 +1,65 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+---
+
+<BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist.">
+  <section class="not-found">
+    <div class="container container--narrow">
+      <span class="not-found__code">404</span>
+      <h1 class="not-found__title">Page not found</h1>
+      <p class="not-found__body">
+        The page you're looking for doesn't exist or has been moved. Start from one of the links below.
+      </p>
+      <div class="not-found__actions">
+        <Button href="/" variant="primary">Go Home</Button>
+        <Button href="/work" variant="secondary">View Work</Button>
+        <Button href="/contact" variant="secondary">Get in Touch</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding-block: var(--sp-24);
+    text-align: center;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .not-found__code {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brass);
+    margin-bottom: var(--sp-4);
+  }
+
+  .not-found__title {
+    font: var(--text-h1);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-4);
+  }
+
+  .not-found__body {
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 32em;
+    margin-inline: auto;
+    margin-bottom: var(--sp-8);
+  }
+
+  .not-found__actions {
+    display: flex;
+    gap: var(--sp-4);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

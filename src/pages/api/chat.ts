@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getSupabase } from '@/lib/supabase';
 import { getOpenAI } from '@/lib/openai';
+import { isRateLimited, rateLimitResponse } from '@/lib/rate-limit';
 
 export const prerender = false;
 
@@ -21,6 +22,9 @@ interface ChatMessage {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  if (isRateLimited(`chat:${ip}`, 20)) return rateLimitResponse();
+
   try {
     const body = await request.json();
     const messages: ChatMessage[] = body.messages ?? [];
@@ -90,7 +94,7 @@ export const POST: APIRoute = async ({ request }) => {
     ];
 
     const stream = await ai.chat.completions.create({
-      model: 'gpt-5-nano',
+      model: process.env.CHAT_MODEL ?? 'gpt-5-nano',
       messages: chatMessages,
       stream: true,
       max_completion_tokens: 16384,
