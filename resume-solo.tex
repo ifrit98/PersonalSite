@@ -1,0 +1,156 @@
+% LaTeX file for resume 
+% This file uses the resume document class (res.cls)
+\documentclass[10.5pt]{res} 
+
+\usepackage[hmargin=.5cm,vmargin=1.1cm]{geometry}
+\usepackage{enumitem}
+\usepackage{fdsymbol}
+\usepackage{graphicx}
+\graphicspath{{./}}
+\usepackage{blindtext}
+
+\usepackage[most]{tcolorbox}
+
+\makeatletter
+\NewDocumentCommand{\mynote}{+O{}+m}{%
+  \begingroup
+  \tcbset{%
+    noteshift/.store in=\mynote@shift,
+    noteshift=1.5cm
+  }
+  \begin{tcolorbox}[nobeforeafter,
+    enhanced,
+    sharp corners,
+    toprule=1pt,
+    bottomrule=1pt,
+    leftrule=0pt,
+    rightrule=0pt,
+    colback=yellow!20,
+    #1,
+    left skip=\mynote@shift,
+    right skip=\mynote@shift,
+    overlay={\node[right] (mynotenode) at ([xshift=-\mynote@shift]frame.west) {\textbf{Note:}} ;},
+    ]
+    #2
+  \end{tcolorbox}
+  \endgroup
+  }
+\makeatother
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\textwidth=6.9in % increase textwidth to get smaller right margin
+\begin{document} 
+\name{\centering \Huge Jason St George}
+{\fontsize{10.5}{6}\selectfont
+\centering 
+\href{mailto:jason@jasonstgeorge.com}{jason@jasonstgeorge.com} \hspace{.15 cm} $\vert$ \hspace{.15 cm} \href{https://github.com/ifrit98}{github.com/ifrit98} \hspace{.15 cm} $\vert$ \hspace{.15 cm} \href{https://linkedin.com/in/stgeorgejas}{linkedin.com/in/stgeorgejas} \hspace{.15 cm} $\vert$ \hspace{.15 cm} \href{https://jasonstgeorge.com}{jasonstgeorge.com}\\
+\hrulefill
+}
+\vspace{0.25cm}
+
+\begin{resume}
+\begin{center}
+{\large \textbf{Senior AI / ML Systems Engineer --- Secure ML, Edge Inference, Agentic Systems, and Production Architecture}}
+\end{center}
+\vspace{-0.15cm}
+
+{\bf Summary} \vspace{.27 cm}\\
+ML and systems engineering lead with 7+ years shipping production AI---from distributed LLM training in classified SCIFs to real-time edge pipelines and decentralized infrastructure. Combines deep technical strength in distributed systems, deep learning, and applied cryptography with a track record of turning R\&D into revenue (\$10M+ DoD awards, \textasciitilde\$60M protocol revenue).
+\vspace{.27 cm}
+\begin{itemize}
+    \item Distributed LLM fine-tuning on 128-GPU clusters, multi-sensor federated learning, real-time edge inference, and production decentralized storage---all shipped end-to-end.
+    \item Proven business multiplier---translate bleeding-edge research into revenue, capturing first-to-market wins against \$B-class integrators.
+    \item Polyglot engineer (Python | Rust | R) equally at home training models, building infrastructure, bootstrapping DevOps on k8s, or designing protocol-level systems.
+    \item Community builder \& educator---10 yrs professional musician \& adjunct faculty; thrive in collaborative, cross-functional settings.
+\end{itemize}
+
+{\bf Selected Wins} \\
+\begin{itemize}
+    \item \textbf{Decentralized Storage Network (DSN):} Built from the ground up and led production of a ciphertext-only storage network where storage is an ongoing interactive proof---validators issue unpredictable, time-local, seed-chained challenges; miners recompute chunk-level Pedersen commitments bound to the new seed, assemble a Merkle root, and return validator-indexed inclusion proofs (anti-precompute/anti-amortization). Designed tiered incentive/reputation model (sliding-window scoring over reliability, uptime, latency); operated to \textbf{\textasciitilde\$7M avg MRR (\textasciitilde\$60M revenue)}.
+    \item \textbf{U.S.\ Navy (TS; details classified):} ML/engineering lead for real-time underwater threat detection using a hybrid DSP+ML pipeline explicitly optimizing Pd/Pfa and operational latency. Built time-varying acoustic propagation simulation + synthetic-data injection workflow to train/validate in unclassified environments while maximizing transfer/generalization to tactical; helped secure \textbf{\textasciitilde\$5M multi-year follow-on}.
+    \item \textbf{AfterFiat (\href{https://afterfiat.xyz}{afterfiat.xyz}):} Book-length thesis + blueprint: the AI era collapses ``soft guarantees'' because persuasion and forgery get cheap while verification stays costly (Liar's dividend); high-debt regimes increasingly rely on compliance/surveillance (financial repression, enforced negative real returns), pushing trust toward bearer-like rails. Lays out an explicit threat model (repression/censorship/synthetic media as defaults) and proposes a layered cypherpunk stack---private comms/storage, receipts/proofs, verifiable compute---as infrastructure for credible truth and value.
+    \item \textbf{Peer-reviewed research (2 papers):} \textit{Sonification of Simulated Black Hole Merger Data} (MSV~'18)---auditory-display pipeline sonifying CCRG merger simulations via velocity-modulated synthesis + HRTF spatialization. \textit{Music Style Transformer} (ICAI/WorldComp~'19)---Bayesian-factorized raw-audio transcription $\rightarrow$ composition $\rightarrow$ synthesis with transformer-based models for music generation/style-transfer, quantitative + perceptual evaluation.
+\end{itemize}
+
+{\bf Core Strengths} \\
+\begin{itemize}
+    \item \textbf{ML \& Deep Learning:} LLMs (Llama, Mixtral), RLHF, LoRA/QLoRA, PEFT; data-, tensor- \& pipeline-parallel training; async gradient compression; federated \& edge ML with secure aggregation; signal/sensor fusion.
+    \item \textbf{Infrastructure \& Production:} NVLink \& InfiniBand clusters, CUDA, Triton, Docker, k8s, Slurm; fault-tolerant distributed orchestration; RF \& acoustic DSP; UAV/UUV autonomy; Blue-Green deployment; technical capture \& C-suite/Govt.\ briefings.
+    \item \textbf{Applied Cryptography \& Protocols:} Pedersen commitments, Merkle proofs, anti-precompute/anti-amortization challenge design; incentive/reputation systems; threat modeling; privacy-preserving storage and verifiable compute.
+\end{itemize}
+
+{\bf Published Research} \\
+\href{https://drive.google.com/file/d/1Xps3u00zFacalEtLFYzkAAy0NfmRkHLB/view?usp=sharing}{Music Style Transformer} --- St.\ George, J., Bischof (2019). Bayesian-factorized raw-audio transcription $\rightarrow$ composition $\rightarrow$ synthesis; transformer-based music generation with quantitative + perceptual evaluation. \textit{ICAI~'19}, pp.~22--33.\\[0.15cm]
+\href{https://drive.google.com/file/d/1pdxPst1CBMQQrgR2OGiBcKQgI_Hzg6gX/view?usp=sharing}{Sonification of Black Hole Merger Data} --- St.\ George, J., Bischof, H.P., Kim, S.Y. (2018). Velocity-modulated synthesis + HRTF spatialization pipeline sonifying CCRG black-hole merger simulations. \textit{MSV~'18}, pp.~3--9.
+\vspace{.27 cm}
+
+{\bf Work Experience} \vspace{0.27 cm} \\
+{\bf Senior Machine Learning Software Engineer} \hfill July 2020 -- Present\\
+Black River Systems Co., Utica, NY \\
+\begin{itemize}\rightmargin=0cm \itemsep 2pt
+    \item \textbf{Owned} distributed LLM fine-tuning capability in TS/SCI SCIF (DoD-approved container stack), from data pipeline to training orchestration to deployment and operator workflows.
+    \item Shipped online learning for UAV fleets with bandwidth-aware sync policy; reduced data egress \textbf{60\%} while maintaining model quality.
+    \item Delivered real-time sonar target recognition on Jetson via DSP$\rightarrow$DeepCNN pipeline; achieved \textbf{$<$50\,ms} on-device latency (measured end-to-end).
+    \item Designed hyper-scalable agentic system for DoD high-side with continuous data ingestion and Blue-Green deployment infrastructure.
+    \item Drove stakeholder alignment through regular senior briefings; influenced FY-25 AI readiness budget lines.
+    \item Mentored interns to build a low-cost unmanned aerial detection and tracking system using YOLO.
+\end{itemize}
+
+{\bf Data Scientist I} \hfill June 2019 -- May 2020\\
+Northeast Information Discovery, Inc., Canastota, NY \\
+\begin{itemize}\rightmargin=0cm \itemsep 2pt
+    \item Prototyped RF modulation classifier that improved accuracy 12pp via attention-based spectral encoders.
+    \item Developed APIs and deployed models into streaming production environments with R, Python, \& C++.
+\end{itemize}
+
+{\bf Teaching Assistant (Advanced Object-Oriented Programming)} \hfill August 2018 -- January 2019\\
+Rochester Institute of Technology, Rochester, NY \\
+\begin{itemize}\rightmargin=0cm \itemsep 2pt
+    \item Grew student project quality 25\% by redesigning recitations around test-driven design patterns.
+\end{itemize}
+
+{\it \centering \hspace{1.15 cm}(Earlier roles in software UX, arts education \& coordination omitted; details available on request)}
+
+{\bf Education} \\
+\textbf{Master of Science in Computer Science}\\
+Rochester Institute of Technology, Rochester, NY \hfill May 2019\\
+Relevant Courses: Deep Learning, Statistical Machine Learning, Topics in Machine Learning\\[0.2cm]
+\textbf{Bachelor of Music in Performance with Music Theory Minor} \\
+University of North Texas, Denton, TX \hfill May 2013\\
+
+{\bf Toolchain \& Languages}
+\begin{itemize}
+    \item \textbf{Proficient:} Python, Rust, R, Bash, SQL
+    \item \textbf{Familiar:} C++, JS/TS, Haskell, MATLAB
+    \item \textbf{Frameworks \& Infra:} PyTorch, TensorFlow, Keras, NumPy/SciPy, Pandas, Docker, AWS/GCP/Azure, Slurm, Git, Unix, Tidyverse, Kubernetes
+\end{itemize}
+
+{\bf Notable Projects} \\
+\mynote{A majority of projects are classified or proprietary; representative public artifacts below.}
+
+{\bf AfterFiat} \hfill 2024--Present\\
+\href{https://afterfiat.xyz}{afterfiat.xyz} \\
+\begin{itemize}\rightmargin=0cm \itemsep 2pt
+    \item Thesis + blueprint: explicit threat model (repression, censorship, synthetic media) motivating a layered cypherpunk stack---private comms/storage, receipts/proofs, verifiable compute---as infrastructure for credible truth and value in the AI era.
+\end{itemize}
+
+{\bf mlcurves} \hfill Aug 2022\\
+\href{https://github.com/ifrit98/mlcurves}{ifrit98/mlcurves} \\
+\begin{itemize}\rightmargin=0cm \itemsep 2pt
+    \item Lightweight Python module to generate and analyze training curves during model development.
+\end{itemize}
+
+{\bf Bengali.ai Handwritten Grapheme Classification} \hfill Jan 2020\\
+\href{https://github.com/ifrit98/begnaliai}{ifrit98/begnaliai} \\
+\begin{itemize}\rightmargin=0cm \itemsep 2pt
+    \item End-to-end deep learning pipeline using modified Squeeze \& Excitation networks with image augmentation (Python, R, TensorFlow).
+\end{itemize}
+
+\end{resume} 
+\end{document}

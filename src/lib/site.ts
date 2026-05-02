@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Jason St George',
   title: 'Jason St George | Secure ML, Verification & Knowledge Systems',
   description:
-    'I help teams operating in adversarial, high-security, latency-sensitive, or high-consequence environments design systems that stay credible under pressure — from air-gapped distributed ML and real-time edge inference to protocol architecture and retrieval systems.',
+    'I help teams working in high-security, latency-sensitive, adversarial, or high-consequence environments design systems that stay credible under pressure — from air-gapped distributed ML and real-time edge inference to protocol architecture, agent systems, and retrieval infrastructure.',
   url: 'https://jasonstgeorge.com',
   author: 'Jason St George',
   email: 'jason@jasonstgeorge.com',
