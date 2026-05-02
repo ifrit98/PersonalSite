@@ -77,7 +77,7 @@ const labDirections = [
         These are the main long-lived properties through which the work becomes publicly legible.
       </p>
       <div class="core__grid" role="list">
-        {coreProperties.map((prop, i) => (
+        {coreProperties.map((prop, i) => prop.href ? (
           <a
             href={prop.href}
             class="core__card fade-up"
@@ -89,6 +89,16 @@ const labDirections = [
             <span class="core__name">{prop.name}</span>
             <p class="core__body">{prop.body}</p>
           </a>
+        ) : (
+          <div
+            class="core__card fade-up"
+            style={`--stagger: ${i * 80}ms`}
+            role="listitem"
+          >
+            <span class="core__tagline">{prop.tagline}</span>
+            <span class="core__name">{prop.name}</span>
+            <p class="core__body">{prop.body}</p>
+          </div>
         ))}
       </div>
     </div>
@@ -118,11 +128,16 @@ const labDirections = [
       <p class="map__text">
         AfterFiat asks what kind of epistemic and monetary architecture becomes necessary when soft
         guarantees fail. Eschatology Report widens that question into culture, institutions, and
-        orientation. Capability Commons turns part of the answer into public infrastructure. GAMUT
-        carries the older research thread on form, order, and lawful motion. Structure Lab applies
-        mathematical optimization to financial construction — the same instinct toward provable
-        quality over heuristic familiarity. SwarmOS extends that instinct into research itself: a platform where agents must prove their claims, reproduce their results, and earn their continued operation. Agentic Data makes the retrieval layer itself a first-class product — an enterprise context graph where relevance is causal and temporal, not just similar. AlchemicalAI is the applied surface where some of these
-        ideas meet clients, systems, and implementation.
+        orientation. GAMUT carries the older research thread on form, order, and lawful motion.
+        Capability Commons turns part of the answer into public infrastructure. SwarmOS extends
+        the verification instinct into research itself: a platform where agents must prove their
+        claims, reproduce their results, and earn their continued operation. Agentic Data makes
+        the retrieval layer a first-class product — an enterprise context graph where relevance is
+        causal and temporal, not just similar. Structure Lab applies mathematical optimization to
+        financial construction — provable quality over heuristic familiarity. AlchemicalAI is the
+        applied commercial product where these architecture principles meet a vertical: an
+        AI-powered operating system for real estate professionals with voice agents, workflow
+        automation, CMA generation, and approval-gated outreach.
       </p>
       <p class="map__text map__text--emphasis">
         Taken together, they form one map rather than several disconnected brands.

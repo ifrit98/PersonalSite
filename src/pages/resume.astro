@@ -34,28 +34,16 @@ const programs = [
     href: ESCHATOLOGY_URL,
   },
   {
-    name: 'Capability Commons',
-    role: 'Founder / Architect',
-    desc: 'Public knowledge platform for practical capability across water, food, shelter, power, repair, and community',
-    href: CAPABILITY_COMMONS_URL,
-  },
-  {
     name: 'GAMUT',
     role: 'Researcher',
     desc: 'Formal research program on the geometry of musical possibility and lawful form',
     href: GAMUT_URL,
   },
   {
-    name: 'AlchemicalAI',
-    role: 'Founder',
-    desc: 'Applied systems and commercial surface for selected architecture and infrastructure work',
-    href: ALCHEMICALAI_URL,
-  },
-  {
-    name: 'Structure Lab',
-    role: 'Architect / Builder',
-    desc: 'Options payoff-engineering platform using MILP optimization for multi-leg structure construction',
-    href: STRUCTURE_LAB_URL,
+    name: 'Capability Commons',
+    role: 'Founder / Architect',
+    desc: 'Public knowledge platform for practical capability across water, food, shelter, power, repair, and community',
+    href: CAPABILITY_COMMONS_URL,
   },
   {
     name: 'SwarmOS',
@@ -68,6 +56,18 @@ const programs = [
     role: 'Architect / Builder',
     desc: 'Enterprise context graph and agentic retrieval planner with causal graph traversal, truth maintenance, and budget-aware evidence assembly',
     href: AGENTICDATA_URL,
+  },
+  {
+    name: 'Structure Lab',
+    role: 'Architect / Builder',
+    desc: 'Options payoff-engineering platform using MILP optimization for multi-leg structure construction',
+    href: STRUCTURE_LAB_URL,
+  },
+  {
+    name: 'AlchemicalAI',
+    role: 'Founder',
+    desc: 'Vertical AI operating system for real estate — voice agents, automated CMA, transaction pipeline, lead qualification, and workflow governance for brokerages and agents',
+    href: ALCHEMICALAI_URL,
   },
 ] as const;
 
@@ -211,7 +211,7 @@ const toolchain = {
         Originated properties, research programs, and public writing — each built from scratch as part of the same architecture.
       </p>
       <div class="programs__list">
-        {programs.map((p, i) => (
+        {programs.map((p, i) => p.href ? (
           <a
             href={p.href}
             class="programs__entry fade-up"
@@ -222,6 +222,15 @@ const toolchain = {
             <span class="programs__role">{p.role}</span>
             <span class="programs__desc">{p.desc}</span>
           </a>
+        ) : (
+          <div
+            class="programs__entry fade-up"
+            style={`--stagger: ${i * 60}ms`}
+          >
+            <span class="programs__name">{p.name}</span>
+            <span class="programs__role">{p.role}</span>
+            <span class="programs__desc">{p.desc}</span>
+          </div>
         ))}
       </div>
     </div>

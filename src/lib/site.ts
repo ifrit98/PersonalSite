@@ -17,7 +17,7 @@ export const CONTACT_URL = '/contact#engagement';
 export const AFTERFIAT_URL = 'https://afterfiat.xyz';
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
 export const GAMUT_URL = 'https://musicalgeometry.replit.app';
-export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
+export const ALCHEMICALAI_URL = '';
 export const CAPABILITY_COMMONS_URL = '/capability-commons';
 export const CAPABILITY_COMMONS_GITHUB = 'https://github.com/Granite-Labs-LLC/CapabilityCommons';
 export const STRUCTURE_LAB_URL = '/work#structure-lab';
@@ -59,14 +59,6 @@ export const ENDORSED_PROPERTIES = [
     external: true,
   },
   {
-    name: 'Capability Commons',
-    tagline: 'Public Infrastructure / Knowledge Platform',
-    description:
-      'A structured knowledge platform for practical public capability across water, food, shelter, power, repair, and community.',
-    url: CAPABILITY_COMMONS_URL,
-    external: false,
-  },
-  {
     name: 'GAMUT',
     tagline: 'Research Program / Formal Mathematics',
     description:
@@ -76,19 +68,11 @@ export const ENDORSED_PROPERTIES = [
     external: true,
   },
   {
-    name: 'AlchemicalAI',
-    tagline: 'Applied Systems / Commercial',
+    name: 'Capability Commons',
+    tagline: 'Public Infrastructure / Knowledge Platform',
     description:
-      'The applied and commercial surface for selected architecture, infrastructure, and systems work.',
-    url: ALCHEMICALAI_URL,
-    external: true,
-  },
-  {
-    name: 'Structure Lab',
-    tagline: 'Quantitative Finance / Optimization',
-    description:
-      'An options payoff-engineering platform that uses MILP optimization to construct optimal multi-leg structures from user-defined intent.',
-    url: STRUCTURE_LAB_URL,
+      'A structured knowledge platform for practical public capability across water, food, shelter, power, repair, and community.',
+    url: CAPABILITY_COMMONS_URL,
     external: false,
   },
   {
@@ -105,6 +89,22 @@ export const ENDORSED_PROPERTIES = [
     description:
       'An enterprise context graph and agentic retrieval planner that turns fragmented institutional knowledge into a temporal, permissioned evidence graph with budget-aware, iterative retrieval.',
     url: AGENTICDATA_URL,
+    external: false,
+  },
+  {
+    name: 'Structure Lab',
+    tagline: 'Quantitative Finance / Optimization',
+    description:
+      'An options payoff-engineering platform that uses MILP optimization to construct optimal multi-leg structures from user-defined intent.',
+    url: STRUCTURE_LAB_URL,
+    external: false,
+  },
+  {
+    name: 'AlchemicalAI',
+    tagline: 'Applied AI / Vertical SaaS',
+    description:
+      'AI-powered operating system for real estate professionals — voice agents, workflow automation, CMA generation, lead qualification, transaction management, and approval-gated outreach across brokerage verticals.',
+    url: ALCHEMICALAI_URL,
     external: false,
   },
 ] as const;

@@ -8,11 +8,11 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
     <Eyebrow>Associated Work</Eyebrow>
     <p class="associated__intro">
       This site is the canonical layer for my engineering, research, and writing.
-      The <strong>primary properties</strong> are AfterFiat (thesis), Eschatology Report (publication),
-      GAMUT (research), and Capability Commons (knowledge platform). AlchemicalAI is a separate
-      commercial surface.
+      The <strong>flagship properties</strong> are AfterFiat (thesis), Eschatology Report (publication),
+      and GAMUT (research). Capability Commons is the public knowledge platform.
+      AlchemicalAI is the applied commercial product for real estate workflow automation.
     </p>
-    <p class="associated__hierarchy-note">Primary</p>
+    <p class="associated__hierarchy-note">Flagship</p>
     <div class="associated__grid">
       {ENDORSED_PROPERTIES.filter((_, i) => i < 4).map((prop) => (
         <a href={prop.url} class:list={['associated__card', { 'associated__card--has-image': 'image' in prop }]}>
@@ -26,13 +26,18 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
     </div>
     {ENDORSED_PROPERTIES.length > 4 && (
       <>
-        <p class="associated__hierarchy-note associated__hierarchy-note--secondary">Commercial</p>
+        <p class="associated__hierarchy-note associated__hierarchy-note--secondary">Architecture & Applied</p>
         <div class="associated__grid associated__grid--secondary">
-          {ENDORSED_PROPERTIES.filter((_, i) => i >= 4).map((prop) => (
+          {ENDORSED_PROPERTIES.filter((_, i) => i >= 4).map((prop) => prop.url ? (
             <a href={prop.url} class="associated__card associated__card--secondary">
               <span class="associated__name">{prop.name}</span>
               <span class="associated__tagline">{prop.tagline}</span>
             </a>
+          ) : (
+            <div class="associated__card associated__card--secondary">
+              <span class="associated__name">{prop.name}</span>
+              <span class="associated__tagline">{prop.tagline}</span>
+            </div>
           ))}
         </div>
       </>
