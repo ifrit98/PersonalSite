@@ -46,7 +46,7 @@ export const ENDORSED_PROPERTIES = [
     name: 'AfterFiat',
     tagline: 'Thesis / Blueprint',
     description:
-      'A book-length thesis on privacy, proofs, and verified compute as monetary primitives for a dense digital civilization.',
+      'The next credible store of value will be a scarce asset that captures recurring demand for private settlement, portable proofs, and verified compute — provided the work is cheap to verify, hard to censor, and economically non-bypassable.',
     url: AFTERFIAT_URL,
     external: true,
   },
