@@ -2,6 +2,18 @@
 
 **Goal:** Make the site pass the smell test for serious institutional people (Mike Green, fund managers, researchers, podcast hosts) while retaining the consulting utility and creative breadth that makes it yours.
 
+---
+
+## Status as of 2026-07-29
+
+**Complete:** 0.2, 0.3, 0.4, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 5.1, 5.2, 6.1, 6.2, 8.1, 8.3 — plus a full SEO/discovery layer not in the original plan (`favicon.ico`, `site.webmanifest`, `humans.txt`, `.well-known/security.txt`, AI-scraper blocks in `robots.txt`, per-page canonicals, `twitter:site`/`twitter:creator`, `og:type=profile` on About).
+
+**Outstanding:**
+- **0.1 Headshot** — markup is live and degrades gracefully; drop `headshot.jpg` (400×400 or 3:4) into `public/` to activate it.
+- **6.3 Bespoke OG image** — current `og-default.png` is clean; regenerate only if you want the new "Builder · Researcher · Writer" positioning reflected.
+- **7.1 Chat widget** — left as-is pending usage data.
+- **8.2 LinkedIn audit** — manual; align headline, education (UNT + RIT), and Featured section with the site.
+
 **Stack:** Astro 5 SSR, Supabase, deployed on Replit. Pages are `.astro` files. Content collections for `work/` and `research/`. Styles via CSS custom properties in `tokens.css` + `global.css`. No headless CMS — everything is in-source.
 
 ---
