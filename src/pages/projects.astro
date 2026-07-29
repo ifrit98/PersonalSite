@@ -18,15 +18,24 @@ const coreProperties = ENDORSED_PROPERTIES
     external: p.external,
   }));
 
-const activeBuilds = ENDORSED_PROPERTIES
-  .filter((p) => !corePropertyNames.includes(p.name))
-  .map((p) => ({
-    name: p.name,
-    href: p.url,
-    tagline: p.tagline,
-    body: p.description,
-    external: p.external,
-  }));
+const activeBuilds = [
+  {
+    name: 'Kardashev Labs',
+    href: '',
+    tagline: 'Research Lab / Monetary Telemetry',
+    body: 'The engineering surface of the AfterFiat thesis: open-source value-capture telemetry, bypass detection, and stack-level verification tooling. The thesis names what needs to be true; the lab builds the instruments that measure whether it holds.',
+    external: false,
+  },
+  ...ENDORSED_PROPERTIES
+    .filter((p) => !corePropertyNames.includes(p.name))
+    .map((p) => ({
+      name: p.name,
+      href: p.url,
+      tagline: p.tagline,
+      body: p.description,
+      external: p.external,
+    })),
+];
 
 const labDirections = [
   {
@@ -36,18 +45,6 @@ const labDirections = [
   {
     title: 'Agentic Knowledge Infrastructure',
     body: 'Long-horizon memory, structured knowledge objects, retrieval-aware systems, event-sourced context graphs, and interfaces that help people and agents move from information to action — with Agentic Data as the concrete realization of the retrieval thesis.',
-  },
-  {
-    title: 'Public Capability & Local Resilience',
-    body: 'Tools and knowledge systems — grounded in real household and community conditions — that help people recover practical competence across infrastructure, maintenance, and everyday dependence.',
-  },
-  {
-    title: 'Quantitative Finance & Construction Quality',
-    body: 'Mathematical optimization applied to financial instrument construction — replacing heuristic selection with constrained solvers that produce provably good structures along cost, robustness, and simplicity dimensions.',
-  },
-  {
-    title: 'Collective Intelligence & Agent Coordination',
-    body: 'Multi-agent research substrates with content-addressed artifacts, structured claim graphs, separation of duties, budgeted autonomy, and continuous evaluation — enforcing research quality at the platform level.',
   },
   {
     title: 'Music, Geometry & Lawful Form',
@@ -116,14 +113,22 @@ const labDirections = [
       <ul class="builds__list" role="list">
         {activeBuilds.map((prop, i) => (
           <li class="builds__item fade-up" style={`--stagger: ${i * 60}ms`}>
-            <a
-              href={prop.href}
-              class="builds__link"
-              {...(prop.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            >
-              <span class="builds__name">{prop.name}</span>
-              <span class="builds__tagline">{prop.tagline}</span>
-            </a>
+            {prop.href ? (
+              <a
+                href={prop.href}
+                class="builds__link"
+                {...(prop.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                <span class="builds__name">{prop.name}</span>
+                <span class="builds__tagline">{prop.tagline}</span>
+              </a>
+            ) : (
+              <div class="builds__link">
+                <span class="builds__name">{prop.name}</span>
+                <span class="builds__tagline">{prop.tagline}</span>
+                <span class="builds__status">In development</span>
+              </div>
+            )}
             <p class="builds__body">{prop.body}</p>
           </li>
         ))}
@@ -160,7 +165,9 @@ const labDirections = [
         carries the older research thread on form, order, and lawful motion.
       </p>
       <p class="map__text">
-        The active builds extend those ideas into applied systems: Capability Commons turns public
+        Kardashev Labs is where the thesis becomes engineering: the telemetry, bypass detection, and
+        verification tooling that make its claims falsifiable rather than rhetorical. The remaining
+        builds extend the same instincts into applied systems — Capability Commons turns public
         capability into infrastructure, SwarmOS enforces verifiable research at the platform level,
         Agentic Data makes the retrieval layer a first-class product, Structure Lab applies
         mathematical optimization to financial construction, and AlchemicalAI puts the architecture
@@ -378,6 +385,18 @@ const labDirections = [
     text-transform: uppercase;
     letter-spacing: 0.06em;
     font-size: 0.6875rem;
+  }
+
+  .builds__status {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-slate);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-button);
+    padding: 0.125rem 0.5rem;
   }
 
   .builds__body {

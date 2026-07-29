@@ -20,20 +20,16 @@ const proofItems = [
 
 const serviceCards = [
   {
-    title: 'Secure ML & High-Constraint Systems',
+    title: 'Secure ML & Edge Inference',
     body: 'Air-gapped training, deployment architecture, edge inference, and operational ML pipelines.',
   },
   {
-    title: 'Protocols, Proofs & Incentives',
+    title: 'Protocol Design & Monetary Architecture',
     body: 'Threat models, mechanism design, verification-heavy systems, and structures built for strategic environments.',
   },
   {
-    title: 'Knowledge, Retrieval & Public Capability',
+    title: 'Knowledge Systems & Retrieval',
     body: 'Retrieval systems, context graphs, schemas, and teach-forward platforms that turn information into action.',
-  },
-  {
-    title: 'Technical Synthesis & Fractional Leadership',
-    body: 'Architecture review, research memos, briefings, and selective leadership for teams that need a sharper map.',
   },
 ] as const;
 
@@ -74,21 +70,21 @@ const propertyCards = ENDORSED_PROPERTIES
 
 const finalCards = [
   {
-    title: 'Need shipped systems?',
-    body: 'See the case studies, operating domains, and selected outcomes.',
+    title: 'Read the thesis',
+    body: 'The formal argument on privacy, proofs, and compute as the next monetary base.',
+    cta: 'Read AfterFiat',
+    href: AFTERFIAT_URL,
+  },
+  {
+    title: 'View shipped systems',
+    body: 'Case studies, operating domains, and selected outcomes under real constraints.',
     cta: 'View Work',
     href: '/work',
   },
   {
-    title: 'Need the larger map?',
-    body: 'Explore the projects, labs, and public properties where the ideas compound over time.',
-    cta: 'Explore Projects & Labs',
-    href: '/projects',
-  },
-  {
-    title: 'Need to talk?',
-    body: 'Discuss an engagement, research collaboration, speaking, or selective advisory work.',
-    cta: 'Get in Touch',
+    title: 'Get in touch',
+    body: 'Research collaboration, speaking, selective advisory, or an engagement.',
+    cta: 'Contact',
     href: CONTACT_URL,
   },
 ] as const;
@@ -100,22 +96,24 @@ const finalCards = [
   <section class="hero fade-up" aria-labelledby="hero-title">
     <div class="container hero__grid">
       <div class="hero__content">
-        <span class="hero__eyebrow">Architecture-heavy systems work</span>
-        <h1 id="hero-title" class="hero__title">Secure ML, verification, and knowledge systems for real operating constraints.</h1>
+        <span class="hero__eyebrow">Builder · Researcher · Writer</span>
+        <h1 id="hero-title" class="hero__title">Verification, monetary architecture, and systems that survive pressure.</h1>
         <p class="hero__body">
-          I help teams working in high-security, latency-sensitive, adversarial, or high-consequence
-          environments design systems that stay credible under pressure — from air-gapped distributed ML
-          and real-time edge inference to protocol architecture, agent systems, and retrieval infrastructure.
+          I build protocol-level infrastructure, write about money and verification, and publish formal
+          research. The work spans air-gapped distributed ML, real-time edge inference, mechanism design,
+          and retrieval systems — all of it in environments where the constraints are real.
         </p>
         <p class="hero__thesis">
           The underlying question is simple: what still works when soft guarantees fail?
         </p>
         <div class="hero__actions">
-          <Button href={CONTACT_URL} variant="brass" data-track="hero_primary_cta_click">Discuss an Engagement</Button>
+          <Button href={AFTERFIAT_URL} variant="brass" data-track="hero_primary_cta_click">Read the Thesis</Button>
           <Button href="#selected-work" variant="ghost" data-track="hero_secondary_cta_click">View Selected Work</Button>
         </div>
         <p class="hero__fit">
-          Best fit: secure ML / LLM infrastructure, real-time inference, protocol and mechanism design, agentic retrieval, and fractional technical leadership for high-constraint builds.
+          I also take selective engagements: secure ML / LLM infrastructure, real-time inference, protocol
+          and mechanism design, agentic retrieval, and technical leadership for high-constraint builds.
+          <a href={CONTACT_URL} class="hero__fit-link" data-track="hero_engagement_link_click">Discuss an engagement →</a>
         </p>
       </div>
       <div class="hero__visual" aria-hidden="true">
@@ -187,9 +185,10 @@ const finalCards = [
   <!-- 3. Service Cards -->
   <section class="services fade-up" aria-labelledby="services-heading">
     <div class="container">
-      <h2 id="services-heading" class="services__heading">What I help teams do</h2>
+      <h2 id="services-heading" class="services__heading">Where the work happens</h2>
       <p class="services__intro">
-        The best fit is work where the constraints are real and the wrong abstractions are expensive.
+        Three domains, one underlying concern: systems where the constraints are real and the wrong
+        abstractions are expensive.
       </p>
       <div class="services__grid">
         {serviceCards.map((card, i) => (
@@ -229,15 +228,15 @@ const finalCards = [
   <!-- 5. Engagement CTA Band -->
   <section class="engage fade-up" aria-labelledby="engage-heading">
     <div class="container container--narrow">
-      <span class="engage__eyebrow">Work with Jason</span>
+      <span class="engage__eyebrow">Collaboration</span>
       <h2 id="engage-heading" class="engage__title">Bring the problem, the constraints, and the desired outcome.</h2>
       <p class="engage__body">
-        I am best suited to architecture-heavy work where clarity matters more than performative velocity:
-        protocol and mechanism analysis, secure ML systems, retrieval and knowledge platforms, technical
-        synthesis, and selective fractional leadership.
+        I take on selective work where clarity matters more than performative velocity: protocol and
+        mechanism analysis, secure ML systems, retrieval and knowledge platforms, technical synthesis,
+        and research collaboration.
       </p>
       <div class="engage__actions">
-        <Button href={CONTACT_URL} variant="brass" data-track="engage_primary_cta_click">Discuss an Engagement</Button>
+        <Button href={CONTACT_URL} variant="brass" data-track="engage_primary_cta_click">Get in Touch</Button>
         <Button href="/work" variant="secondary" data-track="engage_secondary_cta_click">View Work</Button>
       </div>
       <p class="engage__micro">
@@ -390,6 +389,16 @@ const finalCards = [
     max-width: 42em;
   }
 
+  .hero__fit-link {
+    color: var(--color-brass);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .hero__fit-link:hover {
+    color: var(--color-dark-text);
+  }
+
   .hero__visual {
     display: flex;
     justify-content: center;
@@ -508,6 +517,12 @@ const finalCards = [
   @media (min-width: 640px) {
     .services__grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .services__grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 

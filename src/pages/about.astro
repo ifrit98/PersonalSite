@@ -1,7 +1,15 @@
 ---
+import { existsSync } from 'node:fs';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import { SSRN_URL, DOI_URL } from '@/lib/site';
+
+// Render the portrait only once the asset exists, so a missing file degrades to
+// a text-only layout rather than a broken image.
+const headshot = ['headshot.jpg', 'headshot.webp', 'headshot.png']
+  .map((file) => ({ file, path: new URL(`../../public/${file}`, import.meta.url) }))
+  .find(({ path }) => existsSync(path));
+const headshotSrc = headshot ? `/${headshot.file}` : null;
 
 const publications = [
   {
@@ -64,10 +72,12 @@ const timeline = [
   <section class="narrative fade-up" aria-labelledby="narrative-heading">
     <div class="container container--narrow">
       <h2 id="narrative-heading" class="sr-only">Background</h2>
-      <div class="narrative__intro">
-        <div class="about-portrait">
-          <img src="/headshot.jpg" alt="Jason St George" width="280" height="280" loading="eager" />
-        </div>
+      <div class:list={['narrative__intro', { 'narrative__intro--no-portrait': !headshotSrc }]}>
+        {headshotSrc && (
+          <div class="about-portrait">
+            <img src={headshotSrc} alt="Jason St George" width="280" height="280" loading="eager" />
+          </div>
+        )}
         <div class="narrative__body">
           <p>
             My background crosses protocol design, infrastructure, real-time machine learning,
@@ -245,9 +255,14 @@ const timeline = [
       <p class="current-focus__body">
         Right now the work is concentrated on three things: the
         <a href="https://afterfiat.xyz">AfterFiat thesis</a> (why privacy, proofs, and compute
-        form the next monetary base), agent and retrieval infrastructure for high-constraint
-        environments, and selective architecture engagements where the problem is real and the
-        wrong abstractions are expensive.
+        form the next monetary base), <strong>Kardashev Labs</strong> — the research lab building
+        open-source value-capture telemetry, bypass detection, and verification tooling that makes
+        the thesis falsifiable — and selective architecture engagements where the problem is real
+        and the wrong abstractions are expensive.
+      </p>
+      <p class="current-focus__body">
+        The thesis names what needs to be true. The lab builds the instruments that tell you whether
+        it is holding.
       </p>
     </div>
   </section>
@@ -314,6 +329,10 @@ const timeline = [
     grid-template-columns: auto 1fr;
     gap: var(--sp-8);
     align-items: start;
+  }
+
+  .narrative__intro--no-portrait {
+    grid-template-columns: 1fr;
   }
 
   .about-portrait {

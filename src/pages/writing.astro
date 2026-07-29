@@ -1,7 +1,43 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { AFTERFIAT_URL, ESCHATOLOGY_URL, SSRN_URL, DOI_URL } from '@/lib/site';
+import { AFTERFIAT_URL, ESCHATOLOGY_URL, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
+
+const scholarlyData = JSON.stringify([
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    name: 'Next Generation Stores of Value: Privacy, Proofs, Compute',
+    author: { '@type': 'Person', name: SITE.author, url: SITE.url },
+    datePublished: '2026-07-27',
+    url: AFTERFIAT_URL,
+    sameAs: SSRN_URL,
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'DOI',
+      value: '10.5281/zenodo.18902696',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    name: 'Machine Learning Approaches for Musical Gesture Analysis and Composition',
+    author: { '@type': 'Person', name: SITE.author, url: SITE.url },
+    datePublished: '2019',
+    publisher: { '@type': 'Organization', name: 'International Conference on Artificial Intelligence (ICAI)' },
+    url: `${SITE.url}/papers/stgeorge-music-ml-icai-2019.pdf`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    name: 'Sonification of Black Holes: Mapping Astrophysical Data to Musical Structure',
+    author: { '@type': 'Person', name: SITE.author, url: SITE.url },
+    datePublished: '2019',
+    publisher: { '@type': 'Organization', name: 'Bridges: Mathematics, Music, Art, Architecture, Education, Culture' },
+    url: `${SITE.url}/papers/stgeorge-sonification-bridges-2019.pdf`,
+  },
+]);
 
 const themes = [
   {
@@ -52,6 +88,8 @@ const startPaths = [
   title="Writing"
   description="Essays, theses, and long-form work on verification, synthetic media, sovereignty, money, and civilizational constraint."
 >
+  <script type="application/ld+json" slot="head" set:html={scholarlyData} />
+
   <section class="writing-hero fade-up">
     <div class="container container--narrow">
       <h1 class="writing-hero__title">Writing</h1>
