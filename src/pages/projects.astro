@@ -7,13 +7,26 @@ import {
   ENDORSED_PROPERTIES,
 } from '@/lib/site';
 
-const coreProperties = ENDORSED_PROPERTIES.map((p) => ({
-  name: p.name,
-  href: p.url,
-  tagline: p.tagline,
-  body: p.description,
-  external: p.external,
-}));
+const corePropertyNames = ['AfterFiat', 'Eschatology Report', 'GAMUT'];
+const coreProperties = ENDORSED_PROPERTIES
+  .filter((p) => corePropertyNames.includes(p.name))
+  .map((p) => ({
+    name: p.name,
+    href: p.url,
+    tagline: p.tagline,
+    body: p.description,
+    external: p.external,
+  }));
+
+const activeBuilds = ENDORSED_PROPERTIES
+  .filter((p) => !corePropertyNames.includes(p.name))
+  .map((p) => ({
+    name: p.name,
+    href: p.url,
+    tagline: p.tagline,
+    body: p.description,
+    external: p.external,
+  }));
 
 const labDirections = [
   {
@@ -77,7 +90,7 @@ const labDirections = [
         These are the main long-lived properties through which the work becomes publicly legible.
       </p>
       <div class="core__grid" role="list">
-        {coreProperties.map((prop, i) => prop.href ? (
+        {coreProperties.map((prop, i) => (
           <a
             href={prop.href}
             class="core__card fade-up"
@@ -89,18 +102,32 @@ const labDirections = [
             <span class="core__name">{prop.name}</span>
             <p class="core__body">{prop.body}</p>
           </a>
-        ) : (
-          <div
-            class="core__card fade-up"
-            style={`--stagger: ${i * 80}ms`}
-            role="listitem"
-          >
-            <span class="core__tagline">{prop.tagline}</span>
-            <span class="core__name">{prop.name}</span>
-            <p class="core__body">{prop.body}</p>
-          </div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="builds fade-up" aria-labelledby="builds-heading">
+    <div class="container">
+      <h2 id="builds-heading" class="builds__heading">Active Builds</h2>
+      <p class="builds__intro">
+        Newer platforms and applied systems currently in development or early deployment.
+      </p>
+      <ul class="builds__list" role="list">
+        {activeBuilds.map((prop, i) => (
+          <li class="builds__item fade-up" style={`--stagger: ${i * 60}ms`}>
+            <a
+              href={prop.href}
+              class="builds__link"
+              {...(prop.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              <span class="builds__name">{prop.name}</span>
+              <span class="builds__tagline">{prop.tagline}</span>
+            </a>
+            <p class="builds__body">{prop.body}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
@@ -128,17 +155,16 @@ const labDirections = [
       <p class="map__text">
         AfterFiat argues that the next credible store of value accrues to scarce assets capturing
         recurring demand for private settlement, portable proofs, and verified compute — capacities
-        a dense digital civilization must keep buying and that soft guarantees can no longer provide. Eschatology Report widens that question into culture, institutions, and
-        orientation. GAMUT carries the older research thread on form, order, and lawful motion.
-        Capability Commons turns part of the answer into public infrastructure. SwarmOS extends
-        the verification instinct into research itself: a platform where agents must prove their
-        claims, reproduce their results, and earn their continued operation. Agentic Data makes
-        the retrieval layer a first-class product — an enterprise context graph where relevance is
-        causal and temporal, not just similar. Structure Lab applies mathematical optimization to
-        financial construction — provable quality over heuristic familiarity. AlchemicalAI is the
-        applied commercial product where these architecture principles meet a vertical: an
-        AI-powered operating system for real estate professionals with voice agents, workflow
-        automation, CMA generation, and approval-gated outreach.
+        a dense digital civilization must keep buying and that soft guarantees can no longer provide.
+        Eschatology Report widens that question into culture, institutions, and orientation. GAMUT
+        carries the older research thread on form, order, and lawful motion.
+      </p>
+      <p class="map__text">
+        The active builds extend those ideas into applied systems: Capability Commons turns public
+        capability into infrastructure, SwarmOS enforces verifiable research at the platform level,
+        Agentic Data makes the retrieval layer a first-class product, Structure Lab applies
+        mathematical optimization to financial construction, and AlchemicalAI puts the architecture
+        principles into a vertical product for real estate professionals.
       </p>
       <p class="map__text map__text--emphasis">
         Taken together, they form one map rather than several disconnected brands.
@@ -288,6 +314,77 @@ const labDirections = [
     margin: 0;
     max-width: none;
     flex-grow: 1;
+  }
+
+  /* Active Builds (compact list) */
+  .builds {
+    padding-block: var(--sp-12);
+  }
+
+  .builds__heading {
+    font: var(--text-h3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    margin-bottom: var(--sp-2);
+    color: var(--color-ink);
+  }
+
+  .builds__intro {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-6);
+    max-width: 38em;
+  }
+
+  .builds__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .builds__item {
+    padding: var(--sp-4) var(--sp-5) var(--sp-4) var(--sp-6);
+    border-bottom: 1px solid var(--color-line);
+    border-left: 2px solid var(--color-brass);
+  }
+
+  .builds__link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-3);
+    text-decoration: none;
+    margin-bottom: var(--sp-1);
+  }
+
+  .builds__name {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .builds__link:hover .builds__name {
+    color: var(--color-brass);
+  }
+
+  .builds__tagline {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.6875rem;
+  }
+
+  .builds__body {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: 42em;
   }
 
   /* Active Lab Directions */

@@ -20,7 +20,7 @@ export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
 export const GAMUT_URL = 'https://musicalgeometry.replit.app';
 export const SSRN_URL = 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5309953';
 export const DOI_URL = 'https://doi.org/10.5281/zenodo.18902696';
-export const ALCHEMICALAI_URL = '';
+export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
 export const CAPABILITY_COMMONS_URL = '/capability-commons';
 export const CAPABILITY_COMMONS_GITHUB = 'https://github.com/Granite-Labs-LLC/CapabilityCommons';
 export const STRUCTURE_LAB_URL = '/work#structure-lab';
@@ -109,6 +109,6 @@ export const ENDORSED_PROPERTIES = [
     description:
       'AI-powered operating system for real estate professionals — voice agents, workflow automation, CMA generation, lead qualification, transaction management, and approval-gated outreach across brokerage verticals.',
     url: ALCHEMICALAI_URL,
-    external: false,
+    external: true,
   },
 ] as const;

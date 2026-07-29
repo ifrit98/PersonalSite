@@ -1,5 +1,8 @@
 ---
 import { SITE, NAV_LINKS, UTILITY_LINKS, ENDORSED_PROPERTIES } from '@/lib/site';
+
+const footerPropertyNames = ['AfterFiat', 'Eschatology Report', 'GAMUT', 'Structure Lab', 'AlchemicalAI'];
+const footerProperties = ENDORSED_PROPERTIES.filter((p) => footerPropertyNames.includes(p.name));
 ---
 
 <footer class="footer">
@@ -27,9 +30,10 @@ import { SITE, NAV_LINKS, UTILITY_LINKS, ENDORSED_PROPERTIES } from '@/lib/site'
       <div class="footer__external">
         <p class="footer__heading">Properties & Contact</p>
         <ul class="footer__links" role="list">
-          {ENDORSED_PROPERTIES.map((prop) => (
-            <li><a href={prop.url}>{prop.name} <span class="footer__prop-tag">— {prop.tagline}</span></a></li>
+          {footerProperties.map((prop) => (
+            <li><a href={prop.url} {...(prop.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{prop.name} <span class="footer__prop-tag">— {prop.tagline}</span></a></li>
           ))}
+          <li><a href="/projects">See all projects <span aria-hidden="true">→</span></a></li>
           <li><a href={`mailto:${SITE.email}`}>Contact Jason</a></li>
         </ul>
       </div>
