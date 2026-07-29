@@ -1,0 +1,16 @@
+{
+  "name": "Jason St George",
+  "short_name": "JSG",
+  "description": "Systems for verification, capability, and value under adversarial conditions.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F5F1E8",
+  "theme_color": "#141B27",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

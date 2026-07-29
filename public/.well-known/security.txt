@@ -1,0 +1,7 @@
+# Security contact for jasonstgeorge.com
+# https://securitytxt.org/
+
+Contact: mailto:jason@jasonstgeorge.com
+Preferred-Languages: en
+Canonical: https://jasonstgeorge.com/.well-known/security.txt
+Expires: 2027-07-29T00:00:00.000Z

@@ -8,10 +8,10 @@ export interface SEOProps {
   ogType?: 'website' | 'article' | 'profile';
 }
 
-export function buildMeta(props: SEOProps) {
+export function buildMeta(props: SEOProps, currentUrl?: URL) {
   const title = props.title ? `${props.title} — ${SITE.name}` : SITE.title;
   const description = props.description || SITE.description;
-  const canonical = props.canonical || SITE.url;
+  const canonical = props.canonical || (currentUrl ? `${SITE.url}${currentUrl.pathname}` : SITE.url);
   const ogImage = props.ogImage || `${SITE.url}/og-default.png`;
   const ogType = props.ogType || 'website';
 

@@ -1,0 +1,17 @@
+/* TEAM */
+Name: Jason St George
+Site: https://jasonstgeorge.com
+Contact: jason@jasonstgeorge.com
+GitHub: https://github.com/ifrit98
+LinkedIn: https://linkedin.com/in/stgeorgejas
+X: https://x.com/jasonstgeorge_
+Location: United States
+Education: B.M. University of North Texas; M.S. Computer Science, Rochester Institute of Technology
+
+/* SITE */
+Stack: Astro, Node.js, Supabase
+Hosting: Replit
+Last updated: 2026-07-29
+Standards: HTML5, CSS3, ES2022
+Components: Astro components, CSS custom properties
+Accessibility: WCAG 2.1 AA target
