@@ -15,7 +15,7 @@ const proofItems = [
   { text: '128-GPU air-gapped fine-tuning', href: '/work#secure-distributed-ml' },
   { text: '~$60M protocol revenue in production', href: '/work#adversarial-storage-incentives' },
   { text: '~$5M Navy follow-on supported', href: '/work#real-time-underwater-detection' },
-  { text: 'Peer-reviewed research + public writing', href: '/writing' },
+  { text: '2 peer-reviewed publications (ICAI, Bridges)', href: '/writing#published-research' },
 ] as const;
 
 const serviceCards = [
@@ -61,7 +61,7 @@ const caseStudies = [
   },
 ] as const;
 
-const homePropertyNames = ['AfterFiat', 'Eschatology Report', 'GAMUT', 'SwarmOS', 'Agentic Data'];
+const homePropertyNames = ['AfterFiat', 'Eschatology Report', 'GAMUT'];
 const propertyCards = ENDORSED_PROPERTIES
   .filter((p) => homePropertyNames.includes(p.name))
   .map((p) => ({

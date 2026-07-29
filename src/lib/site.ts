@@ -9,6 +9,7 @@ export const SITE = {
   social: {
     github: 'https://github.com/ifrit98',
     linkedin: 'https://linkedin.com/in/stgeorgejas',
+    twitter: 'https://x.com/jasonstgeorge_',
   },
 } as const;
 
@@ -17,6 +18,8 @@ export const CONTACT_URL = '/contact#engagement';
 export const AFTERFIAT_URL = 'https://afterfiat.xyz';
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
 export const GAMUT_URL = 'https://musicalgeometry.replit.app';
+export const SSRN_URL = 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5309953';
+export const DOI_URL = 'https://doi.org/10.5281/zenodo.18902696';
 export const ALCHEMICALAI_URL = '';
 export const CAPABILITY_COMMONS_URL = '/capability-commons';
 export const CAPABILITY_COMMONS_GITHUB = 'https://github.com/Granite-Labs-LLC/CapabilityCommons';
@@ -39,6 +42,7 @@ export const UTILITY_LINKS = [
   { label: 'Resume', href: '/resume' },
   { label: 'GitHub', href: 'https://github.com/ifrit98' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/stgeorgejas' },
+  { label: 'X', href: 'https://x.com/jasonstgeorge_' },
 ] as const;
 
 export const ENDORSED_PROPERTIES = [

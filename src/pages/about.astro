@@ -1,6 +1,45 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
+import { SSRN_URL, DOI_URL } from '@/lib/site';
+
+const publications = [
+  {
+    title: 'Machine Learning Approaches for Musical Gesture Analysis and Composition',
+    venue: 'International Conference on Artificial Intelligence (ICAI)',
+    year: 2019,
+    pdf: '/papers/stgeorge-music-ml-icai-2019.pdf',
+  },
+  {
+    title: 'Sonification of Black Holes: Mapping Astrophysical Data to Musical Structure',
+    venue: 'Bridges: Mathematics, Music, Art, Architecture, Education, Culture',
+    year: 2019,
+    pdf: '/papers/stgeorge-sonification-bridges-2019.pdf',
+  },
+] as const;
+
+const timeline = [
+  {
+    period: '2017–2019',
+    label: 'Temple University — Music + CS',
+    detail: 'Formal study in music theory, computer science, and applied mathematics. Published two peer-reviewed papers at the intersection of ML, music, and astrophysics.',
+  },
+  {
+    period: '2019–2021',
+    label: 'Protocol & Decentralized Infrastructure',
+    detail: 'Blockchain storage protocols, mechanism design, incentive architecture. Contributed to systems generating ~$60M in protocol revenue.',
+  },
+  {
+    period: '2021–2023',
+    label: 'Defense ML & Secure Infrastructure',
+    detail: 'Real-time edge inference for Navy sonar systems (<50ms on Jetson). Air-gapped distributed LLM fine-tuning across 128 GPUs.',
+  },
+  {
+    period: '2023–present',
+    label: 'Independent Research & Public Writing',
+    detail: 'AfterFiat thesis on next-generation stores of value. Eschatology Report on AI, culture, and institutional drift. Agent systems, retrieval infrastructure, and knowledge architecture.',
+  },
+] as const;
 ---
 
 <BaseLayout
@@ -19,35 +58,84 @@ import Button from '@/components/ui/Button.astro';
   <section class="narrative fade-up" aria-labelledby="narrative-heading">
     <div class="container container--narrow">
       <h2 id="narrative-heading" class="sr-only">Background</h2>
-      <div class="narrative__body">
-        <p>
-          My background crosses protocol design, infrastructure, real-time machine learning,
-          long-form writing, and formal research. What connects those domains is not résumé
-          variety. It is a recurring problem: how do you preserve signal, coordination, and
-          durable value when the surrounding environment becomes noisy, strategic, or adversarial?
-        </p>
-        <p>
-          I came into technical work through music. Long before I was thinking about threat
-          models or distributed systems, I was thinking about counterpoint, tension and
-          resolution, invariants, motion, and form. That training never disappeared. It still
-          shapes how I approach engineering, research, and writing.
-        </p>
-        <p>
-          In practice, that has meant building privacy-preserving and adversarial systems,
-          working on distributed ML and secure infrastructure, shipping latency-sensitive
-          detection systems, and writing about verification collapse, synthetic media, money,
-          sovereignty, and institutional drift. It has also meant originating the public
-          properties, research programs, and knowledge infrastructure described on this site —
-          AfterFiat, Eschatology Report, Capability Commons, GAMUT — each built from scratch
-          rather than inherited or curated.
-        </p>
-        <p>
-          I am not interested only in software abstractions. I care about the systems households
-          and communities actually depend on: power, water, shelter, repair, tools, local
-          competence, and the transmission of usable knowledge. That concern is not theoretical.
-          It shapes where I live, what I build, and what I teach. It sits directly behind
-          Capability Commons. Public capability is not a side interest. It is part of the same
-          broader architecture.
+      <div class="narrative__intro">
+        <div class="about-portrait">
+          <img src="/headshot.jpg" alt="Jason St George" width="280" height="280" loading="eager" />
+        </div>
+        <div class="narrative__body">
+          <p>
+            My background crosses protocol design, infrastructure, real-time machine learning,
+            long-form writing, and formal research. What connects those domains is not résumé
+            variety. It is a recurring problem: how do you preserve signal, coordination, and
+            durable value when the surrounding environment becomes noisy, strategic, or adversarial?
+          </p>
+          <p>
+            I came into technical work through music. Long before I was thinking about threat
+            models or distributed systems, I was thinking about counterpoint, tension and
+            resolution, invariants, motion, and form. That training never disappeared. It still
+            shapes how I approach engineering, research, and writing.
+          </p>
+          <p>
+            In practice, that has meant building privacy-preserving and adversarial systems,
+            working on distributed ML and secure infrastructure, shipping latency-sensitive
+            detection systems, and writing about verification collapse, synthetic media, money,
+            sovereignty, and institutional drift. It has also meant originating the public
+            properties, research programs, and knowledge infrastructure described on this site —
+            AfterFiat, Eschatology Report, Capability Commons, GAMUT — each built from scratch
+            rather than inherited or curated.
+          </p>
+          <p>
+            I am not interested only in software abstractions. I care about the systems households
+            and communities actually depend on: power, water, shelter, repair, tools, local
+            competence, and the transmission of usable knowledge. That concern is not theoretical.
+            It shapes where I live, what I build, and what I teach. It sits directly behind
+            Capability Commons. Public capability is not a side interest. It is part of the same
+            broader architecture.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline fade-up" aria-labelledby="timeline-heading">
+    <div class="container container--narrow">
+      <h2 id="timeline-heading" class="section-heading">Background</h2>
+      <ol class="timeline__list">
+        {timeline.map((entry, i) => (
+          <li class="timeline__entry fade-up" style={`--stagger: ${i * 80}ms`}>
+            <span class="timeline__period">{entry.period}</span>
+            <div class="timeline__content">
+              <p class="timeline__label">{entry.label}</p>
+              <p class="timeline__detail">{entry.detail}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="publications fade-up" id="published-research" aria-labelledby="publications-heading">
+    <div class="container container--narrow">
+      <h2 id="publications-heading" class="section-heading">Published Research</h2>
+      <ul class="publications__list">
+        {publications.map((pub) => (
+          <li class="publication">
+            <p class="publication__title">{pub.title}</p>
+            <p class="publication__venue">{pub.venue}, {pub.year}</p>
+            <div class="publication__links">
+              <a href={pub.pdf} class="publication__link">PDF</a>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div class="publications__extended">
+        <p class="publications__note">
+          Extended thesis work:
+          <a href={SSRN_URL} target="_blank" rel="noopener noreferrer">
+            "Next-Generation Stores of Value" on SSRN
+          </a>
+          ·
+          <a href={DOI_URL} target="_blank" rel="noopener noreferrer">DOI</a>
         </p>
       </div>
     </div>
@@ -149,11 +237,11 @@ import Button from '@/components/ui/Button.astro';
     <div class="container container--narrow">
       <h2 id="focus-heading" class="section-heading">Current Focus</h2>
       <p class="current-focus__body">
-        Right now, the work clusters around systems that preserve signal under adversarial
-        conditions, writing on verification and monetary architecture, knowledge infrastructure
-        for practical public capability, and formal research on music, geometry, and lawful
-        structure. I also take on selective architecture-heavy work where the problem is real and
-        the constraints matter.
+        Right now the work is concentrated on three things: the
+        <a href="https://afterfiat.xyz">AfterFiat thesis</a> (why privacy, proofs, and compute
+        form the next monetary base), agent and retrieval infrastructure for high-constraint
+        environments, and selective architecture engagements where the problem is real and the
+        wrong abstractions are expensive.
       </p>
     </div>
   </section>
@@ -215,6 +303,27 @@ import Button from '@/components/ui/Button.astro';
     padding-block: var(--sp-16);
   }
 
+  .narrative__intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--sp-8);
+    align-items: start;
+  }
+
+  .about-portrait {
+    width: 14rem;
+    flex-shrink: 0;
+  }
+
+  .about-portrait img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-line);
+    object-fit: cover;
+    aspect-ratio: 1;
+  }
+
   .narrative__body p {
     font: var(--text-body-lg);
     font-family: var(--font-sans);
@@ -225,6 +334,130 @@ import Button from '@/components/ui/Button.astro';
 
   .narrative__body p + p {
     margin-top: var(--sp-6);
+  }
+
+  /* Timeline */
+  .timeline {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .timeline__list {
+    list-style: none;
+    margin-top: var(--sp-8);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .timeline__entry {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: var(--sp-6);
+    padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
+    border-bottom: 1px solid var(--color-line);
+    border-left: 3px solid var(--color-brass);
+  }
+
+  .timeline__period {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    padding-top: 0.15em;
+    white-space: nowrap;
+  }
+
+  .timeline__label {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+    max-width: none;
+  }
+
+  .timeline__detail {
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: none;
+  }
+
+  /* Publications */
+  .publications {
+    padding-block: var(--sp-16);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .publications__list {
+    list-style: none;
+    margin-top: var(--sp-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .publication {
+    padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
+    border-left: 3px solid var(--color-brass);
+  }
+
+  .publication__title {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+    max-width: none;
+  }
+
+  .publication__venue {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-2);
+    max-width: none;
+  }
+
+  .publication__links {
+    display: flex;
+    gap: var(--sp-4);
+  }
+
+  .publication__link {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .publication__link:hover {
+    color: var(--color-oxblood);
+  }
+
+  .publications__extended {
+    margin-top: var(--sp-6);
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .publications__note {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: none;
+  }
+
+  .publications__note a {
+    color: var(--color-brass);
+    text-decoration: none;
+  }
+
+  .publications__note a:hover {
+    color: var(--color-oxblood);
   }
 
   .section-heading {
@@ -373,6 +606,21 @@ import Button from '@/components/ui/Button.astro';
       font: var(--text-h2);
       font-family: var(--font-serif);
       font-weight: 500;
+    }
+
+    .narrative__intro {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: left;
+    }
+
+    .about-portrait {
+      width: 10rem;
+    }
+
+    .timeline__entry {
+      grid-template-columns: 1fr;
+      gap: var(--sp-2);
     }
 
     .work-on__grid {

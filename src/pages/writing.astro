@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { AFTERFIAT_URL, ESCHATOLOGY_URL } from '@/lib/site';
+import { AFTERFIAT_URL, ESCHATOLOGY_URL, SSRN_URL, DOI_URL } from '@/lib/site';
 
 const themes = [
   {
@@ -110,6 +110,36 @@ const startPaths = [
           </p>
           <span class="surface-card__cta">Read Eschatology Report →</span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="writing-research fade-up" id="published-research">
+    <div class="container container--narrow">
+      <h2 class="writing-research__heading">Published Research</h2>
+      <ul class="writing-research__list">
+        <li class="research-item">
+          <p class="research-item__title">Machine Learning Approaches for Musical Gesture Analysis and Composition</p>
+          <p class="research-item__venue">International Conference on Artificial Intelligence (ICAI), 2019</p>
+          <div class="research-item__links">
+            <a href="/papers/stgeorge-music-ml-icai-2019.pdf">PDF</a>
+          </div>
+        </li>
+        <li class="research-item">
+          <p class="research-item__title">Sonification of Black Holes: Mapping Astrophysical Data to Musical Structure</p>
+          <p class="research-item__venue">Bridges: Mathematics, Music, Art, Architecture, Education, Culture, 2019</p>
+          <div class="research-item__links">
+            <a href="/papers/stgeorge-sonification-bridges-2019.pdf">PDF</a>
+          </div>
+        </li>
+      </ul>
+      <div class="research-extended">
+        <p class="research-extended__note">
+          Extended thesis work:
+          <a href={SSRN_URL} target="_blank" rel="noopener noreferrer">"Next-Generation Stores of Value" on SSRN</a>
+          ·
+          <a href={DOI_URL} target="_blank" rel="noopener noreferrer">DOI</a>
+        </p>
       </div>
     </div>
   </section>
@@ -293,6 +323,89 @@ const startPaths = [
   }
 
   .surface-card:hover .surface-card__cta {
+    color: var(--color-oxblood);
+  }
+
+  /* Published Research */
+  .writing-research {
+    padding-block: var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .writing-research__heading {
+    font: var(--text-h2);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-8);
+  }
+
+  .writing-research__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  .research-item {
+    padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
+    border-left: 3px solid var(--color-brass);
+  }
+
+  .research-item__title {
+    font: var(--text-body);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: var(--sp-1);
+    max-width: none;
+  }
+
+  .research-item__venue {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    margin-bottom: var(--sp-2);
+    max-width: none;
+  }
+
+  .research-item__links {
+    display: flex;
+    gap: var(--sp-4);
+  }
+
+  .research-item__links a {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .research-item__links a:hover {
+    color: var(--color-oxblood);
+  }
+
+  .research-extended {
+    margin-top: var(--sp-6);
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .research-extended__note {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    max-width: none;
+  }
+
+  .research-extended__note a {
+    color: var(--color-brass);
+    text-decoration: none;
+  }
+
+  .research-extended__note a:hover {
     color: var(--color-oxblood);
   }
 

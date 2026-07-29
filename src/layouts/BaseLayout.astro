@@ -16,11 +16,16 @@ const structuredData = JSON.stringify([
     '@type': 'Person',
     name: 'Jason St George',
     url: SITE.url,
-    jobTitle: 'Independent Builder & Researcher',
+    jobTitle: 'Independent Researcher & Systems Architect',
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'Temple University',
+    },
     description: SITE.description,
     sameAs: [
       SITE.social.github,
       SITE.social.linkedin,
+      SITE.social.twitter,
     ],
   },
   {
