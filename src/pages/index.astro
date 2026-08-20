@@ -3,25 +3,43 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import {
   SITE,
-  AFTERFIAT_URL,
+  AFTERFIAT_PROFILE_URL,
   ESCHATOLOGY_URL,
   ENDORSED_PROPERTIES,
   CONTACT_URL,
 } from '@/lib/site';
 
 const proofItems = [
-  { text: '7+ years across secure and decentralized systems', href: '/about' },
+  { text: '0→1 product ownership', href: '/turnkeyhq' },
   { text: '<50ms edge inference on Jetson', href: '/work#real-time-underwater-detection' },
   { text: '128-GPU air-gapped fine-tuning', href: '/work#secure-distributed-ml' },
   { text: '~$60M protocol revenue in production', href: '/work#adversarial-storage-incentives' },
-  { text: '~$5M Navy follow-on supported', href: '/work#real-time-underwater-detection' },
-  { text: '2 peer-reviewed publications (ICAI, Bridges)', href: '/writing#published-research' },
+  { text: '315-test retrieval platform', href: '/agentic-data' },
+  { text: '358-page versioned thesis', href: '/afterfiat' },
+] as const;
+
+const operatingRange = [
+  {
+    title: 'Products & platforms',
+    body: 'From market thesis and architecture through release, operation, and iteration.',
+    examples: 'Vertical AI · Retrieval · Knowledge systems',
+  },
+  {
+    title: 'Secure systems',
+    body: 'Machine learning, protocols, and infrastructure built for adversarial constraints.',
+    examples: 'Air-gapped ML · Edge inference · Verification',
+  },
+  {
+    title: 'Research & synthesis',
+    body: 'Formal arguments and public frameworks that make complex systems legible.',
+    examples: 'Monetary systems · Institutions · Mathematical form',
+  },
 ] as const;
 
 const serviceCards = [
   {
-    title: 'Secure ML & Edge Inference',
-    body: 'Air-gapped training, deployment architecture, edge inference, and operational ML pipelines.',
+    title: 'Product & Platform Delivery',
+    body: 'Market thesis, product architecture, application and data layers, integrations, release infrastructure, and production operations.',
   },
   {
     title: 'Protocol Design & Monetary Architecture',
@@ -35,6 +53,13 @@ const serviceCards = [
 
 const caseStudies = [
   {
+    category: 'Flagship / Vertical AI',
+    title: 'TurnkeyHQ',
+    body: 'A multi-tenant AI operating system carried from product thesis through engineering, deployment, tenant operations, and commercial lifecycle.',
+    metric: '14 services · 9 images · 171 migrations · 75 agent skills',
+    href: '/turnkeyhq',
+  },
+  {
     category: 'Infrastructure / Protocol',
     title: 'Adversarial Storage & Incentives',
     body: 'Ciphertext-only storage network with ongoing proofs, long-horizon incentives, and anti-tamper verification.',
@@ -47,13 +72,6 @@ const caseStudies = [
     body: 'Hybrid DSP + ML pipeline optimized for operational detection metrics and sub-50ms latency on Jetson hardware.',
     metric: '<50ms inference · ~$5M multi-year follow-on supported',
     href: '/work#real-time-underwater-detection',
-  },
-  {
-    category: 'Defense / Infrastructure',
-    title: 'Secure Distributed ML Infrastructure',
-    body: 'Distributed LLM fine-tuning and serving inside air-gapped, approval-heavy environments.',
-    metric: '128 GPUs operational · 65% cost reduction via quantized adapters',
-    href: '/work#secure-distributed-ml',
   },
 ] as const;
 
@@ -71,9 +89,9 @@ const propertyCards = ENDORSED_PROPERTIES
 const finalCards = [
   {
     title: 'Read the thesis',
-    body: 'The formal argument on privacy, proofs, and compute as the next monetary base.',
+    body: 'A versioned, falsifiable test of when privacy, proofs, and compute may support monetary premium.',
     cta: 'Read AfterFiat',
-    href: AFTERFIAT_URL,
+    href: AFTERFIAT_PROFILE_URL,
   },
   {
     title: 'View shipped systems',
@@ -96,75 +114,38 @@ const finalCards = [
   <section class="hero fade-up" aria-labelledby="hero-title">
     <div class="container hero__grid">
       <div class="hero__content">
-        <span class="hero__eyebrow">Builder · Researcher · Writer</span>
-        <h1 id="hero-title" class="hero__title">Verification, monetary architecture, and systems that survive pressure.</h1>
+        <span class="hero__eyebrow">Founder-operator · Principal engineer · Researcher</span>
+        <h1 id="hero-title" class="hero__title">I build systems from first principle to production.</h1>
         <p class="hero__body">
-          I build protocol-level infrastructure, write about money and verification, and publish formal
-          research. The work spans air-gapped distributed ML, real-time edge inference, mechanism design,
-          and retrieval systems — all of it in environments where the constraints are real.
+          My work spans AI products, secure infrastructure, verification protocols, knowledge systems,
+          and formal research — usually where technical depth, operational judgment, and clear models
+          have to coexist.
         </p>
         <p class="hero__thesis">
-          The underlying question is simple: what still works when soft guarantees fail?
+          The through-line is ownership: understand the whole problem, build the machinery, and keep it credible under pressure.
         </p>
         <div class="hero__actions">
-          <Button href={AFTERFIAT_URL} variant="brass" data-track="hero_primary_cta_click">Read the Thesis</Button>
-          <Button href="#selected-work" variant="ghost" data-track="hero_secondary_cta_click">View Selected Work</Button>
+          <Button href="#selected-work" variant="brass" data-track="hero_primary_cta_click">View Selected Work</Button>
+          <Button href="/writing" variant="ghost" data-track="hero_secondary_cta_click">Read the Writing</Button>
         </div>
         <p class="hero__fit">
-          I also take selective engagements: secure ML / LLM infrastructure, real-time inference, protocol
-          and mechanism design, agentic retrieval, and technical leadership for high-constraint builds.
+          The wider record includes secure ML infrastructure, real-time inference, protocol design,
+          agentic retrieval, formal research, and technical leadership for high-constraint builds.
           <a href={CONTACT_URL} class="hero__fit-link" data-track="hero_engagement_link_click">Discuss an engagement →</a>
         </p>
       </div>
-      <div class="hero__visual" aria-hidden="true">
-        <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" class="hero__svg">
-          <defs>
-            <radialGradient id="motif-glow" cx="40%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="rgba(169,135,82,0.04)" />
-              <stop offset="100%" stop-color="transparent" />
-            </radialGradient>
-          </defs>
-          <circle cx="250" cy="250" r="220" fill="url(#motif-glow)" />
-          <g stroke="rgba(169,135,82,0.27)" stroke-width="0.75" fill="none">
-            <circle cx="250" cy="250" r="190" />
-            <circle cx="250" cy="250" r="140" />
-            <circle cx="250" cy="250" r="90" />
-            <circle cx="250" cy="250" r="40" opacity="0.5" />
-            <line x1="60" y1="250" x2="440" y2="250" />
-            <line x1="250" y1="60" x2="250" y2="440" />
-            <line x1="115" y1="115" x2="385" y2="385" opacity="0.6" />
-            <line x1="385" y1="115" x2="115" y2="385" opacity="0.6" />
-            <line x1="250" y1="60" x2="385" y2="115" opacity="0.45" />
-            <line x1="385" y1="115" x2="440" y2="250" opacity="0.45" />
-            <line x1="440" y1="250" x2="385" y2="385" opacity="0.45" />
-            <line x1="385" y1="385" x2="250" y2="440" opacity="0.45" />
-            <line x1="250" y1="440" x2="115" y2="385" opacity="0.45" />
-            <line x1="115" y1="385" x2="60" y2="250" opacity="0.45" />
-            <line x1="60" y1="250" x2="115" y2="115" opacity="0.45" />
-            <line x1="115" y1="115" x2="250" y2="60" opacity="0.45" />
-            <line x1="250" y1="110" x2="340" y2="160" opacity="0.3" />
-            <line x1="340" y1="160" x2="390" y2="250" opacity="0.3" />
-            <line x1="390" y1="250" x2="340" y2="340" opacity="0.3" />
-            <line x1="340" y1="340" x2="250" y2="390" opacity="0.3" />
-            <line x1="250" y1="390" x2="160" y2="340" opacity="0.3" />
-            <line x1="160" y1="340" x2="110" y2="250" opacity="0.3" />
-            <line x1="110" y1="250" x2="160" y2="160" opacity="0.3" />
-            <line x1="160" y1="160" x2="250" y2="110" opacity="0.3" />
-          </g>
-          <circle cx="250" cy="60" r="4" fill="var(--color-brass)" opacity="0.75" />
-          <circle cx="250" cy="440" r="4" fill="var(--color-brass)" opacity="0.75" />
-          <circle cx="60" cy="250" r="4" fill="var(--color-brass)" opacity="0.75" />
-          <circle cx="440" cy="250" r="4" fill="var(--color-brass)" opacity="0.75" />
-          <circle cx="115" cy="115" r="3" fill="var(--color-brass)" opacity="0.5" />
-          <circle cx="385" cy="115" r="3" fill="var(--color-brass)" opacity="0.5" />
-          <circle cx="115" cy="385" r="3" fill="var(--color-brass)" opacity="0.5" />
-          <circle cx="385" cy="385" r="3" fill="var(--color-brass)" opacity="0.5" />
-          <circle cx="250" cy="110" r="2.5" fill="var(--color-brass)" opacity="0.4" />
-          <circle cx="390" cy="250" r="2.5" fill="var(--color-brass)" opacity="0.4" />
-          <circle cx="250" cy="390" r="2.5" fill="var(--color-brass)" opacity="0.4" />
-          <circle cx="110" cy="250" r="2.5" fill="var(--color-brass)" opacity="0.4" />
-          <circle cx="250" cy="250" r="5" fill="var(--color-brass)" opacity="0.8" />
-        </svg>
+      <div class="hero__visual" aria-label="Operating range across products, secure systems, and research">
+        <div class="range-map">
+          <span class="range-map__label">Operating range</span>
+          {operatingRange.map((area) => (
+            <div class="range-map__area">
+              <h2>{area.title}</h2>
+              <p>{area.body}</p>
+              <span>{area.examples}</span>
+            </div>
+          ))}
+          <p class="range-map__throughline">Architecture · Execution · Stewardship</p>
+        </div>
       </div>
     </div>
   </section>
@@ -278,13 +259,13 @@ const finalCards = [
       <span class="writing-cta__eyebrow">Writing & Research</span>
       <h2 id="writing-heading" class="writing-cta__title">Follow the larger argument in public.</h2>
       <p class="writing-cta__body">
-        The next hard money is not what cannot be printed; it is what cannot be forged, censored, or
-        cheaply faked. AfterFiat builds the full argument. Eschatology Report extends it into AI,
-        culture, institutions, and orientation.
+        AfterFiat asks when stress-deliverable privacy, portable proofs, and verified compute may
+        support monetary premium. Eschatology Report extends the inquiry into AI, culture,
+        institutions, and orientation.
       </p>
       <div class="writing-cta__actions">
         <Button href="/writing" variant="primary" data-track="writing_cta_click">Read the Writing</Button>
-        <Button href={AFTERFIAT_URL} variant="secondary" data-track="writing_cta_afterfiat">Read AfterFiat</Button>
+        <Button href={AFTERFIAT_PROFILE_URL} variant="secondary" data-track="writing_cta_afterfiat">Read AfterFiat</Button>
       </div>
       <div class="subscribe-stub" id="subscribe">
         <h3 class="subscribe-stub__title">Get major essays and project releases.</h3>
@@ -315,11 +296,6 @@ const finalCards = [
 </BaseLayout>
 
 <style>
-  @keyframes slow-rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
   /* ===== 1. Hero ===== */
   .hero {
     background-color: var(--color-dark-surface);
@@ -347,8 +323,9 @@ const finalCards = [
   }
 
   .hero__title {
-    font: var(--text-h1);
     font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 1.167;
     font-weight: 500;
     color: var(--color-dark-text);
     letter-spacing: -0.01em;
@@ -400,23 +377,74 @@ const finalCards = [
   }
 
   .hero__visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: -3rem;
+    display: block;
+    margin-left: var(--sp-8);
   }
 
-  .hero__svg {
-    width: 120%;
-    max-width: 28rem;
-    height: auto;
-    animation: slow-rotate 120s linear infinite;
+  .range-map {
+    border: 1px solid var(--color-dark-line);
+    border-top-color: rgba(169, 135, 82, 0.65);
+    background: rgba(255, 255, 255, 0.025);
+    padding: var(--sp-5);
+    position: relative;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero__svg {
-      animation: none;
-    }
+  .range-map::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 3.5rem;
+    bottom: 3.5rem;
+    width: 2px;
+    background: var(--color-brass);
+  }
+
+  .range-map__label {
+    display: block;
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-bottom: var(--sp-4);
+    border-bottom: 1px solid var(--color-dark-line);
+  }
+
+  .range-map__area {
+    padding: var(--sp-5) var(--sp-3);
+    border-bottom: 1px solid var(--color-dark-line);
+  }
+
+  .range-map__area h2 {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    font-weight: 500;
+    color: var(--color-dark-text);
+    margin-bottom: var(--sp-2);
+  }
+
+  .range-map__area p {
+    font: var(--text-meta);
+    color: var(--color-dark-muted);
+    line-height: 1.5;
+  }
+
+  .range-map__area span {
+    display: block;
+    margin-top: var(--sp-3);
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+  }
+
+  .range-map__throughline {
+    margin-top: var(--sp-4);
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-dark-muted);
   }
 
   /* ===== 2. Proof Strip ===== */
@@ -963,6 +991,9 @@ const finalCards = [
 
   /* ===== Responsive ===== */
   @media (max-width: 768px) {
+    .hero__visual {
+      margin-left: 0;
+    }
     .hero {
       padding-block: var(--sp-16) var(--sp-12);
       position: relative;
@@ -970,23 +1001,15 @@ const finalCards = [
 
     .hero__grid {
       grid-template-columns: 1fr;
-      gap: var(--sp-4);
+      gap: var(--sp-8);
     }
 
     .hero__visual {
-      order: -1;
-      margin-right: 0;
-      opacity: 0.15;
-      position: absolute;
-      right: -2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-    }
-
-    .hero__svg {
-      width: 16rem;
-      max-width: none;
+      order: initial;
+      margin: 0;
+      opacity: 1;
+      position: static;
+      transform: none;
     }
 
     .hero__content {
@@ -995,9 +1018,31 @@ const finalCards = [
     }
 
     .hero__title {
-      font: var(--text-h2);
       font-family: var(--font-serif);
+      font-size: 2.125rem;
+      line-height: 1.176;
       font-weight: 500;
+    }
+
+    .hero__fit {
+      display: none;
+    }
+
+    .range-map__area {
+      padding-block: var(--sp-3);
+    }
+
+    .range-map__area h2 {
+      margin-bottom: 0;
+    }
+
+    .range-map__area p,
+    .range-map__area span {
+      display: none;
+    }
+
+    .range-map__throughline {
+      font-size: 0.7rem;
     }
 
     .engage {

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "test:positioning": "node --test tests/positioning.test.mjs",
     "start": "HOST=0.0.0.0 PORT=5000 node dist/server/entry.mjs",
     "preview": "astro preview",
     "astro": "astro",

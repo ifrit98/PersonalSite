@@ -1,8 +1,8 @@
 export const SITE = {
   name: 'Jason St George',
-  title: 'Jason St George | Secure ML, Verification & Knowledge Systems',
+  title: 'Jason St George | Founder, Principal Engineer & Systems Builder',
   description:
-    'I help teams working in high-security, latency-sensitive, adversarial, or high-consequence environments design systems that stay credible under pressure — from air-gapped distributed ML and real-time edge inference to protocol architecture, agent systems, and retrieval infrastructure.',
+    'Founder-operator and principal engineer building production AI products, secure infrastructure, and systems that remain credible under pressure.',
   url: 'https://jasonstgeorge.com',
   author: 'Jason St George',
   email: 'jason@jasonstgeorge.com',
@@ -16,11 +16,19 @@ export const SITE = {
 export const CONTACT_URL = '/contact#engagement';
 
 export const AFTERFIAT_URL = 'https://afterfiat.xyz';
+export const AFTERFIAT_PROFILE_URL = '/afterfiat';
+export const AFTERFIAT_READ_URL = 'https://afterfiat.xyz/v/1.9/read/';
+export const AFTERFIAT_PDF_URL = 'https://afterfiat.xyz/pdf/next-gen-sov-v1.9.pdf';
+export const AFTERFIAT_ARGUMENT_URL = 'https://afterfiat.xyz/argument/';
+export const AFTERFIAT_MARKET_URL = 'https://afterfiat.xyz/market-realization/';
+export const AFTERFIAT_UPDATES_URL = 'https://afterfiat.xyz/updates/';
+export const AFTERFIAT_CITE_URL = 'https://afterfiat.xyz/cite/';
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
 export const GAMUT_URL = 'https://musicalgeometry.replit.app';
 export const SSRN_URL = 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5309953';
 export const DOI_URL = 'https://doi.org/10.5281/zenodo.18902696';
 export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
+export const TURNKEYHQ_URL = '/turnkeyhq';
 export const CAPABILITY_COMMONS_URL = '/capability-commons';
 export const CAPABILITY_COMMONS_GITHUB = 'https://github.com/Granite-Labs-LLC/CapabilityCommons';
 export const STRUCTURE_LAB_URL = '/work#structure-lab';
@@ -50,9 +58,9 @@ export const ENDORSED_PROPERTIES = [
     name: 'AfterFiat',
     tagline: 'Thesis / Blueprint',
     description:
-      'The next credible store of value will be a scarce asset that captures recurring demand for private settlement, portable proofs, and verified compute — provided the work is cheap to verify, hard to censor, and economically non-bypassable.',
-    url: AFTERFIAT_URL,
-    external: true,
+      'A versioned, falsifiable thesis testing whether Privacy, Proofs, and Compute can support store-of-value premium under sustained repression — without confusing utility, value capture, or price action for moneyness.',
+    url: AFTERFIAT_PROFILE_URL,
+    external: false,
   },
   {
     name: 'Eschatology Report',
@@ -104,11 +112,11 @@ export const ENDORSED_PROPERTIES = [
     external: false,
   },
   {
-    name: 'AlchemicalAI',
-    tagline: 'Applied AI / Vertical SaaS',
+    name: 'TurnkeyHQ',
+    tagline: 'Flagship Product / Vertical AI',
     description:
-      'AI-powered operating system for real estate professionals — voice agents, workflow automation, CMA generation, lead qualification, transaction management, and approval-gated outreach across brokerage verticals.',
-    url: ALCHEMICALAI_URL,
-    external: true,
+      'The vertical AI operating system I co-founded and built through product architecture, engineering, release infrastructure, tenant operations, and commercial lifecycle.',
+    url: TURNKEYHQ_URL,
+    external: false,
   },
 ] as const;

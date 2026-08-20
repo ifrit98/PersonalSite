@@ -2,30 +2,30 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import {
-  AFTERFIAT_URL,
+  AFTERFIAT_PROFILE_URL,
   ESCHATOLOGY_URL,
   CAPABILITY_COMMONS_URL,
   GAMUT_URL,
-  ALCHEMICALAI_URL,
   STRUCTURE_LAB_URL,
   SWARMOS_URL,
   AGENTICDATA_URL,
+  TURNKEYHQ_URL,
 } from '@/lib/site';
 
 const highlights = [
+  '0→1 vertical AI product ownership',
+  'Release, deployment, and production operations',
   'Multi-million-dollar protocol operations',
   'Sub-50ms operational inference',
   '7+ years across secure systems',
-  'Peer-reviewed research and public writing',
-  '8 originated public properties and programs',
 ] as const;
 
 const programs = [
   {
     name: 'AfterFiat',
-    role: 'Author',
-    desc: 'Thesis: scarce assets capturing demand for private settlement, portable proofs, and verified compute earn the next store-of-value premium',
-    href: AFTERFIAT_URL,
+    role: 'Sole Author',
+    desc: '358-page, versioned monetary thesis: 10 premises, a 9-link chain, 15 red lines, and falsifiable telemetry across Privacy, Proofs, Compute, and market realization',
+    href: AFTERFIAT_PROFILE_URL,
   },
   {
     name: 'Eschatology Report',
@@ -64,14 +64,25 @@ const programs = [
     href: STRUCTURE_LAB_URL,
   },
   {
-    name: 'AlchemicalAI',
-    role: 'Founder',
-    desc: 'Vertical AI operating system for real estate — voice agents, automated CMA, transaction pipeline, lead qualification, and workflow governance for brokerages and agents',
-    href: ALCHEMICALAI_URL,
+    name: 'TurnkeyHQ',
+    role: 'Co-founder / Principal Engineer',
+    desc: 'Vertical AI operating system owned across product, engineering, QA, release infrastructure, tenant operations, and commercial lifecycle',
+    href: TURNKEYHQ_URL,
   },
 ] as const;
 
 const experiences = [
+  {
+    title: 'Co-founder & Principal Engineer — Alchemical AI LLC / TurnkeyHQ',
+    location: 'Product, engineering, release, and operations',
+    period: '2025 – Present',
+    details: [
+      'Conceived and built TurnkeyHQ from zero into a versioned, multi-tenant vertical AI platform spanning product architecture, dashboard, APIs, data, agent runtime, integrations, billing, and operations.',
+      'Designed a 14-service topology with nine independently built images, tenant-isolated data and runtime boundaries, deterministic workflows, and human approval for consequential actions.',
+      'Established the release system: reviewed release PRs, semver artifacts, evidence gates, signed images, blocking staging canaries, deploy verification, rollback, and split-fleet detection.',
+      'Built product lifecycle machinery including tiered plans, usage credits, checkout, vendor cost controls, tenant onboarding, observability, runbooks, and governed roadmap documentation.',
+    ],
+  },
   {
     title: 'Senior Machine Learning Software Engineer — Black River Systems Co.',
     location: 'Utica, NY',
@@ -105,6 +116,11 @@ const experiences = [
 
 const proofPoints = [
   {
+    title: 'TurnkeyHQ — Full Product Lifecycle',
+    body: 'Owned a vertical AI product from market thesis through architecture, implementation, tenant safety, QA, release infrastructure, production operations, packaging, and commercial evolution. Current platform scope includes 14 services, 171 migrations, 244 API routes, 73 dashboard pages, and 75 agent skills.',
+    href: TURNKEYHQ_URL,
+  },
+  {
     title: 'Decentralized Storage Network',
     body: 'Built and operated a production storage platform from the ground up: anti-tamper verification, reliability/integrity guarantees, incentive system design, and real-time monitoring. Operated to ~$7M avg MRR (~$60M revenue).',
   },
@@ -115,10 +131,6 @@ const proofPoints = [
   {
     title: 'Production LLM Fine-Tuning (128-GPU)',
     body: 'Owned end-to-end: data pipelines, training orchestration, deployment, and operator workflows in regulated environments. Reduced fine-tuning costs 65% via quantized adapters on commodity hardware.',
-  },
-  {
-    title: 'Real-Time Edge Inference',
-    body: 'Built DSP → deep learning pipeline achieving <50 ms end-to-end latency on embedded devices. Shipped to production.',
   },
 ] as const;
 
@@ -157,13 +169,13 @@ const toolchain = {
 
 <BaseLayout
   title="Resume / CV"
-  description="Systems Architect & Senior ML Engineer — Secure AI Infrastructure, Real-Time Inference, Agentic Systems, and Production Architecture."
+  description="Founder and Principal Engineer — AI products, production platforms, secure infrastructure, and full-lifecycle delivery."
 >
   <section class="page-hero fade-up" aria-labelledby="resume-hero-title">
     <div class="container container--narrow">
       <h1 id="resume-hero-title" class="page-hero__title">Resume / CV</h1>
       <p class="page-hero__body">
-        Systems Architect & Senior ML Engineer — Secure AI Infrastructure, Real-Time Inference, Agentic Systems, and Production Architecture.
+        Founder &amp; Principal Engineer — AI Products, Production Platforms, and Full-Lifecycle Delivery.
       </p>
     </div>
   </section>
@@ -172,9 +184,9 @@ const toolchain = {
     <div class="container container--narrow">
       <h2 id="summary-heading" class="sr-only">Summary</h2>
       <p class="summary__text">
-        I help teams design and ship secure ML systems, real-time inference pipelines, protocol architecture, and agentic retrieval
-        infrastructure in adversarial, high-constraint, and high-consequence environments. The public record includes air-gapped
-        distributed ML, sub-50ms edge inference, privacy-preserving protocols, peer-reviewed publications, and long-form public writing.
+        I carry ambitious systems from problem definition through product architecture, implementation, release infrastructure,
+        production operations, and commercial evolution. The record includes a multi-tenant vertical AI platform, air-gapped
+        distributed ML, sub-50ms edge inference, production protocols, and peer-reviewed research.
       </p>
     </div>
   </section>
@@ -198,6 +210,7 @@ const toolchain = {
           <article class="proof-points__item fade-up" style={`--stagger: ${i * 80}ms`}>
             <h3 class="proof-points__title">{pp.title}</h3>
             <p class="proof-points__body">{pp.body}</p>
+            {'href' in pp && pp.href && <a href={pp.href} class="proof-points__link">Read the case study →</a>}
           </article>
         ))}
       </div>
@@ -356,8 +369,9 @@ const toolchain = {
   }
 
   .page-hero__title {
-    font: var(--text-h1);
     font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 1.167;
     font-weight: 500;
     color: var(--color-ink);
     margin-top: var(--sp-4);
@@ -458,6 +472,16 @@ const toolchain = {
     color: var(--color-slate);
     margin: 0;
     line-height: 1.6;
+  }
+
+  .proof-points__link {
+    display: inline-block;
+    margin-top: var(--sp-4);
+    color: var(--color-brass);
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    text-decoration: none;
   }
 
   .programs {

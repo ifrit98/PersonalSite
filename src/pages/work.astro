@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { SITE, AFTERFIAT_URL } from '@/lib/site';
+import { SITE } from '@/lib/site';
 
 void SITE;
-void AFTERFIAT_URL;
 ---
 
 <BaseLayout
@@ -25,6 +24,7 @@ void AFTERFIAT_URL;
   <section class="outcomes fade-up" aria-label="Outcomes">
     <div class="container">
       <ul class="outcomes__list">
+        <li class="outcomes__item">0→1 vertical AI product ownership</li>
         <li class="outcomes__item">Sub-50ms operational inference</li>
         <li class="outcomes__item">Distributed ML in secure environments</li>
         <li class="outcomes__item">Multi-million-dollar protocol operations</li>
@@ -44,6 +44,13 @@ void AFTERFIAT_URL;
         conditions rather than clean-room assumptions.
       </p>
       <div class="operating__grid">
+        <article class="area-card fade-up" style="--stagger: 0ms">
+          <h3 class="area-card__title">Product &amp; Platform Delivery</h3>
+          <p class="area-card__body">
+            Market thesis, product architecture, application and data layers, integrations, release
+            infrastructure, tenant operations, commercial controls, and continuous product evolution.
+          </p>
+        </article>
         <article class="area-card fade-up" style="--stagger: 0ms">
           <h3 class="area-card__title">Protocol &amp; Mechanism Design</h3>
           <p class="area-card__body">
@@ -102,6 +109,26 @@ void AFTERFIAT_URL;
       </p>
 
       <div class="cases__list">
+        <article class="case-card case-card--flagship" id="turnkeyhq">
+          <span class="case-card__meta">Flagship / Vertical AI Product</span>
+          <h3 class="case-card__title">TurnkeyHQ</h3>
+          <p class="case-card__role"><span class="case-card__label">Role</span> Co-founder, principal engineer, product and operating owner</p>
+          <p class="case-card__problem">
+            <span class="case-card__label">Problem</span>
+            Build the operating layer between a real-estate business and the fragmented systems where its work happens.
+          </p>
+          <p class="case-card__narrative">
+            Conceived and built a multi-tenant vertical AI platform across product definition, dashboard,
+            APIs, workflow and agent planes, integrations, data evolution, tenant isolation, release
+            engineering, production operations, packaging, and cost governance.
+          </p>
+          <dl class="case-card__dl">
+            <div class="case-card__dl-row"><dt>Scope</dt><dd>14 services, 9 buildable images, 171 migrations, 244 API routes, 73 dashboard pages, and 75 agent skills.</dd></div>
+            <div class="case-card__dl-row"><dt>Stage</dt><dd>Active development and private beta; capabilities vary by deployment and tenant allowlist.</dd></div>
+          </dl>
+          <a href="/turnkeyhq" class="case-card__link">Read the full founder-operator case study →</a>
+        </article>
+
         <article class="case-card" id="adversarial-storage-incentives">
           <span class="case-card__meta">Infrastructure / Protocol</span>
           <h3 class="case-card__title">Adversarial Storage &amp; Incentives</h3>
@@ -459,8 +486,9 @@ void AFTERFIAT_URL;
   }
 
   .work-hero__title {
-    font: var(--text-h1);
     font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 1.167;
     font-weight: 500;
     color: var(--color-ink);
     margin-top: var(--sp-4);
@@ -571,6 +599,35 @@ void AFTERFIAT_URL;
     box-shadow: var(--shadow-card-rest);
     padding: var(--sp-6) var(--sp-6) var(--sp-6) calc(var(--sp-6) - 2px);
   }
+
+  .case-card--flagship {
+    background: var(--color-dark-surface);
+    border-color: var(--color-dark-line);
+    border-left-color: var(--color-brass);
+  }
+
+  .case-card--flagship .case-card__title,
+  .case-card--flagship .case-card__problem {
+    color: var(--color-dark-text);
+  }
+
+  .case-card--flagship .case-card__role,
+  .case-card--flagship .case-card__narrative,
+  .case-card--flagship .case-card__dl dd {
+    color: var(--color-dark-muted);
+  }
+
+  .case-card__link {
+    display: inline-block;
+    margin-top: var(--sp-6);
+    color: var(--color-brass);
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .case-card__link:hover { color: var(--color-dark-text); }
 
   .case-card__meta {
     display: inline-block;

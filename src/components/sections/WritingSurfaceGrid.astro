@@ -1,7 +1,7 @@
 ---
 import Button from '@/components/ui/Button.astro';
 
-import { AFTERFIAT_URL, ESCHATOLOGY_URL } from '@/lib/site';
+import { AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, ESCHATOLOGY_URL } from '@/lib/site';
 ---
 
 <section class="writing-surfaces fade-up">
@@ -14,25 +14,20 @@ import { AFTERFIAT_URL, ESCHATOLOGY_URL } from '@/lib/site';
         <h3 class="writing-surfaces__title">AfterFiat — Next-Gen Store of Value: Privacy, Proofs, Compute</h3>
       </div>
       <p class="writing-surfaces__body">
-        The thesis argues that the next credible store of value will not be backed merely by decree,
-        narrative, or inert scarcity, but by indispensable digital capacities that a dense AI
-        civilization must keep buying: private settlement, portable proofs, and verified compute.
-        Fiat systems under debt pressure tend toward financial repression; media systems under
-        generative AI tend toward synthetic ambiguity; compute systems under platform consolidation
-        tend toward chokepoints. But utility alone is not money. The asset earns store-of-value
-        premium only if demand for these capacities is routed through a scarce, non-bypassable
-        monetary object whose economics are visible in fees, burns, staking collateral, issuance
-        discipline, and public dashboards. If verification cost, reachability, settlement safety,
-        or value capture fail, the system may still be useful infrastructure — but it is not money.
+        A conditional monetary thesis testing whether stress-deliverable private settlement,
+        portable proof, and verified compute can support store-of-value premium without bypass.
+        v1.9 separates utility from value capture, value capture from moneyness, and protocol
+        performance from market price. Its claim survives only if the full service path, holder-side
+        anchor, and public telemetry continue to hold under pressure.
       </p>
       <div class="writing-surfaces__proof-row">
         <div class="writing-surfaces__proof-item">
           <span class="writing-surfaces__proof-label">Scope</span>
-          <span class="writing-surfaces__proof-value">31 chapters + 7 appendices</span>
+          <span class="writing-surfaces__proof-value">358 pages · 33 sections · 10 appendices</span>
         </div>
         <div class="writing-surfaces__proof-item">
           <span class="writing-surfaces__proof-label">Key idea</span>
-          <span class="writing-surfaces__proof-value">Utility becomes monetary only when captured by a scarce, non-bypassable asset</span>
+          <span class="writing-surfaces__proof-value">10 premises · 9-link chain · 15 red lines</span>
         </div>
         <div class="writing-surfaces__proof-item">
           <span class="writing-surfaces__proof-label">Format</span>
@@ -42,15 +37,15 @@ import { AFTERFIAT_URL, ESCHATOLOGY_URL } from '@/lib/site';
       <details class="writing-surfaces__contributions">
         <summary class="writing-surfaces__contributions-toggle">Core contributions</summary>
         <ul class="writing-surfaces__contributions-list">
-          <li>Threat model assuming financial repression, censorship, and hardware capture — not benevolence</li>
-          <li>VerifyPrice as the public KPI that turns proofs into commodities rather than platform IOUs</li>
-          <li>Four reference applications: private treasury, media provenance, verified inference, proof procurement</li>
-          <li>"No dashboards, no trust" governance posture with protocol changes driven by SLOs and public receipts</li>
+          <li>Deliverability measured across the full surviving seven-layer service path</li>
+          <li>VerifyPrice, VerifyReach, VerifySettle, and VerifyFlow telemetry families</li>
+          <li>Market Realization Plane separating value capture from price capture</li>
+          <li>Duration-neutral base money separated from duration-bearing infrastructure credit</li>
         </ul>
       </details>
       <div class="writing-surfaces__actions">
-        <Button href={AFTERFIAT_URL}>Read AfterFiat &rarr;</Button>
-        <Button href={`${AFTERFIAT_URL}/v/1.0/read/part-i/0-introduction`} variant="secondary">Start at the Introduction</Button>
+        <Button href={AFTERFIAT_PROFILE_URL}>Research profile &rarr;</Button>
+        <Button href={AFTERFIAT_READ_URL} variant="secondary">Read canonical v1.9</Button>
       </div>
     </article>
 

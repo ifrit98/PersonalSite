@@ -1,0 +1,187 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import {
+  AFTERFIAT_ARGUMENT_URL,
+  AFTERFIAT_CITE_URL,
+  AFTERFIAT_MARKET_URL,
+  AFTERFIAT_PDF_URL,
+  AFTERFIAT_READ_URL,
+  AFTERFIAT_UPDATES_URL,
+  SITE,
+} from '@/lib/site';
+
+const researchData = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'ScholarlyArticle',
+  name: 'Next Generation Stores of Value: Privacy, Proofs, Compute',
+  author: { '@type': 'Person', name: SITE.author, url: SITE.url },
+  version: '1.9',
+  dateModified: '2026-08-19',
+  url: AFTERFIAT_READ_URL,
+  license: 'https://creativecommons.org/licenses/by/4.0/',
+});
+
+const services = [
+  ['Privacy', 'Stress-deliverable private settlement: usable transfer without exposure becoming the price of participation.'],
+  ['Proofs', 'Portable evidence that survives platform boundaries and permits verification without inheriting an intermediary’s trust.'],
+  ['Compute', 'Verified machine work whose execution, result, and settlement remain inspectable under adverse conditions.'],
+] as const;
+
+const verification = [
+  ['VerifyPrice', 'Can users obtain the service at a viable, observable price?'],
+  ['VerifyReach', 'Can the full surviving path still reach the intended recipient or resource?'],
+  ['VerifySettle', 'Does the service actually settle into usable finality under stress?'],
+  ['VerifyFlow', 'How much price formation is explained by external wrappers, leverage, dealers, and market structure?'],
+] as const;
+---
+
+<BaseLayout
+  title="AfterFiat — Research Profile"
+  description="Jason St George’s versioned, falsifiable monetary thesis on Privacy, Proofs, Compute, deliverability, holder behavior, and market realization."
+>
+  <script type="application/ld+json" slot="head" set:html={researchData} />
+
+  <section class="hero fade-up">
+    <div class="container">
+      <p class="kicker">Research profile · v1.9 · checksummed</p>
+      <h1>Next Generation Stores of Value:<br /><em>Privacy, Proofs, Compute</em></h1>
+      <p class="lede">
+        A conditional monetary thesis testing whether three essential digital services can support
+        store-of-value premium under sustained repression — and specifying what evidence would
+        disprove the claim.
+      </p>
+      <div class="actions">
+        <Button href={AFTERFIAT_READ_URL} variant="primary">Read the canonical edition</Button>
+        <Button href={AFTERFIAT_PDF_URL} variant="secondary">Download the v1.9 PDF</Button>
+      </div>
+    </div>
+  </section>
+
+  <aside class="receipt" aria-label="Publication record">
+    <div class="container receipt__grid">
+      <span><b>Sole author</b><br />Jason St George</span>
+      <span><b>v1.9</b><br />19 August 2026</span>
+      <span><b>358 pages</b><br />33 numbered sections</span>
+      <span><b>10 appendices</b><br />A–J</span>
+      <span><b>Research controls</b><br />Section citations · checksum · CC BY 4.0</span>
+    </div>
+  </aside>
+
+  <section class="claim section fade-up">
+    <div class="container split">
+      <div>
+        <p class="section-label">The narrower claim</p>
+        <h2>Utility is not moneyness.</h2>
+      </div>
+      <div class="prose">
+        <p class="large">
+          Under sustained repression, a bearer base asset may accrue monetary premium when holding
+          it preserves stress-deliverable private settlement, portable proof, and verified compute
+          without bypass.
+        </p>
+        <p>
+          “May” matters. Fees, burns, collateral, and issuance discipline can explain value capture;
+          they do not prove monetary adoption. The holder-side anchor is a persistent, self-custodied,
+          loss-bearing base that continues to bear stress when easier substitutes disappear.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark fade-up">
+    <div class="container">
+      <p class="section-label">Three services, one empirical question</p>
+      <h2>What must remain deliverable?</h2>
+      <div class="service-grid">
+        {services.map(([title, body], index) => (
+          <article><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>
+        ))}
+      </div>
+      <p class="section-note">Whether these services should share one base asset is a testable design question, not an article of faith.</p>
+    </div>
+  </section>
+
+  <section class="section fade-up">
+    <div class="container">
+      <div class="split">
+        <div><p class="section-label">Argument architecture</p><h2>Ten premises.<br />A nine-link chain.<br />Fifteen red lines.</h2></div>
+        <div class="prose">
+          <p>The thesis proceeds from administrative repression and service demand through deliverability, anti-bypass value capture, holder behavior, and market realization. Every link must survive; none is rescued by a compelling narrative.</p>
+          <p>The fifteen red lines turn the framework into a research program: measurable failure conditions for censorship resistance, proof portability, compute verification, concentration, bypass, liquidity, and holder conduct.</p>
+          <a class="text-link" href={AFTERFIAT_ARGUMENT_URL}>Inspect the complete argument map →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="machines section fade-up">
+    <div class="container">
+      <p class="section-label">The two machines</p>
+      <h2>Protocol performance and market price are different systems.</h2>
+      <div class="machine-grid">
+        <article class="machine">
+          <p class="machine__eyebrow">Inner protocol loop</p>
+          <div class="loop" aria-label="Create or compute, prove, settle, verify, then repeat">
+            <span>Create / Compute</span><i>→</i><span>Prove</span><i>→</i><span>Settle</span><i>→</i><span>Verify</span><i>↺</i>
+          </div>
+          <p>Tests whether a seven-layer stack delivers a usable service through the entire surviving path — not merely whether nominal capacity exists.</p>
+        </article>
+        <article class="machine machine--market">
+          <p class="machine__eyebrow">Outer market-realization loop</p>
+          <div class="loop loop--market" aria-label="Narrative, wrapper, allocate or lever, dealer hedge, price, then repeat">
+            <span>Narrative</span><i>→</i><span>Wrapper</span><i>→</i><span>Allocate / Lever</span><i>→</i><span>Dealer Hedge</span><i>→</i><span>Price</span><i>↺</i>
+          </div>
+          <p>Separates protocol value capture from price capture. Wrappers, leverage, custody, and dealer hedging can dominate observed price without proving monetary adoption.</p>
+        </article>
+      </div>
+      <a class="text-link" href={AFTERFIAT_MARKET_URL}>Explore the Market Realization Plane →</a>
+    </div>
+  </section>
+
+  <section class="verification section fade-up">
+    <div class="container">
+      <p class="section-label">Falsifiable telemetry</p>
+      <h2>Four verification families</h2>
+      <div class="verify-grid">
+        {verification.map(([name, body]) => <article><h3>{name}</h3><p>{body}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section instruments fade-up">
+    <div class="container split">
+      <div><p class="section-label">Instrument separation</p><h2>Do not hide duration inside money.</h2></div>
+      <div class="prose">
+        <p>A duration-neutral base asset is the conditional monetary candidate. Work Credits are typed claims on services. Receipts are evidence. Project notes are explicit duration-bearing credit. LP tokens, staking derivatives, and operating-company claims remain distinct risk instruments.</p>
+        <p>That separation keeps infrastructure finance visible instead of quietly transferring project risk into the monetary base.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing section section--dark fade-up">
+    <div class="container split">
+      <div><p class="section-label">A versioned research program</p><h2>Designed to be challenged, revised, and cited.</h2></div>
+      <div class="prose">
+        <p>v1.9, “Deliverability, Holders, and Instrument Separation,” narrows the monetary claim, makes the holder-side anchor explicit, and separates base money from project credit. The canonical site maintains the checksum, source notes, citation formats, release history, and author-maintained brief.</p>
+        <div class="resource-links">
+          <a href={AFTERFIAT_READ_URL}>Read online</a><a href={AFTERFIAT_PDF_URL}>Canonical PDF</a><a href={AFTERFIAT_UPDATES_URL}>Version history</a><a href={AFTERFIAT_CITE_URL}>Cite the work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero{padding-block:clamp(6rem,12vw,10rem) var(--sp-20);background:var(--color-bone);border-bottom:1px solid var(--color-line)}
+  .hero .container{max-width:1180px}.kicker,.section-label,.machine__eyebrow{font:var(--text-label);font-family:var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--color-brass);margin-bottom:var(--sp-5)}
+  h1{max-width:1050px;font-family:var(--font-serif);font-size:clamp(3rem,7vw,6.4rem);font-weight:400;line-height:.96;letter-spacing:-.045em;color:var(--color-ink)}h1 em{font-weight:400;color:var(--color-brass)}
+  .lede{max-width:780px;margin-top:var(--sp-8);font:var(--text-body-lg);color:var(--color-ink-muted)}.actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-8)}
+  .receipt{background:var(--color-paper);border-bottom:1px solid var(--color-line)}.receipt__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;padding-block:0}.receipt span{padding:var(--sp-5);border-left:1px solid var(--color-line);font:var(--text-small);color:var(--color-ink-muted)}.receipt span:last-child{border-right:1px solid var(--color-line)}.receipt b{color:var(--color-ink);font-weight:600}
+  .section{padding-block:clamp(5rem,9vw,8rem);border-bottom:1px solid var(--color-line)}.split{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(3rem,8vw,8rem)}h2{font-family:var(--font-serif);font-size:clamp(2.35rem,5vw,4.5rem);font-weight:400;line-height:1.02;letter-spacing:-.03em}.prose{font:var(--text-body-lg);color:var(--color-ink-muted)}.prose p+p{margin-top:var(--sp-5)}.prose .large{font-family:var(--font-serif);font-size:clamp(1.5rem,2.5vw,2.2rem);line-height:1.25;color:var(--color-ink)}
+  .section--dark{background:var(--color-ink);color:var(--color-bone)}.section--dark .section-label{color:var(--color-brass-light, #c7a66a)}.section--dark h2{max-width:900px}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:var(--sp-12);border:1px solid rgba(255,255,255,.16)}.service-grid article{padding:var(--sp-8);border-right:1px solid rgba(255,255,255,.16)}.service-grid article:last-child{border:0}.service-grid span{font-family:var(--font-mono);color:var(--color-brass)}.service-grid h3{font-family:var(--font-serif);font-size:2rem;margin-block:var(--sp-4)}.service-grid p,.section-note{color:rgba(255,255,255,.68);line-height:1.7}.section-note{margin-top:var(--sp-6)}
+  .text-link{display:inline-block;margin-top:var(--sp-6);color:var(--color-brass);font-weight:600}.machines{background:var(--color-paper)}.machines>div>h2{max-width:900px}.machine-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5);margin-block:var(--sp-10) var(--sp-4)}.machine{padding:var(--sp-8);border:1px solid var(--color-line);background:var(--color-bone)}.machine--market{background:var(--color-ink);color:var(--color-bone)}.loop{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-block:var(--sp-6);font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase}.loop span{padding:.65rem .8rem;border:1px solid var(--color-brass)}.loop i{font-style:normal;color:var(--color-brass)}.machine p:last-child{line-height:1.7;color:var(--color-ink-muted)}.machine--market p:last-child{color:rgba(255,255,255,.68)}
+  .verify-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:var(--sp-10);border-top:1px solid var(--color-line);border-left:1px solid var(--color-line)}.verify-grid article{padding:var(--sp-6);border-right:1px solid var(--color-line);border-bottom:1px solid var(--color-line)}.verify-grid h3{font-family:var(--font-mono);color:var(--color-brass);margin-bottom:var(--sp-4)}.verify-grid p{color:var(--color-ink-muted);line-height:1.6}.instruments{background:var(--color-bone)}.closing .prose{color:rgba(255,255,255,.7)}.resource-links{display:flex;flex-wrap:wrap;gap:var(--sp-5);margin-top:var(--sp-8)}.resource-links a{color:var(--color-brass-light,#d2b47b);border-bottom:1px solid currentColor}
+  @media(max-width:800px){.receipt__grid{grid-template-columns:1fr 1fr}.receipt span:last-child{grid-column:1/-1}.split,.machine-grid{grid-template-columns:1fr}.service-grid{grid-template-columns:1fr}.service-grid article{border-right:0;border-bottom:1px solid rgba(255,255,255,.16)}.verify-grid{grid-template-columns:1fr 1fr}.loop{align-items:flex-start}.loop i{padding-top:.65rem}}
+  @media(max-width:480px){.receipt__grid,.verify-grid{grid-template-columns:1fr}.receipt span:last-child{grid-column:auto}.hero{padding-top:5rem}.machine{padding:var(--sp-5)}}
+</style>

@@ -1,0 +1,293 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { ALCHEMICALAI_URL } from '@/lib/site';
+
+const lifecycle = [
+  { index: '01', title: 'Market thesis', body: 'Real-estate businesses need an operating layer that can act across communications, CRM, market work, and transactions—not another isolated chatbot.' },
+  { index: '02', title: 'Product system', body: 'A command center, deterministic workflows, agent skills, persistent memory, integrations, and an application surface built around the work operators already do.' },
+  { index: '03', title: 'Trust boundaries', body: 'Tenant isolation, approval gates, consent enforcement, quiet hours, suppression rules, cost controls, and explicit boundaries around consequential external actions.' },
+  { index: '04', title: 'Release engineering', body: 'Reviewed release PRs, semver artifacts, evidence gates, signed images, and a blocking staging canary before production deployment.' },
+  { index: '05', title: 'Production operations', body: 'Health verification, tenant provisioning, version checks, backup, rollback, and split-fleet detection across shared and tenant-specific planes.' },
+  { index: '06', title: 'Commercial lifecycle', body: 'Packaging, plans, usage credits, checkout, vendor cost governance, onboarding, product documentation, roadmap decisions, and ongoing release evolution.' },
+] as const;
+
+const scope = [
+  ['14', 'composed services', 'Shared application services plus tenant-specific runtime planes'],
+  ['9', 'buildable images', 'Independently built and versioned first-party services'],
+  ['171', 'SQL migrations', 'Deterministic evolution of the production data model'],
+  ['244', 'API routes', 'Business, orchestration, integration, and operational interfaces'],
+  ['73', 'dashboard pages', 'A broad operator-facing product surface'],
+  ['75', 'agent skills', 'Reusable capabilities composed into higher-level work'],
+] as const;
+
+const decisions = [
+  {
+    title: 'Deterministic work, bounded intelligence',
+    body: 'Schedules, compliance, retries, state transitions, and external effects live in deterministic control paths. Models handle interpretation and synthesis inside those boundaries.',
+  },
+  {
+    title: 'Isolation is a system property',
+    body: 'Tenant identity scopes reads, writes, jobs, cache keys, secrets, and runtime configuration. Isolation is enforced across application and database boundaries rather than inferred from prompts.',
+  },
+  {
+    title: 'Production evidence travels with the release',
+    body: 'Release metadata, validation evidence, candidate images, staging verification, and production tags form one traceable chain. A deploy is not healthy merely because a command exited successfully.',
+  },
+  {
+    title: 'Economics belong in the architecture',
+    body: 'Usage credits, per-tenant budgets, vendor caps, model routing, and kill switches make cost behavior visible and governable instead of treating margin as a later finance problem.',
+  },
+] as const;
+---
+
+<BaseLayout
+  title="TurnkeyHQ — From Product Thesis to Production Operations"
+  description="How Jason St George co-founded and built TurnkeyHQ across product architecture, engineering, release infrastructure, production operations, and commercial lifecycle."
+>
+  <section class="hero fade-up" aria-labelledby="turnkey-title">
+    <div class="container hero__grid">
+      <div>
+        <span class="eyebrow">Flagship build · Vertical AI operating system</span>
+        <h1 id="turnkey-title">TurnkeyHQ</h1>
+        <p class="hero__dek">
+          A company-scale product built from market thesis through deployment, operations, and commercial evolution.
+        </p>
+      </div>
+      <dl class="hero__role">
+        <div><dt>Role</dt><dd>Co-founder &amp; Principal Engineer</dd></div>
+        <div><dt>Company</dt><dd>Alchemical AI LLC</dd></div>
+        <div><dt>Stage</dt><dd>Active development · private beta</dd></div>
+        <div><dt>Ownership</dt><dd>Product · engineering · QA · release · operations</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="premise fade-up">
+    <div class="container premise__grid">
+      <span class="section-label">The operating problem</span>
+      <div>
+        <h2>Real work crosses system boundaries.</h2>
+        <p>
+          Real-estate operators move constantly between leads, calls, messages, calendars, documents,
+          market data, transactions, and follow-up. Most AI products add another destination. TurnkeyHQ
+          was conceived as the operating layer between those systems: proactive where work is safe to
+          automate, deterministic where guarantees matter, and approval-gated before consequential action.
+        </p>
+        <p>
+          The difficult part was never a single feature. It was carrying a coherent product through the
+          entire lifecycle—product definition, architecture, implementation, integrations, tenant safety,
+          release machinery, production recovery, unit economics, and continuous evolution.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lifecycle fade-up" aria-labelledby="lifecycle-title">
+    <div class="container">
+      <span class="section-label">End-to-end ownership</span>
+      <h2 id="lifecycle-title">The lifecycle is the case study.</h2>
+      <ol class="lifecycle__list">
+        {lifecycle.map((stage) => (
+          <li class="lifecycle__item">
+            <span class="lifecycle__index">{stage.index}</span>
+            <h3>{stage.title}</h3>
+            <p>{stage.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="scope fade-up" id="platform-scope" aria-labelledby="scope-title">
+    <div class="container">
+      <div class="scope__heading">
+        <div>
+          <span class="section-label">Repository-backed scope</span>
+          <h2 id="scope-title">A product system, not a prototype.</h2>
+        </div>
+        <p>Structural measures from the current codebase. They show engineering scope, not customer adoption or universal feature enablement.</p>
+      </div>
+      <dl class="scope__grid">
+        {scope.map(([value, label, detail]) => (
+          <div class="scope__item">
+            <dt><strong>{value}</strong><span>{label}</span></dt>
+            <dd>{detail}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="architecture fade-up" aria-labelledby="architecture-title">
+    <div class="container architecture__grid">
+      <div>
+        <span class="section-label">Product architecture</span>
+        <h2 id="architecture-title">Two planes, one operating contract.</h2>
+        <p>
+          The deterministic plane owns schedules, workflow state, approvals, compliance, idempotency,
+          and external effects. The bounded agent plane interprets requests, assembles context, selects
+          tools, and synthesizes outputs inside those controls.
+        </p>
+      </div>
+      <div class="system-map" aria-label="TurnkeyHQ system architecture">
+        <div class="system-map__row system-map__channels"><span>Chat</span><span>Email</span><span>SMS</span><span>Voice</span><span>Webhooks</span></div>
+        <div class="system-map__connector">authenticated tenant context</div>
+        <div class="system-map__planes">
+          <div><small>Deterministic plane</small><strong>Workflows · approvals · compliance · jobs</strong></div>
+          <div><small>Bounded agent plane</small><strong>Context · reasoning · tools · synthesis</strong></div>
+        </div>
+        <div class="system-map__connector">versioned service boundary</div>
+        <div class="system-map__row"><span>API</span><span>Dashboard</span><span>Workers</span><span>Model router</span></div>
+        <div class="system-map__connector">RLS + explicit tenant filters</div>
+        <div class="system-map__data">PostgreSQL · tenant runtimes · secrets · audit trail</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="decisions fade-up" aria-labelledby="decisions-title">
+    <div class="container">
+      <span class="section-label">Load-bearing decisions</span>
+      <h2 id="decisions-title">What makes the system operable.</h2>
+      <div class="decisions__grid">
+        {decisions.map((decision) => (
+          <article><h3>{decision.title}</h3><p>{decision.body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="release fade-up" id="release-operations" aria-labelledby="release-title">
+    <div class="container release__grid">
+      <div>
+        <span class="section-label">Release engineering &amp; Production operations</span>
+        <h2 id="release-title">The path to production is part of the product.</h2>
+        <p>
+          Every production release follows a traceable chain from reviewed change to tagged artifact,
+          candidate verification, staging canary, deployment, and post-deploy health. Recovery is designed
+          in: version drift is visible, split fleets are rejected, and rollback targets immutable artifacts.
+        </p>
+      </div>
+      <ol class="release__path">
+        <li><span>01</span><strong>Reviewed release PR</strong><small>Change, rationale, validation, rollback</small></li>
+        <li><span>02</span><strong>Evidence-bound semver tag</strong><small>Release identity tied to verified source</small></li>
+        <li><span>03</span><strong>Built and signed images</strong><small>Nine independently versioned services</small></li>
+        <li><span>04</span><strong>Blocking staging canary</strong><small>Disposable tenant through authenticated readiness</small></li>
+        <li><span>05</span><strong>Production deploy and verify</strong><small>Core and tenant planes converge on one tag</small></li>
+        <li><span>06</span><strong>Health, backup, rollback</strong><small>Operability continues after release</small></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="commercial fade-up" aria-labelledby="commercial-title">
+    <div class="container premise__grid">
+      <span class="section-label">Commercial lifecycle</span>
+      <div>
+        <h2 id="commercial-title">Engineering the business boundary.</h2>
+        <p>
+          Product ownership includes how capability is packaged and paid for. TurnkeyHQ includes plan
+          tiers, usage credits, checkout, per-tenant budget controls, vendor cost accounting, onboarding,
+          feature boundaries, and operational documentation. The goal is not maximum machinery; it is a
+          product whose cost, risk, and customer promises remain legible as it changes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="boundary fade-up">
+    <div class="container boundary__inner">
+      <span class="section-label">Claim boundary</span>
+      <p>
+        TurnkeyHQ is in active development and private beta. Structural counts describe the current
+        repository; individual capabilities may be internal, tenant-allowlisted, staged, or still moving
+        through the roadmap. This case study demonstrates product and operating ownership—not customer
+        count, revenue, or universal deployment.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta fade-up">
+    <div class="container cta__inner">
+      <div><span class="section-label">Product reference</span><h2>See the company-facing product surface.</h2></div>
+      <div class="cta__actions">
+        <Button href={ALCHEMICALAI_URL} variant="secondary">Visit Alchemical AI</Button>
+        <Button href="/contact#engagement" variant="primary">Discuss a Build</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-label, .eyebrow { display:block; font:var(--text-mono-meta); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--color-brass); margin-bottom:var(--sp-4); }
+  h1, h2, h3 { font-family:var(--font-serif); color:var(--color-ink); font-weight:500; }
+  h1 { font-family:var(--font-serif); font-size:4rem; line-height:1.125; }
+  h2 { font-family:var(--font-serif); font-size:2.125rem; line-height:1.176; margin-bottom:var(--sp-5); }
+  h3 { font-family:var(--font-serif); font-size:1.5rem; line-height:1.25; }
+  p { font:var(--text-body); font-family:var(--font-sans); color:var(--color-slate); }
+  .hero { padding-block:var(--sp-24) var(--sp-16); background:var(--color-dark-surface); border-bottom:1px solid var(--color-dark-line); }
+  .hero h1 { color:var(--color-dark-text); }
+  .hero__grid { display:grid; grid-template-columns:1.15fr .85fr; gap:var(--sp-16); align-items:end; }
+  .hero__dek { font:var(--text-body-lg); font-family:var(--font-sans); color:rgba(232,228,219,.72); max-width:34em; margin-top:var(--sp-5); }
+  .hero__role { border-top:1px solid rgba(169,135,82,.65); }
+  .hero__role div { display:grid; grid-template-columns:6rem 1fr; gap:var(--sp-4); padding:var(--sp-3) 0; border-bottom:1px solid var(--color-dark-line); }
+  .hero__role dt { font:var(--text-mono-meta); font-family:var(--font-mono); color:var(--color-dark-muted); text-transform:uppercase; }
+  .hero__role dd { font:var(--text-meta); font-family:var(--font-sans); color:var(--color-dark-text); }
+  .premise, .commercial { padding-block:var(--sp-24); }
+  .premise__grid { display:grid; grid-template-columns:.45fr 1.55fr; gap:var(--sp-16); }
+  .premise p + p { margin-top:var(--sp-5); }
+  .lifecycle { padding-block:var(--sp-24); background:var(--color-dark-surface); }
+  .lifecycle h2 { color:var(--color-dark-text); }
+  .lifecycle__list { list-style:none; padding:0; border-top:1px solid var(--color-dark-line); }
+  .lifecycle__item { display:grid; grid-template-columns:4rem .7fr 1.3fr; gap:var(--sp-6); padding:var(--sp-5) 0; border-bottom:1px solid var(--color-dark-line); align-items:baseline; }
+  .lifecycle__index { font-family:var(--font-mono); color:var(--color-brass); }
+  .lifecycle__item h3 { color:var(--color-dark-text); font-size:1.3rem; }
+  .lifecycle__item p { color:var(--color-dark-muted); }
+  .scope { padding-block:var(--sp-24); }
+  .scope__heading { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-12); align-items:end; margin-bottom:var(--sp-8); }
+  .scope__heading p { font:var(--text-meta); font-family:var(--font-sans); }
+  .scope__grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--color-line); border-left:1px solid var(--color-line); }
+  .scope__item { padding:var(--sp-6); border-right:1px solid var(--color-line); border-bottom:1px solid var(--color-line); }
+  .scope__item dt { display:flex; align-items:baseline; gap:var(--sp-3); margin-bottom:var(--sp-3); }
+  .scope__item strong { font:var(--text-h2); font-family:var(--font-serif); color:var(--color-ink); }
+  .scope__item span { font:var(--text-mono-meta); font-family:var(--font-mono); color:var(--color-brass); text-transform:uppercase; }
+  .scope__item dd { font:var(--text-meta); font-family:var(--font-sans); color:var(--color-slate); }
+  .architecture { padding-block:var(--sp-24); border-top:1px solid var(--color-line); }
+  .architecture__grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:var(--sp-16); align-items:start; }
+  .system-map { background:var(--color-dark-surface); padding:var(--sp-6); color:var(--color-dark-text); }
+  .system-map__row { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-2); }
+  .system-map__channels { grid-template-columns:repeat(5,1fr); }
+  .system-map__row span, .system-map__data { padding:var(--sp-3); border:1px solid var(--color-dark-line); text-align:center; font:var(--text-mono-meta); font-family:var(--font-mono); }
+  .system-map__planes { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); }
+  .system-map__planes div { padding:var(--sp-5); border:1px solid rgba(169,135,82,.55); }
+  .system-map small { display:block; font-family:var(--font-mono); color:var(--color-brass); text-transform:uppercase; margin-bottom:var(--sp-2); }
+  .system-map strong { font:var(--text-meta); font-family:var(--font-sans); font-weight:500; }
+  .system-map__connector { color:var(--color-dark-muted); font:var(--text-mono-meta); font-family:var(--font-mono); text-align:center; padding:var(--sp-3); }
+  .decisions { padding-block:var(--sp-24); border-top:1px solid var(--color-line); }
+  .decisions__grid { display:grid; grid-template-columns:repeat(2,1fr); gap:var(--sp-8); }
+  .decisions article { padding-top:var(--sp-4); border-top:2px solid var(--color-brass); }
+  .decisions h3 { margin-bottom:var(--sp-3); }
+  .release { padding-block:var(--sp-24); background:var(--color-dark-surface); }
+  .release h2 { color:var(--color-dark-text); }
+  .release p { color:var(--color-dark-muted); }
+  .release__grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:var(--sp-16); }
+  .release__path { list-style:none; padding:0; border-top:1px solid var(--color-dark-line); }
+  .release__path li { display:grid; grid-template-columns:2.5rem 1fr; gap:0 var(--sp-4); padding:var(--sp-4) 0; border-bottom:1px solid var(--color-dark-line); }
+  .release__path span { grid-row:1/3; font-family:var(--font-mono); color:var(--color-brass); }
+  .release__path strong { color:var(--color-dark-text); font-family:var(--font-sans); font-weight:500; }
+  .release__path small { color:var(--color-dark-muted); font:var(--text-meta); font-family:var(--font-sans); }
+  .boundary { padding-block:var(--sp-12); border-block:1px solid var(--color-line); background:var(--color-warm-wash); }
+  .boundary__inner { display:grid; grid-template-columns:.45fr 1.55fr; gap:var(--sp-16); }
+  .boundary p { font:var(--text-meta); font-family:var(--font-sans); }
+  .cta { padding-block:var(--sp-16); }
+  .cta__inner { display:flex; justify-content:space-between; gap:var(--sp-8); align-items:center; }
+  .cta__actions { display:flex; gap:var(--sp-4); flex-wrap:wrap; }
+  @media(max-width:800px){
+    h1{font-family:var(--font-serif);font-size:3rem;line-height:1.167}
+    .hero__grid,.premise__grid,.scope__heading,.architecture__grid,.release__grid,.boundary__inner{grid-template-columns:1fr;gap:var(--sp-8)}
+    .lifecycle__item{grid-template-columns:2.5rem 1fr}.lifecycle__item p{grid-column:2}
+    .scope__grid{grid-template-columns:1fr 1fr}
+    .system-map__row,.system-map__channels{grid-template-columns:1fr 1fr}.system-map__planes{grid-template-columns:1fr}
+    .decisions__grid{grid-template-columns:1fr}.cta__inner{display:block}.cta__actions{margin-top:var(--sp-6)}
+  }
+  @media(max-width:500px){.scope__grid{grid-template-columns:1fr}}
+</style>
