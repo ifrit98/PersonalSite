@@ -14,8 +14,17 @@ export const POST: APIRoute = async ({ request }) => {
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   if (isRateLimited(`contact:${ip}`, 5)) return rateLimitResponse();
 
+  let body: Record<string, string>;
   try {
-    const body = await request.json();
+    body = await request.json();
+  } catch {
+    return new Response(
+      JSON.stringify({ error: 'Invalid request' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } },
+    );
+  }
+
+  try {
 
     const missing = REQUIRED_FIELDS.filter((f) => !body[f]?.trim());
     if (missing.length) {
@@ -62,8 +71,8 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (err) {
     console.error('Contact API error:', err);
     return new Response(
-      JSON.stringify({ error: 'Invalid request' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } },
+      JSON.stringify({ error: 'Failed to submit inquiry. Please try email instead.' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } },
     );
   }
 };

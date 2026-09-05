@@ -203,3 +203,31 @@ test('contact form mirrors the published engagement types', async () => {
   assert.match(contact, /Technical diligence/);
   assert.match(contact, /href="\/engage"/);
 });
+
+// Acceptance check (advisory package RB-02): the inquiry path must not dead-end.
+// A server-side failure is reported as a server error with the email fallback,
+// never as "Invalid request" — which reads as the sender's mistake.
+test('contact endpoint fails toward the email fallback, not a false validation error', async () => {
+  const base = 'http://127.0.0.1:' + port + '/api/contact';
+  const json = { 'Content-Type': 'application/json' };
+
+  const missing = await fetch(base, { method: 'POST', headers: json, body: JSON.stringify({ name: 'a' }) });
+  assert.equal(missing.status, 400);
+  assert.match((await missing.json()).error, /Missing required fields/);
+
+  const malformed = await fetch(base, { method: 'POST', headers: json, body: 'not json' });
+  assert.equal(malformed.status, 400);
+
+  // No Supabase credentials in the test environment, so a complete payload
+  // exercises the server-failure path.
+  const complete = await fetch(base, {
+    method: 'POST',
+    headers: json,
+    body: JSON.stringify({
+      name: 'Verification', email: 'test@example.com',
+      inquiry_type: 'Architecture & risk review', problem: 'route verification',
+    }),
+  });
+  assert.equal(complete.status, 500, 'a configuration failure is a server error');
+  assert.match((await complete.json()).error, /try email instead/i);
+});
