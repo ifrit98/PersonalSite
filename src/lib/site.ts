@@ -1,8 +1,8 @@
 export const SITE = {
   name: 'Jason St George',
-  title: 'Jason St George | Founder, Principal Engineer & Systems Builder',
+  title: 'Jason St George | Principal Systems Architect — AI & Autonomous Systems',
   description:
-    'Founder-operator and principal engineer building production AI products, secure infrastructure, and systems that remain credible under pressure.',
+    'Principal systems architect building AI, autonomous, distributed, and real-time systems under hard operational constraints. Work includes secure ML, edge inference, agent infrastructure, adversarial protocols, and 0→1 technical platforms.',
   url: 'https://jasonstgeorge.com',
   author: 'Jason St George',
   email: 'jason@jasonstgeorge.com',
@@ -14,6 +14,7 @@ export const SITE = {
 } as const;
 
 export const CONTACT_URL = '/contact#engagement';
+export const ENGAGE_URL = '/engage';
 
 export const AFTERFIAT_URL = 'https://afterfiat.xyz';
 export const AFTERFIAT_PROFILE_URL = '/afterfiat';
@@ -39,18 +40,18 @@ export const AGENTICDATA_GITHUB = 'https://github.com/ifrit98/AgenticData';
 
 export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
+  { label: 'Engage', href: '/engage' },
+  { label: 'Research', href: '/research' },
   { label: 'Writing', href: '/writing' },
-  { label: 'Projects & Labs', href: '/projects' },
   { label: 'About', href: '/about' },
+  { label: 'Resume', href: '/resume' },
   { label: 'Contact', href: '/contact' },
-  { label: 'Ask', href: '/chat' },
 ] as const;
 
 export const UTILITY_LINKS = [
-  { label: 'Resume', href: '/resume' },
   { label: 'GitHub', href: 'https://github.com/ifrit98' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/stgeorgejas' },
-  { label: 'X', href: 'https://x.com/jasonstgeorge_' },
+  { label: 'Ask', href: '/chat' },
 ] as const;
 
 export const ENDORSED_PROPERTIES = [

@@ -1,0 +1,154 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { CONTACT_URL } from '@/lib/site';
+
+// Commercial interface: three bounded offers, priced by outcome rather than hours.
+const offers = [
+  {
+    id: 'architecture-review',
+    name: 'Architecture & Risk Review',
+    summary:
+      'A focused review for teams approaching a consequential technical decision — before the wrong decision becomes expensive.',
+    questions: [
+      'Is the proposed AI architecture actually appropriate for the problem?',
+      'Where are the reliability, scaling, inference-cost, security, or evaluation risks?',
+      'What should be built internally versus purchased?',
+      'Which assumptions need to be tested before the team commits months of engineering time?',
+      'How should the system change under latency, hardware, network, privacy, or deployment constraints?',
+    ],
+    deliverable:
+      'System and architecture map, constraint and assumption analysis, prioritized technical risks, model/inference/data/evaluation assessment, build-vs-buy analysis, a 90-day technical roadmap, and an executive debrief.',
+    inputs: 'Architecture and documentation, code access where appropriate, and interviews with two to four people.',
+    duration: '1–2 weeks',
+    price: '$8K–$15K',
+  },
+  {
+    id: 'de-risking-sprint',
+    name: 'AI Systems De-Risking Sprint',
+    summary:
+      'For systems where the critical uncertainty needs to be resolved experimentally rather than debated.',
+    questions: [
+      'Can this architecture actually meet its latency, reliability, security, cost, and scale requirements?',
+      'Which assumption fails first, and how do we find out cheaply?',
+      'Does the workflow need agency, or does it need orchestration?',
+      'What does the system do after a partial failure?',
+      'Is the evaluation strategy capable of detecting the failures that matter?',
+    ],
+    deliverable:
+      'Isolated high-risk assumptions, investigated alternatives, prototypes along the critical path where useful, and a recommended architecture with an implementation plan.',
+    inputs: 'Working access to the system, the team owning it, and the requirements it has to survive.',
+    duration: '3–5 weeks',
+    price: '$15K–$30K',
+  },
+  {
+    id: 'fractional-principal-architect',
+    name: 'Fractional Principal Architecture',
+    summary:
+      'Ongoing senior technical support for organizations that need another principal-level mind, not another full-time executive.',
+    questions: [
+      'Who adjudicates when the team has three competing architectures?',
+      'Who attacks a design before six months of engineering are committed to it?',
+      'Who tells the founders whether the technical story is real?',
+      'Who mentors the senior engineers without absorbing their backlog?',
+    ],
+    deliverable:
+      'Architecture review and design criticism, AI/ML strategy, difficult technical decisions, prototyping and research where it settles an argument, technical diligence, and mentorship of senior engineers.',
+    inputs: 'A standing architecture session, asynchronous review within an agreed response window, and access to the decisions that matter.',
+    duration: 'Monthly, bounded',
+    price: '20 hrs/mo · $7.5K–$10K · 30 hrs/mo · $10K–$15K',
+  },
+] as const;
+
+const operating = [
+  ['Scope is bounded and written down', 'Engagements have a defined question, a defined deliverable, and an end. Scope changes are handled as scope changes.'],
+  ['Asynchronous by default', 'Written architecture work beats a standing meeting. Calls cluster into a small number of days rather than scattering across the week.'],
+  ['Deliberately few clients', 'No more than two engagements at a time. This is what makes the judgment worth buying.'],
+  ['Not a ticket factory', 'No on-call rotation, no all-day availability retainer, no people-management expectation. Same-day response is an agreed exception, not the default.'],
+] as const;
+
+const experience = [
+  ['Secure and air-gapped ML infrastructure', '128-GPU distributed fine-tuning operational inside disconnected, approval-heavy environments · 65% cost reduction', '/work#secure-distributed-ml'],
+  ['Real-time edge inference', 'Hybrid DSP + ML detection built for operational noise and sub-50 ms inference on Jetson hardware', '/work#real-time-underwater-detection'],
+  ['Adversarial distributed systems', 'Challenge design, verification, reputation, and incentive alignment for a protocol carrying ~$60M production revenue', '/work#adversarial-storage-incentives'],
+  ['Production vertical AI', 'A multi-tenant AI operating system carried from thesis through architecture, release engineering, and tenant operations', '/turnkeyhq'],
+] as const;
+---
+
+<BaseLayout
+  title="Engage"
+  description="Architecture and de-risking engagements for founders, CTOs, and engineering leaders facing consequential AI and systems decisions. Architecture reviews, de-risking sprints, and fractional principal architecture."
+>
+  <section class="hero"><div class="container container--narrow">
+    <span>ADVISORY · ARCHITECTURE · DE-RISKING</span>
+    <h1>Work with Jason</h1>
+    <p>I work with founders, CTOs, engineering leaders, and technical teams on consequential AI and systems problems where the architecture is unclear, the constraints are real, or getting the answer wrong will be expensive.</p>
+    <p>My role is usually not to add another pair of hands to a backlog. It is to clarify the system, identify the critical decisions, pressure-test assumptions, and help build or de-risk the path forward.</p>
+    <div><Button href={CONTACT_URL} variant="brass">Discuss an engagement →</Button><Button href="#offers" variant="ghost">See engagement types</Button></div>
+  </div></section>
+
+  <section class="section" id="offers"><div class="container">
+    <h2>Engagements</h2>
+    <p class="intro">Three ways to buy principal-level technical judgment in a bounded amount of time. Each one is priced against the answer it produces, not against hours logged.</p>
+    <div class="offers">{offers.map((offer) => (
+      <article id={offer.id}>
+        <h3>{offer.name}</h3>
+        <p class="offer__summary">{offer.summary}</p>
+        <p class="offer__label">Typical questions</p>
+        <ul>{offer.questions.map((q) => <li>{q}</li>)}</ul>
+        <dl>
+          <div><dt>What I need</dt><dd>{offer.inputs}</dd></div>
+          <div><dt>Deliverable</dt><dd>{offer.deliverable}</dd></div>
+          <div><dt>Typical engagement</dt><dd>{offer.duration}</dd></div>
+          <div><dt>Investment</dt><dd>{offer.price}</dd></div>
+        </dl>
+      </article>
+    ))}</div>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <h2>How engagements work</h2>
+    <p class="intro">These constraints are what keep the work good. They are stated up front so nobody has to discover them mid-engagement.</p>
+    <div class="operating">{operating.map(([title, body]) => <article><h3>{title}</h3><p>{body}</p></article>)}</div>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <h2>Relevant operating experience</h2>
+    <p class="intro">Secure and air-gapped ML infrastructure, GPU training systems, low-latency edge inference, adversarial distributed systems, production AI applications, retrieval and knowledge systems, technical research, and 0→1 product architecture.</p>
+    <div class="experience">{experience.map(([title, proof, href]) => <a href={href}><h3>{title}</h3><p>{proof}</p><em>View case study →</em></a>)}</div>
+  </div></section>
+
+  <section class="dark"><div class="container container--narrow">
+    <h2>Send me the problem and the constraints.</h2>
+    <p>The strongest opening message is a concrete description of what you are building, what it has to survive, and what will go wrong if the architecture is wrong. A polished pitch is not necessary.</p>
+    <p>If you already have a clean specification and simply need implementation capacity, I am not the highest-leverage fit — and I will tell you so quickly.</p>
+    <Button href={CONTACT_URL} variant="brass">Discuss an engagement →</Button>
+  </div></section>
+</BaseLayout>
+<style>
+  .hero,.dark{background:var(--color-dark-surface);color:var(--color-dark-text);padding-block:var(--sp-24)}
+  .hero span{font:var(--text-mono-meta);color:var(--color-brass);letter-spacing:.06em}
+  .hero h1{font:var(--text-h1);font-family:var(--font-serif);font-weight:500;margin-top:var(--sp-4)}
+  .hero p,.dark p{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-6);max-width:44em}
+  .hero div{display:flex;gap:var(--sp-4);margin-top:var(--sp-8);flex-wrap:wrap}
+  .section{padding-block:var(--sp-16);border-bottom:1px solid var(--color-line)}
+  h2{font:var(--text-h2);font-family:var(--font-serif);font-weight:500}
+  h3{font-family:var(--font-serif);font-weight:500}
+  .intro{max-width:45em;margin:var(--sp-4) 0 var(--sp-8);color:var(--color-slate)}
+  .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6);grid-auto-rows:1fr}
+  .offers article,.operating article,.experience a{border:1px solid var(--color-line);border-left:3px solid var(--color-brass);border-radius:var(--radius-card);padding:var(--sp-6)}
+  .offer__summary{color:var(--color-slate);margin-top:var(--sp-3)}
+  .offer__label{font:var(--text-meta);color:var(--color-brass);margin-top:var(--sp-5)}
+  .offers ul{margin:var(--sp-3) 0 0;padding-left:1.1em;color:var(--color-slate);display:flex;flex-direction:column;gap:var(--sp-2)}
+  dl{display:flex;flex-direction:column;gap:var(--sp-4);margin-top:var(--sp-6)}
+  dt{font:var(--text-meta);color:var(--color-brass)}
+  dd{margin:var(--sp-1) 0 0;color:var(--color-slate)}
+  .operating,.experience{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-6)}
+  .operating p,.experience p{color:var(--color-slate);margin-top:var(--sp-3)}
+  .experience a{color:inherit;text-decoration:none;display:block}
+  .experience em{display:block;margin-top:var(--sp-5);color:var(--color-brass);font:var(--text-meta);font-style:normal}
+  .dark h2{color:var(--color-dark-text)}
+  .dark :global(.btn){margin-top:var(--sp-8)}
+  @media(max-width:900px){.offers{grid-template-columns:1fr}}
+  @media(max-width:768px){.hero,.dark{padding-block:var(--sp-16)}.hero h1{font:var(--text-h2)}.section{padding-block:var(--sp-12)}.operating,.experience{grid-template-columns:1fr}}
+</style>

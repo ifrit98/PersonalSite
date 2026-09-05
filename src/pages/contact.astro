@@ -4,12 +4,11 @@ import Button from '@/components/ui/Button.astro';
 import { SITE } from '@/lib/site';
 
 const inquiryTypes = [
-  'Architecture Review',
-  'Protocol / Threat-Model Memo',
-  'Secure ML Infrastructure',
-  'Knowledge / Retrieval Systems',
-  'Technical Synthesis / Fractional Leadership',
-  'Speaking / Research Collaboration',
+  'Architecture & risk review',
+  'AI systems de-risking sprint',
+  'Fractional principal architecture',
+  'Technical diligence (investment / acquisition)',
+  'Research / speaking',
   'Other',
 ] as const;
 
@@ -43,9 +42,9 @@ const bestFitCards = [
 >
   <section class="page-hero fade-up" aria-labelledby="contact-hero-title">
     <div class="container container--narrow">
-      <h1 id="contact-hero-title" class="page-hero__title">Contact</h1>
+      <h1 id="contact-hero-title" class="page-hero__title">Bring me the problem before the solution is obvious.</h1>
       <p class="page-hero__body">
-        For architecture-heavy technical work where security, latency, retrieval quality, production reliability, or verification matters.
+        The best fit is an architecture-heavy technical problem where several constraints interact and the team needs a sharper model before it needs more code.
       </p>
     </div>
   </section>
@@ -54,7 +53,8 @@ const bestFitCards = [
     <div class="container container--narrow">
       <h2 id="inquiry-heading" class="inquiry-form__heading">Discuss an Engagement</h2>
       <p class="inquiry-form__intro">
-        A short, concrete description beats a polished pitch.
+        A short, concrete description beats a polished pitch. If you are not sure which engagement fits, the
+        <a href="/engage">engagement types</a> are described in detail.
       </p>
 
       <form id="contact-form" class="form" novalidate>
@@ -77,7 +77,7 @@ const bestFitCards = [
             <input type="text" id="field-org" name="organization" class="form__input" autocomplete="organization" />
           </div>
           <div class="form__field">
-            <label for="field-type" class="form__label">Inquiry Type <span class="form__required">*</span></label>
+          <label for="field-type" class="form__label">Problem type <span class="form__required">*</span></label>
             <select id="field-type" name="inquiry_type" required class="form__input form__select" aria-describedby="field-type-error">
               <option value="" disabled selected>Select one</option>
               {inquiryTypes.map((t) => (
@@ -89,18 +89,18 @@ const bestFitCards = [
         </div>
 
         <div class="form__field">
-          <label for="field-problem" class="form__label">Problem <span class="form__required">*</span></label>
+          <label for="field-problem" class="form__label">What problem are you trying to solve? <span class="form__required">*</span></label>
           <textarea id="field-problem" name="problem" required rows="3" class="form__input form__textarea" placeholder="What are you trying to solve?" aria-describedby="field-problem-error"></textarea>
           <span id="field-problem-error" class="form__error">Please describe the problem.</span>
         </div>
 
         <div class="form__field">
-          <label for="field-constraints" class="form__label">Constraints</label>
+          <label for="field-constraints" class="form__label">Known constraints</label>
           <textarea id="field-constraints" name="constraints" rows="2" class="form__input form__textarea" placeholder="Security requirements, timelines, regulatory, environment constraints..."></textarea>
         </div>
 
         <div class="form__field">
-          <label for="field-outcome" class="form__label">Desired Outcome</label>
+          <label for="field-outcome" class="form__label">Desired outcome</label>
           <textarea id="field-outcome" name="desired_outcome" rows="2" class="form__input form__textarea" placeholder="What does success look like?"></textarea>
         </div>
 
@@ -110,13 +110,13 @@ const bestFitCards = [
             <input type="text" id="field-timeline" name="timeline" class="form__input" placeholder="e.g. 2-week sprint, ongoing, Q3 2026" />
           </div>
           <div class="form__field">
-            <label for="field-budget" class="form__label">Budget Range <span class="form__optional">(optional)</span></label>
+          <label for="field-budget" class="form__label">Budget / engagement range <span class="form__optional">(optional)</span></label>
             <input type="text" id="field-budget" name="budget_range" class="form__input" placeholder="e.g. $10k–25k, TBD" />
           </div>
         </div>
 
         <div class="form__field">
-          <label for="field-message" class="form__label">Additional Notes</label>
+          <label for="field-message" class="form__label">Anything else</label>
           <textarea id="field-message" name="message" rows="2" class="form__input form__textarea" placeholder="Anything else relevant..."></textarea>
         </div>
 
@@ -135,18 +135,9 @@ const bestFitCards = [
 
   <section class="best-fit fade-up" aria-labelledby="best-fit-heading">
     <div class="container">
-      <h2 id="best-fit-heading" class="best-fit__heading">Best-Fit Inquiries</h2>
-      <p class="best-fit__intro">
-        These are the kinds of conversations that tend to be the best fit.
-      </p>
-      <div class="best-fit__grid">
-        {bestFitCards.map((card) => (
-          <article class="best-fit__card">
-            <h3 class="best-fit__card-title">{card.title}</h3>
-            <p class="best-fit__card-body">{card.body}</p>
-          </article>
-        ))}
-      </div>
+      <h2 id="best-fit-heading" class="best-fit__heading">Best-fit problems</h2>
+      <p class="best-fit__intro">I am most useful when the architecture is not yet obvious; several technical or operational domains interact; incorrect assumptions become expensive later; or an existing project needs a sharper technical model before adding more implementation.</p>
+      <p class="best-fit__intro">If you already have a clean specification and simply need commodity implementation capacity, I may not be the highest-leverage fit.</p>
     </div>
   </section>
 
