@@ -1,0 +1,67 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { ENGAGE_URL, CONTACT_URL } from '@/lib/site';
+
+// Evidence page A (advisory package RB-07). Conservative by design: no program
+// identifiers, no exact cluster size, no funding or percentage outcomes.
+const constraints = [
+  'Which artifacts can enter the environment at all?',
+  'Which dependencies can be reproduced without external services?',
+  'What is approved to run, and who approves it?',
+  'How are versions, datasets, and results identified after the fact?',
+  'What can an operator actually do when a workflow fails?',
+] as const;
+---
+
+<BaseLayout
+  title="Secure ML Architecture"
+  description="Operating ML inside restricted environments: controlled artifacts, reproducible dependencies, deployment boundaries, and the operator path that has to survive without connected conveniences."
+>
+  <section class="hero"><div class="container container--narrow">
+    <span>EVIDENCE · SECURE &amp; CONSTRAINED ML</span>
+    <h1>Secure ML architecture</h1>
+    <p class="question">Buying question: can this ML system operate inside the environment we actually have?</p>
+  </div></section>
+
+  <section class="section"><div class="container container--narrow">
+    <p>A model pipeline is not deployable merely because it runs in a connected development environment. The deployment boundary determines which dependencies, data movements, artifacts, and operator actions can exist at all.</p>
+    <p>My work has included distributed ML training and inference workflows in air-gapped, multi-GPU environments, spanning data preparation, orchestration, evaluation, deployment, and operator-facing workflows. The architectural problem is to make those parts function as one operating system for the work — not as a collection of demonstrations that depend on services unavailable at deployment.</p>
+
+    <h2>The constraints come first</h2>
+    <p>A useful review begins with the environment's actual constraints, because they settle the implementation before model selection or optimization can:</p>
+    <ul class="constraints">{constraints.map((c) => <li>{c}</li>)}</ul>
+
+    <h2>What transfers to a commercial team</h2>
+    <p>For a team considering private or constrained AI deployment, the relevant lesson is not to copy a particular hardware stack. It is to make the system boundary explicit, identify the assumptions inherited from a connected environment, and test the operational path that has to survive without those conveniences.</p>
+
+    <div class="boundary">
+      <h3>Evidence boundary</h3>
+      <p>This page describes publicly discussable experience at an architectural level. Program-specific configurations, handling details, and restricted artifacts are not reproduced here.</p>
+    </div>
+  </div></section>
+
+  <section class="dark"><div class="container container--narrow">
+    <h2>Where this becomes an engagement</h2>
+    <p>A focused architecture review can identify which operating assumptions have to change before a connected AI prototype can be delivered into a constrained environment.</p>
+    <div class="ctas"><Button href={ENGAGE_URL} variant="brass">See engagement types →</Button><Button href={CONTACT_URL} variant="ghost">Discuss a review</Button></div>
+  </div></section>
+</BaseLayout>
+<style>
+  .hero,.dark{background:var(--color-dark-surface);color:var(--color-dark-text);padding-block:var(--sp-20)}
+  .hero span{font:var(--text-mono-meta);color:var(--color-brass);letter-spacing:.06em}
+  .hero h1{font:var(--text-h1);margin-top:var(--sp-4)}
+  .question{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-5);max-width:44em}
+  .section{padding-block:var(--sp-16);border-bottom:1px solid var(--color-line)}
+  .section p{font:var(--text-body);color:var(--color-slate);margin-top:var(--sp-5);max-width:42em}
+  h2{font:var(--text-h2);margin-top:var(--sp-12)}
+  .section h2:first-of-type{margin-top:var(--sp-12)}
+  .constraints{margin:var(--sp-5) 0 0;padding-left:1.1em;max-width:42em;color:var(--color-slate);display:flex;flex-direction:column;gap:var(--sp-3)}
+  .boundary{margin-top:var(--sp-12);padding:var(--sp-6);border:1px solid var(--color-line);border-left:3px solid var(--color-brass);border-radius:var(--radius-card)}
+  .boundary h3{font:var(--text-h3)}
+  .boundary p{margin-top:var(--sp-3)}
+  .dark h2{color:var(--color-dark-text);margin-top:0}
+  .dark p{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-5);max-width:44em}
+  .ctas{display:flex;flex-wrap:wrap;gap:var(--sp-4);margin-top:var(--sp-8)}
+  @media(max-width:768px){.hero,.dark{padding-block:var(--sp-14)}.section{padding-block:var(--sp-12)}}
+</style>

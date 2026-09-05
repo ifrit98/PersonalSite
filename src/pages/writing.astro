@@ -1,7 +1,15 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import { AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, ESCHATOLOGY_URL, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
+
+// Architecture notes: native commercial essays (advisory package RB-22).
+// Drafts are excluded here as well as from the build, so the section simply
+// does not render until an essay is published.
+const notes = (await getCollection('essays', (e) => e.data.status === 'published')).sort(
+  (a, b) => (b.data.publishedAt ?? '').localeCompare(a.data.publishedAt ?? ''),
+);
 
 const scholarlyData = JSON.stringify([
   {
@@ -96,9 +104,7 @@ const startPaths = [
     <div class="container container--narrow">
       <h1 class="writing-hero__title">Writing</h1>
       <p class="writing-hero__body">
-        The writing moves between two registers: AfterFiat is formal, versioned research on monetary
-        systems under repression; Eschatology Report is essayistic work on AI, culture, institutions,
-        and orientation.
+        Writing is where I make system models explicit.
       </p>
     </div>
   </section>
@@ -106,17 +112,14 @@ const startPaths = [
   <section class="writing-overview fade-up">
     <div class="container container--narrow">
       <p class="writing-overview__text">
-        I write because systems problems eventually become civilizational problems. When trust
-        becomes expensive and synthetic noise becomes cheap, technical architecture alone is not
-        enough. You also need language, frameworks, and public arguments strong enough to help people
-        see what is changing and why it matters.
+        Some of it is technical and thesis-driven; some is exploratory. The common purpose is to turn complicated systems into arguments that can be examined, challenged, revised, and used.
       </p>
     </div>
   </section>
 
   <section class="writing-surfaces fade-up">
     <div class="container">
-      <h2 class="writing-surfaces__heading">Writing Surfaces</h2>
+      <h2 class="writing-surfaces__heading">Formal research and essays</h2>
       <p class="writing-surfaces__intro">
         One surface is thesis-driven and architectural. The other is essayistic, exploratory, and
         responsive to the broader cultural field.
@@ -148,6 +151,31 @@ const startPaths = [
       </div>
     </div>
   </section>
+
+  {notes.length > 0 && (
+    <section class="architecture-notes fade-up" id="architecture-notes">
+      <div class="container container--narrow">
+        <h2 class="architecture-notes__heading">Architecture notes</h2>
+        <p class="architecture-notes__intro">
+          Short technical essays on the decisions that make AI and distributed systems hard to
+          get right — written from the same method I bring to a review.
+        </p>
+        <ul class="architecture-notes__list" role="list">
+          {notes.map((note) => (
+            <li>
+              <a href={`/writing/${note.id}`}>
+                <h3>{note.data.title}</h3>
+                <p>{note.data.excerpt}</p>
+                {note.data.publishedAt && (
+                  <time datetime={note.data.publishedAt}>{note.data.publishedAt}</time>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <section class="writing-research fade-up" id="published-research">
     <div class="container container--narrow">
@@ -596,4 +624,13 @@ const startPaths = [
       padding: var(--sp-6) var(--sp-6);
     }
   }
+
+  .architecture-notes { padding-block: var(--sp-16); border-top: 1px solid var(--color-line); }
+  .architecture-notes__heading { font: var(--text-h2); font-family: var(--font-serif); }
+  .architecture-notes__intro { font: var(--text-body); color: var(--color-slate); margin-top: var(--sp-4); max-width: 40em; }
+  .architecture-notes__list { list-style: none; margin: var(--sp-8) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--sp-5); }
+  .architecture-notes__list a { display: block; padding: var(--sp-6); border: 1px solid var(--color-line); border-left: 3px solid var(--color-brass); border-radius: var(--radius-card); text-decoration: none; color: inherit; }
+  .architecture-notes__list h3 { font: var(--text-h3); font-family: var(--font-serif); }
+  .architecture-notes__list p { font: var(--text-body); color: var(--color-slate); margin-top: var(--sp-3); }
+  .architecture-notes__list time { display: block; font: var(--text-meta); color: var(--color-brass); margin-top: var(--sp-4); }
 </style>

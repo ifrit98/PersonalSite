@@ -20,7 +20,7 @@ const offers = [
     deliverable:
       'System and architecture map, constraint and assumption analysis, prioritized technical risks, model/inference/data/evaluation assessment, build-vs-buy analysis, a 90-day technical roadmap, and an executive debrief.',
     inputs: 'Architecture and documentation, code access where appropriate, and interviews with two to four people.',
-    duration: '1–2 weeks',
+    duration: '2–4 weeks',
     price: '$8K–$15K',
   },
   {
@@ -38,7 +38,7 @@ const offers = [
     deliverable:
       'Isolated high-risk assumptions, investigated alternatives, prototypes along the critical path where useful, and a recommended architecture with an implementation plan.',
     inputs: 'Working access to the system, the team owning it, and the requirements it has to survive.',
-    duration: '3–5 weeks',
+    duration: '4–8 weeks',
     price: '$15K–$30K',
   },
   {
@@ -55,10 +55,22 @@ const offers = [
     deliverable:
       'Architecture review and design criticism, AI/ML strategy, difficult technical decisions, prototyping and research where it settles an argument, technical diligence, and mentorship of senior engineers.',
     inputs: 'A standing architecture session, asynchronous review within an agreed response window, and access to the decisions that matter.',
-    duration: 'Monthly, bounded',
+    duration: 'By separately scoped month',
     price: '20 hrs/mo · $7.5K–$10K · 30 hrs/mo · $10K–$15K',
   },
 ] as const;
+
+const FEE_QUALIFIER =
+  'Indicative USD fees. Exact scope, access requirements, working windows, and delivery dates are agreed before an engagement begins.';
+
+// RB-05: diligence is a named use case inside the review, not a fourth fee schedule.
+const diligence = {
+  title: 'Technical diligence for a consequential decision',
+  body:
+    'A focused architecture review can support an investment, partnership, or build decision: what is implemented, what has been demonstrated, which claims remain assumptions, and what evidence would change the conclusion.',
+  boundary:
+    'The scope is technical. It is not a valuation, legal opinion, security certification, or recommendation to invest. Access, intended recipients, and reliance are agreed before work begins.',
+};
 
 const operating = [
   ['Scope is bounded and written down', 'Engagements have a defined question, a defined deliverable, and an end. Scope changes are handled as scope changes.'],
@@ -68,10 +80,9 @@ const operating = [
 ] as const;
 
 const experience = [
-  ['Secure and air-gapped ML infrastructure', '128-GPU distributed fine-tuning operational inside disconnected, approval-heavy environments · 65% cost reduction', '/work#secure-distributed-ml'],
-  ['Real-time edge inference', 'Hybrid DSP + ML detection built for operational noise and sub-50 ms inference on Jetson hardware', '/work#real-time-underwater-detection'],
-  ['Adversarial distributed systems', 'Challenge design, verification, reputation, and incentive alignment for a protocol carrying ~$60M production revenue', '/work#adversarial-storage-incentives'],
-  ['Production vertical AI', 'A multi-tenant AI operating system carried from thesis through architecture, release engineering, and tenant operations', '/turnkeyhq'],
+  ['Secure and air-gapped ML architecture', 'Distributed training and inference workflows inside air-gapped multi-GPU environments, where the deployment boundary decides what can run at all', '/work/secure-ml-architecture'],
+  ['Adversarial storage and verification', 'Challenge design, verification, reputation, and incentive alignment for a system whose participants could optimize against the evaluator', '/work/adversarial-storage-protocol'],
+  ['Real-time edge inference', 'Hybrid DSP + ML detection built for operational noise and low-latency inference on embedded hardware', '/work#real-time-underwater-detection'],
 ] as const;
 ---
 
@@ -104,6 +115,13 @@ const experience = [
         </dl>
       </article>
     ))}</div>
+    <p class="qualifier">{FEE_QUALIFIER}</p>
+    <aside class="diligence" aria-labelledby="diligence-heading">
+      <h3 id="diligence-heading">{diligence.title}</h3>
+      <p>{diligence.body}</p>
+      <p class="diligence__boundary">{diligence.boundary}</p>
+      <a href={CONTACT_URL}>Discuss a technical review →</a>
+    </aside>
   </div></section>
 
   <section class="section"><div class="container">
@@ -143,12 +161,19 @@ const experience = [
   dl{display:flex;flex-direction:column;gap:var(--sp-4);margin-top:var(--sp-6)}
   dt{font:var(--text-meta);color:var(--color-brass)}
   dd{margin:var(--sp-1) 0 0;color:var(--color-slate)}
-  .operating,.experience{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-6)}
+  .operating{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-6)}
+  .experience{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6)}
+  .qualifier{margin-top:var(--sp-6);color:var(--color-slate);font:var(--text-meta);max-width:52em}
+  .diligence{margin-top:var(--sp-8);padding:var(--sp-6);border:1px solid var(--color-line);border-left:3px solid var(--color-brass);border-radius:var(--radius-card);background:var(--color-warm-wash)}
+  .diligence h3{font:var(--text-h3);font-family:var(--font-serif)}
+  .diligence p{color:var(--color-slate);margin-top:var(--sp-3);max-width:52em}
+  .diligence__boundary{font:var(--text-meta)}
+  .diligence a{display:inline-block;margin-top:var(--sp-5);color:var(--color-brass)}
   .operating p,.experience p{color:var(--color-slate);margin-top:var(--sp-3)}
   .experience a{color:inherit;text-decoration:none;display:block}
   .experience em{display:block;margin-top:var(--sp-5);color:var(--color-brass);font:var(--text-meta);font-style:normal}
   .dark h2{color:var(--color-dark-text)}
   .dark :global(.btn){margin-top:var(--sp-8)}
-  @media(max-width:900px){.offers{grid-template-columns:1fr}}
+  @media(max-width:900px){.offers,.experience{grid-template-columns:1fr}}
   @media(max-width:768px){.hero,.dark{padding-block:var(--sp-16)}.hero h1{font:var(--text-h2)}.section{padding-block:var(--sp-12)}.operating,.experience{grid-template-columns:1fr}}
 </style>

@@ -138,10 +138,59 @@ test('engage page presents three priced offers and routes to the inquiry form', 
   assert.match(engage, /\$7\.5K–\$10K/);
   assert.match(engage, /How engagements work/);
   assert.match(engage, /href="\/contact#engagement"/);
-  assert.match(engage, /href="\/work#secure-distributed-ml"/);
+  assert.match(engage, /href="\/work\/secure-ml-architecture"/);
+  assert.match(engage, /href="\/work\/adversarial-storage-protocol"/);
   assert.match(engage, /href="\/work#real-time-underwater-detection"/);
-  assert.match(engage, /href="\/work#adversarial-storage-incentives"/);
   assert.doesNotMatch(engage, /per hour|hourly rate/i);
+});
+
+// Advisory package RB-04/RB-05/RB-06: capacity-aware durations, one fee qualifier,
+// diligence as a named review use case, and no second universal minimum.
+test('engage states indicative fees, capacity-aware durations, and a diligence use case', async () => {
+  const engage = await renderedPage('/engage');
+
+  assert.match(engage, /2–4 weeks/);
+  assert.match(engage, /4–8 weeks/);
+  assert.match(engage, /By separately scoped month/);
+  assert.match(engage, /Indicative USD fees/);
+  assert.match(engage, /Technical diligence for a consequential decision/);
+  assert.match(engage, /not a valuation, legal opinion, security certification/);
+  assert.doesNotMatch(engage, /engagements start at/i);
+  // Conservative proof boundaries for new advisory material.
+  assert.doesNotMatch(engage, /128-GPU/);
+  assert.doesNotMatch(engage, /\$60M/);
+  assert.doesNotMatch(engage, /TurnkeyHQ/);
+});
+
+// Advisory package RB-07: two evidence pages, stated without unreleasable detail.
+test('evidence pages carry the buying question and their evidence boundary', async () => {
+  const secureMl = await renderedPage('/work/secure-ml-architecture');
+  const storage = await renderedPage('/work/adversarial-storage-protocol');
+  const work = await renderedPage('/work');
+
+  assert.match(secureMl, /can this ML system operate inside the environment we actually have/i);
+  assert.match(secureMl, /air-gapped, multi-GPU/);
+  assert.doesNotMatch(secureMl, /128/);
+  assert.match(secureMl, /Evidence boundary/);
+  assert.match(storage, /does the system reward the behavior it actually needs/i);
+  assert.match(storage, /Evidence boundary/);
+  assert.doesNotMatch(storage, /\$60M|\$7M/);
+  assert.match(work, /href="\/work\/secure-ml-architecture"/);
+  assert.match(work, /href="\/work\/adversarial-storage-protocol"/);
+});
+
+// Advisory package RB-22: a draft essay has no public route and no sitemap entry.
+test('essay drafts stay out of the public build', async () => {
+  const draft = await fetch('http://127.0.0.1:' + port + '/writing/ai-prototype-production-review');
+  assert.equal(draft.status, 404, 'a draft essay must not be reachable');
+
+  const sitemap = await fetch('http://127.0.0.1:' + port + '/sitemap-0.xml');
+  if (sitemap.ok) {
+    assert.doesNotMatch(await sitemap.text(), /ai-prototype-production-review/);
+  }
+
+  const writing = await renderedPage('/writing');
+  assert.doesNotMatch(writing, /Architecture notes/, 'the section renders only once an essay is published');
 });
 
 // The contact form should arrive pre-classified against the published engagement types.

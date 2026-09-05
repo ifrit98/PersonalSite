@@ -30,4 +30,22 @@ const research = defineCollection({
   }),
 });
 
-export const collections = { work, research };
+// Architecture notes: native commercial essays (advisory package RB-22).
+// `status: 'draft'` keeps an entry out of the build, the sitemap, and the feed —
+// exclusion from the public build, not noindex, is what keeps a draft private.
+const essays = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/essays' }),
+  schema: z.object({
+    title: z.string(),
+    author: z.string().default('Jason St George'),
+    kind: z.literal('architecture-note').default('architecture-note'),
+    status: z.enum(['draft', 'published']).default('draft'),
+    excerpt: z.string(),
+    publishedAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+    relatedWork: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+    sources: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+  }),
+});
+
+export const collections = { work, research, essays };

@@ -1,0 +1,80 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { ENGAGE_URL } from '@/lib/site';
+
+// Prerendered from published essays only, so a draft has no route, no entry in
+// the build output, and no line in the sitemap (advisory package RB-22).
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const essays = await getCollection('essays', (e) => e.data.status === 'published');
+  return essays.map((essay) => ({ params: { slug: essay.id }, props: { essay } }));
+}
+
+const { essay } = Astro.props;
+const { Content } = await render(essay);
+const { title, author, excerpt, publishedAt, updatedAt, relatedWork, sources } = essay.data;
+---
+
+<BaseLayout title={title} description={excerpt}>
+  <article>
+    <section class="hero"><div class="container container--narrow">
+      <span>ARCHITECTURE NOTE</span>
+      <h1>{title}</h1>
+      <p class="excerpt">{excerpt}</p>
+      <p class="byline">
+        {author}
+        {publishedAt && <> · <time datetime={publishedAt}>{publishedAt}</time></>}
+        {updatedAt && <> · revised <time datetime={updatedAt}>{updatedAt}</time></>}
+      </p>
+    </div></section>
+
+    <section class="section"><div class="container container--narrow">
+      <div class="prose"><Content /></div>
+
+      {sources.length > 0 && (
+        <div class="sources">
+          <h2>Sources</h2>
+          <ul>{sources.map((s) => <li><a href={s.href}>{s.label}</a></li>)}</ul>
+        </div>
+      )}
+
+      {relatedWork.length > 0 && (
+        <div class="related">
+          <h2>Related work</h2>
+          <ul>{relatedWork.map((r) => <li><a href={r.href}>{r.label} →</a></li>)}</ul>
+        </div>
+      )}
+    </div></section>
+
+    <section class="dark"><div class="container container--narrow">
+      <h2>Bring the decision, the constraints, and the evidence</h2>
+      <p>I work with technical teams on focused AI and distributed-systems architecture reviews.</p>
+      <Button href={ENGAGE_URL} variant="brass">See engagement types →</Button>
+    </div></section>
+  </article>
+</BaseLayout>
+<style>
+  .hero,.dark{background:var(--color-dark-surface);color:var(--color-dark-text);padding-block:var(--sp-20)}
+  .hero span{font:var(--text-mono-meta);color:var(--color-brass);letter-spacing:.06em}
+  .hero h1{font:var(--text-h1);margin-top:var(--sp-4);max-width:26ch}
+  .excerpt{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-5);max-width:44em}
+  .byline{font:var(--text-meta);color:var(--color-dark-muted);margin-top:var(--sp-5)}
+  .section{padding-block:var(--sp-16);border-bottom:1px solid var(--color-line)}
+  .prose :global(p),.prose :global(li){font:var(--text-body);color:var(--color-slate);max-width:38em}
+  .prose :global(p){margin-top:var(--sp-5)}
+  .prose :global(h2){font:var(--text-h2);margin-top:var(--sp-12)}
+  .prose :global(ul){padding-left:1.1em;display:flex;flex-direction:column;gap:var(--sp-2);margin-top:var(--sp-4)}
+  .prose :global(a){color:var(--color-brass)}
+  .prose :global(hr){border:0;border-top:1px solid var(--color-line);margin-block:var(--sp-10)}
+  .sources,.related{margin-top:var(--sp-12);padding-top:var(--sp-6);border-top:1px solid var(--color-line)}
+  .sources h2,.related h2{font:var(--text-h3)}
+  .sources ul,.related ul{margin:var(--sp-4) 0 0;padding-left:1.1em;display:flex;flex-direction:column;gap:var(--sp-2);color:var(--color-slate)}
+  .sources a,.related a{color:var(--color-brass);word-break:break-word}
+  .dark h2{color:var(--color-dark-text)}
+  .dark p{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-5);max-width:44em}
+  .dark :global(.btn){margin-top:var(--sp-8)}
+  @media(max-width:768px){.hero,.dark{padding-block:var(--sp-14)}.section{padding-block:var(--sp-12)}}
+</style>

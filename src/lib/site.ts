@@ -15,6 +15,8 @@ export const SITE = {
 
 export const CONTACT_URL = '/contact#engagement';
 export const ENGAGE_URL = '/engage';
+export const SECURE_ML_URL = '/work/secure-ml-architecture';
+export const ADVERSARIAL_STORAGE_URL = '/work/adversarial-storage-protocol';
 
 export const AFTERFIAT_URL = 'https://afterfiat.xyz';
 export const AFTERFIAT_PROFILE_URL = '/afterfiat';

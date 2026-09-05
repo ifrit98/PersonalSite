@@ -1,0 +1,65 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { ENGAGE_URL, CONTACT_URL } from '@/lib/site';
+
+// Evidence page B (advisory package RB-07). Economic figures are deliberately
+// absent: protocol revenue, token flows, valuation, and personal receipts are
+// not interchangeable, and none is stated here without definition and period.
+const questions = [
+  'What exactly is a successful response evidence of?',
+  'How much preparation can happen before the challenge arrives?',
+  'What behavior does the reward rule actually select for?',
+  'What happens when a participant optimizes against the evaluator rather than the intended service?',
+] as const;
+---
+
+<BaseLayout
+  title="Adversarial Storage & Verification"
+  description="Verifying that promised behavior persists over time when participants have an incentive to appear compliant at lower cost: challenge design, anti-precompute mechanics, and incentives as part of the mechanism."
+>
+  <section class="hero"><div class="container container--narrow">
+    <span>EVIDENCE · PROTOCOLS &amp; MECHANISM DESIGN</span>
+    <h1>Adversarial storage and verification</h1>
+    <p class="question">Buying question: does the system reward the behavior it actually needs?</p>
+  </div></section>
+
+  <section class="section"><div class="container container--narrow">
+    <p>A distributed storage system has to establish more than whether a participant can answer a request once. It has to determine whether the promised behavior persists over time — including when participants have an incentive to appear compliant at lower cost.</p>
+    <p>I built and led production of a ciphertext-only distributed storage system with ongoing integrity proofs, unpredictable time-local challenges, anti-precompute mechanisms, tiered reliability incentives, and operational monitoring. The design problem joined protocol mechanics with incentives: what is proved, when it is proved, and which forms of apparent success remain cheap to game.</p>
+
+    <h2>The questions that change the architecture</h2>
+    <ul class="questions">{questions.map((q) => <li>{q}</li>)}</ul>
+
+    <h2>What transfers to an AI or distributed-systems team</h2>
+    <p>Distinguish measured compliance from the property the system actually needs. A verification rule is part of the mechanism, not a dashboard applied after the mechanism is built — which is the same mistake an evaluation suite makes when it scores the behavior that is easy to observe rather than the behavior the system depends on.</p>
+
+    <div class="boundary">
+      <h3>Evidence boundary</h3>
+      <p>Economic outcomes are not stated on this page. Protocol-level revenue, token-denominated flows, valuation, and personal receipts are not interchangeable, and any public metric belongs here only with its definition, period, and attribution established. Using proofs is also not the same as a formal security proof, and none is claimed.</p>
+    </div>
+  </div></section>
+
+  <section class="dark"><div class="container container--narrow">
+    <h2>Where this becomes an engagement</h2>
+    <p>A focused review can pressure-test the relationship between a claim, its evidence, the verifier, and the incentives of the people or systems being evaluated.</p>
+    <div class="ctas"><Button href={ENGAGE_URL} variant="brass">See engagement types →</Button><Button href={CONTACT_URL} variant="ghost">Discuss a review</Button></div>
+  </div></section>
+</BaseLayout>
+<style>
+  .hero,.dark{background:var(--color-dark-surface);color:var(--color-dark-text);padding-block:var(--sp-20)}
+  .hero span{font:var(--text-mono-meta);color:var(--color-brass);letter-spacing:.06em}
+  .hero h1{font:var(--text-h1);margin-top:var(--sp-4)}
+  .question{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-5);max-width:44em}
+  .section{padding-block:var(--sp-16);border-bottom:1px solid var(--color-line)}
+  .section p{font:var(--text-body);color:var(--color-slate);margin-top:var(--sp-5);max-width:42em}
+  h2{font:var(--text-h2);margin-top:var(--sp-12)}
+  .questions{margin:var(--sp-5) 0 0;padding-left:1.1em;max-width:42em;color:var(--color-slate);display:flex;flex-direction:column;gap:var(--sp-3)}
+  .boundary{margin-top:var(--sp-12);padding:var(--sp-6);border:1px solid var(--color-line);border-left:3px solid var(--color-brass);border-radius:var(--radius-card)}
+  .boundary h3{font:var(--text-h3)}
+  .boundary p{margin-top:var(--sp-3)}
+  .dark h2{color:var(--color-dark-text);margin-top:0}
+  .dark p{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-5);max-width:44em}
+  .ctas{display:flex;flex-wrap:wrap;gap:var(--sp-4);margin-top:var(--sp-8)}
+  @media(max-width:768px){.hero,.dark{padding-block:var(--sp-14)}.section{padding-block:var(--sp-12)}}
+</style>
