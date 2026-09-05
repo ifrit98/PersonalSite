@@ -22,15 +22,17 @@
   /* Elevated card surface */
   --color-card-elevated: #ffffff;
 
-  /* Type scale — font-size / line-height */
-  --text-display: 4rem / 1.125;
-  --text-h1: 3rem / 1.167;
-  --text-h2: 2.125rem / 1.176;
-  --text-h3: 1.5rem / 1.25;
-  --text-body-lg: 1.25rem / 1.6;
-  --text-body: 1.125rem / 1.667;
-  --text-meta: 0.875rem / 1.571;
-  --text-mono-meta: 0.8125rem / 1.538;
+  /* Type scale — weight / font-size / line-height / family.
+     The `font` shorthand requires a family; without one the declaration is invalid
+     at computed-value time and collapses to inherited 16px. */
+  --text-display: 500 4rem / 1.125 var(--font-serif);
+  --text-h1: 500 3rem / 1.167 var(--font-serif);
+  --text-h2: 500 2.125rem / 1.176 var(--font-serif);
+  --text-h3: 500 1.5rem / 1.25 var(--font-serif);
+  --text-body-lg: 1.25rem / 1.6 var(--font-sans);
+  --text-body: 1.125rem / 1.667 var(--font-sans);
+  --text-meta: 0.875rem / 1.571 var(--font-sans);
+  --text-mono-meta: 0.8125rem / 1.538 var(--font-mono);
 
   /* Spacing */
   --sp-1: 0.25rem;
