@@ -1,8 +1,5 @@
 ---
-import { SITE, NAV_LINKS, UTILITY_LINKS, ENDORSED_PROPERTIES } from '@/lib/site';
-
-const footerPropertyNames = ['TurnkeyHQ', 'AfterFiat', 'Eschatology Report', 'GAMUT', 'Structure Lab'];
-const footerProperties = ENDORSED_PROPERTIES.filter((p) => footerPropertyNames.includes(p.name));
+import { SITE, NAV_LINKS, UTILITY_LINKS } from '@/lib/site';
 ---
 
 <footer class="footer">
@@ -10,9 +7,11 @@ const footerProperties = ENDORSED_PROPERTIES.filter((p) => footerPropertyNames.i
     <div class="footer__grid">
       <div class="footer__brand">
         <p class="footer__name">{SITE.name}</p>
+        <p class="footer__title">Principal Systems Architect</p>
         <p class="footer__tagline">
-          Systems for verification, capability, and value<br />under adversarial conditions.
+          AI · Autonomy · High-Constraint Infrastructure
         </p>
+        <p class="footer__description">I architect intelligent systems for problems where the constraints are real and the obvious abstraction is usually wrong.</p>
       </div>
 
       <div class="footer__nav">
@@ -28,12 +27,12 @@ const footerProperties = ENDORSED_PROPERTIES.filter((p) => footerPropertyNames.i
       </div>
 
       <div class="footer__external">
-        <p class="footer__heading">Properties & Contact</p>
+        <p class="footer__heading">Elsewhere</p>
         <ul class="footer__links" role="list">
-          {footerProperties.map((prop) => (
-            <li><a href={prop.url} {...(prop.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{prop.name} <span class="footer__prop-tag">— {prop.tagline}</span></a></li>
-          ))}
-          <li><a href="/projects">See all projects <span aria-hidden="true">→</span></a></li>
+          <li><a href={SITE.social.github}>GitHub</a></li>
+          <li><a href={SITE.social.linkedin}>LinkedIn</a></li>
+          <li><a href={SITE.social.twitter}>X</a></li>
+          <li><a href="/chat">Ask</a></li>
           <li><a href={`mailto:${SITE.email}`}>Contact Jason</a></li>
         </ul>
       </div>
@@ -71,6 +70,16 @@ const footerProperties = ENDORSED_PROPERTIES.filter((p) => footerPropertyNames.i
     color: var(--color-dark-muted);
     max-width: 24em;
   }
+
+  .footer__title,
+  .footer__description {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-dark-muted);
+    margin-top: var(--sp-2);
+  }
+
+  .footer__description { max-width: 30em; }
 
   .footer__heading {
     font-family: var(--font-mono);

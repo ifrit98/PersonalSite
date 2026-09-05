@@ -13,11 +13,10 @@ import {
 } from '@/lib/site';
 
 const highlights = [
-  '0→1 vertical AI product ownership',
-  'Release, deployment, and production operations',
-  'Multi-million-dollar protocol operations',
-  'Sub-50ms operational inference',
-  '7+ years across secure systems',
+  'Sub-50 ms operational edge AI',
+  '128-GPU air-gapped ML',
+  'Adversarial distributed infrastructure',
+  'Full-lifecycle 0→1 AI platforms',
 ] as const;
 
 const programs = [
@@ -26,24 +25,6 @@ const programs = [
     role: 'Sole Author',
     desc: '358-page, versioned monetary thesis: 10 premises, a 9-link chain, 15 red lines, and falsifiable telemetry across Privacy, Proofs, Compute, and market realization',
     href: AFTERFIAT_PROFILE_URL,
-  },
-  {
-    name: 'Eschatology Report',
-    role: 'Author / Editor',
-    desc: 'Publication on AI, culture, institutions, and civilizational systems',
-    href: ESCHATOLOGY_URL,
-  },
-  {
-    name: 'GAMUT',
-    role: 'Researcher',
-    desc: 'Formal research program on the geometry of musical possibility and lawful form',
-    href: GAMUT_URL,
-  },
-  {
-    name: 'Capability Commons',
-    role: 'Founder / Architect',
-    desc: 'Public knowledge platform for practical capability across water, food, shelter, power, repair, and community',
-    href: CAPABILITY_COMMONS_URL,
   },
   {
     name: 'SwarmOS',
@@ -56,18 +37,6 @@ const programs = [
     role: 'Architect / Builder',
     desc: 'Enterprise context graph and agentic retrieval planner with causal graph traversal, truth maintenance, and budget-aware evidence assembly',
     href: AGENTICDATA_URL,
-  },
-  {
-    name: 'Structure Lab',
-    role: 'Architect / Builder',
-    desc: 'Options payoff-engineering platform using MILP optimization for multi-leg structure construction',
-    href: STRUCTURE_LAB_URL,
-  },
-  {
-    name: 'TurnkeyHQ',
-    role: 'Co-founder / Principal Engineer',
-    desc: 'Vertical AI operating system owned across product, engineering, QA, release infrastructure, tenant operations, and commercial lifecycle',
-    href: TURNKEYHQ_URL,
   },
 ] as const;
 
@@ -168,14 +137,14 @@ const toolchain = {
 ---
 
 <BaseLayout
-  title="Resume / CV"
-  description="Founder and Principal Engineer — AI products, production platforms, secure infrastructure, and full-lifecycle delivery."
+  title="Principal Systems Architect — Resume"
+  description="Principal Systems Architect — AI, Autonomy & High-Constraint Infrastructure."
 >
   <section class="page-hero fade-up" aria-labelledby="resume-hero-title">
     <div class="container container--narrow">
-      <h1 id="resume-hero-title" class="page-hero__title">Resume / CV</h1>
+      <h1 id="resume-hero-title" class="page-hero__title">Jason St George</h1>
       <p class="page-hero__body">
-        Founder &amp; Principal Engineer — AI Products, Production Platforms, and Full-Lifecycle Delivery.
+        Principal Systems Architect — AI, Autonomy &amp; High-Constraint Infrastructure
       </p>
     </div>
   </section>
@@ -184,9 +153,7 @@ const toolchain = {
     <div class="container container--narrow">
       <h2 id="summary-heading" class="sr-only">Summary</h2>
       <p class="summary__text">
-        I carry ambitious systems from problem definition through product architecture, implementation, release infrastructure,
-        production operations, and commercial evolution. The record includes a multi-tenant vertical AI platform, air-gapped
-        distributed ML, sub-50ms edge inference, production protocols, and peer-reviewed research.
+        Systems architect, technical founder, and ML/software engineer with 7+ years building intelligent and distributed systems under difficult operational constraints. I specialize in ambiguous problems where architecture matters: real-time sensor AI, air-gapped ML infrastructure, adversarial distributed systems, agent and retrieval infrastructure, and 0→1 product platforms.
       </p>
     </div>
   </section>
@@ -219,9 +186,9 @@ const toolchain = {
 
   <section class="programs fade-up" aria-labelledby="programs-heading">
     <div class="container">
-      <h2 id="programs-heading" class="section__heading">Independent Programs &amp; Publications</h2>
+      <h2 id="programs-heading" class="section__heading">Selected Independent Systems &amp; Research</h2>
       <p class="section__intro">
-        Originated properties, research programs, and public writing — each built from scratch as part of the same architecture.
+        Selected systems and research that demonstrate persistent context, auditable autonomy, and independent inquiry.
       </p>
       <div class="programs__list">
         {programs.map((p, i) => p.href ? (
@@ -337,11 +304,11 @@ const toolchain = {
       <div class="cta-band__inner">
         <h2 id="cta-heading" class="sr-only">Next steps</h2>
         <p class="cta-band__body">
-          For the short version, download the résumé. For the fuller picture, use the Work and Projects &amp; Labs pages.
+          For the short version, download the résumé. For the fuller picture, use the Work and Research pages.
         </p>
         <div class="cta-band__actions">
           <Button href="/contact" variant="primary">Discuss an Engagement</Button>
-          <Button href="/papers/resume.pdf" variant="secondary">Download Resume</Button>
+          <Button href="/papers/resume.pdf" variant="secondary" id="download">Download Résumé</Button>
           <Button href="/work" variant="secondary">View Work</Button>
         </div>
       </div>

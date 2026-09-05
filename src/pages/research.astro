@@ -1,3 +1,67 @@
 ---
-return Astro.redirect('/projects', 301);
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const groups = [
+  {
+    title: 'Intelligent Systems Research',
+    items: [
+      ['SwarmOS', 'Continuous, provenance-aware research infrastructure for coordinated AI agents.', '/swarmos'],
+      ['Agentic Data', 'Persistent context infrastructure built around causal, temporal, permissioned organizational knowledge.', '/agentic-data'],
+    ],
+  },
+  {
+    title: 'Applied Systems & Experiments',
+    items: [
+      ['Capability Commons', 'Structured practical knowledge and teach-forward capability infrastructure.', '/capability-commons'],
+      ['Structure Lab', 'MILP-based options payoff construction.', '/work#structure-lab'],
+      ['Kardashev Labs', 'Verification and telemetry tooling associated with the AfterFiat thesis.', '/afterfiat'],
+    ],
+  },
+  {
+    title: 'Independent Research & Writing',
+    items: [
+      ['AfterFiat', 'Versioned monetary research program.', '/afterfiat'],
+      ['GAMUT', 'Formal mathematical research into musical possibility and structure.', 'https://musicalgeometry.replit.app'],
+      ['Eschatology Report', 'Long-form essays on AI, institutions, culture, and orientation.', 'https://eschatologyreport.substack.com'],
+    ],
+  },
+] as const;
 ---
+
+<BaseLayout title="Research & Labs" description="Longer-horizon technical and intellectual work that sits beside the production systems portfolio.">
+  <!-- PRD §§25–26: breadth is grouped without claiming equal professional relevance. -->
+  <section class="hero">
+    <div class="container container--narrow">
+      <h1>Research &amp; Labs</h1>
+      <p>Longer-horizon technical and intellectual work that sits beside the production systems portfolio.</p>
+      <p>Some projects explore machine cognition and verification infrastructure. Others test specific problems in monetary architecture, optimization, public capability, or mathematical form. They do not need to be one product family to be useful.</p>
+    </div>
+  </section>
+  <section class="groups">
+    <div class="container">
+      {groups.map((group) => (
+        <section class="group">
+          <h2>{group.title}</h2>
+          <div class="grid">
+            {group.items.map(([name, body, href]) => (
+              <a href={href} class="card" target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                <h3>{name}</h3><p>{body}</p><span>Explore →</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { padding-block: var(--sp-24) var(--sp-16); border-bottom: 1px solid var(--color-line); }
+  h1, h2, h3 { font-family: var(--font-serif); font-weight: 500; color: var(--color-ink); }
+  h1 { font: var(--text-h1); } .hero p { font: var(--text-body-lg); color: var(--color-slate); margin-top: var(--sp-4); max-width: 42em; }
+  .groups { padding-block: var(--sp-16); } .group + .group { margin-top: var(--sp-16); }
+  h2 { font: var(--text-h2); margin-bottom: var(--sp-6); } .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-6); }
+  .card { display: flex; flex-direction: column; min-height: 13rem; padding: var(--sp-6); text-decoration: none; color: inherit; border: 1px solid var(--color-line); border-left: 3px solid var(--color-brass); border-radius: var(--radius-card); }
+  .card p { color: var(--color-slate); margin-top: var(--sp-3); } .card span { color: var(--color-brass); margin-top: auto; padding-top: var(--sp-6); font: var(--text-meta); }
+  @media (max-width: 768px) { .hero { padding-block: var(--sp-16) var(--sp-12); } .grid { grid-template-columns: 1fr; } }
+</style>

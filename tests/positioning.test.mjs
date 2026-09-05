@@ -49,8 +49,10 @@ test('homepage presents the canonical systems-architect position and ordered pro
   assert.match(html, /TurnkeyHQ/);
   assert.doesNotMatch(hero, /TurnkeyHQ/);
   assert.match(html, /&lt;50 ms/);
-  assert.match(html, /128 GPUs/);
-  assert.match(html, /~\$60M/);
+  assert.match(html, /Multi-GPU/);
+  assert.match(html, /Ciphertext-only/);
+  // Softened proof claims: no exact cluster count, no third-party economics.
+  assert.doesNotMatch(html, /128 GPUs|~\$60M|~\$7M|~\$5M/);
   assert.match(html, /Define the system/);
   assert.match(html, /Build the critical path/);
   assert.match(html, /De-risk the system/);
@@ -135,7 +137,7 @@ test('engage page presents three priced offers and routes to the inquiry form', 
   assert.match(engage, /Fractional Principal Architecture/);
   assert.match(engage, /\$8K–\$15K/);
   assert.match(engage, /\$15K–\$30K/);
-  assert.match(engage, /\$7\.5K–\$10K/);
+  assert.match(engage, /\$10K–\$15K \/ month/);
   assert.match(engage, /How engagements work/);
   assert.match(engage, /href="\/contact#engagement"/);
   assert.match(engage, /href="\/work\/secure-ml-architecture"/);
@@ -151,7 +153,9 @@ test('engage states indicative fees, capacity-aware durations, and a diligence u
 
   assert.match(engage, /2–4 weeks/);
   assert.match(engage, /4–8 weeks/);
-  assert.match(engage, /By separately scoped month/);
+  assert.match(engage, /Scoped one month at a time/);
+  // No published hour count for a buyer to divide the monthly fee by.
+  assert.doesNotMatch(engage, /hrs\/mo/);
   assert.match(engage, /Indicative USD fees/);
   assert.match(engage, /Technical diligence for a consequential decision/);
   assert.match(engage, /not a valuation, legal opinion, security certification/);
@@ -230,4 +234,12 @@ test('contact endpoint fails toward the email fallback, not a false validation e
   });
   assert.equal(complete.status, 500, 'a configuration failure is a server error');
   assert.match((await complete.json()).error, /try email instead/i);
+});
+
+// Softened claims must hold across the pages a buyer actually compares.
+test('work case studies state technical outcomes, not third-party economics', async () => {
+  const work = await renderedPage('/work');
+  assert.doesNotMatch(work, /128-GPU|~\$60M|~\$7M|~\$5M|65% cost/);
+  assert.match(work, /air-gapped multi-GPU cluster/);
+  assert.match(work, /continuous integrity proofs/);
 });

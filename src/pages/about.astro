@@ -57,21 +57,24 @@ const timeline = [
 
 <BaseLayout
   title="About"
-  description="Protocol, infrastructure, ML, writing, and research shaped by a deeper concern for verification, form, and systems that survive pressure."
+  description="About Jason St George, systems architect and technical founder working on intelligent systems under real constraints."
   ogType="profile"
 >
   <section class="page-hero fade-up" aria-labelledby="about-hero-title">
     <div class="container container--narrow">
       <h1 id="about-hero-title" class="page-hero__title">About</h1>
       <p class="page-hero__body">
-        I work on systems that need to remain credible under pressure.
+        I am a systems architect and technical founder working on intelligent systems where the problem is not cleanly specified and the constraints cannot be abstracted away.
+      </p>
+      <p class="page-hero__body">
+        My strongest work tends to happen at the intersection of architecture and reality: real-time ML, secure and distributed infrastructure, autonomous or agentic systems, adversarial protocols, persistent knowledge systems, and technically consequential 0→1 products.
       </p>
     </div>
   </section>
 
   <section class="narrative fade-up" aria-labelledby="narrative-heading">
     <div class="container container--narrow">
-      <h2 id="narrative-heading" class="sr-only">Background</h2>
+      <h2 id="narrative-heading" class="section-heading">How I got here</h2>
       <div class:list={['narrative__intro', { 'narrative__intro--no-portrait': !headshotSrc }]}>
         {headshotSrc && (
           <div class="about-portrait">
@@ -115,7 +118,7 @@ const timeline = [
 
   <section class="timeline fade-up" aria-labelledby="timeline-heading">
     <div class="container container--narrow">
-      <h2 id="timeline-heading" class="section-heading">Background</h2>
+      <h2 id="timeline-heading" class="section-heading">Professional background</h2>
       <ol class="timeline__list">
         {timeline.map((entry, i) => (
           <li class="timeline__entry fade-up" style={`--stagger: ${i * 80}ms`}>
@@ -211,10 +214,9 @@ const timeline = [
       </p>
       <div class="principles__list">
         <article class="principles__item fade-up" style="--stagger: 0ms">
-          <h3 class="principles__title">Verification over posture</h3>
+          <h3 class="principles__title">Architecture before machinery</h3>
           <p class="principles__body">
-            I trust proofs, receipts, clear mechanisms, and measurable behavior more than
-            slogans, vibes, or borrowed prestige.
+            More implementation does not rescue the wrong model of the problem.
           </p>
         </article>
         <article class="principles__item fade-up" style="--stagger: 60ms">
@@ -225,24 +227,15 @@ const timeline = [
           </p>
         </article>
         <article class="principles__item fade-up" style="--stagger: 120ms">
-          <h3 class="principles__title">Structure across domains</h3>
+          <h3 class="principles__title">Evidence over posture</h3>
           <p class="principles__body">
-            Engineering, writing, music, and research all become clearer when treated as problems
-            of form: relation, motion, tension, invariants, and composition.
+            Claims should terminate in observable behavior, proofs, measurements, or explicit uncertainty.
           </p>
         </article>
         <article class="principles__item fade-up" style="--stagger: 180ms">
-          <h3 class="principles__title">Public legibility matters</h3>
+          <h3 class="principles__title">Structure transfers</h3>
           <p class="principles__body">
-            Serious work should survive scrutiny without becoming unreadable. Depth and clarity
-            are not enemies.
-          </p>
-        </article>
-        <article class="principles__item fade-up" style="--stagger: 240ms">
-          <h3 class="principles__title">Digital systems meet physical reality</h3>
-          <p class="principles__body">
-            Software eventually lands in bodies, homes, households, tools, grids, and
-            institutions. I care about that full stack.
+            The domains change. The underlying operations—modeling, decomposition, interfaces, constraints, feedback, and revision—transfer surprisingly well.
           </p>
         </article>
       </div>
@@ -251,18 +244,12 @@ const timeline = [
 
   <section class="current-focus fade-up" aria-labelledby="focus-heading">
     <div class="container container--narrow">
-      <h2 id="focus-heading" class="section-heading">Current Focus</h2>
+      <h2 id="focus-heading" class="section-heading">Current direction</h2>
       <p class="current-focus__body">
-        Right now the work is concentrated on three things: the
-        <a href="/afterfiat">AfterFiat thesis</a> (a falsifiable test of when privacy, proofs, and
-        compute may support monetary premium), <strong>Kardashev Labs</strong> — the research lab building
-        open-source value-capture telemetry, bypass detection, and verification tooling that makes
-        the thesis falsifiable — and selective architecture engagements where the problem is real
-        and the wrong abstractions are expensive.
+        I am increasingly concentrating my technical work on persistent, adaptive, and auditable machine cognition: systems that do more than produce isolated model outputs and instead maintain state, accumulate evidence, act through bounded interfaces, and improve their representation of the world over time.
       </p>
       <p class="current-focus__body">
-        The thesis names what needs to be true. The lab builds the instruments that tell you whether
-        it is holding.
+        That includes agent infrastructure, context and memory systems, real-time and edge intelligence, secure deployment, and architectures where AI has to operate inside explicit operational constraints. I continue to maintain independent research in monetary systems, verification, public capability, and mathematical form, but those projects live beside the core systems work rather than defining it.
       </p>
     </div>
   </section>
