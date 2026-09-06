@@ -2,7 +2,19 @@
 import { existsSync } from 'node:fs';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { SSRN_URL, DOI_URL } from '@/lib/site';
+import {
+  SSRN_URL,
+  DOI_URL,
+  ENGAGE_URL,
+  SECURE_ML_URL,
+  ADVERSARIAL_STORAGE_URL,
+  AFTERFIAT_PROFILE_URL,
+  CAPABILITY_COMMONS_URL,
+  AGENTICDATA_URL,
+  TURNKEYHQ_URL,
+  ESCHATOLOGY_URL,
+  GAMUT_URL,
+} from '@/lib/site';
 
 // Render the portrait only once the asset exists, so a missing file degrades to
 // a text-only layout rather than a broken image.
@@ -11,17 +23,25 @@ const headshot = ['headshot.jpg', 'headshot.webp', 'headshot.png']
   .find(({ path }) => existsSync(path));
 const headshotSrc = headshot ? `/${headshot.file}` : null;
 
+// Citations verified against the hosted PDFs themselves and kept identical to
+// /research and /resume. Both entries on this page previously carried invented
+// titles, and the sonification paper was attributed to the wrong venue and year.
 const publications = [
   {
-    title: 'Machine Learning Approaches for Musical Gesture Analysis and Composition',
-    venue: 'International Conference on Artificial Intelligence (ICAI)',
+    title:
+      'Music Style Transformer: Music Generation via Raw Audio Transcription with Applications to Style-Transfer',
+    authors: 'St. George, J., Bischof, H.P.',
+    venue: "International Conference on Artificial Intelligence (ICAI '19)",
     year: 2019,
+    pages: 'pp. 22–33',
     pdf: '/papers/stgeorge-music-ml-icai-2019.pdf',
   },
   {
-    title: 'Sonification of Black Holes: Mapping Astrophysical Data to Musical Structure',
-    venue: 'Bridges: Mathematics, Music, Art, Architecture, Education, Culture',
-    year: 2019,
+    title: 'Sonification of Simulated Black Hole Merger Data',
+    authors: 'St. George, J., Bischof, H.P., Kim, S.Y.',
+    venue: "International Conference on Modeling, Simulation and Visualization Methods (MSV '18)",
+    year: 2018,
+    pages: 'pp. 3–9',
     pdf: '/papers/stgeorge-sonification-bridges-2019.pdf',
   },
 ] as const;
@@ -29,45 +49,111 @@ const publications = [
 const timeline = [
   {
     period: '2008–2013',
-    label: 'University of North Texas — B.M. Music Performance & Theory',
-    detail: 'Bachelor of Music in Music Performance and Music Theory. Training in counterpoint, formal analysis, and composition that still shapes how I approach systems architecture.',
+    label: 'University of North Texas — B.M., Performance (Music Theory Minor)',
+    detail:
+      'Bachelor of Music in performance, with a minor in music theory. Counterpoint, formal analysis, and composition still shape how I approach systems architecture.',
   },
   {
     period: '2017–2019',
     label: 'Rochester Institute of Technology — M.S. Computer Science',
-    detail: 'Master\'s in Computer Science focused on statistical machine learning and functional programming. Published two peer-reviewed papers (ICAI, Bridges) on ML approaches to musical gesture and astrophysical sonification.',
+    detail:
+      'Statistical machine learning and functional programming. Two peer-reviewed papers: transformer-based music generation from raw audio, and the sonification of black-hole merger simulations.',
   },
   {
     period: '2019–present',
     label: 'Defense ML & Secure Infrastructure',
-    detail: 'Real-time edge inference for Navy sonar systems (<50ms on Jetson). Air-gapped distributed LLM fine-tuning across 128 GPUs.',
+    detail:
+      'Real-time edge inference for Navy sonar systems, under 50 ms on Jetson hardware. Distributed LLM fine-tuning across an air-gapped multi-GPU cluster.',
   },
   {
     period: '2023–2025',
     label: 'Protocol & Decentralized Infrastructure',
-    detail: 'Blockchain storage protocols, mechanism design, incentive architecture. Contributed to systems generating ~$60M in protocol revenue.',
+    detail:
+      'Ciphertext-only distributed storage under continuous integrity proofs, with challenge design, anti-precompute mechanics, and the incentive architecture around them.',
+  },
+  {
+    period: '2025–present',
+    label: 'Founder & Principal Engineer — Alchemical AI / TurnkeyHQ',
+    detail:
+      'A multi-tenant vertical AI operating system carried from product thesis through architecture, implementation, release engineering, tenant operations, and commercial controls.',
   },
   {
     period: '2025–present',
     label: 'Independent Research & Public Writing',
-    detail: 'AfterFiat thesis on next-generation stores of value. Eschatology Report on AI, culture, and institutional drift. Agent systems, retrieval infrastructure, and knowledge architecture.',
+    detail:
+      'AfterFiat on next-generation stores of value. Eschatology Report on AI, culture, and institutional drift. Agent systems, retrieval infrastructure, and knowledge architecture.',
+  },
+] as const;
+
+// Every thread links to the work behind it, so the page can show the range
+// instead of asserting that the range coheres.
+const workOn = [
+  {
+    title: 'Protocols, Proofs & Incentives',
+    body: 'Verification, mechanism design, and privacy-preserving systems that stay legible when participants behave strategically.',
+    links: [
+      { label: 'Adversarial storage', href: ADVERSARIAL_STORAGE_URL },
+      { label: 'AfterFiat', href: AFTERFIAT_PROFILE_URL },
+    ],
+  },
+  {
+    title: 'ML Infrastructure & Operational Systems',
+    body: 'Distributed training, secure deployment, real-time inference, and edge systems that have to survive their conditions of use.',
+    links: [
+      { label: 'Secure distributed ML', href: SECURE_ML_URL },
+      { label: 'Real-time detection', href: '/work#real-time-underwater-detection' },
+    ],
+  },
+  {
+    title: 'Products Carried to Production',
+    body: 'Multi-tenant architecture, agent and workflow infrastructure, release engineering, and the commercial controls a live system needs.',
+    links: [{ label: 'TurnkeyHQ', href: TURNKEYHQ_URL }],
+  },
+  {
+    title: 'Knowledge Architecture & Public Capability',
+    body: 'Schemas, retrieval systems, and teach-forward structures that move people from information to action.',
+    links: [
+      { label: 'Capability Commons', href: CAPABILITY_COMMONS_URL },
+      { label: 'Agentic Data', href: AGENTICDATA_URL },
+    ],
+  },
+  {
+    title: 'Writing on Money, AI & Institutions',
+    body: 'Long-form work on verification, synthetic media, coordination, sovereignty, and durable value.',
+    links: [
+      { label: 'Writing', href: '/writing' },
+      { label: 'Eschatology Report', href: ESCHATOLOGY_URL, external: true },
+    ],
+  },
+  {
+    title: 'Music, Geometry & Formal Research',
+    body: 'Sound, symmetry, and lawful form — the research line I started in, and still the one I think in.',
+    links: [
+      { label: 'GAMUT', href: GAMUT_URL, external: true },
+      { label: 'Published research', href: '/research' },
+    ],
   },
 ] as const;
 ---
 
 <BaseLayout
   title="About"
-  description="About Jason St George, systems architect and technical founder working on intelligent systems under real constraints."
+  description="About Jason St George — founder, principal engineer, and researcher building technical systems from problem definition through production."
   ogType="profile"
 >
   <section class="page-hero fade-up" aria-labelledby="about-hero-title">
     <div class="container container--narrow">
       <h1 id="about-hero-title" class="page-hero__title">About</h1>
       <p class="page-hero__body">
-        I am a systems architect and technical founder working on intelligent systems where the problem is not cleanly specified and the constraints cannot be abstracted away.
+        I'm a founder, principal engineer, and researcher. I build technical systems from problem
+        definition through production, usually where the problem crosses enough boundaries that
+        architecture, implementation, operations, and judgment all have to be handled by the same
+        person.
       </p>
       <p class="page-hero__body">
-        My strongest work tends to happen at the intersection of architecture and reality: real-time ML, secure and distributed infrastructure, autonomous or agentic systems, adversarial protocols, persistent knowledge systems, and technically consequential 0→1 products.
+        The work spans real-time ML at the edge, secure and distributed training infrastructure,
+        adversarial protocols, agent and retrieval systems, and a multi-tenant AI product carried
+        from thesis to production operations.
       </p>
     </div>
   </section>
@@ -83,33 +169,35 @@ const timeline = [
         )}
         <div class="narrative__body">
           <p>
-            My background crosses protocol design, infrastructure, real-time machine learning,
-            long-form writing, and formal research. What connects those domains is not résumé
-            variety. It is a recurring problem: how do you preserve signal, coordination, and
-            durable value when the surrounding environment becomes noisy, strategic, or adversarial?
+            I came into technical work through music. I studied performance and theory at the
+            University of North Texas before moving into computer science at Rochester Institute of
+            Technology. My graduate work put the two together, through machine learning, music
+            generation, and scientific sonification, and produced published research on
+            transformer-based music generation and the sonification of black-hole merger data.
           </p>
           <p>
-            I came into technical work through music. Long before I was thinking about threat
-            models or distributed systems, I was thinking about counterpoint, tension and
-            resolution, invariants, motion, and form. That training never disappeared. It still
-            shapes how I approach engineering, research, and writing.
+            Since then the work has broadened considerably. I've built real-time detection systems
+            running at the edge, distributed training infrastructure for air-gapped environments,
+            storage and incentive protocols operating in production, retrieval and agent systems,
+            and a multi-tenant AI product carried from initial product thesis through deployment and
+            day-to-day operations.
           </p>
           <p>
-            In practice, that has meant building privacy-preserving and adversarial systems,
-            working on distributed ML and secure infrastructure, shipping latency-sensitive
-            detection systems, and writing about verification collapse, synthetic media, money,
-            sovereignty, and institutional drift. It has also meant originating the public
-            properties, research programs, and knowledge infrastructure described on this site —
-            AfterFiat, Eschatology Report, Capability Commons, GAMUT — each built from scratch
-            rather than inherited or curated.
+            I'm most useful on problems that don't fit neatly inside one layer of the stack.
+            Sometimes the difficult part is the model. Sometimes it's the protocol, the deployment
+            environment, the data architecture, the release process, the incentive structure, or the
+            product boundary. Often it's the interaction among several of them. That breadth is
+            deliberate, though I don't think of myself as a generalist for its own sake — I like
+            understanding a system well enough to identify what is actually load-bearing, and then
+            following the problem wherever that leads.
           </p>
           <p>
-            I am not interested only in software abstractions. I care about the systems households
-            and communities actually depend on: power, water, shelter, repair, tools, local
-            competence, and the transmission of usable knowledge. That concern is not theoretical.
-            It shapes where I live, what I build, and what I teach. It sits directly behind
-            Capability Commons. Public capability is not a side interest. It is part of the same
-            broader architecture.
+            I'm also interested in the physical systems underneath ordinary life: power, water,
+            heat, shelter, tools, repair, and the practical knowledge required to maintain them.
+            Software has a way of making abstraction feel self-sufficient; physical systems are a
+            useful reminder that eventually something has to work in a particular place, on a
+            particular budget. Capability Commons grew out of that — good information is useful, but
+            usable capability is better.
           </p>
         </div>
       </div>
@@ -135,12 +223,12 @@ const timeline = [
 
   <section class="publications fade-up" id="published-research" aria-labelledby="publications-heading">
     <div class="container container--narrow">
-      <h2 id="publications-heading" class="section-heading">Published Research</h2>
+      <h2 id="publications-heading" class="section-heading">Published research</h2>
       <ul class="publications__list">
         {publications.map((pub) => (
           <li class="publication">
             <p class="publication__title">{pub.title}</p>
-            <p class="publication__venue">{pub.venue}, {pub.year}</p>
+            <p class="publication__venue">{pub.authors} · {pub.venue}, {pub.year}, {pub.pages}</p>
             <div class="publication__links">
               <a href={pub.pdf} class="publication__link">PDF</a>
             </div>
@@ -162,94 +250,51 @@ const timeline = [
 
   <section class="work-on fade-up" aria-labelledby="work-on-heading">
     <div class="container">
-      <h2 id="work-on-heading" class="section-heading">What I Work On</h2>
-      <p class="section-intro">
-        The visible work spans several domains, but they all feed the same deeper concern.
-      </p>
+      <h2 id="work-on-heading" class="section-heading">What I work on</h2>
+      <p class="section-intro">Each thread links to the work behind it.</p>
       <div class="work-on__grid">
-        <article class="work-on__card fade-up" style="--stagger: 0ms">
-          <h3 class="work-on__title">Protocols, Proofs &amp; Incentives</h3>
-          <p class="work-on__body">
-            Verification, mechanism design, privacy-preserving systems, and structures that
-            remain legible under strategic behavior.
-          </p>
-        </article>
-        <article class="work-on__card">
-          <h3 class="work-on__title">ML Infrastructure &amp; Operational Systems</h3>
-          <p class="work-on__body">
-            Distributed training, secure deployment, real-time inference, edge systems, and
-            production workflows built for reality rather than theater.
-          </p>
-        </article>
-        <article class="work-on__card">
-          <h3 class="work-on__title">Writing on Money, AI &amp; Civilizational Systems</h3>
-          <p class="work-on__body">
-            Long-form work on verification, synthetic media, coordination, repression,
-            sovereignty, and durable value.
-          </p>
-        </article>
-        <article class="work-on__card">
-          <h3 class="work-on__title">Knowledge Architecture &amp; Public Capability</h3>
-          <p class="work-on__body">
-            Platforms, schemas, retrieval systems, and teach-forward structures that help people
-            move from information to action.
-          </p>
-        </article>
-        <article class="work-on__card">
-          <h3 class="work-on__title">Music, Geometry &amp; Formal Research</h3>
-          <p class="work-on__body">
-            Research into sound, symmetry, lawful form, and the deeper structures that continue
-            to shape how I think.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="principles fade-up" aria-labelledby="principles-heading">
-    <div class="container">
-      <h2 id="principles-heading" class="section-heading">Principles</h2>
-      <p class="section-intro">
-        A few principles show up often enough that they function as a working philosophy.
-      </p>
-      <div class="principles__list">
-        <article class="principles__item fade-up" style="--stagger: 0ms">
-          <h3 class="principles__title">Architecture before machinery</h3>
-          <p class="principles__body">
-            More implementation does not rescue the wrong model of the problem.
-          </p>
-        </article>
-        <article class="principles__item fade-up" style="--stagger: 60ms">
-          <h3 class="principles__title">Operations over theater</h3>
-          <p class="principles__body">
-            I care about what survives contact with latency, logistics, budgets, adversaries,
-            partial observability, and actual conditions of use.
-          </p>
-        </article>
-        <article class="principles__item fade-up" style="--stagger: 120ms">
-          <h3 class="principles__title">Evidence over posture</h3>
-          <p class="principles__body">
-            Claims should terminate in observable behavior, proofs, measurements, or explicit uncertainty.
-          </p>
-        </article>
-        <article class="principles__item fade-up" style="--stagger: 180ms">
-          <h3 class="principles__title">Structure transfers</h3>
-          <p class="principles__body">
-            The domains change. The underlying operations—modeling, decomposition, interfaces, constraints, feedback, and revision—transfer surprisingly well.
-          </p>
-        </article>
+        {workOn.map((card, i) => (
+          <article class="work-on__card fade-up" style={`--stagger: ${i * 60}ms`}>
+            <h3 class="work-on__title">{card.title}</h3>
+            <p class="work-on__body">{card.body}</p>
+            <ul class="work-on__links">
+              {card.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    target={'external' in link && link.external ? '_blank' : undefined}
+                    rel={'external' in link && link.external ? 'noopener noreferrer' : undefined}
+                  >
+                    {link.label} <span aria-hidden="true">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <section class="current-focus fade-up" aria-labelledby="focus-heading">
     <div class="container container--narrow">
-      <h2 id="focus-heading" class="section-heading">Current direction</h2>
+      <h2 id="focus-heading" class="section-heading">Current work</h2>
       <p class="current-focus__body">
-        I am increasingly concentrating my technical work on persistent, adaptive, and auditable machine cognition: systems that do more than produce isolated model outputs and instead maintain state, accumulate evidence, act through bounded interfaces, and improve their representation of the world over time.
+        My current work spans product and platform engineering, independent research, open technical
+        infrastructure, and a small number of architecture engagements.
       </p>
       <p class="current-focus__body">
-        That includes agent infrastructure, context and memory systems, real-time and edge intelligence, secure deployment, and architectures where AI has to operate inside explicit operational constraints. I continue to maintain independent research in monetary systems, verification, public capability, and mathematical form, but those projects live beside the core systems work rather than defining it.
+        <a href={TURNKEYHQ_URL}>TurnkeyHQ</a> is the principal product build: a multi-tenant AI
+        operating system carried across product architecture, application and data layers, agent and
+        workflow infrastructure, release engineering, tenant operations, and commercial controls.
+        <a href={AFTERFIAT_PROFILE_URL}>AfterFiat</a> and Kardashev Labs are the main independent
+        research program. Other projects explore retrieval, agent coordination, optimization,
+        practical knowledge infrastructure, and formal systems.
+      </p>
+      <p class="current-focus__body">
+        Alongside that I take a small number of outside engagements, usually where the architecture
+        is still unsettled and understanding the whole system matters more than owning one narrowly
+        defined piece of it. Those are described on <a href={ENGAGE_URL}>Engage</a>.
       </p>
     </div>
   </section>
@@ -259,12 +304,14 @@ const timeline = [
       <div class="cta-band__inner">
         <h2 id="about-cta-heading" class="sr-only">Where to start</h2>
         <p class="cta-band__body">
-          If you want shipped systems, start with Work. If you want the larger map, go to
-          Projects &amp; Labs. If you want to talk, reach out.
+          For shipped systems and outcomes, start with Work. For professional history, the Resume.
+          For independent research and active builds, Projects &amp; Labs. For essays and formal
+          work, Writing.
         </p>
         <div class="cta-band__actions">
           <Button href="/work" variant="primary">View Work</Button>
-          <Button href="/projects" variant="secondary">Explore Projects &amp; Labs</Button>
+          <Button href="/research" variant="secondary">Projects &amp; Labs</Button>
+          <Button href="/resume" variant="secondary">Resume</Button>
           <Button href="/contact" variant="secondary">Get in Touch</Button>
         </div>
       </div>
@@ -421,7 +468,7 @@ const timeline = [
     font-weight: 500;
     color: var(--color-ink);
     margin-bottom: var(--sp-1);
-    max-width: none;
+    max-width: 44em;
   }
 
   .publication__venue {
@@ -501,6 +548,8 @@ const timeline = [
   }
 
   .work-on__card {
+    display: flex;
+    flex-direction: column;
     background: var(--color-card-elevated);
     border: 1px solid var(--color-line);
     border-left: 3px solid var(--color-brass);
@@ -532,39 +581,27 @@ const timeline = [
     max-width: none;
   }
 
-  .principles {
-    padding-block: var(--sp-16);
-    border-top: 1px solid var(--color-line);
-  }
-
-  .principles__list {
+  .work-on__links {
+    list-style: none;
+    margin: auto 0 0;
+    padding: var(--sp-4) 0 0;
     display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: var(--sp-8);
-    border-top: 1px solid var(--color-line);
+    flex-wrap: wrap;
+    gap: var(--sp-2) var(--sp-5);
   }
 
-  .principles__item {
-    padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
-    border-bottom: 1px solid var(--color-line);
-    border-left: 3px solid var(--color-brass);
+  .work-on__links a {
+    font: var(--text-mono-meta);
+    font-family: var(--font-mono);
+    color: var(--color-brass);
+    text-decoration: none;
+    letter-spacing: 0.02em;
   }
 
-  .principles__title {
-    font: var(--text-body);
-    font-family: var(--font-serif);
-    font-weight: 500;
-    color: var(--color-ink);
-    margin-bottom: var(--sp-2);
-  }
-
-  .principles__body {
-    font: var(--text-body);
-    font-family: var(--font-sans);
-    color: var(--color-slate);
-    margin: 0;
-    max-width: none;
+  .work-on__links a:hover,
+  .work-on__links a:focus-visible {
+    color: var(--color-oxblood);
+    text-decoration: underline;
   }
 
   .current-focus {
@@ -578,6 +615,17 @@ const timeline = [
     color: var(--color-slate);
     margin-top: var(--sp-4);
     max-width: 42em;
+  }
+
+  .current-focus__body a {
+    color: var(--color-brass);
+    text-decoration: none;
+  }
+
+  .current-focus__body a:hover,
+  .current-focus__body a:focus-visible {
+    color: var(--color-oxblood);
+    text-decoration: underline;
   }
 
   .cta-band {

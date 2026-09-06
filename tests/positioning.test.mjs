@@ -84,7 +84,7 @@ test('global navigation, work, and resume reinforce the canonical positioning', 
   assert.match(work, /href="\/engage"/);
   assert.doesNotMatch(home, /Read the Thesis/);
   assert.match(work, /href="\/turnkeyhq"/);
-  assert.match(work, /Systems built under real constraints/);
+  assert.match(work, /Selected systems work/);
   assert.match(work, /How I contribute/);
   assert.match(resume, /Principal Systems Architect/);
   assert.match(resume, /Alchemical AI LLC \/ TurnkeyHQ/);
@@ -242,4 +242,43 @@ test('work case studies state technical outcomes, not third-party economics', as
   assert.doesNotMatch(work, /128-GPU|~\$60M|~\$7M|~\$5M|65% cost/);
   assert.match(work, /air-gapped multi-GPU cluster/);
   assert.match(work, /continuous integrity proofs/);
+});
+
+test('about presents corrected citations, linked work threads, and no principles manifesto', async () => {
+  const about = await renderedPage('/about');
+
+  // Both citations were wrong on this page only: an invented title for the ICAI
+  // paper, and the wrong title, venue, and year for the sonification paper.
+  // Verified against the hosted PDFs; /research and /resume already agreed.
+  assert.match(about, /Music Style Transformer/);
+  assert.match(about, /Sonification of Simulated Black Hole Merger Data/);
+  assert.match(about, /MSV &#39;18\), 2018/);
+  assert.doesNotMatch(about, /Musical Gesture Analysis/);
+  assert.doesNotMatch(about, /Bridges/);
+
+  // Degree wording matches the resume rather than a paraphrase of it.
+  assert.match(about, /B\.M\., Performance \(Music Theory Minor\)/);
+  assert.match(about, /href="\/papers\/stgeorge-music-ml-icai-2019\.pdf"/);
+  assert.match(about, /href="\/papers\/stgeorge-sonification-bridges-2019\.pdf"/);
+
+  // Every "what I work on" thread links to the work behind it.
+  assert.match(about, /href="\/work\/secure-ml-architecture"/);
+  assert.match(about, /href="\/work\/adversarial-storage-protocol"/);
+  assert.match(about, /href="\/capability-commons"/);
+  assert.match(about, /href="\/turnkeyhq"/);
+
+  // TurnkeyHQ is present as current founder-operator work, and /engage is
+  // reachable from the page describing what he currently does.
+  assert.match(about, /Alchemical AI \/ TurnkeyHQ/);
+  assert.match(about, /href="\/engage"/);
+
+  // The CTA points at /research directly instead of the /projects redirect.
+  assert.match(about, /href="\/research"/);
+  assert.doesNotMatch(about, /href="\/projects"/);
+
+  // Softened claims and the retired principles section stay gone.
+  assert.doesNotMatch(about, /128 GPUs/);
+  assert.doesNotMatch(about, /\$60M/);
+  assert.doesNotMatch(about, /Operations over theater/);
+  assert.doesNotMatch(about, /broader architecture/);
 });
