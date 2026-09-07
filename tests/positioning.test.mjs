@@ -316,3 +316,25 @@ test('afterfiat mirrors the current thesis release, not a pinned old one', async
   assert.match(afterfiat, /33 numbered sections/);
   assert.match(afterfiat, /10 appendices/);
 });
+
+test('resume matches the conservative claims used everywhere else', async () => {
+  const resume = await renderedPage('/resume');
+
+  // Third-party economics are not this site's outcomes to state: a protocol's
+  // revenue and a customer's follow-on award are neither attributable nor
+  // definable here. Removed from /work and the homepage on 5 Sept; the resume
+  // and tex-src/main.tex now agree.
+  assert.doesNotMatch(resume, /\$60M/);
+  assert.doesNotMatch(resume, /\$7M/);
+  assert.doesNotMatch(resume, /\$5M/);
+  assert.doesNotMatch(resume, /MRR/);
+
+  // Exact cluster size in a classified context reads as a disclosure risk and
+  // adds nothing a buyer can act on.
+  assert.doesNotMatch(resume, /128/);
+
+  // What replaced them is technical and first-party.
+  assert.match(resume, /Air-gapped multi-GPU ML/);
+  assert.match(resume, /continuous integrity proofs/);
+  assert.match(resume, /sub-50 ms end-to-end inference/);
+});

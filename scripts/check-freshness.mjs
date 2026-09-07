@@ -102,6 +102,39 @@ const checks = [
     current: () => reachable(`${AFTERFIAT}/pdf/next-gen-sov-v${VERSION}.pdf`),
     fix: 'the PDF filename convention changed; update AFTERFIAT_PDF_URL in src/lib/site.ts',
   },
+  {
+    // The cited DOI is a Zenodo *version* DOI for the v1.0 deposit, not the
+    // concept DOI (10.5281/zenodo.18902694) that always resolves to latest.
+    // Expect this to read red until a v3.0 deposit exists, or until the site
+    // switches to the concept DOI. That is the check working, not noise.
+    name: 'Zenodo deposit matches the cited thesis version',
+    source: 'https://zenodo.org/api/records/18902696',
+    claimed: VERSION,
+    async current() {
+      const res = await fetch('https://zenodo.org/api/records/18902696', {
+        headers: { 'user-agent': 'jasonstgeorge.com freshness check' },
+        signal: AbortSignal.timeout(30_000),
+      });
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      const record = await res.json();
+      return record?.metadata?.version ?? 'unknown';
+    },
+    fix: 'deposit the current version on Zenodo, or cite the concept DOI 10.5281/zenodo.18902694, which always resolves to the latest deposit',
+  },
+  // Repository links rendered as "View GitHub" buttons. A private or renamed
+  // repo is a 404 to every logged-out visitor, which is what the site's readers
+  // are, so anything but 200 is a broken button.
+  ...[
+    ['Capability Commons', constant('CAPABILITY_COMMONS_GITHUB')],
+    ['SwarmOS', constant('SWARMOS_GITHUB')],
+    ['Agentic Data', constant('AGENTICDATA_GITHUB')],
+  ].map(([project, url]) => ({
+    name: `${project} repository link resolves for a logged-out visitor`,
+    source: url,
+    claimed: '200',
+    current: () => reachable(url),
+    fix: 'push or unarchive the repo, make it public, or drop the "View GitHub" button from that page',
+  })),
 ];
 
 let drift = 0;

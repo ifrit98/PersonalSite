@@ -13,7 +13,8 @@
     "scrape": "node --import tsx/esm scripts/scrape.ts",
     "ingest": "node --env-file=.env --import tsx/esm scripts/ingest.ts",
     "ingest:fresh": "node --env-file=.env --import tsx/esm scripts/ingest.ts --fresh",
-    "check:freshness": "node scripts/check-freshness.mjs"
+    "check:freshness": "node scripts/check-freshness.mjs",
+    "build:resume": "bash scripts/build-resume.sh"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.5",
