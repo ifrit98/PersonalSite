@@ -93,21 +93,24 @@ test('global navigation, work, and resume reinforce the canonical positioning', 
   assert.match(resume, /SwarmOS/);
 });
 
-test('AfterFiat research profile presents the canonical v1.9 thesis and authorship', async () => {
+// This test used to pin v1.9 and "fifteen red lines" — it was enforcing the
+// stale facts rather than catching them. It now asserts only the parts of the
+// thesis that are stable across releases; the current version lives in one
+// constant, is asserted below, and is checked against the live source by
+// `npm run check:freshness`.
+test('AfterFiat research profile presents the thesis structure and authorship', async () => {
   const html = await renderedPage('/afterfiat');
 
   assert.match(html, /Sole author/);
-  assert.match(html, /v1\.9/);
   assert.match(html, /conditional monetary candidate/i);
   assert.match(html, /ten premises/i);
   assert.match(html, /nine-link/i);
-  assert.match(html, /fifteen red lines/i);
   assert.match(html, /VerifyPrice/);
   assert.match(html, /VerifyReach/);
   assert.match(html, /VerifySettle/);
   assert.match(html, /VerifyFlow/);
-  assert.match(html, /href="https:\/\/afterfiat\.xyz\/v\/1\.9\/read\//);
-  assert.match(html, /href="https:\/\/afterfiat\.xyz\/pdf\/next-gen-sov-v1\.9\.pdf/);
+  assert.match(html, /href="https:\/\/afterfiat\.xyz\/v\/\d+\.\d+\/read\//);
+  assert.match(html, /href="https:\/\/afterfiat\.xyz\/pdf\/next-gen-sov-v\d+\.\d+\.pdf/);
 });
 
 // PRD: WebsiteRedesignAug2026 §§25–26, 29–30, 33.
@@ -281,4 +284,35 @@ test('about presents corrected citations, linked work threads, and no principles
   assert.doesNotMatch(about, /\$60M/);
   assert.doesNotMatch(about, /Operations over theater/);
   assert.doesNotMatch(about, /broader architecture/);
+});
+
+test('afterfiat mirrors the current thesis release, not a pinned old one', async () => {
+  const afterfiat = await renderedPage('/afterfiat');
+  const writing = await renderedPage('/writing');
+  const resume = await renderedPage('/resume');
+
+  // Every version reference derives from AFTERFIAT_VERSION in site.ts, so a
+  // release bump is one edit. These assertions catch a reintroduced hardcode.
+  for (const page of [afterfiat, writing, resume]) {
+    assert.doesNotMatch(page, /v1\.9/);
+    assert.doesNotMatch(page, /fifteen red lines/i);
+    assert.doesNotMatch(page, /15 red lines/);
+  }
+
+  assert.match(afterfiat, /v3\.0/);
+  assert.match(afterfiat, /Eighteen red lines/);
+  assert.match(afterfiat, /href="https:\/\/afterfiat\.xyz\/v\/3\.0\/read\/"/);
+  assert.match(afterfiat, /href="https:\/\/afterfiat\.xyz\/pdf\/next-gen-sov-v3\.0\.pdf"/);
+  assert.match(afterfiat, /"version":"3\.0"/);
+
+  // 358 pages was a v1.9 figure; afterfiat.xyz publishes no page count for the
+  // current release, so the site no longer claims one.
+  for (const page of [afterfiat, writing, resume]) {
+    assert.doesNotMatch(page, /358/);
+  }
+
+  // Section and appendix counts were re-verified against the v3.0 table of
+  // contents (§0–§32, appendices A–J) and still hold.
+  assert.match(afterfiat, /33 numbered sections/);
+  assert.match(afterfiat, /10 appendices/);
 });

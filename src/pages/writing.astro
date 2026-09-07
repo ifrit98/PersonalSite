@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, ESCHATOLOGY_URL, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
+import { AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, AFTERFIAT_VERSION, ESCHATOLOGY_URL, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
 
 // Architecture notes: native commercial essays (advisory package RB-22).
 // Drafts are excluded here as well as from the build, so the section simply
@@ -19,8 +19,7 @@ const scholarlyData = JSON.stringify([
     author: { '@type': 'Person', name: SITE.author, url: SITE.url },
     datePublished: '2026-07-27',
     url: AFTERFIAT_READ_URL,
-    version: '1.9',
-    dateModified: '2026-08-19',
+    version: AFTERFIAT_VERSION,
     sameAs: SSRN_URL,
     license: 'https://creativecommons.org/licenses/by/4.0/',
     identifier: {
@@ -77,7 +76,7 @@ const startPaths = [
     n: '01',
     label: 'For systems builders',
     body:
-      'Start with AfterFiat: a conditional monetary thesis with ten premises, a nine-link chain, fifteen red lines, and public telemetry for testing the result.',
+      'Start with AfterFiat: a conditional monetary thesis with ten premises, a nine-link chain, eighteen red lines, and public telemetry for testing the result.',
   },
   {
     n: '02',
@@ -129,11 +128,12 @@ const startPaths = [
           <p class="surface-card__eyebrow">Thesis / Blueprint</p>
           <h3 class="surface-card__title">AfterFiat</h3>
           <p class="surface-card__body">
-            Value capture is not moneyness. This 358-page, sole-author research program tests whether
+            Value capture is not moneyness. This sole-author research program tests whether
             Privacy, Proofs, and Compute can support store-of-value premium when the full service path
             remains deliverable under stress, demand cannot bypass the asset, and a persistent base of
-            self-custodied holders actually bears loss. v1.9 distinguishes protocol performance from
-            market price and duration-neutral money from duration-bearing project credit.
+            self-custodied holders actually bears loss. The thesis distinguishes protocol performance
+            from market price, and duration-neutral money from duration-bearing project credit.
+            Current release: v{AFTERFIAT_VERSION}.
           </p>
           <span class="surface-card__cta">Read AfterFiat →</span>
         </a>

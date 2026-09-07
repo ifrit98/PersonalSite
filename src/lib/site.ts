@@ -20,12 +20,23 @@ export const ADVERSARIAL_STORAGE_URL = '/work/adversarial-storage-protocol';
 
 export const AFTERFIAT_URL = 'https://afterfiat.xyz';
 export const AFTERFIAT_PROFILE_URL = '/afterfiat';
-export const AFTERFIAT_READ_URL = 'https://afterfiat.xyz/v/1.9/read/';
-export const AFTERFIAT_PDF_URL = 'https://afterfiat.xyz/pdf/next-gen-sov-v1.9.pdf';
-export const AFTERFIAT_ARGUMENT_URL = 'https://afterfiat.xyz/argument/';
-export const AFTERFIAT_MARKET_URL = 'https://afterfiat.xyz/market-realization/';
-export const AFTERFIAT_UPDATES_URL = 'https://afterfiat.xyz/updates/';
-export const AFTERFIAT_CITE_URL = 'https://afterfiat.xyz/cite/';
+
+// AfterFiat is a fast-moving versioned research program — twenty releases since
+// January 2026, eight of them inside two weeks of August — so the thesis version
+// is the one fact on this site guaranteed to go stale. Everything that names or
+// links a version derives from these constants: a new release is an edit here,
+// not a hunt through six files. `npm run check:freshness` compares them against
+// what afterfiat.xyz actually publishes.
+export const AFTERFIAT_VERSION = '3.0';
+export const AFTERFIAT_VERSION_YEAR = '2026';
+export const AFTERFIAT_RED_LINES = 18;
+export const AFTERFIAT_CANONICAL_URL = `${AFTERFIAT_URL}/v/${AFTERFIAT_VERSION}/`;
+export const AFTERFIAT_READ_URL = `${AFTERFIAT_URL}/v/${AFTERFIAT_VERSION}/read/`;
+export const AFTERFIAT_PDF_URL = `${AFTERFIAT_URL}/pdf/next-gen-sov-v${AFTERFIAT_VERSION}.pdf`;
+export const AFTERFIAT_ARGUMENT_URL = `${AFTERFIAT_URL}/argument/`;
+export const AFTERFIAT_MARKET_URL = `${AFTERFIAT_URL}/market-realization/`;
+export const AFTERFIAT_UPDATES_URL = `${AFTERFIAT_URL}/updates/`;
+export const AFTERFIAT_CITE_URL = `${AFTERFIAT_URL}/cite/`;
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
 export const GAMUT_URL = 'https://musicalgeometry.replit.app';
 export const SSRN_URL = 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5309953';
