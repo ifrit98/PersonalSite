@@ -36,3 +36,12 @@ yarn-error.log*
 # private advisory operations package (relationship notes, SOW drafts, prospect
 # research). Never belongs in the public site repo or its build output.
 advisory_practice_v2/
+
+# private job-search material (tailored resumes, target employers, evidence
+# ledger of unverified claims). Publishing this in the public site repo would
+# announce an active job search to anyone who reads the commit log.
+outreach-resume-work/
+Jason_St_George_Resume_Template_Kit/
+
+# retired artifacts kept locally, deliberately not served or published
+archive/
