@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import { execFileSync, spawn } from 'node:child_process';
 import { after, test } from 'node:test';
@@ -299,11 +300,16 @@ test('afterfiat mirrors the current thesis release, not a pinned old one', async
     assert.doesNotMatch(page, /15 red lines/);
   }
 
-  assert.match(afterfiat, /v3\.0/);
+  // Read the release from site.ts so a version bump never needs a test edit;
+  // npm run check:freshness is what compares it against afterfiat.xyz.
+  const siteTs = readFileSync(new URL('../src/lib/site.ts', import.meta.url), 'utf8');
+  const version = siteTs.match(/AFTERFIAT_VERSION = '([^']+)'/)[1];
+  const v = version.replace(/\./g, '\\.');
+  assert.match(afterfiat, new RegExp(`v${v}`));
   assert.match(afterfiat, /Eighteen red lines/);
-  assert.match(afterfiat, /href="https:\/\/afterfiat\.xyz\/v\/3\.0\/read\/"/);
-  assert.match(afterfiat, /href="https:\/\/afterfiat\.xyz\/pdf\/next-gen-sov-v3\.0\.pdf"/);
-  assert.match(afterfiat, /"version":"3\.0"/);
+  assert.match(afterfiat, new RegExp(`href="https://afterfiat\\.xyz/v/${v}/read/"`));
+  assert.match(afterfiat, new RegExp(`href="https://afterfiat\\.xyz/pdf/next-gen-sov-v${v}\\.pdf"`));
+  assert.match(afterfiat, new RegExp(`"version":"${v}"`));
 
   // 358 pages was a v1.9 figure; afterfiat.xyz publishes no page count for the
   // current release, so the site no longer claims one.
@@ -311,9 +317,9 @@ test('afterfiat mirrors the current thesis release, not a pinned old one', async
     assert.doesNotMatch(page, /358/);
   }
 
-  // Section and appendix counts were re-verified against the v3.0 table of
-  // contents (§0–§32, appendices A–J) and still hold.
-  assert.match(afterfiat, /33 numbered sections/);
+  // Section and appendix counts were re-verified against the v3.1 table of
+  // contents (§0–§33, appendices A–J) and still hold.
+  assert.match(afterfiat, /34 numbered sections/);
   assert.match(afterfiat, /10 appendices/);
 });
 

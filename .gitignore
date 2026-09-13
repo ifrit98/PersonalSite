@@ -45,3 +45,6 @@ Jason_St_George_Resume_Template_Kit/
 
 # retired artifacts kept locally, deliberately not served or published
 archive/
+
+# private cold-pickup handoff (names advisory + job-search work)
+COLD_PICKUP.md

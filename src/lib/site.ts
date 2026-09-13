@@ -27,7 +27,7 @@ export const AFTERFIAT_PROFILE_URL = '/afterfiat';
 // links a version derives from these constants: a new release is an edit here,
 // not a hunt through six files. `npm run check:freshness` compares them against
 // what afterfiat.xyz actually publishes.
-export const AFTERFIAT_VERSION = '3.0';
+export const AFTERFIAT_VERSION = '3.1';
 export const AFTERFIAT_VERSION_YEAR = '2026';
 export const AFTERFIAT_RED_LINES = 18;
 export const AFTERFIAT_CANONICAL_URL = `${AFTERFIAT_URL}/v/${AFTERFIAT_VERSION}/`;
