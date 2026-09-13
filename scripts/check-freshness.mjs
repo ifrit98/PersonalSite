@@ -39,6 +39,7 @@ const numericConstant = (name) => {
 const AFTERFIAT = constant('AFTERFIAT_URL');
 const VERSION = constant('AFTERFIAT_VERSION');
 const RED_LINES = numericConstant('AFTERFIAT_RED_LINES');
+const GAMUT = constant('GAMUT_URL');
 
 const text = async (url) => {
   const res = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(30_000) });
@@ -120,6 +121,55 @@ const checks = [
       return record?.metadata?.version ?? 'unknown';
     },
     fix: 'deposit the current version on Zenodo, or cite the concept DOI 10.5281/zenodo.18902694, which always resolves to the latest deposit',
+  },
+  {
+    name: 'GAMUT set-class count',
+    source: `${GAMUT}/`,
+    claimed: String(numericConstant('GAMUT_SET_CLASSES')),
+    async current() {
+      const m = (await text(`${GAMUT}/`)).match(/([\d,]+) twelve-tone content classes/i);
+      if (!m) throw new Error('set-class phrase not found — the source page changed shape');
+      return m[1].replace(/,/g, '');
+    },
+    fix: 'update GAMUT_SET_CLASSES in src/lib/site.ts',
+  },
+  {
+    name: 'GAMUT ordering count',
+    source: `${GAMUT}/essays/part-ii-attaching-order-to-content/`,
+    claimed: String(numericConstant('GAMUT_ORDERINGS')),
+    async current() {
+      const t = await text(`${GAMUT}/essays/part-ii-attaching-order-to-content/`);
+      const m = t.match(/total of ([\d,]+) orderings/i);
+      if (!m) throw new Error('ordering-count phrase not found — the source page changed shape');
+      return m[1].replace(/,/g, '');
+    },
+    fix: 'update GAMUT_ORDERINGS in src/lib/site.ts',
+  },
+  {
+    name: 'GAMUT proof-paper revision',
+    source: `${GAMUT}/papers/layered-symplectic-proof-paper/`,
+    claimed: constant('GAMUT_PAPER_VERSION'),
+    async current() {
+      const t = await text(`${GAMUT}/papers/layered-symplectic-proof-paper/`);
+      const m = t.match(/Version:\s*v(\d+\.\d+)/i);
+      if (!m) throw new Error('version line not found — the source page changed shape');
+      return m[1];
+    },
+    fix: 'replace vector/GeometricAlgebraicMusicTheory/papers/*.pdf with the hosted PDFs, bump GAMUT_PAPER_VERSION, then npm run ingest:fresh',
+  },
+  {
+    // A tripwire, not a mirror: the metric ladder and RMCP are merged in the
+    // private GAMUT repo but not deployed. When this flips, the site is free to
+    // describe them — revisit the GAMUT copy on /research and /resume, and add
+    // the newly public material to the chatbot corpus.
+    name: 'GAMUT metric-ladder release reached the public site',
+    source: `${GAMUT}/foundations/`,
+    claimed: 'not yet public',
+    async current() {
+      const t = await text(`${GAMUT}/foundations/`);
+      return /metric ladder/i.test(t) ? 'public' : 'not yet public';
+    },
+    fix: 'describe the metric ladder / RMCP on /research and /resume (then update the test that forbids it) and refresh the chatbot corpus',
   },
   // Repository links rendered as "View GitHub" buttons. A private or renamed
   // repo is a 404 to every logged-out visitor, which is what the site's readers

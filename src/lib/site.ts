@@ -39,6 +39,15 @@ export const AFTERFIAT_UPDATES_URL = `${AFTERFIAT_URL}/updates/`;
 export const AFTERFIAT_CITE_URL = `${AFTERFIAT_URL}/cite/`;
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
 export const GAMUT_URL = 'https://musicalgeometry.replit.app';
+// GAMUT facts this site restates, as the public GAMUT site states them. The
+// program's newer work (the metric ladder, the RMCP protocol) lives in a private
+// repo and is not on the public site yet, so this site does not describe it
+// until it is. `npm run check:freshness` watches for both the counts and that
+// release. GAMUT_PAPER_VERSION is also the revision of the proof-paper PDF
+// mirrored into vector/ for the chatbot.
+export const GAMUT_SET_CLASSES = 223;
+export const GAMUT_ORDERINGS = 14262;
+export const GAMUT_PAPER_VERSION = '1.1';
 export const SSRN_URL = 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5309953';
 export const DOI_URL = 'https://doi.org/10.5281/zenodo.18902696';
 export const ALCHEMICALAI_URL = 'https://alchemicalai.com';

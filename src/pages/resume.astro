@@ -5,6 +5,8 @@ import {
   AFTERFIAT_PROFILE_URL,
   ESCHATOLOGY_URL,
   CAPABILITY_COMMONS_URL,
+  GAMUT_ORDERINGS,
+  GAMUT_SET_CLASSES,
   GAMUT_URL,
   STRUCTURE_LAB_URL,
   SWARMOS_URL,
@@ -37,6 +39,12 @@ const programs = [
     role: 'Architect / Builder',
     desc: 'Enterprise context graph and agentic retrieval planner with causal graph traversal, truth maintenance, and budget-aware evidence assembly',
     href: AGENTICDATA_URL,
+  },
+  {
+    name: 'GAMUT',
+    role: 'Sole Author',
+    desc: `Research program in mathematical music theory: a layered symplectic model of pitch-class space, an AMS-format proof paper, and an interactive explorer of all ${GAMUT_SET_CLASSES} set classes and ${GAMUT_ORDERINGS.toLocaleString('en-US')} orderings`,
+    href: GAMUT_URL,
   },
 ] as const;
 

@@ -131,6 +131,21 @@ test('research is canonical, Agentic Data is crawler-visible, and Structure Lab 
   assert.match(research, /href="\/work#structure-lab"/);
 });
 
+test('GAMUT is described as publicly released, not ahead of its source', async () => {
+  const research = await renderedPage('/research');
+  const resume = await renderedPage('/resume');
+
+  for (const page of [research, resume]) {
+    assert.match(page, /href="https:\/\/musicalgeometry\.replit\.app"/);
+    assert.match(page, /layered symplectic model of pitch-class space/);
+    assert.match(page, /all 223 set classes/);
+    // The metric ladder and RMCP live in a private repo until the GAMUT site
+    // deploys them; check:freshness flips when that happens.
+    assert.doesNotMatch(page, /RMCP|metric ladder/i);
+  }
+  assert.match(resume, /14,262 orderings/);
+});
+
 // Commercial interface: /engage is the bounded, priced entry point for advisory work.
 test('engage page presents three priced offers and routes to the inquiry form', async () => {
   const engage = await renderedPage('/engage');

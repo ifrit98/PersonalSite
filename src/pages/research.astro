@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { ESCHATOLOGY_URL, GAMUT_SET_CLASSES, GAMUT_URL } from '@/lib/site';
 
 const groups = [
   {
@@ -21,8 +22,8 @@ const groups = [
     title: 'Independent Research & Writing',
     items: [
       ['AfterFiat', 'Versioned monetary research program.', '/afterfiat'],
-      ['GAMUT', 'Formal mathematical research into musical possibility and structure.', 'https://musicalgeometry.replit.app'],
-      ['Eschatology Report', 'Long-form essays on AI, institutions, culture, and orientation.', 'https://eschatologyreport.substack.com'],
+      ['GAMUT', `Sole-author research in mathematical music theory: a layered symplectic model of pitch-class space, a formal proof paper, and an interactive explorer of all ${GAMUT_SET_CLASSES} set classes.`, GAMUT_URL],
+      ['Eschatology Report', 'Long-form essays on AI, institutions, culture, and orientation.', ESCHATOLOGY_URL],
     ],
   },
 ] as const;
