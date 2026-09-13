@@ -11,7 +11,7 @@ import { SITE, NAV_LINKS, UTILITY_LINKS } from '@/lib/site';
         <p class="footer__tagline">
           AI · Autonomy · High-Constraint Infrastructure
         </p>
-        <p class="footer__description">I architect intelligent systems for problems where the constraints are real and the obvious abstraction is usually wrong.</p>
+        <p class="footer__description">Architecture reviews, de-risking sprints, and fractional principal architecture for consequential AI and systems decisions.</p>
       </div>
 
       <div class="footer__nav">
@@ -20,6 +20,7 @@ import { SITE, NAV_LINKS, UTILITY_LINKS } from '@/lib/site';
           {NAV_LINKS.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
           ))}
+          <li><a href="/contact">Contact</a></li>
           {UTILITY_LINKS.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
           ))}
@@ -32,7 +33,6 @@ import { SITE, NAV_LINKS, UTILITY_LINKS } from '@/lib/site';
           <li><a href={SITE.social.github}>GitHub</a></li>
           <li><a href={SITE.social.linkedin}>LinkedIn</a></li>
           <li><a href={SITE.social.twitter}>X</a></li>
-          <li><a href="/chat">Ask</a></li>
           <li><a href={`mailto:${SITE.email}`}>Contact Jason</a></li>
         </ul>
       </div>
@@ -46,7 +46,7 @@ import { SITE, NAV_LINKS, UTILITY_LINKS } from '@/lib/site';
 
 <style>
   .footer {
-    background-color: var(--color-dark-surface);
+    background-color: var(--color-dark-surface); --color-brass-text: var(--color-brass);
     padding-block: var(--sp-16) var(--sp-8);
   }
 
@@ -86,7 +86,7 @@ import { SITE, NAV_LINKS, UTILITY_LINKS } from '@/lib/site';
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-brass);
+    color: var(--color-brass-text);
     margin-bottom: var(--sp-4);
   }
 

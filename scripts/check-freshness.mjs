@@ -171,6 +171,14 @@ const checks = [
     },
     fix: 'describe the metric ladder / RMCP on /research and /resume (then update the test that forbids it) and refresh the chatbot corpus',
   },
+  {
+    // Linked in the footer, the Person JSON-LD, twitter:site, and humans.txt.
+    name: 'X profile linked site-wide resolves',
+    source: site.match(/twitter: '([^']+)'/)?.[1] ?? 'SITE.social.twitter',
+    claimed: '200',
+    current: () => reachable(site.match(/twitter: '([^']+)'/)[1]),
+    fix: 'correct SITE.social.twitter in src/lib/site.ts, or remove the X link, twitter:site meta, and sameAs entry',
+  },
   // Repository links rendered as "View GitHub" buttons. A private or renamed
   // repo is a 404 to every logged-out visitor, which is what the site's readers
   // are, so anything but 200 is a broken button.

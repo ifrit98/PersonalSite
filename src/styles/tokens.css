@@ -2,8 +2,13 @@
   /* Color palette */
   --color-ink: #101826;
   --color-bone: #F5F1E8;
-  --color-slate: #5E6875;
+  /* #5E6875 fell to 4.2:1 on the tan diagram washes; this clears AA on every light ground. */
+  --color-slate: #57616D;
   --color-brass: #A98752;
+  /* Brass as text on light grounds. #A98752 on bone is 2.97:1, below WCAG AA;
+     this is 5.9:1 on bone and 5.0:1 on the tan diagram washes. Dark sections set
+     it back to --color-brass, which passes there. */
+  --color-brass-text: #725831;
   --color-oxblood: #4F2432;
   --color-line: rgba(16, 24, 38, 0.12);
   --color-card: rgba(255, 255, 255, 0.55);
@@ -12,7 +17,8 @@
   /* Dark surface system */
   --color-dark-surface: #141B27;
   --color-dark-text: #E8E4DB;
-  --color-dark-muted: rgba(232, 228, 219, 0.5);
+  /* 0.5 measured 4.35:1 on the dark surface; 0.6 clears AA for body text. */
+  --color-dark-muted: rgba(232, 228, 219, 0.6);
   --color-dark-line: rgba(255, 255, 255, 0.08);
   --color-dark-card: rgba(255, 255, 255, 0.05);
 
@@ -70,8 +76,9 @@
   --duration-entrance: 600ms;
   --ease-entrance: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Font families (set after @font-face loads) */
-  --font-serif: 'Newsreader', 'Georgia', serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Font families — self-hosted via @fontsource (imported in BaseLayout), so no
+     third-party font requests and nothing render-blocking from another origin. */
+  --font-serif: 'Newsreader Variable', 'Newsreader', 'Georgia', serif;
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'IBM Plex Mono', 'Menlo', monospace;
 }

@@ -107,79 +107,11 @@ export const NAV_LINKS = [
   { label: 'Writing', href: '/writing' },
   { label: 'About', href: '/about' },
   { label: 'Resume', href: '/resume' },
-  { label: 'Contact', href: '/contact' },
 ] as const;
 
+// The header carries only the assistant and the engagement CTA; GitHub and
+// LinkedIn live in the footer. Contact is reached through the CTA, not the nav.
 export const UTILITY_LINKS = [
-  { label: 'GitHub', href: 'https://github.com/ifrit98' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/stgeorgejas' },
   { label: 'Ask', href: '/chat' },
 ] as const;
 
-export const ENDORSED_PROPERTIES = [
-  {
-    name: 'AfterFiat',
-    tagline: 'Thesis / Blueprint',
-    description:
-      'A versioned, falsifiable thesis testing whether Privacy, Proofs, and Compute can support store-of-value premium under sustained repression — without confusing utility, value capture, or price action for moneyness.',
-    url: AFTERFIAT_PROFILE_URL,
-    external: false,
-  },
-  {
-    name: 'Eschatology Report',
-    tagline: 'Publication / Essays',
-    description:
-      'Essays and dossiers on AI, culture, institutional drift, symbolic overload, and the search for workable orientation.',
-    url: ESCHATOLOGY_URL,
-    external: true,
-  },
-  {
-    name: 'GAMUT',
-    tagline: 'Research Program / Formal Mathematics',
-    description:
-      'A formal mathematical framework for the geometry of musical possibility and a research surface for structure across sound, symmetry, and form.',
-    url: GAMUT_URL,
-    image: '/3d-GAMUT2.png',
-    external: true,
-  },
-  {
-    name: 'Capability Commons',
-    tagline: 'Public Infrastructure / Knowledge Platform',
-    description:
-      'A structured knowledge platform for practical public capability across water, food, shelter, power, repair, and community.',
-    url: CAPABILITY_COMMONS_URL,
-    external: false,
-  },
-  {
-    name: 'SwarmOS',
-    tagline: 'Research Platform / Agent Infrastructure',
-    description:
-      'A collective intelligence research platform that coordinates specialized AI agents to perform continuous, audited scientific research with artifact-level provenance and reproducibility.',
-    url: SWARMOS_URL,
-    external: false,
-  },
-  {
-    name: 'Agentic Data',
-    tagline: 'Enterprise Infrastructure / Retrieval Engine',
-    description:
-      'An enterprise context graph and agentic retrieval planner that turns fragmented institutional knowledge into a temporal, permissioned evidence graph with budget-aware, iterative retrieval.',
-    url: AGENTICDATA_URL,
-    external: false,
-  },
-  {
-    name: 'Structure Lab',
-    tagline: 'Quantitative Finance / Optimization',
-    description:
-      'An options payoff-engineering platform that uses MILP optimization to construct optimal multi-leg structures from user-defined intent.',
-    url: STRUCTURE_LAB_URL,
-    external: false,
-  },
-  {
-    name: 'TurnkeyHQ',
-    tagline: 'Flagship Product / Vertical AI',
-    description:
-      'The vertical AI operating system I co-founded and built through product architecture, engineering, release infrastructure, tenant operations, and commercial lifecycle.',
-    url: TURNKEYHQ_URL,
-    external: false,
-  },
-] as const;

@@ -38,7 +38,7 @@ h3 { font: var(--text-h3); font-family: var(--font-serif); font-weight: 500; }
 }
 
 a {
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-out);
 }
@@ -48,7 +48,7 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: 2px solid var(--color-brass);
+  outline: 2px solid var(--color-brass-text);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -95,8 +95,8 @@ body::after {
   mix-blend-mode: multiply;
 }
 
-/* Scroll-triggered entrance */
-.fade-up {
+/* Scroll-triggered entrance — hidden state requires the .js class set in <head> */
+.js .fade-up {
   opacity: 0;
   transform: translateY(16px);
   transition:
@@ -105,7 +105,7 @@ body::after {
   transition-delay: var(--stagger, 0ms);
 }
 
-.fade-up.is-visible {
+.js .fade-up.is-visible {
   opacity: 1;
   transform: translateY(0);
 }

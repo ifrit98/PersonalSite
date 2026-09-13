@@ -282,12 +282,21 @@ function collectVectorDir(): DocChunk[] {
   return chunks;
 }
 
+// scraped/ is the scrape tool's scratch output and holds whatever was last
+// scraped (in April 2026, a GameFAQs Final Fantasy VIII FAQ used to test the
+// tool). The assistant answers "about Jason's work", so only scrapes listed here
+// are ingested. Add a directory name to include one deliberately.
+const SCRAPED_SOURCES = new Set<string>([]);
+
 function collectScraped(): DocChunk[] {
   const dir = path.join(ROOT, 'scraped');
   if (!fs.existsSync(dir)) return [];
-  const subdirs = fs.readdirSync(dir).filter((d) =>
-    fs.statSync(path.join(dir, d)).isDirectory(),
-  );
+  const subdirs = fs.readdirSync(dir).filter((d) => {
+    if (!fs.statSync(path.join(dir, d)).isDirectory()) return false;
+    if (SCRAPED_SOURCES.has(d)) return true;
+    console.log(`  skipping scraped/${d} (not in SCRAPED_SOURCES)`);
+    return false;
+  });
   const chunks: DocChunk[] = [];
 
   for (const sub of subdirs) {

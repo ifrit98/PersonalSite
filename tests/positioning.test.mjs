@@ -223,6 +223,79 @@ test('chat and contact APIs refuse abuse before reaching any provider', async ()
   assert.deepEqual(await trapped.json(), { success: true });
 });
 
+test('retired claims appear nowhere the chatbot reads', async () => {
+  const { readdirSync, statSync } = await import('node:fs');
+  const { join, relative } = await import('node:path');
+  const retired = /\$60M|\$7M|\$5M|avg MRR|v1\.9\b|fifteen red lines/i;
+  const roots = ['src/content', 'src/pages', 'vector', 'capability_commons_launch_pack'];
+  const offenders = [];
+  const walk = (dir) => {
+    for (const name of readdirSync(dir)) {
+      const full = join(dir, name);
+      if (statSync(full).isDirectory()) walk(full);
+      else if (/\.(md|mdx|txt|astro)$/.test(name) && retired.test(readFileSync(full, 'utf8'))) {
+        offenders.push(relative(projectRoot, full));
+      }
+    }
+  };
+  for (const root of roots) walk(join(projectRoot, root));
+  assert.deepEqual(offenders, []);
+});
+
+test('header links once to each destination; footer carries the social links', async () => {
+  const home = await renderedPage('');
+  const header = home.match(/<header[\s\S]*?<\/header>/)?.[0] ?? '';
+  assert.doesNotMatch(header, /github\.com|linkedin\.com/);
+  assert.doesNotMatch(header, /href="\/contact"/);
+  assert.match(header, /href="\/engage"/);
+  const footer = home.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '';
+  assert.match(footer, /github\.com\/ifrit98/);
+  assert.match(footer, /href="\/contact"/);
+  assert.equal((footer.match(/href="\/chat"/g) ?? []).length, 1, 'footer links to Ask once');
+  assert.doesNotMatch(footer, /I architect intelligent systems for problems/);
+});
+
+test('one URL per page, with security headers, a matching sitemap, and no third-party fonts', async () => {
+  const base = `http://127.0.0.1:${port}`;
+  const slashed = await fetch(`${base}/about/`, { redirect: 'manual' });
+  assert.equal(slashed.status, 301);
+  assert.equal(new URL(slashed.headers.get('location'), base).pathname, '/about');
+
+  const about = await fetch(`${base}/about`);
+  assert.match(about.headers.get('content-security-policy') ?? '', /frame-ancestors 'none'/);
+  assert.equal(about.headers.get('x-content-type-options'), 'nosniff');
+  assert.ok(about.headers.get('referrer-policy'));
+
+  const sitemap = await (await fetch(`${base}/sitemap-0.xml`)).text();
+  const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  assert.ok(locs.includes('https://jasonstgeorge.com/'));
+  assert.ok(locs.includes('https://jasonstgeorge.com/about'));
+  assert.deepEqual(locs.filter((u) => /.\/$/.test(u.replace('https://jasonstgeorge.com/', 'x')) || /\/(projects|chat)$/.test(u)), []);
+
+  const html = await about.text();
+  assert.doesNotMatch(html, /fonts\.googleapis\.com|fonts\.gstatic\.com/);
+  // Content stays visible when scripts don't run: the hiding rule requires .js.
+  assert.match(html, /classList\.add\('js'\)/);
+});
+
+test('link previews and humans.txt reflect the current identity', async () => {
+  const { existsSync } = await import('node:fs');
+  const home = await renderedPage('');
+  assert.match(home, /property="og:image" content="https:\/\/jasonstgeorge\.com\/og\/default\.png"/);
+  for (const [path, image] of [['/engage', 'engage'], ['/turnkeyhq', 'turnkeyhq'], ['/afterfiat', 'afterfiat']]) {
+    assert.match(await renderedPage(path), new RegExp(`property="og:image" content="https://jasonstgeorge\\.com/og/${image}\\.png"`));
+  }
+  for (const image of ['default', 'engage', 'turnkeyhq', 'afterfiat']) {
+    assert.ok(existsSync(new URL(`../public/og/${image}.png`, import.meta.url)), `public/og/${image}.png exists`);
+  }
+
+  const humans = await fetch(`http://127.0.0.1:${port}/humans.txt`);
+  assert.equal(humans.status, 200);
+  const text = await humans.text();
+  assert.match(text, /Contact: jason@jasonstgeorge\.com/);
+  assert.match(text, /Last updated: \d{4}-\d{2}-\d{2}/);
+});
+
 // Commercial interface: /engage is the bounded, priced entry point for advisory work.
 test('engage page presents three priced offers and routes to the inquiry form', async () => {
   const engage = await renderedPage('/engage');

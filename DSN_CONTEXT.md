@@ -1,7 +1,7 @@
 # DSN
 
 Decentralized storage (DSN): 
-Built and Led a production from the ground up of a ciphertext-only storage network where storage is an ongoing interactive proof, not a one-time upload. Validators issue unpredictable, time-local, seed-chained challenges; miners must respond by recomputing chunk-level Pedersen commitments bound to the new seed, assembling a Merkle root, and returning validator-indexed inclusion proofs + the next link in the chain (anti-precompute / anti-amortization). Paired this with a tiered incentive/reputation model (reliability over time, uptime, latency; sliding-window style scoring) and ran it to ~$7M avg MRR / ~$60M revenue.
+Built and Led a production from the ground up of a ciphertext-only storage network where storage is an ongoing interactive proof, not a one-time upload. Validators issue unpredictable, time-local, seed-chained challenges; miners must respond by recomputing chunk-level Pedersen commitments bound to the new seed, assembling a Merkle root, and returning validator-indexed inclusion proofs + the next link in the chain (anti-precompute / anti-amortization). Paired this with a tiered incentive/reputation model (reliability over time, uptime, latency; sliding-window style scoring) and operated it in production under continuous integrity proofs.
 
 
 ## What is a Decentralized Storage Network (DSN)?
