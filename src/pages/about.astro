@@ -14,6 +14,7 @@ import {
   TURNKEYHQ_URL,
   ESCHATOLOGY_URL,
   GAMUT_URL,
+  PUBLICATIONS,
 } from '@/lib/site';
 
 // Render the portrait only once the asset exists, so a missing file degrades to
@@ -23,28 +24,7 @@ const headshot = ['headshot.jpg', 'headshot.webp', 'headshot.png']
   .find(({ path }) => existsSync(path));
 const headshotSrc = headshot ? `/${headshot.file}` : null;
 
-// Citations verified against the hosted PDFs themselves and kept identical to
-// /research and /resume. Both entries on this page previously carried invented
-// titles, and the sonification paper was attributed to the wrong venue and year.
-const publications = [
-  {
-    title:
-      'Music Style Transformer: Music Generation via Raw Audio Transcription with Applications to Style-Transfer',
-    authors: 'St. George, J., Bischof, H.P.',
-    venue: "International Conference on Artificial Intelligence (ICAI '19)",
-    year: 2019,
-    pages: 'pp. 22–33',
-    pdf: '/papers/stgeorge-music-ml-icai-2019.pdf',
-  },
-  {
-    title: 'Sonification of Simulated Black Hole Merger Data',
-    authors: 'St. George, J., Bischof, H.P., Kim, S.Y.',
-    venue: "International Conference on Modeling, Simulation and Visualization Methods (MSV '18)",
-    year: 2018,
-    pages: 'pp. 3–9',
-    pdf: '/papers/stgeorge-sonification-bridges-2019.pdf',
-  },
-] as const;
+const publications = PUBLICATIONS;
 
 const timeline = [
   {

@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getSupabase } from '@/lib/supabase';
 import { getOpenAI } from '@/lib/openai';
 import { isRateLimited, rateLimitResponse } from '@/lib/rate-limit';
+import { checkChatMessages, clientAddress, type ChatTurn } from '@/lib/request-guards';
 
 export const prerender = false;
 
@@ -16,37 +17,39 @@ Rules:
 6. Each question may be about a different topic. Treat the retrieved context as ground truth for the current question regardless of prior conversation.
 7. Tone: precise, direct, serious. No filler, hedging, or hype. Match the voice of the site.`;
 
-interface ChatMessage {
-  role: 'user' | 'assistant' | 'system' | 'developer';
-  content: string;
-}
+// Per visitor, and a site-wide ceiling so a distributed burst still has a bounded
+// cost. Set a monthly spend limit on the OpenAI project as the final backstop.
+const PER_CLIENT_PER_MINUTE = 20;
+const SITE_WIDE_PER_HOUR = 300;
+// Room for low-effort reasoning plus a long, equation-heavy answer.
+const MAX_COMPLETION_TOKENS = 4096;
+
+const json = (body: unknown, status: number) =>
+  new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
+
+const UNAVAILABLE = 'The assistant is unavailable right now. Please try again shortly.';
 
 export const POST: APIRoute = async ({ request }) => {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  if (isRateLimited(`chat:${ip}`, 20)) return rateLimitResponse();
+  if (isRateLimited(`chat:${clientAddress(request.headers)}`, PER_CLIENT_PER_MINUTE)) return rateLimitResponse();
+
+  let body: { messages?: unknown };
+  try {
+    body = await request.json();
+  } catch {
+    return json({ error: 'Invalid request.' }, 400);
+  }
+
+  const checked = checkChatMessages(body?.messages);
+  if (!checked.ok) return json({ error: checked.error }, 400);
+  if (isRateLimited('chat:site', SITE_WIDE_PER_HOUR, 60 * 60_000)) return rateLimitResponse();
+
+  const messages: ChatTurn[] = checked.value;
 
   try {
-    const body = await request.json();
-    const messages: ChatMessage[] = body.messages ?? [];
-
-    if (!messages.length) {
-      return new Response(JSON.stringify({ error: 'No messages provided' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    const userMessages = messages.filter((m) => m.role === 'user');
-    if (!userMessages.length) {
-      return new Response(JSON.stringify({ error: 'No user message found' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
     const ai = getOpenAI();
     const sb = getSupabase();
 
+    const userMessages = messages.filter((m) => m.role === 'user');
     const latest = userMessages[userMessages.length - 1].content;
     const hasTopic = /[A-Z][a-z]{2,}/.test(latest) || /\b[A-Z]{2,}\b/.test(latest);
     const isTerseFollowup = latest.length < 30 && !hasTopic && userMessages.length > 1;
@@ -60,21 +63,15 @@ export const POST: APIRoute = async ({ request }) => {
     });
     const queryEmbedding = embeddingRes.data[0].embedding;
 
-    const { data: docs, error: matchError } = await sb.rpc(
-      'match_documents',
-      {
-        query_embedding: queryEmbedding,
-        match_threshold: 0.25,
-        match_count: 8,
-      },
-    );
+    const { data: docs, error: matchError } = await sb.rpc('match_documents', {
+      query_embedding: queryEmbedding,
+      match_threshold: 0.25,
+      match_count: 8,
+    });
 
     if (matchError) {
       console.error('Supabase match error:', matchError);
-      return new Response(
-        JSON.stringify({ error: 'Failed to search documents' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } },
-      );
+      return json({ error: UNAVAILABLE }, 500);
     }
 
     const contextBlock = (docs ?? [])
@@ -88,16 +85,11 @@ export const POST: APIRoute = async ({ request }) => {
       ? `${SYSTEM_PROMPT}\n\n--- CONTEXT ---\n\n${contextBlock}\n\n--- END CONTEXT ---`
       : `${SYSTEM_PROMPT}\n\n(No matching documents found for this query.)`;
 
-    const chatMessages: ChatMessage[] = [
-      { role: 'developer', content: systemMessage },
-      ...messages.slice(-10),
-    ];
-
     const stream = await ai.chat.completions.create({
       model: process.env.CHAT_MODEL ?? 'gpt-5-nano',
-      messages: chatMessages,
+      messages: [{ role: 'developer', content: systemMessage }, ...messages],
       stream: true,
-      max_completion_tokens: 16384,
+      max_completion_tokens: MAX_COMPLETION_TOKENS,
       reasoning_effort: 'low',
     });
 
@@ -111,22 +103,19 @@ export const POST: APIRoute = async ({ request }) => {
     );
 
     const encoder = new TextEncoder();
+    const send = (event: unknown) => encoder.encode(`data: ${JSON.stringify(event)}\n\n`);
     const readable = new ReadableStream({
       async start(controller) {
-        controller.enqueue(
-          encoder.encode(`data: ${JSON.stringify({ type: 'sources', sources })}\n\n`),
-        );
-
-        for await (const chunk of stream) {
-          const delta = chunk.choices[0]?.delta?.content;
-          if (delta) {
-            controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ type: 'delta', content: delta })}\n\n`),
-            );
+        controller.enqueue(send({ type: 'sources', sources }));
+        try {
+          for await (const chunk of stream) {
+            const delta = chunk.choices[0]?.delta?.content;
+            if (delta) controller.enqueue(send({ type: 'delta', content: delta }));
           }
+        } catch (err) {
+          console.error('Chat stream error:', err instanceof Error ? err.message : err);
         }
-
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'done' })}\n\n`));
+        controller.enqueue(send({ type: 'done' }));
         controller.close();
       },
     });
@@ -139,11 +128,8 @@ export const POST: APIRoute = async ({ request }) => {
       },
     });
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.error('Chat API error:', message);
-    return new Response(
-      JSON.stringify({ error: message }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } },
-    );
+    // Details stay in the server log; provider errors can name models, keys, or quotas.
+    console.error('Chat API error:', err instanceof Error ? err.message : err);
+    return json({ error: UNAVAILABLE }, 500);
   }
 };

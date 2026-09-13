@@ -8,6 +8,7 @@ import {
   GAMUT_ORDERINGS,
   GAMUT_SET_CLASSES,
   GAMUT_URL,
+  PUBLICATIONS,
   STRUCTURE_LAB_URL,
   SWARMOS_URL,
   AGENTICDATA_URL,
@@ -111,18 +112,7 @@ const proofPoints = [
   },
 ] as const;
 
-const publications = [
-  {
-    title: 'Music Style Transformer',
-    venue: 'ICAI/WorldComp (2019)',
-    href: 'https://www.proquest.com/docview/2362906627?pq-origsite=gscholar&fromopenview=true&sourcetype=Conference%20Papers%20&%20Proceedings',
-  },
-  {
-    title: 'Sonification of Simulated Black Hole Merger Data',
-    venue: 'MSV (2018)',
-    href: 'https://www.proquest.com/docview/2139493498?fromopenview=true&pq-origsite=gscholar&sourcetype=Conference%20Papers%20&%20Proceedings',
-  },
-] as const;
+const publications = PUBLICATIONS;
 
 const education = [
   {
@@ -273,9 +263,9 @@ const toolchain = {
       <ul class="publications__list" role="list">
         {publications.map((pub) => (
           <li class="publications__item">
-            <a href={pub.href} class="publications__link" target="_blank" rel="noopener noreferrer">
-              <span class="publications__title">&ldquo;{pub.title}&rdquo;</span>
-              <span class="publications__venue"> — {pub.venue}</span>
+            <a href={pub.proceedingsUrl} class="publications__link" target="_blank" rel="noopener noreferrer">
+              <span class="publications__title">&ldquo;{pub.shortTitle}&rdquo;</span>
+              <span class="publications__venue"> — {pub.venueShort}</span>
             </a>
           </li>
         ))}

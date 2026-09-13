@@ -1,16 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { SITE } from '@/lib/site';
+import { INQUIRY_TYPES, SITE } from '@/lib/site';
+import { CONTACT_LIMITS } from '@/lib/request-guards';
 
-const inquiryTypes = [
-  'Architecture & risk review',
-  'AI systems de-risking sprint',
-  'Fractional principal architecture',
-  'Technical diligence (investment / acquisition)',
-  'Research / speaking',
-  'Other',
-] as const;
+const inquiryTypes = INQUIRY_TYPES;
+const max = CONTACT_LIMITS;
 
 const bestFitCards = [
   {
@@ -58,15 +53,22 @@ const bestFitCards = [
       </p>
 
       <form id="contact-form" class="form" novalidate>
+        <!-- Bot traps: a field people never see, and the time the form was opened. -->
+        <div class="form__trap" aria-hidden="true">
+          <label for="field-website">Website</label>
+          <input type="text" id="field-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+        <input type="hidden" id="field-started-at" name="started_at" />
+
         <div class="form__row form__row--half">
           <div class="form__field">
             <label for="field-name" class="form__label">Name <span class="form__required">*</span></label>
-            <input type="text" id="field-name" name="name" required class="form__input" autocomplete="name" aria-describedby="field-name-error" />
+            <input type="text" id="field-name" name="name" required maxlength={max.name} class="form__input" autocomplete="name" aria-describedby="field-name-error" />
             <span id="field-name-error" class="form__error">Name is required.</span>
           </div>
           <div class="form__field">
             <label for="field-email" class="form__label">Email <span class="form__required">*</span></label>
-            <input type="email" id="field-email" name="email" required class="form__input" autocomplete="email" aria-describedby="field-email-error" />
+            <input type="email" id="field-email" name="email" required maxlength={max.email} class="form__input" autocomplete="email" aria-describedby="field-email-error" />
             <span id="field-email-error" class="form__error">A valid email is required.</span>
           </div>
         </div>
@@ -74,7 +76,7 @@ const bestFitCards = [
         <div class="form__row form__row--half">
           <div class="form__field">
             <label for="field-org" class="form__label">Organization</label>
-            <input type="text" id="field-org" name="organization" class="form__input" autocomplete="organization" />
+            <input type="text" id="field-org" name="organization" maxlength={max.organization} class="form__input" autocomplete="organization" />
           </div>
           <div class="form__field">
           <label for="field-type" class="form__label">Problem type <span class="form__required">*</span></label>
@@ -90,34 +92,34 @@ const bestFitCards = [
 
         <div class="form__field">
           <label for="field-problem" class="form__label">What problem are you trying to solve? <span class="form__required">*</span></label>
-          <textarea id="field-problem" name="problem" required rows="3" class="form__input form__textarea" placeholder="What are you trying to solve?" aria-describedby="field-problem-error"></textarea>
+          <textarea id="field-problem" name="problem" required rows="3" maxlength={max.problem} class="form__input form__textarea" placeholder="What are you trying to solve?" aria-describedby="field-problem-error"></textarea>
           <span id="field-problem-error" class="form__error">Please describe the problem.</span>
         </div>
 
         <div class="form__field">
           <label for="field-constraints" class="form__label">Known constraints</label>
-          <textarea id="field-constraints" name="constraints" rows="2" class="form__input form__textarea" placeholder="Security requirements, timelines, regulatory, environment constraints..."></textarea>
+          <textarea id="field-constraints" name="constraints" rows="2" maxlength={max.constraints} class="form__input form__textarea" placeholder="Security requirements, timelines, regulatory, environment constraints..."></textarea>
         </div>
 
         <div class="form__field">
           <label for="field-outcome" class="form__label">Desired outcome</label>
-          <textarea id="field-outcome" name="desired_outcome" rows="2" class="form__input form__textarea" placeholder="What does success look like?"></textarea>
+          <textarea id="field-outcome" name="desired_outcome" rows="2" maxlength={max.desired_outcome} class="form__input form__textarea" placeholder="What does success look like?"></textarea>
         </div>
 
         <div class="form__row form__row--half">
           <div class="form__field">
             <label for="field-timeline" class="form__label">Timeline</label>
-            <input type="text" id="field-timeline" name="timeline" class="form__input" placeholder="e.g. 2-week sprint, ongoing, Q3 2026" />
+            <input type="text" id="field-timeline" name="timeline" maxlength={max.timeline} class="form__input" placeholder="e.g. 2-week sprint, ongoing, Q3 2026" />
           </div>
           <div class="form__field">
           <label for="field-budget" class="form__label">Budget / engagement range <span class="form__optional">(optional)</span></label>
-            <input type="text" id="field-budget" name="budget_range" class="form__input" placeholder="e.g. $10k–25k, TBD" />
+            <input type="text" id="field-budget" name="budget_range" maxlength={max.budget_range} class="form__input" placeholder="e.g. $10k–25k, TBD" />
           </div>
         </div>
 
         <div class="form__field">
           <label for="field-message" class="form__label">Anything else</label>
-          <textarea id="field-message" name="message" rows="2" class="form__input form__textarea" placeholder="Anything else relevant..."></textarea>
+          <textarea id="field-message" name="message" rows="2" maxlength={max.message} class="form__input form__textarea" placeholder="Anything else relevant..."></textarea>
         </div>
 
         <div class="form__actions">
@@ -229,15 +231,18 @@ const bestFitCards = [
     gap: var(--sp-6);
   }
 
+  /* minmax(0, …) and min-width: 0 let fields shrink below their content's
+     intrinsic width; with plain 1fr the select's longest option pushed the form
+     31px past a 390px screen. */
   .form__row--half {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--sp-6);
   }
 
   @media (min-width: 640px) {
     .form__row--half {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
   }
 
@@ -245,6 +250,15 @@ const bestFitCards = [
     display: flex;
     flex-direction: column;
     gap: var(--sp-2);
+    min-width: 0;
+  }
+
+  .form__trap {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
 
   .form__label {
@@ -273,6 +287,9 @@ const bestFitCards = [
     border: 1px solid var(--color-line);
     border-radius: var(--radius-button);
     padding: 0.625rem 0.875rem;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     transition:
       border-color var(--duration-fast) var(--ease-out),
       box-shadow var(--duration-fast) var(--ease-out);
@@ -495,6 +512,12 @@ const bestFitCards = [
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const statusEl = document.getElementById('form-status');
+  const startedAt = document.getElementById('field-started-at') as HTMLInputElement | null;
+
+  const markStarted = () => {
+    if (startedAt) startedAt.value = String(Date.now());
+  };
+  markStarted();
 
   function isValidEmail(email: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -559,6 +582,7 @@ const bestFitCards = [
         statusEl.className = 'form__status form__status--success';
         statusEl.textContent = 'Inquiry sent. I will follow up within a few business days.';
         form.reset();
+        markStarted();
         form.querySelectorAll('.form__field--error').forEach(el => el.classList.remove('form__field--error'));
       } else {
         statusEl.className = 'form__status form__status--error';

@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE } from '@/lib/site';
+import { CHAT_LIMITS } from '@/lib/request-guards';
+// Bundled rather than loaded from a CDN: same version as the katex package that
+// renders the math, and no third-party stylesheet on the page.
+import 'katex/dist/katex.min.css';
 ---
 
 <BaseLayout title="Ask" description={`Ask questions about ${SITE.author}'s work, research, projects, and background.`}>
-  <link slot="head" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" />
   <div class="chat-page">
     <header class="chat-header fade-up">
       <div class="container container--narrow">
@@ -40,6 +43,7 @@ import { SITE } from '@/lib/site';
           placeholder="Ask a question..."
           rows="1"
           autocomplete="off"
+          maxlength={CHAT_LIMITS.maxQuestionChars}
         ></textarea>
         <button type="submit" class="chat-input__send" id="chat-send" aria-label="Send message">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -464,6 +468,7 @@ import { SITE } from '@/lib/site';
 <script>
   import { marked } from 'marked';
   import katex from 'katex';
+  import DOMPurify from 'dompurify';
 
   marked.setOptions({
     breaks: true,
@@ -725,7 +730,9 @@ import { SITE } from '@/lib/site';
       html = html.replace(/\(\\([a-zA-Z]+)\)/g, (_m, cmd) => {
         return renderLatex('\\' + cmd, false);
       });
-      bubble.innerHTML = html;
+      // Model output is shaped by retrieved text and by whatever the visitor asks
+      // for, so it is untrusted markup: sanitize before it touches the DOM.
+      bubble.innerHTML = DOMPurify.sanitize(html);
 
       history.push({ role: 'assistant', content: fullContent });
       if (assistantWrapper) addSourceTags(sources, assistantWrapper);

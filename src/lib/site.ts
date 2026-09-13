@@ -49,6 +49,46 @@ export const GAMUT_SET_CLASSES = 223;
 export const GAMUT_ORDERINGS = 14262;
 export const GAMUT_PAPER_VERSION = '1.1';
 export const SSRN_URL = 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5309953';
+
+// One citation list for /about, /writing, /resume, and the scholarly JSON-LD.
+// Verified against the hosted PDFs. /writing once carried invented titles and a
+// wrong venue for both papers while /about had the corrected ones; rendering
+// every surface from this list is what keeps that from recurring.
+export const PUBLICATIONS = [
+  {
+    title:
+      'Music Style Transformer: Music Generation via Raw Audio Transcription with Applications to Style-Transfer',
+    shortTitle: 'Music Style Transformer',
+    authors: 'St. George, J., Bischof, H.P.',
+    venue: "International Conference on Artificial Intelligence (ICAI '19)",
+    venueShort: 'ICAI/WorldComp (2019)',
+    year: 2019,
+    pages: 'pp. 22–33',
+    pdf: '/papers/stgeorge-music-ml-icai-2019.pdf',
+    proceedingsUrl: 'https://www.proquest.com/docview/2362906627',
+  },
+  {
+    title: 'Sonification of Simulated Black Hole Merger Data',
+    shortTitle: 'Sonification of Simulated Black Hole Merger Data',
+    authors: 'St. George, J., Bischof, H.P., Kim, S.Y.',
+    venue: "International Conference on Modeling, Simulation and Visualization Methods (MSV '18)",
+    venueShort: 'MSV (2018)',
+    year: 2018,
+    pages: 'pp. 3–9',
+    pdf: '/papers/stgeorge-sonification-msv-2018.pdf',
+    proceedingsUrl: 'https://www.proquest.com/docview/2139493498',
+  },
+] as const;
+
+// Shared by the contact form and /api/contact, which rejects anything else.
+export const INQUIRY_TYPES = [
+  'Architecture & risk review',
+  'AI systems de-risking sprint',
+  'Fractional principal architecture',
+  'Technical diligence (investment / acquisition)',
+  'Research / speaking',
+  'Other',
+] as const;
 export const DOI_URL = 'https://doi.org/10.5281/zenodo.18902696';
 export const ALCHEMICALAI_URL = 'https://alchemicalai.com';
 export const TURNKEYHQ_URL = '/turnkeyhq';

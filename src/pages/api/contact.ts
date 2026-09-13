@@ -1,78 +1,51 @@
 import type { APIRoute } from 'astro';
 import { getSupabase } from '@/lib/supabase';
+import { notifyInquiry } from '@/lib/notify';
 import { isRateLimited, rateLimitResponse } from '@/lib/rate-limit';
+import { checkContact, clientAddress } from '@/lib/request-guards';
+import { INQUIRY_TYPES } from '@/lib/site';
 
 export const prerender = false;
 
-const REQUIRED_FIELDS = ['name', 'email', 'inquiry_type', 'problem'] as const;
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+const json = (body: unknown, status = 200) =>
+  new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 
 export const POST: APIRoute = async ({ request }) => {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  if (isRateLimited(`contact:${ip}`, 5)) return rateLimitResponse();
+  if (isRateLimited(`contact:${clientAddress(request.headers)}`, 5)) return rateLimitResponse();
 
-  let body: Record<string, string>;
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return new Response(
-      JSON.stringify({ error: 'Invalid request' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } },
-    );
+    return json({ error: 'Invalid request.' }, 400);
   }
 
+  const checked = checkContact(body, INQUIRY_TYPES);
+  if (!checked.ok) return json({ error: checked.error }, 400);
+  // Bot-shaped submissions get the same answer as real ones and go nowhere.
+  if (checked.spam) return json({ success: true });
+
+  const inquiry = checked.value;
+
+  let stored = false;
   try {
-
-    const missing = REQUIRED_FIELDS.filter((f) => !body[f]?.trim());
-    if (missing.length) {
-      return new Response(
-        JSON.stringify({ error: `Missing required fields: ${missing.join(', ')}` }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } },
-      );
-    }
-
-    if (!isValidEmail(body.email)) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid email address' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } },
-      );
-    }
-
-    const supabase = getSupabase();
-
-    const { error } = await supabase.from('contact_submissions').insert({
-      name: body.name.trim(),
-      email: body.email.trim(),
-      organization: body.organization?.trim() || null,
-      inquiry_type: body.inquiry_type.trim(),
-      problem: body.problem.trim(),
-      constraints: body.constraints?.trim() || null,
-      desired_outcome: body.desired_outcome?.trim() || null,
-      timeline: body.timeline?.trim() || null,
-      budget_range: body.budget_range?.trim() || null,
-      message: body.message?.trim() || null,
-    });
-
-    if (error) {
-      console.error('Supabase insert error:', error);
-      return new Response(
-        JSON.stringify({ error: 'Failed to submit inquiry. Please try email instead.' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } },
-      );
-    }
-
-    return new Response(
-      JSON.stringify({ success: true }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
+    const { error } = await getSupabase().from('contact_submissions').insert(inquiry);
+    if (error) console.error('Supabase insert error:', error);
+    else stored = true;
   } catch (err) {
-    console.error('Contact API error:', err);
-    return new Response(
-      JSON.stringify({ error: 'Failed to submit inquiry. Please try email instead.' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } },
+    console.error('Contact storage unavailable:', err instanceof Error ? err.message : err);
+  }
+
+  // Notify even when storage failed: an emailed inquiry is not lost.
+  const notified = await notifyInquiry(inquiry);
+  if (notified === 'not-configured') {
+    console.warn(
+      `Inquiry ${stored ? 'stored' : 'NOT stored'} and no notification sent: set RESEND_API_KEY, CONTACT_NOTIFY_TO, CONTACT_NOTIFY_FROM.`,
     );
   }
+
+  if (!stored && notified !== 'sent') {
+    return json({ error: 'Failed to submit inquiry. Please try email instead.' }, 500);
+  }
+  return json({ success: true });
 };

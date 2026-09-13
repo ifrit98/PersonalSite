@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, AFTERFIAT_VERSION, ESCHATOLOGY_URL, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
+import { AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, AFTERFIAT_VERSION, ESCHATOLOGY_URL, PUBLICATIONS, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
 
 // Architecture notes: native commercial essays (advisory package RB-22).
 // Drafts are excluded here as well as from the build, so the section simply
@@ -28,24 +28,16 @@ const scholarlyData = JSON.stringify([
       value: '10.5281/zenodo.18902696',
     },
   },
-  {
+  ...PUBLICATIONS.map((pub) => ({
     '@context': 'https://schema.org',
     '@type': 'ScholarlyArticle',
-    name: 'Machine Learning Approaches for Musical Gesture Analysis and Composition',
+    name: pub.title,
     author: { '@type': 'Person', name: SITE.author, url: SITE.url },
-    datePublished: '2019',
-    publisher: { '@type': 'Organization', name: 'International Conference on Artificial Intelligence (ICAI)' },
-    url: `${SITE.url}/papers/stgeorge-music-ml-icai-2019.pdf`,
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'ScholarlyArticle',
-    name: 'Sonification of Black Holes: Mapping Astrophysical Data to Musical Structure',
-    author: { '@type': 'Person', name: SITE.author, url: SITE.url },
-    datePublished: '2019',
-    publisher: { '@type': 'Organization', name: 'Bridges: Mathematics, Music, Art, Architecture, Education, Culture' },
-    url: `${SITE.url}/papers/stgeorge-sonification-bridges-2019.pdf`,
-  },
+    datePublished: String(pub.year),
+    publisher: { '@type': 'Organization', name: pub.venue },
+    pagination: pub.pages.replace(/^pp\.\s*/, ''),
+    url: `${SITE.url}${pub.pdf}`,
+  })),
 ]);
 
 const themes = [
@@ -181,20 +173,15 @@ const startPaths = [
     <div class="container container--narrow">
       <h2 class="writing-research__heading">Published Research</h2>
       <ul class="writing-research__list">
-        <li class="research-item">
-          <p class="research-item__title">Machine Learning Approaches for Musical Gesture Analysis and Composition</p>
-          <p class="research-item__venue">International Conference on Artificial Intelligence (ICAI), 2019</p>
-          <div class="research-item__links">
-            <a href="/papers/stgeorge-music-ml-icai-2019.pdf">PDF</a>
-          </div>
-        </li>
-        <li class="research-item">
-          <p class="research-item__title">Sonification of Black Holes: Mapping Astrophysical Data to Musical Structure</p>
-          <p class="research-item__venue">Bridges: Mathematics, Music, Art, Architecture, Education, Culture, 2019</p>
-          <div class="research-item__links">
-            <a href="/papers/stgeorge-sonification-bridges-2019.pdf">PDF</a>
-          </div>
-        </li>
+        {PUBLICATIONS.map((pub) => (
+          <li class="research-item">
+            <p class="research-item__title">{pub.title}</p>
+            <p class="research-item__venue">{pub.authors} · {pub.venue}, {pub.year}, {pub.pages}</p>
+            <div class="research-item__links">
+              <a href={pub.pdf}>PDF</a>
+            </div>
+          </li>
+        ))}
       </ul>
       <div class="research-extended">
         <p class="research-extended__note">
