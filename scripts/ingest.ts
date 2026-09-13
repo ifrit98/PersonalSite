@@ -379,32 +379,55 @@ async function embedBatch(texts: string[]): Promise<number[][]> {
 /*  Upsert                                                             */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Replaces or extends the index without ever leaving it empty.
+ *
+ * The previous --fresh deleted every document first and embedded second, so a
+ * bad API key (or any mid-run failure) left the live /chat with nothing to
+ * retrieve. Now: every chunk is embedded before the database is touched, new
+ * rows are inserted alongside the old ones, and only then are the old rows
+ * (ids at or below the pre-run maximum) removed. A failure at any step leaves
+ * the previous index serving.
+ */
 async function upsertChunks(chunks: DocChunk[]) {
   const fresh = process.argv.includes('--fresh');
-  if (fresh) {
-    console.log('  Clearing existing documents...');
-    const { error } = await supabase.from('documents').delete().gte('id', 0);
-    if (error) throw error;
-  }
 
   console.log(`  Embedding ${chunks.length} chunks in batches of ${BATCH_SIZE}...`);
+  const rows: { content: string; metadata: DocChunk['metadata']; embedding: number[] }[] = [];
   for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
     const batch = chunks.slice(i, i + BATCH_SIZE);
     const embeddings = await embedBatch(batch.map((c) => c.content));
-
-    const rows = batch.map((chunk, j) => ({
-      content: sanitizeUnicode(chunk.content),
-      metadata: chunk.metadata,
-      embedding: embeddings[j],
-    }));
-
-    const { error } = await supabase.from('documents').insert(rows);
-    if (error) throw error;
-
-    console.log(
-      `  [${Math.min(i + BATCH_SIZE, chunks.length)}/${chunks.length}] embedded`,
+    batch.forEach((chunk, j) =>
+      rows.push({ content: sanitizeUnicode(chunk.content), metadata: chunk.metadata, embedding: embeddings[j] }),
     );
+    console.log(`  [${Math.min(i + BATCH_SIZE, chunks.length)}/${chunks.length}] embedded`);
   }
+
+  let previousMaxId: number | null = null;
+  if (fresh) {
+    const { data, error } = await supabase.from('documents').select('id').order('id', { ascending: false }).limit(1);
+    if (error) throw error;
+    previousMaxId = data?.[0]?.id ?? null;
+  }
+
+  console.log(`  Inserting ${rows.length} rows...`);
+  for (let i = 0; i < rows.length; i += BATCH_SIZE) {
+    const { error } = await supabase.from('documents').insert(rows.slice(i, i + BATCH_SIZE));
+    if (error) throw error;
+  }
+
+  if (fresh && previousMaxId !== null) {
+    console.log(`  Removing previous documents (id <= ${previousMaxId})...`);
+    const { error } = await supabase.from('documents').delete().lte('id', previousMaxId);
+    if (error) throw error;
+  }
+}
+
+/** Fails fast, before any database change, if the embedding key or model is unusable. */
+async function preflight() {
+  await embedBatch(['preflight']);
+  const { error } = await supabase.from('documents').select('id', { head: true, count: 'exact' });
+  if (error) throw error;
 }
 
 /* ------------------------------------------------------------------ */
@@ -457,6 +480,19 @@ async function main() {
     return;
   }
 
+  if (process.argv.includes('--dry-run')) {
+    const bySource = new Map<string, number>();
+    for (const c of all) {
+      const key = c.metadata.source.split('/').slice(0, 2).join('/');
+      bySource.set(key, (bySource.get(key) ?? 0) + 1);
+    }
+    for (const [source, n] of [...bySource].sort((a, b) => b[1] - a[1])) console.log(`  ${n}\t${source}`);
+    console.log('\nDry run: no embeddings requested, no database changes.');
+    return;
+  }
+
+  console.log('Preflight: checking the embedding key and database before any change...');
+  await preflight();
   await upsertChunks(all);
   console.log('\nDone.');
 }
