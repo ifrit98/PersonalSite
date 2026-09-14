@@ -6,6 +6,9 @@ export default defineConfig({
   output: 'server',
   adapter: node({ mode: 'standalone' }),
   site: 'https://jasonstgeorge.com',
+  // Astro 7 defaults to 'jsx', which strips line breaks around elements and can glue
+  // a word to the link on the next source line. `true` is the lossless v5 behaviour.
+  compressHTML: true,
   integrations: [
     sitemap({
       // Utility and redirecting routes are not pages worth indexing.
