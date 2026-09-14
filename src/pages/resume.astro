@@ -5,7 +5,9 @@ import {
   AFTERFIAT_PROFILE_URL,
   ESCHATOLOGY_URL,
   CAPABILITY_COMMONS_URL,
+  GAMUT_FIBERS,
   GAMUT_ORDERINGS,
+  GAMUT_PAPER_VERSION,
   GAMUT_SET_CLASSES,
   GAMUT_URL,
   PUBLICATIONS,
@@ -44,7 +46,7 @@ const programs = [
   {
     name: 'GAMUT',
     role: 'Sole Author',
-    desc: `Research program in mathematical music theory: a layered symplectic model of pitch-class space, an AMS-format proof paper, and an interactive explorer of all ${GAMUT_SET_CLASSES} set classes and ${GAMUT_ORDERINGS.toLocaleString('en-US')} orderings`,
+    desc: `Research program in mathematical music theory: a layered symplectic model of pitch-class space, a reviewed AMS-format proof paper (v${GAMUT_PAPER_VERSION}), a discrete foundation machine-checked in Lean that certifies the count of ${GAMUT_SET_CLASSES} set classes, and an interactive explorer of ${GAMUT_ORDERINGS.toLocaleString('en-US')} orderings across ${GAMUT_FIBERS} fibers`,
     href: GAMUT_URL,
   },
 ] as const;

@@ -123,28 +123,35 @@ const checks = [
     fix: 'deposit the current version on Zenodo, or cite the concept DOI 10.5281/zenodo.18902694, which always resolves to the latest deposit',
   },
   {
-    name: 'GAMUT set-class count',
-    source: `${GAMUT}/`,
+    // The count is claimed as Lean-certified, so read it from the sentence that
+    // says so; if that sentence disappears, so does the site's basis for it.
+    name: 'GAMUT Lean-certified set-class count',
+    source: `${GAMUT}/research/`,
     claimed: String(numericConstant('GAMUT_SET_CLASSES')),
     async current() {
-      const m = (await text(`${GAMUT}/`)).match(/([\d,]+) twelve-tone content classes/i);
-      if (!m) throw new Error('set-class phrase not found — the source page changed shape');
+      const t = await text(`${GAMUT}/research/`);
+      if (!/Lean proof release/i.test(t)) throw new Error('Lean proof release no longer described — the source page changed shape');
+      const m = t.match(/certifies the established count of ([\d,]+) nonempty/i);
+      if (!m) throw new Error('certified set-class count not found — the source page changed shape');
       return m[1].replace(/,/g, '');
     },
-    fix: 'update GAMUT_SET_CLASSES in src/lib/site.ts',
+    fix: 'update GAMUT_SET_CLASSES in src/lib/site.ts, or stop calling the count Lean-certified on /research and /resume',
   },
-  {
-    name: 'GAMUT ordering count',
-    source: `${GAMUT}/essays/part-ii-attaching-order-to-content/`,
-    claimed: String(numericConstant('GAMUT_ORDERINGS')),
+  ...[
+    ['ordering count', 'GAMUT_ORDERINGS', 1],
+    ['fiber count', 'GAMUT_FIBERS', 2],
+  ].map(([label, name, group]) => ({
+    name: `GAMUT explorer ${label}`,
+    source: `${GAMUT}/visualizations/layered-bundle-explorer/`,
+    claimed: String(numericConstant(name)),
     async current() {
-      const t = await text(`${GAMUT}/essays/part-ii-attaching-order-to-content/`);
-      const m = t.match(/total of ([\d,]+) orderings/i);
-      if (!m) throw new Error('ordering-count phrase not found — the source page changed shape');
-      return m[1].replace(/,/g, '');
+      const t = await text(`${GAMUT}/visualizations/layered-bundle-explorer/`);
+      const m = t.match(/contains ([\d,]+) orderings across ([\d,]+) fibers/i);
+      if (!m) throw new Error('explorer coverage sentence not found — the source page changed shape');
+      return m[group].replace(/,/g, '');
     },
-    fix: 'update GAMUT_ORDERINGS in src/lib/site.ts',
-  },
+    fix: `update ${name} in src/lib/site.ts`,
+  })),
   {
     name: 'GAMUT proof-paper revision',
     source: `${GAMUT}/papers/layered-symplectic-proof-paper/`,
@@ -158,18 +165,16 @@ const checks = [
     fix: 'replace vector/GeometricAlgebraicMusicTheory/papers/*.pdf with the hosted PDFs, bump GAMUT_PAPER_VERSION, then npm run ingest:fresh',
   },
   {
-    // A tripwire, not a mirror: the metric ladder and RMCP are merged in the
-    // private GAMUT repo but not deployed. When this flips, the site is free to
-    // describe them — revisit the GAMUT copy on /research and /resume, and add
-    // the newly public material to the chatbot corpus.
-    name: 'GAMUT metric-ladder release reached the public site',
-    source: `${GAMUT}/foundations/`,
-    claimed: 'not yet public',
+    // The site says the explorer is a sample ("not every possible ordering"). If
+    // the source ever drops that qualifier, re-read before changing our wording.
+    name: 'GAMUT explorer is still described as a sample',
+    source: `${GAMUT}/visualizations/layered-bundle-explorer/`,
+    claimed: 'sampled',
     async current() {
-      const t = await text(`${GAMUT}/foundations/`);
-      return /metric ladder/i.test(t) ? 'public' : 'not yet public';
+      const t = await text(`${GAMUT}/visualizations/layered-bundle-explorer/`);
+      return /not every possible ordering/i.test(t) ? 'sampled' : 'qualifier gone';
     },
-    fix: 'describe the metric ladder / RMCP on /research and /resume (then update the test that forbids it) and refresh the chatbot corpus',
+    fix: 'the explorer coverage statement changed; re-read it and adjust the GAMUT copy on /research and /resume',
   },
   {
     // Linked in the footer, the Person JSON-LD, twitter:site, and humans.txt.

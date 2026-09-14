@@ -131,19 +131,23 @@ test('research is canonical, Agentic Data is crawler-visible, and Structure Lab 
   assert.match(research, /href="\/work#structure-lab"/);
 });
 
-test('GAMUT is described as publicly released, not ahead of its source', async () => {
+test('GAMUT is described as its public site states it, not beyond it', async () => {
   const research = await renderedPage('/research');
   const resume = await renderedPage('/resume');
 
   for (const page of [research, resume]) {
     assert.match(page, /href="https:\/\/musicalgeometry\.replit\.app"/);
     assert.match(page, /layered symplectic model of pitch-class space/);
-    assert.match(page, /all 223 set classes/);
-    // The metric ladder and RMCP live in a private repo until the GAMUT site
-    // deploys them; check:freshness flips when that happens.
-    assert.doesNotMatch(page, /RMCP|metric ladder/i);
+    assert.match(page, /machine-checked in Lean/);
+    assert.match(page, /explorer of [\d,]+ orderings across \d+ fibers/);
+    // The explorer samples larger fibers and the set-class count is certified by
+    // Lean, not explored — GAMUT says "not every possible ordering".
+    assert.doesNotMatch(page, /explorer of all|all \d+ set classes|every (possible )?ordering/i);
+    // GAMUT calls "metric ladder" only a historical organizing image.
+    assert.doesNotMatch(page, /metric ladder/i);
   }
-  assert.match(resume, /14,262 orderings/);
+  assert.match(resume, /proof paper \(v\d+\.\d+\)/);
+  assert.match(resume, /certifies the count of \d+ set classes/);
 });
 
 test('every publication citation agrees across about, writing, and resume', async () => {

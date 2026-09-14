@@ -27,7 +27,7 @@ export const AFTERFIAT_PROFILE_URL = '/afterfiat';
 // links a version derives from these constants: a new release is an edit here,
 // not a hunt through six files. `npm run check:freshness` compares them against
 // what afterfiat.xyz actually publishes.
-export const AFTERFIAT_VERSION = '3.1';
+export const AFTERFIAT_VERSION = '3.2';
 export const AFTERFIAT_VERSION_YEAR = '2026';
 export const AFTERFIAT_RED_LINES = 18;
 export const AFTERFIAT_CANONICAL_URL = `${AFTERFIAT_URL}/v/${AFTERFIAT_VERSION}/`;
@@ -39,15 +39,20 @@ export const AFTERFIAT_UPDATES_URL = `${AFTERFIAT_URL}/updates/`;
 export const AFTERFIAT_CITE_URL = `${AFTERFIAT_URL}/cite/`;
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
 export const GAMUT_URL = 'https://musicalgeometry.replit.app';
-// GAMUT facts this site restates, as the public GAMUT site states them. The
-// program's newer work (the metric ladder, the RMCP protocol) lives in a private
-// repo and is not on the public site yet, so this site does not describe it
-// until it is. `npm run check:freshness` watches for both the counts and that
-// release. GAMUT_PAPER_VERSION is also the revision of the proof-paper PDF
-// mirrored into vector/ for the chatbot.
+// GAMUT facts this site restates, exactly as the public GAMUT site states them
+// (`npm run check:freshness` reads each one back from its source page):
+// - GAMUT_SET_CLASSES is the count the Lean proof release certifies (/research/).
+//   It is not what the explorer covers, so never say "explorer of all 223".
+// - The explorer holds GAMUT_ORDERINGS orderings across GAMUT_FIBERS fibers:
+//   enumerated through cardinality five, sampled above that, not every ordering.
+// - GAMUT_PAPER_VERSION is the reviewed AMS proof paper, and the revision of the
+//   copy mirrored into vector/ for the chatbot.
+// The GAMUT site calls "metric ladder" only a historical organizing image, so
+// this site does not use the phrase.
 export const GAMUT_SET_CLASSES = 223;
 export const GAMUT_ORDERINGS = 14262;
-export const GAMUT_PAPER_VERSION = '1.1';
+export const GAMUT_FIBERS = 216;
+export const GAMUT_PAPER_VERSION = '1.2';
 export const SSRN_URL = 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5309953';
 
 // One citation list for /about, /writing, /resume, and the scholarly JSON-LD.
