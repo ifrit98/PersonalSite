@@ -27,9 +27,15 @@ export const AFTERFIAT_PROFILE_URL = '/afterfiat';
 // links a version derives from these constants: a new release is an edit here,
 // not a hunt through six files. `npm run check:freshness` compares them against
 // what afterfiat.xyz actually publishes.
-export const AFTERFIAT_VERSION = '3.2';
+export const AFTERFIAT_VERSION = '3.4';
 export const AFTERFIAT_VERSION_YEAR = '2026';
 export const AFTERFIAT_RED_LINES = 18;
+// Premises and sections moved in v3.3 and v3.4 while the version check was the
+// only one watching, so both are now constants with their own freshness checks.
+// The web edition numbers sections §0–§33 plus §5b and the PDF numbers them
+// 1–35: both hold 35, so the site states the count and never a numbering.
+export const AFTERFIAT_PREMISES = 11;
+export const AFTERFIAT_SECTIONS = 35;
 export const AFTERFIAT_CANONICAL_URL = `${AFTERFIAT_URL}/v/${AFTERFIAT_VERSION}/`;
 export const AFTERFIAT_READ_URL = `${AFTERFIAT_URL}/v/${AFTERFIAT_VERSION}/read/`;
 export const AFTERFIAT_PDF_URL = `${AFTERFIAT_URL}/pdf/next-gen-sov-v${AFTERFIAT_VERSION}.pdf`;
@@ -38,7 +44,9 @@ export const AFTERFIAT_MARKET_URL = `${AFTERFIAT_URL}/market-realization/`;
 export const AFTERFIAT_UPDATES_URL = `${AFTERFIAT_URL}/updates/`;
 export const AFTERFIAT_CITE_URL = `${AFTERFIAT_URL}/cite/`;
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
-export const GAMUT_URL = 'https://musicalgeometry.replit.app';
+// shapeofmusic.org is what GAMUT's own pages name as canonical; the old
+// musicalgeometry.replit.app address still serves the same site.
+export const GAMUT_URL = 'https://shapeofmusic.org';
 // GAMUT facts this site restates, exactly as the public GAMUT site states them
 // (`npm run check:freshness` reads each one back from its source page):
 // - GAMUT_SET_CLASSES is the count the Lean proof release certifies (/research/).
@@ -53,6 +61,13 @@ export const GAMUT_SET_CLASSES = 223;
 export const GAMUT_ORDERINGS = 14262;
 export const GAMUT_FIBERS = 216;
 export const GAMUT_PAPER_VERSION = '1.2';
+
+/** Spells a count the way running copy does ("eleven premises"). */
+const COUNT_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+  'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+export const spelled = (n: number) => COUNT_WORDS[n] ?? String(n);
+export const Spelled = (n: number) => spelled(n).replace(/^./, (c) => c.toUpperCase());
+
 export const SSRN_URL = 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5309953';
 
 // One citation list for /about, /writing, /resume, and the scholarly JSON-LD.

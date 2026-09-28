@@ -10,8 +10,11 @@ import {
   AFTERFIAT_UPDATES_URL,
   AFTERFIAT_VERSION,
   AFTERFIAT_VERSION_YEAR,
+  AFTERFIAT_PREMISES,
   AFTERFIAT_RED_LINES,
+  AFTERFIAT_SECTIONS,
   SITE,
+  Spelled,
 } from '@/lib/site';
 
 const researchData = JSON.stringify({
@@ -65,7 +68,7 @@ const verification = [
     <div class="container receipt__grid">
       <span><b>Sole author</b><br />Jason St George</span>
       <span><b>v{AFTERFIAT_VERSION}</b><br />{AFTERFIAT_VERSION_YEAR} · canonical web edition</span>
-      <span><b>34 numbered sections</b><br />§0–§33, six parts</span>
+      <span><b>{AFTERFIAT_SECTIONS} sections</b><br />six parts</span>
       <span><b>10 appendices</b><br />A–J</span>
       <span><b>Research controls</b><br />Section citations · checksum · CC BY 4.0</span>
     </div>
@@ -108,7 +111,7 @@ const verification = [
   <section class="section fade-up">
     <div class="container">
       <div class="split">
-        <div><p class="section-label">Argument architecture</p><h2>Ten premises.<br />A nine-link chain.<br />Eighteen red lines.</h2></div>
+        <div><p class="section-label">Argument architecture</p><h2>{Spelled(AFTERFIAT_PREMISES)} premises.<br />A nine-link chain.<br />{Spelled(AFTERFIAT_RED_LINES)} red lines.</h2></div>
         <div class="prose">
           <p>The thesis proceeds from administrative repression and service demand through deliverability, anti-bypass value capture, holder behavior, and market realization. Every link must survive; none is rescued by a compelling narrative.</p>
           <p>The {AFTERFIAT_RED_LINES} red lines turn the framework into a research program: measurable failure conditions for censorship resistance, proof portability, compute verification, concentration, bypass, liquidity, and holder conduct.</p>

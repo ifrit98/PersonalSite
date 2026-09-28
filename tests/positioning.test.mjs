@@ -11,6 +11,18 @@ execFileSync('npm', ['run', 'build'], {
   stdio: 'pipe',
 });
 
+// Mirrored facts live in src/lib/site.ts; tests read them back rather than pin
+// a value that the source will move (npm run check:freshness watches the source).
+const siteTs = readFileSync(new URL('../src/lib/site.ts', import.meta.url), 'utf8');
+const siteConstant = (name) => {
+  const m = siteTs.match(new RegExp(`export const ${name} = '?([^';]+)'?;`));
+  if (!m) throw new Error(`site.ts no longer exports ${name}`);
+  return m[1];
+};
+const COUNT_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+  'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+const spelled = (name) => COUNT_WORDS[Number(siteConstant(name))];
+
 const port = '5179';
 const server = spawn(process.execPath, ['dist/server/entry.mjs'], {
   cwd: projectRoot,
@@ -104,7 +116,8 @@ test('AfterFiat research profile presents the thesis structure and authorship', 
 
   assert.match(html, /Sole author/);
   assert.match(html, /conditional monetary candidate/i);
-  assert.match(html, /ten premises/i);
+  assert.match(html, new RegExp(`${spelled('AFTERFIAT_PREMISES')} premises`, 'i'));
+  assert.match(html, new RegExp(`${spelled('AFTERFIAT_RED_LINES')} red lines`, 'i'));
   assert.match(html, /nine-link/i);
   assert.match(html, /VerifyPrice/);
   assert.match(html, /VerifyReach/);
@@ -136,7 +149,7 @@ test('GAMUT is described as its public site states it, not beyond it', async () 
   const resume = await renderedPage('/resume');
 
   for (const page of [research, resume]) {
-    assert.match(page, /href="https:\/\/musicalgeometry\.replit\.app"/);
+    assert.match(page, new RegExp(`href="${siteConstant('GAMUT_URL').replace(/[./]/g, '\\$&')}"`));
     assert.match(page, /layered symplectic model of pitch-class space/);
     assert.match(page, /machine-checked in Lean/);
     assert.match(page, /explorer of [\d,]+ orderings across \d+ fibers/);
@@ -471,11 +484,10 @@ test('afterfiat mirrors the current thesis release, not a pinned old one', async
 
   // Read the release from site.ts so a version bump never needs a test edit;
   // npm run check:freshness is what compares it against afterfiat.xyz.
-  const siteTs = readFileSync(new URL('../src/lib/site.ts', import.meta.url), 'utf8');
-  const version = siteTs.match(/AFTERFIAT_VERSION = '([^']+)'/)[1];
+  const version = siteConstant('AFTERFIAT_VERSION');
   const v = version.replace(/\./g, '\\.');
   assert.match(afterfiat, new RegExp(`v${v}`));
-  assert.match(afterfiat, /Eighteen red lines/);
+  assert.match(afterfiat, new RegExp(`${spelled('AFTERFIAT_RED_LINES')} red lines`, 'i'));
   assert.match(afterfiat, new RegExp(`href="https://afterfiat\\.xyz/v/${v}/read/"`));
   assert.match(afterfiat, new RegExp(`href="https://afterfiat\\.xyz/pdf/next-gen-sov-v${v}\\.pdf"`));
   assert.match(afterfiat, new RegExp(`"version":"${v}"`));
@@ -486,10 +498,18 @@ test('afterfiat mirrors the current thesis release, not a pinned old one', async
     assert.doesNotMatch(page, /358/);
   }
 
-  // Section and appendix counts were re-verified against the v3.1 table of
-  // contents (§0–§33, appendices A–J) and still hold.
-  assert.match(afterfiat, /34 numbered sections/);
+  // The web edition numbers sections §0–§33 plus §5b and the PDF numbers them
+  // 1–35, so the site states the count and never a numbering.
+  assert.match(afterfiat, new RegExp(`${siteConstant('AFTERFIAT_SECTIONS')} sections`));
+  assert.doesNotMatch(afterfiat, /§\d+–§\d+/);
   assert.match(afterfiat, /10 appendices/);
+
+  // The LaTeX résumé cannot import site.ts, so it is the copy most likely to
+  // lag a release; hold it to the same version and counts as the pages.
+  const tex = readFileSync(new URL('../tex-src/main.tex', import.meta.url), 'utf8');
+  assert.match(tex, new RegExp(`AfterFiat --- Sole Author, v${v}\\}`));
+  assert.match(tex, new RegExp(`${spelled('AFTERFIAT_PREMISES')} premises`));
+  assert.match(tex, new RegExp(`${spelled('AFTERFIAT_RED_LINES')} red lines`));
 });
 
 test('resume matches the conservative claims used everywhere else', async () => {

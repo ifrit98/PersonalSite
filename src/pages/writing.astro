@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, AFTERFIAT_VERSION, ESCHATOLOGY_URL, PUBLICATIONS, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
+import { AFTERFIAT_PREMISES, AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, AFTERFIAT_RED_LINES, AFTERFIAT_VERSION, spelled, ESCHATOLOGY_URL, PUBLICATIONS, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
 
 // Architecture notes: native commercial essays (advisory package RB-22).
 // Drafts are excluded here as well as from the build, so the section simply
@@ -68,7 +68,7 @@ const startPaths = [
     n: '01',
     label: 'For systems builders',
     body:
-      'Start with AfterFiat: a conditional monetary thesis with ten premises, a nine-link chain, eighteen red lines, and public telemetry for testing the result.',
+      `Start with AfterFiat: a conditional monetary thesis with ${spelled(AFTERFIAT_PREMISES)} premises, a nine-link chain, ${spelled(AFTERFIAT_RED_LINES)} red lines, and public telemetry for testing the result.`,
   },
   {
     n: '02',

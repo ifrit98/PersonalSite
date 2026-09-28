@@ -2,7 +2,9 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import {
+  AFTERFIAT_PREMISES,
   AFTERFIAT_PROFILE_URL,
+  AFTERFIAT_RED_LINES,
   ESCHATOLOGY_URL,
   CAPABILITY_COMMONS_URL,
   GAMUT_FIBERS,
@@ -15,6 +17,7 @@ import {
   SWARMOS_URL,
   AGENTICDATA_URL,
   TURNKEYHQ_URL,
+  spelled,
 } from '@/lib/site';
 
 const highlights = [
@@ -28,7 +31,7 @@ const programs = [
   {
     name: 'AfterFiat',
     role: 'Sole Author',
-    desc: 'Versioned, sole-author monetary thesis: ten premises, a nine-link chain, eighteen red lines, and falsifiable telemetry across Privacy, Proofs, Compute, and market realization',
+    desc: `Versioned, sole-author monetary thesis: ${spelled(AFTERFIAT_PREMISES)} premises, a nine-link chain, ${spelled(AFTERFIAT_RED_LINES)} red lines, and falsifiable telemetry across Privacy, Proofs, Compute, and market realization`,
     href: AFTERFIAT_PROFILE_URL,
   },
   {

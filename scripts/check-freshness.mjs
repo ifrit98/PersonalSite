@@ -39,6 +39,8 @@ const numericConstant = (name) => {
 const AFTERFIAT = constant('AFTERFIAT_URL');
 const VERSION = constant('AFTERFIAT_VERSION');
 const RED_LINES = numericConstant('AFTERFIAT_RED_LINES');
+const PREMISES = numericConstant('AFTERFIAT_PREMISES');
+const SECTIONS = numericConstant('AFTERFIAT_SECTIONS');
 const GAMUT = constant('GAMUT_URL');
 
 const text = async (url) => {
@@ -90,6 +92,36 @@ const checks = [
     fix: 'update AFTERFIAT_RED_LINES in src/lib/site.ts and the spelled-out word on /afterfiat',
   },
   {
+    // The argument page lists every premise; the home page says how many. Both
+    // must agree, or the count this site restates has no single source.
+    name: 'AfterFiat premise count',
+    source: `${AFTERFIAT}/argument/`,
+    claimed: String(PREMISES),
+    async current() {
+      const listed = new Set((await text(`${AFTERFIAT}/argument/`)).match(/Premise \d+\b/g) ?? []).size;
+      const m = (await text(`${AFTERFIAT}/`)).match(/(\w+)\s+premises/i);
+      if (!listed || !m) throw new Error('premise list or count not found — the source pages changed shape');
+      const stated = NUMBER_WORDS[m[1].toLowerCase()] ?? Number(m[1]);
+      if (stated !== listed) throw new Error(`home page says ${m[1]} premises, /argument/ lists ${listed}`);
+      return String(listed);
+    },
+    fix: 'update AFTERFIAT_PREMISES in src/lib/site.ts and the premise count in tex-src/main.tex, then npm run build:resume',
+  },
+  {
+    // The web edition numbers sections §0–§33 plus §5b, so count entries rather
+    // than read the highest number.
+    name: 'AfterFiat section count',
+    source: `${AFTERFIAT}/v/${VERSION}/read/`,
+    claimed: String(SECTIONS),
+    async current() {
+      const t = await text(`${AFTERFIAT}/v/${VERSION}/read/`);
+      const n = new Set(t.match(/§\d+[a-z]?\. [A-Z]/g)?.map((x) => x.slice(0, -2)) ?? []).size;
+      if (!n) throw new Error('table of contents not found — the source page changed shape');
+      return String(n);
+    },
+    fix: 'update AFTERFIAT_SECTIONS in src/lib/site.ts',
+  },
+  {
     name: 'AfterFiat canonical read URL resolves',
     source: constant('AFTERFIAT_URL'),
     claimed: '200',
@@ -121,6 +153,19 @@ const checks = [
       return record?.metadata?.version ?? 'unknown';
     },
     fix: 'deposit the current version on Zenodo, or cite the concept DOI 10.5281/zenodo.18902694, which always resolves to the latest deposit',
+  },
+  {
+    name: 'GAMUT canonical address',
+    source: `${GAMUT}/`,
+    claimed: GAMUT,
+    async current() {
+      const res = await fetch(`${GAMUT}/`, { redirect: 'follow', signal: AbortSignal.timeout(30_000) });
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      const m = (await res.text()).match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i);
+      if (!m) throw new Error('no canonical link — the source page changed shape');
+      return m[1].replace(/\/$/, '');
+    },
+    fix: 'set GAMUT_URL in src/lib/site.ts to the address GAMUT names as canonical',
   },
   {
     // The count is claimed as Lean-certified, so read it from the sentence that
