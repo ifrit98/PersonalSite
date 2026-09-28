@@ -143,7 +143,7 @@ const toolchain = {
   title="Principal Systems Architect — Resume"
   description="Principal Systems Architect — AI, Autonomy & High-Constraint Infrastructure."
 >
-  <section class="page-hero fade-up" aria-labelledby="resume-hero-title">
+  <section class="page-hero" aria-labelledby="resume-hero-title">
     <div class="container container--narrow">
       <h1 id="resume-hero-title" class="page-hero__title">Jason St George</h1>
       <p class="page-hero__body">
@@ -152,7 +152,7 @@ const toolchain = {
     </div>
   </section>
 
-  <section class="summary fade-up" aria-labelledby="summary-heading">
+  <section class="summary" aria-labelledby="summary-heading">
     <div class="container container--narrow">
       <h2 id="summary-heading" class="sr-only">Summary</h2>
       <p class="summary__text">
@@ -161,23 +161,23 @@ const toolchain = {
     </div>
   </section>
 
-  <section class="highlights fade-up" aria-label="Career highlights">
+  <section class="highlights" aria-label="Career highlights">
     <div class="container">
       <ul class="highlights__list" role="list">
         {highlights.map((item, i) => (
-          <li class="highlights__item fade-up" style={`--stagger: ${i * 80}ms`}>{item}</li>
+          <li class="highlights__item">{item}</li>
         ))}
       </ul>
     </div>
   </section>
 
-  <section class="proof-points fade-up" aria-labelledby="proof-heading">
+  <section class="proof-points" aria-labelledby="proof-heading">
     <div class="container">
       <h2 id="proof-heading" class="section__heading">Proof Points</h2>
       <p class="section__intro">Selected wins with transferable outcomes.</p>
       <div class="proof-points__list">
         {proofPoints.map((pp, i) => (
-          <article class="proof-points__item fade-up" style={`--stagger: ${i * 80}ms`}>
+          <article class="proof-points__item">
             <h3 class="proof-points__title">{pp.title}</h3>
             <p class="proof-points__body">{pp.body}</p>
             {'href' in pp && pp.href && <a href={pp.href} class="proof-points__link">Read the case study</a>}
@@ -187,7 +187,7 @@ const toolchain = {
     </div>
   </section>
 
-  <section class="programs fade-up" aria-labelledby="programs-heading">
+  <section class="programs" aria-labelledby="programs-heading">
     <div class="container">
       <h2 id="programs-heading" class="section__heading">Selected Independent Systems &amp; Research</h2>
       <p class="section__intro">
@@ -197,8 +197,8 @@ const toolchain = {
         {programs.map((p, i) => p.href ? (
           <a
             href={p.href}
-            class="programs__entry fade-up"
-            style={`--stagger: ${i * 60}ms`}
+            class="programs__entry"
+           
             {...(p.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
           >
             <span class="programs__name">{p.name}</span>
@@ -207,8 +207,8 @@ const toolchain = {
           </a>
         ) : (
           <div
-            class="programs__entry fade-up"
-            style={`--stagger: ${i * 60}ms`}
+            class="programs__entry"
+           
           >
             <span class="programs__name">{p.name}</span>
             <span class="programs__role">{p.role}</span>
@@ -219,7 +219,7 @@ const toolchain = {
     </div>
   </section>
 
-  <section class="experience fade-up" aria-labelledby="experience-heading">
+  <section class="experience" aria-labelledby="experience-heading">
     <div class="container">
       <h2 id="experience-heading" class="section__heading">Work Experience</h2>
       <p class="section__intro">
@@ -244,7 +244,7 @@ const toolchain = {
     </div>
   </section>
 
-  <section class="education fade-up" aria-labelledby="education-heading">
+  <section class="education" aria-labelledby="education-heading">
     <div class="container">
       <h2 id="education-heading" class="section__heading">Education</h2>
       <div class="education__list">
@@ -262,7 +262,7 @@ const toolchain = {
     </div>
   </section>
 
-  <section class="publications fade-up" aria-labelledby="publications-heading">
+  <section class="publications" aria-labelledby="publications-heading">
     <div class="container">
       <h2 id="publications-heading" class="section__heading">Publications</h2>
       <ul class="publications__list" role="list">
@@ -286,7 +286,7 @@ const toolchain = {
     </div>
   </section>
 
-  <section class="toolchain fade-up" aria-labelledby="toolchain-heading">
+  <section class="toolchain" aria-labelledby="toolchain-heading">
     <div class="container">
       <h2 id="toolchain-heading" class="section__heading">Toolchain</h2>
       <div class="toolchain__grid">
@@ -302,7 +302,7 @@ const toolchain = {
     </div>
   </section>
 
-  <section class="cta-band fade-up" aria-labelledby="cta-heading">
+  <section class="cta-band" aria-labelledby="cta-heading">
     <div class="container">
       <div class="cta-band__inner">
         <h2 id="cta-heading" class="sr-only">Next steps</h2>
@@ -420,7 +420,7 @@ const toolchain = {
   .proof-points__item {
     background: var(--color-card-elevated);
     border: 1px solid var(--color-line);
-    border-left: 3px solid var(--color-brass);
+    border-left: 1px solid var(--color-line);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card-rest);
     padding: var(--sp-6);
@@ -473,7 +473,7 @@ const toolchain = {
     align-items: baseline;
     padding: var(--sp-4) var(--sp-4) var(--sp-4) var(--sp-5);
     border-bottom: 1px solid var(--color-line);
-    border-left: 3px solid var(--color-brass);
+    border-left: 1px solid var(--color-line);
     text-decoration: none;
     color: inherit;
     transition: background-color var(--duration-normal) var(--ease-out);

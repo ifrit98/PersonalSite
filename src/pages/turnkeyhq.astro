@@ -46,10 +46,9 @@ const decisions = [
   ogImage="/og/turnkeyhq.png"
   description="How Jason St George co-founded and built TurnkeyHQ across product architecture, engineering, release infrastructure, production operations, and commercial lifecycle."
 >
-  <section class="hero fade-up" aria-labelledby="turnkey-title">
+  <section class="hero" aria-labelledby="turnkey-title">
     <div class="container hero__grid">
       <div>
-        <span class="eyebrow">Flagship build · Vertical AI operating system</span>
         <h1 id="turnkey-title">TurnkeyHQ</h1>
         <p class="hero__dek">
           A full-lifecycle case study in turning an ambiguous vertical-AI product thesis into an operable multi-tenant system.
@@ -65,7 +64,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="premise fade-up">
+  <section class="premise">
     <div class="container container--narrow">
       <span class="section-label">What this case demonstrates</span>
       <ul>
@@ -77,7 +76,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="premise fade-up">
+  <section class="premise">
     <div class="container premise__grid">
       <span class="section-label">The operating problem</span>
       <div>
@@ -97,7 +96,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="lifecycle fade-up" aria-labelledby="lifecycle-title">
+  <section class="lifecycle" aria-labelledby="lifecycle-title">
     <div class="container">
       <span class="section-label">End-to-end ownership</span>
       <h2 id="lifecycle-title">The lifecycle is the case study.</h2>
@@ -113,7 +112,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="scope fade-up" id="platform-scope" aria-labelledby="scope-title">
+  <section class="scope" id="platform-scope" aria-labelledby="scope-title">
     <div class="container">
       <div class="scope__heading">
         <div>
@@ -133,7 +132,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="architecture fade-up" aria-labelledby="architecture-title">
+  <section class="architecture" aria-labelledby="architecture-title">
     <div class="container architecture__grid">
       <div>
         <span class="section-label">Product architecture</span>
@@ -159,7 +158,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="decisions fade-up" aria-labelledby="decisions-title">
+  <section class="decisions" aria-labelledby="decisions-title">
     <div class="container">
       <span class="section-label">Load-bearing decisions</span>
       <h2 id="decisions-title">What makes the system operable.</h2>
@@ -171,7 +170,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="release fade-up" id="release-operations" aria-labelledby="release-title">
+  <section class="release" id="release-operations" aria-labelledby="release-title">
     <div class="container release__grid">
       <div>
         <span class="section-label">Release engineering &amp; Production operations</span>
@@ -193,7 +192,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="commercial fade-up" aria-labelledby="commercial-title">
+  <section class="commercial" aria-labelledby="commercial-title">
     <div class="container premise__grid">
       <span class="section-label">Commercial lifecycle</span>
       <div>
@@ -208,7 +207,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="boundary fade-up">
+  <section class="boundary">
     <div class="container boundary__inner">
       <span class="section-label">Claim boundary</span>
       <p>
@@ -220,7 +219,7 @@ const decisions = [
     </div>
   </section>
 
-  <section class="cta fade-up">
+  <section class="cta">
     <div class="container cta__inner">
       <div><span class="section-label">Product reference</span><h2>See the company-facing product surface.</h2></div>
       <div class="cta__actions">
@@ -232,20 +231,20 @@ const decisions = [
 </BaseLayout>
 
 <style>
-  .section-label, .eyebrow { display:block; font:var(--text-mono-meta); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--color-brass-text); margin-bottom:var(--sp-4); }
+  .section-label, .eyebrow { display:block; font:var(--text-meta); font-family:var(--font-sans);; color:var(--color-brass-text); margin-bottom:var(--sp-4);font-weight:600}
   h1, h2, h3 { font-family:var(--font-display); color:var(--color-ink); font-weight:500; }
   h1 { font-family:var(--font-display); font-size:4rem; line-height:1.125; }
   h2 { font-family:var(--font-display); font-size:2.125rem; line-height:1.176; margin-bottom:var(--sp-5); }
   h3 { font-family:var(--font-display); font-size:1.5rem; line-height:1.25; }
   p { font:var(--text-body); font-family:var(--font-sans); color:var(--color-slate); }
-  .hero { padding-block:var(--sp-24) var(--sp-16); background:var(--color-dark-surface); --color-brass-text: var(--color-brass); border-bottom:1px solid var(--color-dark-line); }
-  .hero h1 { color:var(--color-dark-text); }
+  .hero { padding-block:var(--sp-20) var(--sp-16); border-bottom:1px solid var(--color-line); }
+  .hero h1 { color:var(--color-ink); }
   .hero__grid { display:grid; grid-template-columns:1.15fr .85fr; gap:var(--sp-16); align-items:end; }
-  .hero__dek { font:var(--text-body-lg); font-family:var(--font-sans); color:rgba(238, 241, 244,.72); max-width:34em; margin-top:var(--sp-5); }
+  .hero__dek { font:var(--text-body-lg); font-family:var(--font-sans); color:var(--color-slate); max-width:34em; margin-top:var(--sp-5); }
   .hero__role { border-top:1px solid rgba(43, 76, 126,.65); }
-  .hero__role div { display:grid; grid-template-columns:6rem 1fr; gap:var(--sp-4); padding:var(--sp-3) 0; border-bottom:1px solid var(--color-dark-line); }
-  .hero__role dt { font:var(--text-mono-meta); font-family:var(--font-mono); color:var(--color-dark-muted); text-transform:uppercase; }
-  .hero__role dd { font:var(--text-meta); font-family:var(--font-sans); color:var(--color-dark-text); }
+  .hero__role div { display:grid; grid-template-columns:6rem 1fr; gap:var(--sp-4); padding:var(--sp-3) 0; border-bottom:1px solid var(--color-line); }
+  .hero__role dt { font:var(--text-meta); font-family:var(--font-sans); color:var(--color-slate);font-weight:600}
+  .hero__role dd { font:var(--text-meta); font-family:var(--font-sans); color:var(--color-ink); }
   .premise, .commercial { padding-block:var(--sp-24); }
   .premise__grid { display:grid; grid-template-columns:.45fr 1.55fr; gap:var(--sp-16); }
   .premise p + p { margin-top:var(--sp-5); }
@@ -263,7 +262,7 @@ const decisions = [
   .scope__item { padding:var(--sp-6); border-right:1px solid var(--color-line); border-bottom:1px solid var(--color-line); }
   .scope__item dt { display:flex; align-items:baseline; gap:var(--sp-3); margin-bottom:var(--sp-3); }
   .scope__item strong { font:var(--text-h2); font-family:var(--font-display); color:var(--color-ink); }
-  .scope__item span { font:var(--text-mono-meta); font-family:var(--font-mono); color:var(--color-brass-text); text-transform:uppercase; }
+  .scope__item span { font:var(--text-meta); font-family:var(--font-sans); color:var(--color-brass-text);font-weight:600}
   .scope__item dd { font:var(--text-meta); font-family:var(--font-sans); color:var(--color-slate); }
   .architecture { padding-block:var(--sp-24); border-top:1px solid var(--color-line); }
   .architecture__grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:var(--sp-16); align-items:start; }
@@ -273,7 +272,7 @@ const decisions = [
   .system-map__row span, .system-map__data { padding:var(--sp-3); border:1px solid var(--color-dark-line); text-align:center; font:var(--text-mono-meta); font-family:var(--font-mono); }
   .system-map__planes { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); }
   .system-map__planes div { padding:var(--sp-5); border:1px solid rgba(43, 76, 126,.55); }
-  .system-map small { display:block; font-family:var(--font-mono); color:var(--color-brass-text); text-transform:uppercase; margin-bottom:var(--sp-2); }
+  .system-map small { display:block; font-family:var(--font-sans); color:var(--color-brass-text); margin-bottom:var(--sp-2);font-weight:600}
   .system-map strong { font:var(--text-meta); font-family:var(--font-sans); font-weight:500; }
   .system-map__connector { color:var(--color-dark-muted); font:var(--text-mono-meta); font-family:var(--font-mono); text-align:center; padding:var(--sp-3); }
   .decisions { padding-block:var(--sp-24); border-top:1px solid var(--color-line); }

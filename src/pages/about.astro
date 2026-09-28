@@ -121,7 +121,7 @@ const workOn = [
   description="About Jason St George — founder, principal engineer, and researcher building technical systems from problem definition through production."
   ogType="profile"
 >
-  <section class="page-hero fade-up" aria-labelledby="about-hero-title">
+  <section class="page-hero" aria-labelledby="about-hero-title">
     <div class="container container--narrow">
       <h1 id="about-hero-title" class="page-hero__title">About</h1>
       <p class="page-hero__body">
@@ -138,7 +138,7 @@ const workOn = [
     </div>
   </section>
 
-  <section class="narrative fade-up" aria-labelledby="narrative-heading">
+  <section class="narrative" aria-labelledby="narrative-heading">
     <div class="container container--narrow">
       <h2 id="narrative-heading" class="section-heading">How I got here</h2>
       <div class:list={['narrative__intro', { 'narrative__intro--no-portrait': !headshotSrc }]}>
@@ -184,12 +184,12 @@ const workOn = [
     </div>
   </section>
 
-  <section class="timeline fade-up" aria-labelledby="timeline-heading">
+  <section class="timeline" aria-labelledby="timeline-heading">
     <div class="container container--narrow">
       <h2 id="timeline-heading" class="section-heading">Professional background</h2>
       <ol class="timeline__list">
         {timeline.map((entry, i) => (
-          <li class="timeline__entry fade-up" style={`--stagger: ${i * 80}ms`}>
+          <li class="timeline__entry">
             <span class="timeline__period">{entry.period}</span>
             <div class="timeline__content">
               <p class="timeline__label">{entry.label}</p>
@@ -201,7 +201,7 @@ const workOn = [
     </div>
   </section>
 
-  <section class="publications fade-up" id="published-research" aria-labelledby="publications-heading">
+  <section class="publications" id="published-research" aria-labelledby="publications-heading">
     <div class="container container--narrow">
       <h2 id="publications-heading" class="section-heading">Published research</h2>
       <ul class="publications__list">
@@ -228,13 +228,13 @@ const workOn = [
     </div>
   </section>
 
-  <section class="work-on fade-up" aria-labelledby="work-on-heading">
+  <section class="work-on" aria-labelledby="work-on-heading">
     <div class="container">
       <h2 id="work-on-heading" class="section-heading">What I work on</h2>
       <p class="section-intro">Each thread links to the work behind it.</p>
       <div class="work-on__grid">
         {workOn.map((card, i) => (
-          <article class="work-on__card fade-up" style={`--stagger: ${i * 60}ms`}>
+          <article class="work-on__card">
             <h3 class="work-on__title">{card.title}</h3>
             <p class="work-on__body">{card.body}</p>
             <ul class="work-on__links">
@@ -256,7 +256,7 @@ const workOn = [
     </div>
   </section>
 
-  <section class="current-focus fade-up" aria-labelledby="focus-heading">
+  <section class="current-focus" aria-labelledby="focus-heading">
     <div class="container container--narrow">
       <h2 id="focus-heading" class="section-heading">Current work</h2>
       <p class="current-focus__body">
@@ -279,7 +279,7 @@ const workOn = [
     </div>
   </section>
 
-  <section class="cta-band fade-up" aria-labelledby="about-cta-heading">
+  <section class="cta-band" aria-labelledby="about-cta-heading">
     <div class="container">
       <div class="cta-band__inner">
         <h2 id="about-cta-heading" class="sr-only">Where to start</h2>
@@ -396,7 +396,7 @@ const workOn = [
     gap: var(--sp-6);
     padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
     border-bottom: 1px solid var(--color-line);
-    border-left: 3px solid var(--color-brass);
+    border-left: 1px solid var(--color-ink);
   }
 
   .timeline__period {
@@ -439,7 +439,7 @@ const workOn = [
 
   .publication {
     padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
-    border-left: 3px solid var(--color-brass);
+    border-left: 1px solid var(--color-line);
   }
 
   .publication__title {
@@ -465,13 +465,10 @@ const workOn = [
   }
 
   .publication__link {
-    font: var(--text-mono-meta);
-    font-family: var(--font-mono);
+    font: var(--text-meta);
+    font-family: var(--font-sans);
     color: var(--color-brass-text);
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
+    text-decoration: none;font-weight:600}
 
   .publication__link:hover {
     color: var(--color-oxblood);
@@ -532,7 +529,7 @@ const workOn = [
     flex-direction: column;
     background: var(--color-card-elevated);
     border: 1px solid var(--color-line);
-    border-left: 3px solid var(--color-brass);
+    border-left: 1px solid var(--color-line);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card-rest);
     padding: var(--sp-6);

@@ -48,9 +48,8 @@ const verification = [
 >
   <script type="application/ld+json" slot="head" set:html={researchData} />
 
-  <section class="hero fade-up">
+  <section class="hero">
     <div class="container">
-      <p class="kicker">Independent research · monetary systems · versioned thesis</p>
       <h1>Next Generation Stores of Value:<br /><em>Privacy, Proofs, Compute</em></h1>
       <p class="lede">
         A conditional monetary thesis testing whether three essential digital services can support
@@ -74,7 +73,7 @@ const verification = [
     </div>
   </aside>
 
-  <section class="claim section fade-up">
+  <section class="claim section">
     <div class="container split">
       <div>
         <p class="section-label">The narrower claim</p>
@@ -95,7 +94,7 @@ const verification = [
     </div>
   </section>
 
-  <section class="section section--dark fade-up">
+  <section class="section section--dark">
     <div class="container">
       <p class="section-label">Three services, one empirical question</p>
       <h2>What must remain deliverable?</h2>
@@ -108,7 +107,7 @@ const verification = [
     </div>
   </section>
 
-  <section class="section fade-up">
+  <section class="section">
     <div class="container">
       <div class="split">
         <div><p class="section-label">Argument architecture</p><h2>{Spelled(AFTERFIAT_PREMISES)} premises.<br />A nine-link chain.<br />{Spelled(AFTERFIAT_RED_LINES)} red lines.</h2></div>
@@ -121,7 +120,7 @@ const verification = [
     </div>
   </section>
 
-  <section class="machines section fade-up">
+  <section class="machines section">
     <div class="container">
       <p class="section-label">The two machines</p>
       <h2>Protocol performance and market price are different systems.</h2>
@@ -145,7 +144,7 @@ const verification = [
     </div>
   </section>
 
-  <section class="verification section fade-up">
+  <section class="verification section">
     <div class="container">
       <p class="section-label">Falsifiable telemetry</p>
       <h2>Four verification families</h2>
@@ -155,7 +154,7 @@ const verification = [
     </div>
   </section>
 
-  <section class="section instruments fade-up">
+  <section class="section instruments">
     <div class="container split">
       <div><p class="section-label">Instrument separation</p><h2>Do not hide duration inside money.</h2></div>
       <div class="prose">
@@ -165,7 +164,7 @@ const verification = [
     </div>
   </section>
 
-  <section class="closing section section--dark fade-up">
+  <section class="closing section section--dark">
     <div class="container split">
       <div><p class="section-label">A versioned research program</p><h2>Designed to be challenged, revised, and cited.</h2></div>
       <div class="prose">
@@ -180,7 +179,7 @@ const verification = [
 
 <style>
   .hero{padding-block:clamp(6rem,12vw,10rem) var(--sp-20);background:var(--color-bone);border-bottom:1px solid var(--color-line)}
-  .hero .container{max-width:1180px}.kicker,.section-label,.machine__eyebrow{font:var(--text-label);font-family:var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--color-brass-text);margin-bottom:var(--sp-5)}
+  .kicker,.section-label,.machine__eyebrow{font:var(--text-meta);font-family:var(--font-sans);;color:var(--color-brass-text);margin-bottom:var(--sp-5);font-weight:600}
   h1{max-width:1050px;font-family:var(--font-serif);font-size:clamp(3rem,7vw,6.4rem);font-weight:400;line-height:.96;letter-spacing:-.045em;color:var(--color-ink)}h1 em{font-weight:400;color:var(--color-brass-text)}
   .lede{max-width:780px;margin-top:var(--sp-8);font:var(--text-body-lg);color:var(--color-ink-muted)}.actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-8)}
   .receipt{background:var(--color-paper);border-bottom:1px solid var(--color-line)}.receipt__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;padding-block:0}.receipt span{padding:var(--sp-5);border-left:1px solid var(--color-line);font:var(--text-small);color:var(--color-ink-muted)}.receipt span:last-child{border-right:1px solid var(--color-line)}.receipt b{color:var(--color-ink);font-weight:600}

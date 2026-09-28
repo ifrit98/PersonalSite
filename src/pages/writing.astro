@@ -91,7 +91,7 @@ const startPaths = [
 >
   <script type="application/ld+json" slot="head" set:html={scholarlyData} />
 
-  <section class="writing-hero fade-up">
+  <section class="writing-hero">
     <div class="container container--narrow">
       <h1 class="writing-hero__title">Writing</h1>
       <p class="writing-hero__body">
@@ -100,7 +100,7 @@ const startPaths = [
     </div>
   </section>
 
-  <section class="writing-overview fade-up">
+  <section class="writing-overview">
     <div class="container container--narrow">
       <p class="writing-overview__text">
         Some of it is technical and thesis-driven; some is exploratory. The common purpose is to turn complicated systems into arguments that can be examined, challenged, revised, and used.
@@ -108,7 +108,7 @@ const startPaths = [
     </div>
   </section>
 
-  <section class="writing-surfaces fade-up">
+  <section class="writing-surfaces">
     <div class="container">
       <h2 class="writing-surfaces__heading">Formal research and essays</h2>
       <p class="writing-surfaces__intro">
@@ -117,7 +117,6 @@ const startPaths = [
       </p>
       <div class="writing-surfaces__grid">
         <a href={AFTERFIAT_PROFILE_URL} class="surface-card">
-          <p class="surface-card__eyebrow">Thesis / Blueprint</p>
           <h3 class="surface-card__title">AfterFiat</h3>
           <p class="surface-card__body">
             Value capture is not moneyness. This sole-author research program tests whether
@@ -130,7 +129,6 @@ const startPaths = [
           <span class="surface-card__cta">Read AfterFiat</span>
         </a>
         <a href={ESCHATOLOGY_URL} class="surface-card">
-          <p class="surface-card__eyebrow">Publication / Essays</p>
           <h3 class="surface-card__title">Eschatology Report</h3>
           <p class="surface-card__body">
             Eschatology Report is the essay and publication layer: writing on AI acceleration,
@@ -145,7 +143,7 @@ const startPaths = [
   </section>
 
   {notes.length > 0 && (
-    <section class="architecture-notes fade-up" id="architecture-notes">
+    <section class="architecture-notes" id="architecture-notes">
       <div class="container container--narrow">
         <h2 class="architecture-notes__heading">Architecture notes</h2>
         <p class="architecture-notes__intro">
@@ -169,7 +167,7 @@ const startPaths = [
     </section>
   )}
 
-  <section class="writing-research fade-up" id="published-research">
+  <section class="writing-research" id="published-research">
     <div class="container container--narrow">
       <h2 class="writing-research__heading">Published Research</h2>
       <ul class="writing-research__list">
@@ -194,7 +192,7 @@ const startPaths = [
     </div>
   </section>
 
-  <section class="writing-themes fade-up">
+  <section class="writing-themes">
     <div class="container">
       <h2 class="writing-themes__heading">Themes</h2>
       <p class="writing-themes__intro">
@@ -214,7 +212,7 @@ const startPaths = [
     </div>
   </section>
 
-  <section class="writing-start fade-up">
+  <section class="writing-start">
     <div class="container container--narrow">
       <h2 class="writing-start__heading">Start Here</h2>
       <p class="writing-start__intro">
@@ -239,7 +237,7 @@ const startPaths = [
     </div>
   </section>
 
-  <section class="writing-cta fade-up">
+  <section class="writing-cta">
     <div class="container container--narrow">
       <p class="writing-cta__body">
         Read the thesis for the architecture. Read the essays for the atmosphere. Use both if you
@@ -338,14 +336,11 @@ const startPaths = [
   }
 
   .surface-card__eyebrow {
-    font: var(--text-mono-meta);
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font: var(--text-meta);
+    font-family: var(--font-sans);;
     color: var(--color-brass-text);
     margin-bottom: var(--sp-3);
-    max-width: none;
-  }
+    max-width: none;font-weight:600}
 
   .surface-card__title {
     font: var(--text-h3);
@@ -399,7 +394,7 @@ const startPaths = [
 
   .research-item {
     padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
-    border-left: 3px solid var(--color-brass);
+    border-left: 1px solid var(--color-line);
   }
 
   .research-item__title {
@@ -425,13 +420,10 @@ const startPaths = [
   }
 
   .research-item__links a {
-    font: var(--text-mono-meta);
-    font-family: var(--font-mono);
+    font: var(--text-meta);
+    font-family: var(--font-sans);
     color: var(--color-brass-text);
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
+    text-decoration: none;font-weight:600}
 
   .research-item__links a:hover {
     color: var(--color-oxblood);
@@ -489,7 +481,7 @@ const startPaths = [
 
   .theme-item {
     padding: var(--sp-6);
-    border-left: 3px solid var(--color-brass);
+    border-left: 1px solid var(--color-line);
   }
 
   .theme-item__title {
@@ -616,7 +608,7 @@ const startPaths = [
   .architecture-notes__heading { font: var(--text-h2); font-family: var(--font-serif); }
   .architecture-notes__intro { font: var(--text-body); color: var(--color-slate); margin-top: var(--sp-4); max-width: 40em; }
   .architecture-notes__list { list-style: none; margin: var(--sp-8) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--sp-5); }
-  .architecture-notes__list a { display: block; padding: var(--sp-6); border: 1px solid var(--color-line); border-left: 3px solid var(--color-brass); border-radius: var(--radius-card); text-decoration: none; color: inherit; }
+  .architecture-notes__list a { display: block; padding: var(--sp-6); border: 1px solid var(--color-line); border-left: 1px solid var(--color-line); border-radius: var(--radius-card); text-decoration: none; color: inherit; }
   .architecture-notes__list h3 { font: var(--text-h3); font-family: var(--font-serif); }
   .architecture-notes__list p { font: var(--text-body); color: var(--color-slate); margin-top: var(--sp-3); }
   .architecture-notes__list time { display: block; font: var(--text-meta); color: var(--color-brass-text); margin-top: var(--sp-4); }
