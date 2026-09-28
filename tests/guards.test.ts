@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { test } from 'node:test';
 import { notifyInquiry } from '../src/lib/notify.ts';
 import { isRateLimited } from '../src/lib/rate-limit.ts';
@@ -133,4 +135,20 @@ test('rate limiter counts within its window and forgets outside it', () => {
   for (let i = 0; i < 3; i += 1) assert.equal(isRateLimited(key, 3, 60_000, t0 + i), false);
   assert.equal(isRateLimited(key, 3, 60_000, t0 + 10), true);
   assert.equal(isRateLimited(key, 3, 60_000, t0 + 120_000), false);
+});
+
+test('every CSS custom property the site reads is defined somewhere', () => {
+  // A var() with no definition and no fallback invalidates its whole declaration,
+  // silently: undefined --sp-20 and --sp-10 took the padding off the homepage's
+  // dark band and the /afterfiat hero, with no build warning.
+  const files = (readdirSync('src', { recursive: true }) as string[])
+    .filter((f) => /\.(astro|css)$/.test(f))
+    .map((f) => readFileSync(join('src', f), 'utf8'));
+  const defined = new Set(files.flatMap((s) => [...s.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1])));
+  const undefinedUses = new Set(
+    files.flatMap((s) =>
+      [...s.matchAll(/var\((--[\w-]+)\s*(,)?/g)].filter((m) => !m[2] && !defined.has(m[1])).map((m) => m[1]),
+    ),
+  );
+  assert.deepEqual([...undefinedUses], []);
 });

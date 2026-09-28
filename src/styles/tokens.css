@@ -12,6 +12,12 @@
   --color-oxblood: #4F2432;
   --color-line: rgba(16, 24, 38, 0.12);
   --color-card: rgba(255, 255, 255, 0.55);
+  /* Pages referenced these without a definition, and a var() with no value
+     invalidates its whole declaration: /afterfiat's hero lost its padding and
+     its lede its muted color. Slate and brass-text both clear AA on paper. */
+  --color-ink-muted: var(--color-slate);
+  --color-paper: #EEE8DC;
+  --color-brass-light: #C7A66A;
   --color-white: #ffffff;
 
   /* Dark surface system */
@@ -39,6 +45,8 @@
   --text-body: 1.125rem / 1.667 var(--font-sans);
   --text-meta: 0.875rem / 1.571 var(--font-sans);
   --text-mono-meta: 0.8125rem / 1.538 var(--font-mono);
+  --text-label: 500 0.75rem / 1.5 var(--font-mono);
+  --text-small: var(--text-meta);
 
   /* Spacing */
   --sp-1: 0.25rem;
@@ -48,8 +56,11 @@
   --sp-5: 1.25rem;
   --sp-6: 1.5rem;
   --sp-8: 2rem;
+  --sp-10: 2.5rem;
   --sp-12: 3rem;
+  --sp-14: 3.5rem;
   --sp-16: 4rem;
+  --sp-20: 5rem;
   --sp-24: 6rem;
   --sp-32: 8rem;
 
