@@ -91,90 +91,339 @@ const experience = [
   ogImage="/og/engage.png"
   description="Architecture and de-risking engagements for founders, CTOs, and engineering leaders facing consequential AI and systems decisions. Architecture reviews, de-risking sprints, and fractional principal architecture."
 >
-  <section class="hero"><div class="container container--narrow">
-    <span>ADVISORY · ARCHITECTURE · DE-RISKING</span>
-    <h1>Work with Jason</h1>
-    <p>I work with founders, CTOs, engineering leaders, and technical teams on consequential AI and systems problems where the architecture is unclear, the constraints are real, or getting the answer wrong will be expensive.</p>
-    <p>My role is usually not to add another pair of hands to a backlog. It is to clarify the system, identify the critical decisions, pressure-test assumptions, and help build or de-risk the path forward.</p>
-    <div><Button href={CONTACT_URL} variant="brass">Discuss an engagement</Button><Button href="#offers" variant="ghost">See engagement types</Button></div>
-  </div></section>
+  <section class="hero">
+    <div class="container">
+      <h1>Work with Jason</h1>
+      <div class="hero__body">
+        <p>I work with founders, CTOs, engineering leaders, and technical teams on consequential AI and systems problems where the architecture is unclear, the constraints are real, or getting the answer wrong will be expensive.</p>
+        <p>My role is usually not to add another pair of hands to a backlog. It is to clarify the system, identify the critical decisions, pressure-test assumptions, and help build or de-risk the path forward.</p>
+      </div>
+      <div class="hero__actions">
+        <Button href={CONTACT_URL}>Discuss an engagement</Button>
+        <a href="#offers">See engagement types</a>
+      </div>
+    </div>
+  </section>
 
-  <section class="section" id="offers"><div class="container">
-    <h2>Engagements</h2>
-    <p class="intro">Three ways to buy principal-level technical judgment in a bounded amount of time. Each one is priced against the answer it produces, not against hours logged.</p>
-    <div class="offers">{offers.map((offer) => (
-      <article id={offer.id}>
-        <h3>{offer.name}</h3>
-        <p class="offer__summary">{offer.summary}</p>
-        <p class="offer__label">Typical questions</p>
-        <ul>{offer.questions.map((q) => <li>{q}</li>)}</ul>
-        <dl>
-          <div><dt>What I need</dt><dd>{offer.inputs}</dd></div>
-          <div><dt>Deliverable</dt><dd>{offer.deliverable}</dd></div>
-          <div><dt>Typical engagement</dt><dd>{offer.duration}</dd></div>
-          <div><dt>Investment</dt><dd>{offer.price}</dd></div>
-        </dl>
-      </article>
-    ))}</div>
-    <p class="qualifier">{FEE_QUALIFIER}</p>
-    <aside class="diligence" aria-labelledby="diligence-heading">
-      <h3 id="diligence-heading">{diligence.title}</h3>
-      <p>{diligence.body}</p>
-      <p class="diligence__boundary">{diligence.boundary}</p>
-      <a href={CONTACT_URL}>Discuss a technical review</a>
-    </aside>
-  </div></section>
+  <section class="section" id="offers">
+    <div class="container">
+      <h2>Engagements</h2>
+      <p class="intro">Three ways to buy principal-level technical judgment in a bounded amount of time. Each one is priced against the answer it produces, not against hours logged.</p>
+      <!-- One sheet, three columns: the rows line up so the offers compare across. -->
+      <div class="offers">
+        {offers.map((offer) => (
+          <article id={offer.id} class="offer">
+            <h3>{offer.name}</h3>
+            <p class="offer__summary">{offer.summary}</p>
+            <div class="offer__cell">
+              <p class="offer__label">Typical questions</p>
+              <ul>{offer.questions.map((q) => <li>{q}</li>)}</ul>
+            </div>
+            <div class="offer__cell"><p class="offer__label">What I need</p><p>{offer.inputs}</p></div>
+            <div class="offer__cell"><p class="offer__label">Deliverable</p><p>{offer.deliverable}</p></div>
+            <div class="offer__cell offer__cell--figure"><p class="offer__label">Typical engagement</p><p>{offer.duration}</p></div>
+            <div class="offer__cell offer__cell--figure"><p class="offer__label">Investment</p><p>{offer.price}</p></div>
+          </article>
+        ))}
+      </div>
+      <p class="qualifier">{FEE_QUALIFIER}</p>
+      <aside class="diligence" aria-labelledby="diligence-heading">
+        <h3 id="diligence-heading">{diligence.title}</h3>
+        <p>{diligence.body}</p>
+        <p class="diligence__boundary">{diligence.boundary}</p>
+        <a href={CONTACT_URL}>Discuss a technical review</a>
+      </aside>
+    </div>
+  </section>
 
-  <section class="section"><div class="container">
-    <h2>How engagements work</h2>
-    <p class="intro">These constraints are what keep the work good. They are stated up front so nobody has to discover them mid-engagement.</p>
-    <div class="operating">{operating.map(([title, body]) => <article><h3>{title}</h3><p>{body}</p></article>)}</div>
-  </div></section>
+  <section class="section">
+    <div class="container">
+      <h2>How engagements work</h2>
+      <p class="intro">These constraints are what keep the work good. They are stated up front so nobody has to discover them mid-engagement.</p>
+      <dl class="operating">
+        {operating.map(([title, body]) => <div><dt>{title}</dt><dd>{body}</dd></div>)}
+      </dl>
+    </div>
+  </section>
 
-  <section class="section"><div class="container">
-    <h2>Relevant operating experience</h2>
-    <p class="intro">Secure and air-gapped ML infrastructure, GPU training systems, low-latency edge inference, adversarial distributed systems, production AI applications, retrieval and knowledge systems, technical research, and 0→1 product architecture.</p>
-    <div class="experience">{experience.map(([title, proof, href]) => <a href={href}><h3>{title}</h3><p>{proof}</p><em>View case study</em></a>)}</div>
-  </div></section>
+  <section class="section">
+    <div class="container">
+      <h2>Relevant operating experience</h2>
+      <p class="intro">Secure and air-gapped ML infrastructure, GPU training systems, low-latency edge inference, adversarial distributed systems, production AI applications, retrieval and knowledge systems, technical research, and 0→1 product architecture.</p>
+      <ul class="experience">
+        {experience.map(([title, proof, href]) => (
+          <li><a href={href}><span class="experience__title">{title}</span><span class="experience__proof">{proof}</span><span class="experience__link">Read the case study</span></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
-  <section class="dark"><div class="container container--narrow">
-    <h2>Send me the problem and the constraints.</h2>
-    <p>The strongest opening message is a concrete description of what you are building, what it has to survive, and what will go wrong if the architecture is wrong. A polished pitch is not necessary.</p>
-    <p>If you already have a clean specification and simply need implementation capacity, I am not the highest-leverage fit — and I will tell you so quickly.</p>
-    <Button href={CONTACT_URL} variant="brass">Discuss an engagement</Button>
-  </div></section>
+  <section class="dark">
+    <div class="container container--narrow">
+      <h2>Send me the problem and the constraints.</h2>
+      <p>The strongest opening message is a concrete description of what you are building, what it has to survive, and what will go wrong if the architecture is wrong. A polished pitch is not necessary.</p>
+      <p>If you already have a clean specification and simply need implementation capacity, I am not the highest-leverage fit, and I will tell you so quickly.</p>
+      <div class="dark__action"><Button href={CONTACT_URL} variant="brass">Discuss an engagement</Button></div>
+    </div>
+  </section>
 </BaseLayout>
+
 <style>
-  .hero,.dark{background:var(--color-dark-surface); --color-brass-text: var(--color-brass);color:var(--color-dark-text);padding-block:var(--sp-24)}
-  .hero span{font:var(--text-mono-meta);color:var(--color-brass-text);letter-spacing:.06em}
-  .hero h1{font:var(--text-h1);font-family:var(--font-display);font-weight:500;margin-top:var(--sp-4)}
-  .hero p,.dark p{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-6);max-width:44em}
-  .hero .container>div{display:flex;flex-wrap:wrap;gap:var(--sp-4);margin-top:var(--sp-8)}
-  .section{padding-block:var(--sp-16);border-bottom:1px solid var(--color-line)}
-  h2{font:var(--text-h2);font-family:var(--font-display);font-weight:500}
-  h3{font-family:var(--font-display);font-weight:500}
-  .intro{max-width:45em;margin:var(--sp-4) 0 var(--sp-8);color:var(--color-slate)}
-  .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6);grid-auto-rows:1fr}
-  .offers article,.operating article,.experience a{border:1px solid var(--color-line);border-left:3px solid var(--color-brass);border-radius:var(--radius-card);padding:var(--sp-6)}
-  .offer__summary{color:var(--color-slate);margin-top:var(--sp-3)}
-  .offer__label{font:var(--text-meta);color:var(--color-brass-text);margin-top:var(--sp-5)}
-  .offers ul{margin:var(--sp-3) 0 0;padding-left:1.1em;color:var(--color-slate);display:flex;flex-direction:column;gap:var(--sp-2)}
-  dl{display:flex;flex-direction:column;gap:var(--sp-4);margin-top:var(--sp-6)}
-  dt{font:var(--text-meta);color:var(--color-brass-text)}
-  dd{margin:var(--sp-1) 0 0;color:var(--color-slate)}
-  .operating{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-6)}
-  .experience{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6)}
-  .qualifier{margin-top:var(--sp-6);color:var(--color-slate);font:var(--text-meta);max-width:52em}
-  .diligence{margin-top:var(--sp-8);padding:var(--sp-6);border:1px solid var(--color-line);border-left:3px solid var(--color-brass);border-radius:var(--radius-card);background:var(--color-warm-wash)}
-  .diligence h3{font:var(--text-h3);font-family:var(--font-display)}
-  .diligence p{color:var(--color-slate);margin-top:var(--sp-3);max-width:52em}
-  .diligence__boundary{font:var(--text-meta)}
-  .diligence a{display:inline-block;margin-top:var(--sp-5);color:var(--color-brass-text)}
-  .operating p,.experience p{color:var(--color-slate);margin-top:var(--sp-3)}
-  .experience a{color:inherit;text-decoration:none;display:block}
-  .experience em{display:block;margin-top:var(--sp-5);color:var(--color-brass-text);font:var(--text-meta);font-style:normal}
-  .dark h2{color:var(--color-dark-text)}
-  .dark :global(.btn){margin-top:var(--sp-8)}
-  @media(max-width:900px){.offers,.experience{grid-template-columns:1fr}}
-  @media(max-width:768px){.hero,.dark{padding-block:var(--sp-16)}.hero h1{font:var(--text-h2)}.section{padding-block:var(--sp-12)}.operating,.experience{grid-template-columns:1fr}}
+  .hero {
+    padding-block: var(--sp-20) var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .hero__body {
+    max-width: 44em;
+  }
+
+  .hero p {
+    margin-top: var(--sp-5);
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-4) var(--sp-6);
+    margin-top: var(--sp-8);
+  }
+
+  .hero__actions > a:not(.btn) {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--color-line);
+    text-underline-offset: 0.3em;
+  }
+
+  .section {
+    padding-block: var(--sp-20);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .intro {
+    max-width: 45em;
+    margin: var(--sp-4) 0 var(--sp-10);
+    color: var(--color-slate);
+  }
+
+  .offers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(7, auto);
+    column-gap: var(--sp-8);
+    border-top: 2px solid var(--color-ink);
+  }
+
+  .offer {
+    display: grid;
+    grid-row: span 7;
+    grid-template-rows: subgrid;
+    scroll-margin-top: 6rem;
+  }
+
+  .offer h3 {
+    padding-top: var(--sp-5);
+    font-size: 1.375rem;
+  }
+
+  .offer__summary {
+    margin-top: var(--sp-3);
+    padding-bottom: var(--sp-5);
+    color: var(--color-slate);
+  }
+
+  .offer__cell {
+    padding-block: var(--sp-4);
+    border-top: 1px solid var(--color-line);
+    color: var(--color-slate);
+  }
+
+  .offer__label {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .offer__label + p,
+  .offer__cell ul {
+    margin-top: var(--sp-2);
+  }
+
+  .offer__cell ul {
+    display: grid;
+    gap: var(--sp-2);
+    padding-left: 1.1em;
+  }
+
+  .offer__cell--figure p:not(.offer__label) {
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .qualifier {
+    margin-top: var(--sp-6);
+    max-width: 52em;
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  .diligence {
+    margin-top: var(--sp-12);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--color-ink);
+    max-width: 52em;
+  }
+
+  .diligence p {
+    margin-top: var(--sp-3);
+    color: var(--color-slate);
+  }
+
+  .diligence__boundary {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+  }
+
+  .diligence a {
+    display: inline-block;
+    margin-top: var(--sp-5);
+    font-weight: 500;
+    color: var(--color-brass-text);
+  }
+
+  .operating {
+    display: grid;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .operating div {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
+    gap: var(--sp-8);
+    padding-block: var(--sp-5);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .operating div:first-child {
+    border-top-color: var(--color-ink);
+  }
+
+  .operating dt {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-stretch: 90%;
+    font-size: 1.125rem;
+  }
+
+  .operating dd {
+    color: var(--color-slate);
+  }
+
+  .experience {
+    list-style: none;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .experience a {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr) auto;
+    gap: var(--sp-8);
+    align-items: baseline;
+    padding-block: var(--sp-5);
+    border-top: 1px solid var(--color-line);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .experience li:first-child a {
+    border-top-color: var(--color-ink);
+  }
+
+  .experience a:hover {
+    background: var(--color-warm-wash);
+  }
+
+  .experience__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-stretch: 90%;
+    font-size: 1.125rem;
+  }
+
+  .experience__proof {
+    color: var(--color-slate);
+  }
+
+  .experience__link {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-brass-text);
+  }
+
+  .dark {
+    background: var(--color-dark-surface);
+    color: var(--color-dark-text);
+    --color-brass-text: var(--color-brass);
+    padding-block: var(--sp-20);
+  }
+
+  .dark h2 {
+    color: var(--color-dark-text);
+  }
+
+  .dark p {
+    margin-top: var(--sp-5);
+    max-width: 44em;
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-dark-muted);
+  }
+
+  .dark__action {
+    margin-top: var(--sp-8);
+  }
+
+  @media (max-width: 900px) {
+    .offers {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      border-top: 0;
+      row-gap: var(--sp-10);
+    }
+
+    .offer {
+      grid-row: auto;
+      grid-template-rows: none;
+      border-top: 2px solid var(--color-ink);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding-block: var(--sp-12);
+    }
+
+    .section,
+    .dark {
+      padding-block: var(--sp-14);
+    }
+
+    .operating div,
+    .experience a {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-2);
+    }
+  }
 </style>

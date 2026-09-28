@@ -13,6 +13,8 @@ export interface EnvelopeRow {
 }
 
 export interface SignatureSystem {
+  /** The system's anchor on /work. */
+  id: string;
   name: string;
   href: string;
   envelope: EnvelopeRow[];
@@ -25,6 +27,7 @@ export interface SignatureSystem {
 
 export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
   {
+    id: 'real-time-underwater-detection',
     name: 'Real-time underwater detection',
     href: '/work#real-time-underwater-detection',
     envelope: [
@@ -39,6 +42,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
     outcome: 'Sustained sub-50 ms inference on embedded hardware',
   },
   {
+    id: 'secure-distributed-ml',
     name: 'Secure distributed ML',
     href: '/work/secure-ml-architecture',
     envelope: [
@@ -53,6 +57,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
     outcome: 'Adopted for ongoing production use',
   },
   {
+    id: 'adversarial-storage-incentives',
     name: 'Adversarial storage',
     href: '/work/adversarial-storage-protocol',
     envelope: [
@@ -67,6 +72,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
     outcome: 'Operated in production under continuous integrity proofs',
   },
   {
+    id: 'turnkeyhq',
     name: 'TurnkeyHQ',
     href: '/turnkeyhq',
     envelope: [
