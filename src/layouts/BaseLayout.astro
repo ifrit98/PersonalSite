@@ -6,14 +6,18 @@ import { buildMeta, type SEOProps } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 import '@fontsource-variable/newsreader/opsz.css';
 import '@fontsource-variable/newsreader/opsz-italic.css';
-import '@fontsource-variable/inter/wght.css';
+import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '@/styles/global.css';
 
-interface Props extends SEOProps {}
+interface Props extends SEOProps {
+  /** 'research' sets headings in Newsreader: AfterFiat, Research, Writing. */
+  register?: 'engineering' | 'research';
+}
 
 const meta = buildMeta(Astro.props, Astro.url);
+const register = Astro.props.register ?? 'engineering';
 
 const structuredData = JSON.stringify([
   {
@@ -59,13 +63,10 @@ const structuredData = JSON.stringify([
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-register={register}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Entrance animations hide content only once scripts are known to run, so a
-         page with scripts blocked, failed, or printed still shows everything. -->
-    <script is:inline>document.documentElement.classList.add('js');</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -97,23 +98,6 @@ const structuredData = JSON.stringify([
     <Footer />
     <ChatButton />
     <script>
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.15 }
-        );
-        document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
-      } else {
-        document.querySelectorAll('.fade-up').forEach((el) => el.classList.add('is-visible'));
-      }
-
       document.addEventListener('click', (e) => {
         const target = (e.target as HTMLElement).closest('[data-track]');
         if (!target) return;

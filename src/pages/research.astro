@@ -29,7 +29,7 @@ const groups = [
 ] as const;
 ---
 
-<BaseLayout title="Research & Labs" description="Longer-horizon technical and intellectual work that sits beside the production systems portfolio.">
+<BaseLayout register="research" title="Research & Labs" description="Longer-horizon technical and intellectual work that sits beside the production systems portfolio.">
   <!-- PRD §§25–26: breadth is grouped without claiming equal professional relevance. -->
   <section class="hero">
     <div class="container container--narrow">
@@ -46,7 +46,7 @@ const groups = [
           <div class="grid">
             {group.items.map(([name, body, href]) => (
               <a href={href} class="card" target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}>
-                <h3>{name}</h3><p>{body}</p><span>Explore →</span>
+                <h3>{name}</h3><p>{body}</p><span>Explore</span>
               </a>
             ))}
           </div>

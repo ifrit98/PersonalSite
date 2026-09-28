@@ -96,7 +96,7 @@ const experience = [
     <h1>Work with Jason</h1>
     <p>I work with founders, CTOs, engineering leaders, and technical teams on consequential AI and systems problems where the architecture is unclear, the constraints are real, or getting the answer wrong will be expensive.</p>
     <p>My role is usually not to add another pair of hands to a backlog. It is to clarify the system, identify the critical decisions, pressure-test assumptions, and help build or de-risk the path forward.</p>
-    <div><Button href={CONTACT_URL} variant="brass">Discuss an engagement →</Button><Button href="#offers" variant="ghost">See engagement types</Button></div>
+    <div><Button href={CONTACT_URL} variant="brass">Discuss an engagement</Button><Button href="#offers" variant="ghost">See engagement types</Button></div>
   </div></section>
 
   <section class="section" id="offers"><div class="container">
@@ -121,7 +121,7 @@ const experience = [
       <h3 id="diligence-heading">{diligence.title}</h3>
       <p>{diligence.body}</p>
       <p class="diligence__boundary">{diligence.boundary}</p>
-      <a href={CONTACT_URL}>Discuss a technical review →</a>
+      <a href={CONTACT_URL}>Discuss a technical review</a>
     </aside>
   </div></section>
 
@@ -134,25 +134,25 @@ const experience = [
   <section class="section"><div class="container">
     <h2>Relevant operating experience</h2>
     <p class="intro">Secure and air-gapped ML infrastructure, GPU training systems, low-latency edge inference, adversarial distributed systems, production AI applications, retrieval and knowledge systems, technical research, and 0→1 product architecture.</p>
-    <div class="experience">{experience.map(([title, proof, href]) => <a href={href}><h3>{title}</h3><p>{proof}</p><em>View case study →</em></a>)}</div>
+    <div class="experience">{experience.map(([title, proof, href]) => <a href={href}><h3>{title}</h3><p>{proof}</p><em>View case study</em></a>)}</div>
   </div></section>
 
   <section class="dark"><div class="container container--narrow">
     <h2>Send me the problem and the constraints.</h2>
     <p>The strongest opening message is a concrete description of what you are building, what it has to survive, and what will go wrong if the architecture is wrong. A polished pitch is not necessary.</p>
     <p>If you already have a clean specification and simply need implementation capacity, I am not the highest-leverage fit — and I will tell you so quickly.</p>
-    <Button href={CONTACT_URL} variant="brass">Discuss an engagement →</Button>
+    <Button href={CONTACT_URL} variant="brass">Discuss an engagement</Button>
   </div></section>
 </BaseLayout>
 <style>
   .hero,.dark{background:var(--color-dark-surface); --color-brass-text: var(--color-brass);color:var(--color-dark-text);padding-block:var(--sp-24)}
   .hero span{font:var(--text-mono-meta);color:var(--color-brass-text);letter-spacing:.06em}
-  .hero h1{font:var(--text-h1);font-family:var(--font-serif);font-weight:500;margin-top:var(--sp-4)}
+  .hero h1{font:var(--text-h1);font-family:var(--font-display);font-weight:500;margin-top:var(--sp-4)}
   .hero p,.dark p{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-6);max-width:44em}
   .hero .container>div{display:flex;flex-wrap:wrap;gap:var(--sp-4);margin-top:var(--sp-8)}
   .section{padding-block:var(--sp-16);border-bottom:1px solid var(--color-line)}
-  h2{font:var(--text-h2);font-family:var(--font-serif);font-weight:500}
-  h3{font-family:var(--font-serif);font-weight:500}
+  h2{font:var(--text-h2);font-family:var(--font-display);font-weight:500}
+  h3{font-family:var(--font-display);font-weight:500}
   .intro{max-width:45em;margin:var(--sp-4) 0 var(--sp-8);color:var(--color-slate)}
   .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6);grid-auto-rows:1fr}
   .offers article,.operating article,.experience a{border:1px solid var(--color-line);border-left:3px solid var(--color-brass);border-radius:var(--radius-card);padding:var(--sp-6)}
@@ -166,7 +166,7 @@ const experience = [
   .experience{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6)}
   .qualifier{margin-top:var(--sp-6);color:var(--color-slate);font:var(--text-meta);max-width:52em}
   .diligence{margin-top:var(--sp-8);padding:var(--sp-6);border:1px solid var(--color-line);border-left:3px solid var(--color-brass);border-radius:var(--radius-card);background:var(--color-warm-wash)}
-  .diligence h3{font:var(--text-h3);font-family:var(--font-serif)}
+  .diligence h3{font:var(--text-h3);font-family:var(--font-display)}
   .diligence p{color:var(--color-slate);margin-top:var(--sp-3);max-width:52em}
   .diligence__boundary{font:var(--text-meta)}
   .diligence a{display:inline-block;margin-top:var(--sp-5);color:var(--color-brass-text)}
