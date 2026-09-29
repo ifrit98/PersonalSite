@@ -1,45 +1,344 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
+import Envelope from '@/components/ui/Envelope.astro';
+import { SIGNATURE_SYSTEMS } from '@/lib/systems';
 
-// PRD §§8–13: homepage is a professional compression layer.
-const proof = [
-  ['<50 ms', 'Operational edge inference', '/work#real-time-underwater-detection'],
-  ['Multi-GPU', 'Air-gapped distributed training', '/work/secure-ml-architecture'],
-  ['Ciphertext-only', 'Storage protocol under continuous proofs', '/work/adversarial-storage-protocol'],
-  ['244 routes', 'Multi-tenant AI platform in private beta', '/turnkeyhq'],
-] as const;
-const capabilities = [
+// PRD §§8–13: homepage is a professional compression layer. The envelope and the
+// systems table carry the proof that a stat strip and cards used to.
+const steps = [
   ['Define the system', 'Turn fragmented requirements, competing assumptions, operating constraints, and failure modes into a coherent architecture and executable roadmap.'],
   ['Build the critical path', 'Prototype and implement the load-bearing components until the architecture has been tested against real software, hardware, data, users, and operational conditions.'],
   ['De-risk the system', 'Make latency, security, reliability, model behavior, cost, adversarial incentives, deployment, and recovery explicit before they become expensive production surprises.'],
 ] as const;
-const work = [
-  ['Defense · Edge AI · Signal Processing', 'Real-Time Underwater Detection', 'Hybrid DSP + ML detection pipeline designed for operational noise, simulation-to-real transfer, and sub-50 ms inference on Jetson hardware.', 'Sub-50 ms operational inference on embedded hardware', '/work#real-time-underwater-detection'],
-  ['Defense · Distributed ML · Air-Gapped Infrastructure', 'Secure Distributed ML Infrastructure', 'Full distributed LLM training and deployment capability inside approval-heavy, disconnected environments where ordinary cloud assumptions do not exist.', 'Distributed fine-tuning operational across an air-gapped multi-GPU cluster', '/work#secure-distributed-ml'],
-  ['Distributed Systems · Protocols · Mechanism Design', 'Adversarial Storage & Incentives', 'Ciphertext-only storage infrastructure where continued storage had to be proved rather than trusted, with challenge design, anti-precompute mechanics, reputation, and incentive alignment.', 'Operated in production under continuous integrity proofs and tiered reliability incentives', '/work#adversarial-storage-incentives'],
-  ['Vertical AI · Product Architecture · Operations', 'TurnkeyHQ', 'Multi-tenant AI operating system carried from product thesis through architecture, implementation, integrations, release engineering, tenant operations, and commercial controls.', '14 services · 244 API routes · 75 agent skills · private beta', '/turnkeyhq'],
-] as const;
 const research = [
-  ['SwarmOS', 'MVP operational · active development', '/swarmos'],
-  ['AfterFiat', 'Independent research · monetary systems', '/afterfiat'],
-  ['Agentic Data', 'Active development · persistent context infrastructure', '/agentic-data'],
+  ['SwarmOS', 'Persistent, provenance-aware research infrastructure for coordinated agents', 'MVP operational, in active development', '/swarmos'],
+  ['AfterFiat', 'A versioned, falsifiable thesis on privacy, proofs, and compute as money', 'Independent research', '/afterfiat'],
+  ['Agentic Data', 'Causal, temporal, permissioned context for organizational knowledge', 'In active development', '/agentic-data'],
 ] as const;
 ---
 <BaseLayout>
-  <section class="hero"><div class="container container--narrow">
-    <span>PRINCIPAL SYSTEMS ARCHITECT · AI · AUTONOMY · HIGH-CONSTRAINT INFRASTRUCTURE</span>
-    <h1>I architect intelligent systems for problems where the constraints are real and the obvious abstraction is usually wrong.</h1>
-    <p>I take ambiguous, high-consequence technical problems from problem definition through system architecture, critical implementation, and production deployment—especially where AI, distributed systems, security, adversarial behavior, real-time operation, or physical-world constraints intersect.</p>
-    <div><Button href="#selected-work" variant="brass">View Selected Work</Button><Button href="/engage" variant="ghost">Discuss an engagement</Button></div>
-    <a href="/papers/resume.pdf">Download Résumé</a>
-  </div></section>
-  <section class="proof"><div class="container"><div class="grid">{proof.map(([value, label, href]) => <a href={href}><strong>{value}</strong><span>{label}</span></a>)}</div></div></section>
-  <section class="section"><div class="container"><h2>The work starts before the architecture is obvious.</h2><p class="intro">The highest-leverage engagements are usually not cleanly specified engineering tasks. They are systems problems where several constraints interact and the team needs a sharper model of the problem before adding more implementation.</p><div class="grid cards">{capabilities.map(([title, body]) => <article><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
-  <section class="section" id="selected-work"><div class="container"><h2>Selected systems</h2><div class="grid work">{work.map(([meta, title, body, metric, href]) => <a href={href}><span>{meta}</span><h3>{title}</h3><p>{body}</p><strong>{metric}</strong><em>View case study →</em></a>)}</div></div></section>
-  <section class="dark"><div class="container container--narrow"><h2>When am I most useful?</h2><p>Usually when the problem sounds something like this: “We know what outcome we need, but several systems, constraints, and stakeholders interact; the existing abstractions are breaking down; and simply adding more engineers will not tell us what the architecture should be.”</p><p>That is a decision problem, not a staffing problem. Teams in it are usually better served by a bounded review of the decision than by committing another engineer for six months to a design nobody has attacked yet.</p><p>Bring the problem, the constraints, and the desired outcome.</p><Button href="/engage" variant="brass">See engagement types →</Button></div></section>
-  <section class="section"><div class="container"><h2>Independent research &amp; labs</h2><p class="intro">Alongside production systems work, I maintain longer-horizon research programs in persistent machine cognition, verifiable research infrastructure, monetary architecture, optimization, and mathematical form.</p><div class="grid cards">{research.map(([name, status, href]) => <a href={href}><h3>{name}</h3><p>{status}</p><em>Explore →</em></a>)}</div></div></section>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1>I architect intelligent systems for problems where the constraints are real and the obvious abstraction is usually wrong.</h1>
+        <p>As a principal systems architect, I take ambiguous, high-consequence technical problems from problem definition through system architecture, critical implementation, and production deployment, especially where AI, distributed systems, security, adversarial behavior, real-time operation, or physical-world constraints intersect.</p>
+        <div class="hero__actions">
+          <Button href="#selected-work">View selected work</Button>
+          <a href="/engage">Discuss an engagement</a>
+          <a href="/papers/resume.pdf">Download résumé</a>
+        </div>
+      </div>
+      {/* PRD: the hero leads with architecture, not the product, so TurnkeyHQ is in the table below and not here. */}
+      <Envelope systems={SIGNATURE_SYSTEMS.filter((system) => system.name !== 'TurnkeyHQ')} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>The work starts before the architecture is obvious.</h2>
+      <p class="intro">The highest-leverage engagements are usually not cleanly specified engineering tasks. They are systems problems where several constraints interact and the team needs a sharper model of the problem before adding more implementation.</p>
+      <ol class="steps">
+        {steps.map(([title, body], i) => (
+          <li><span class="steps__n">{i + 1}</span><h3>{title}</h3><p>{body}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="selected-work">
+    <div class="container">
+      <h2>Selected systems</h2>
+      <div class="table" role="table" aria-label="Selected systems">
+        <div class="table__head" role="row">
+          <span role="columnheader">System</span><span role="columnheader">Envelope</span><span role="columnheader">Outcome</span>
+        </div>
+        {SIGNATURE_SYSTEMS.map((system) => (
+          <a class="table__row" role="row" href={system.href}>
+            <span role="cell" class="table__name">{system.name}</span>
+            <span role="cell" class="table__envelope">{system.summary}</span>
+            <span role="cell" class="table__outcome">{system.outcome}</span>
+          </a>
+        ))}
+      </div>
+      <a class="section__more" href="/work">All systems work and case studies</a>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="container container--narrow">
+      <h2>When am I most useful?</h2>
+      <p>Usually when the problem sounds something like this: “We know what outcome we need, but several systems, constraints, and stakeholders interact; the existing abstractions are breaking down; and simply adding more engineers will not tell us what the architecture should be.”</p>
+      <p>That is a decision problem, not a staffing problem. Teams in it are usually better served by a bounded review of the decision than by committing another engineer for six months to a design nobody has attacked yet.</p>
+      <p>Bring the problem, the constraints, and the desired outcome.</p>
+      <div class="dark__action"><Button href="/engage" variant="brass">See engagement types</Button></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Independent research &amp; labs</h2>
+      <p class="intro">Alongside production systems work, I maintain longer-horizon research programs in persistent machine cognition, verifiable research infrastructure, monetary architecture, optimization, and mathematical form.</p>
+      <ul class="labs">
+        {research.map(([name, body, status, href]) => (
+          <li><a href={href}><span class="labs__name">{name}</span><span class="labs__body">{body}</span><span class="labs__status">{status}</span></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
 </BaseLayout>
+
 <style>
-  .hero,.dark{background:var(--color-dark-surface); --color-brass-text: var(--color-brass);color:var(--color-dark-text);padding-block:var(--sp-24)} .hero span,.work span{font:var(--text-mono-meta);color:var(--color-brass-text);letter-spacing:.06em}.hero h1{font:var(--text-h1);font-family:var(--font-serif);font-weight:500;margin-top:var(--sp-4);max-width:24ch}.hero p,.dark p{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-6);max-width:44em}.hero .container>div{display:flex;flex-wrap:wrap;gap:var(--sp-4);margin-top:var(--sp-8)}.hero .container>a{display:block;color:var(--color-brass-text);margin-top:var(--sp-5)}.proof,.section{padding-block:var(--sp-16);border-bottom:1px solid var(--color-line)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-6)}.proof a{border-left:3px solid var(--color-brass);padding-left:var(--sp-4);color:inherit;text-decoration:none}.proof strong,.proof span{display:block}.proof strong,h2,h3{font-family:var(--font-serif)}.proof strong{font-size:1.75rem}.proof span,p{color:var(--color-slate)}h2{font:var(--text-h2);font-weight:500}.intro{max-width:45em;margin:var(--sp-4) 0 var(--sp-8)}.cards{grid-template-columns:repeat(3,1fr)}.cards article,.cards a,.work a{border:1px solid var(--color-line);border-left:3px solid var(--color-brass);border-radius:var(--radius-card);padding:var(--sp-6);color:inherit;text-decoration:none}.cards p,.work p{margin-top:var(--sp-3)}.work{grid-template-columns:repeat(2,1fr)}.work strong,.work em,.cards em{display:block;margin-top:var(--sp-5);color:var(--color-brass-text);font:var(--text-meta)}.dark{padding-block:var(--sp-20)}.dark h2{color:var(--color-dark-text)}@media(max-width:768px){.hero,.dark{padding-block:var(--sp-16)}.hero h1{font:var(--text-h2)}.hero .container{display:flex;flex-direction:column}.hero .container>span{order:0}.hero .container>h1{order:1}.hero .container>div{order:2;margin-top:var(--sp-6)}.hero .container>p{order:3}.hero .container>a{order:4}.grid,.cards,.work{grid-template-columns:1fr}.proof{padding-block:var(--sp-10)}}
+  .hero {
+    padding-block: var(--sp-20) var(--sp-16);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--sp-16);
+    align-items: start;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.375rem, 4.4vw, 3.625rem);
+    line-height: 1.04;
+    font-stretch: 82%;
+    letter-spacing: -0.03em;
+    max-width: 18ch;
+  }
+
+  .hero p {
+    margin-top: var(--sp-6);
+    max-width: 36em;
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-4) var(--sp-6);
+    margin-top: var(--sp-8);
+  }
+
+  .hero__actions > a:not(.btn) {
+    color: var(--color-ink);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--color-line);
+    text-underline-offset: 0.3em;
+  }
+
+  .hero__actions > a:not(.btn):hover {
+    text-decoration-color: var(--color-ink);
+  }
+
+  .section {
+    padding-block: var(--sp-20);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .intro {
+    max-width: 44em;
+    margin: var(--sp-4) 0 0;
+    color: var(--color-slate);
+  }
+
+  /* A real sequence, so it is numbered. */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-8);
+    margin-top: var(--sp-12);
+    list-style: none;
+  }
+
+  .steps li {
+    padding-top: var(--sp-5);
+    border-top: 2px solid var(--color-ink);
+  }
+
+  .steps__n {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-slate);
+  }
+
+  .steps h3 {
+    margin-top: var(--sp-2);
+  }
+
+  .steps p {
+    margin-top: var(--sp-3);
+    color: var(--color-slate);
+  }
+
+  .table {
+    margin-top: var(--sp-8);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .table__head,
+  .table__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1.2fr);
+    gap: var(--sp-6);
+    padding-block: var(--sp-4);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .table__head {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    border-top-color: var(--color-ink);
+  }
+
+  .table__row {
+    color: var(--color-ink);
+    text-decoration: none;
+    align-items: baseline;
+  }
+
+  .table__row:hover .table__name {
+    text-decoration: underline;
+    text-decoration-color: var(--color-line);
+    text-underline-offset: 0.25em;
+  }
+
+  .table__row:hover {
+    background: var(--color-warm-wash);
+  }
+
+  .table__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-stretch: 90%;
+    font-size: 1.125rem;
+  }
+
+  .table__envelope {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-slate);
+  }
+
+  .table__outcome {
+    color: var(--color-ink);
+  }
+
+  .section__more {
+    display: inline-block;
+    margin-top: var(--sp-6);
+    font-weight: 500;
+    color: var(--color-brass-text);
+  }
+
+  .dark {
+    background: var(--color-dark-surface);
+    color: var(--color-dark-text);
+    --color-brass-text: var(--color-brass);
+    padding-block: var(--sp-20);
+  }
+
+  .dark h2 {
+    color: var(--color-dark-text);
+  }
+
+  .dark p {
+    margin-top: var(--sp-5);
+    font: var(--text-body-lg);
+    font-family: var(--font-sans);
+    color: var(--color-dark-muted);
+    max-width: 44em;
+  }
+
+  .dark__action {
+    margin-top: var(--sp-8);
+  }
+
+  .labs {
+    margin-top: var(--sp-8);
+    list-style: none;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .labs a {
+    display: grid;
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.6fr) minmax(0, 0.9fr);
+    gap: var(--sp-6);
+    align-items: baseline;
+    padding-block: var(--sp-4);
+    border-top: 1px solid var(--color-line);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .labs a:hover {
+    background: var(--color-warm-wash);
+  }
+
+  .labs__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-stretch: 90%;
+    font-size: 1.125rem;
+  }
+
+  .labs__body {
+    color: var(--color-slate);
+  }
+
+  .labs__status {
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+    text-align: right;
+  }
+
+  @media (max-width: 900px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-12);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding-block: var(--sp-12);
+    }
+
+    .section,
+    .dark {
+      padding-block: var(--sp-14);
+    }
+
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-6);
+    }
+
+    .table__head {
+      display: none;
+    }
+
+    .table__row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-1);
+    }
+
+    .labs a {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-1);
+    }
+
+    .labs__status {
+      text-align: left;
+    }
+  }
 </style>

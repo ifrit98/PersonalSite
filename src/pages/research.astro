@@ -29,7 +29,7 @@ const groups = [
 ] as const;
 ---
 
-<BaseLayout title="Research & Labs" description="Longer-horizon technical and intellectual work that sits beside the production systems portfolio.">
+<BaseLayout register="research" title="Research & Labs" description="Longer-horizon technical and intellectual work that sits beside the production systems portfolio.">
   <!-- PRD §§25–26: breadth is grouped without claiming equal professional relevance. -->
   <section class="hero">
     <div class="container container--narrow">
@@ -46,7 +46,7 @@ const groups = [
           <div class="grid">
             {group.items.map(([name, body, href]) => (
               <a href={href} class="card" target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}>
-                <h3>{name}</h3><p>{body}</p><span>Explore →</span>
+                <h3>{name}</h3><p>{body}</p><span>Explore</span>
               </a>
             ))}
           </div>
@@ -62,7 +62,7 @@ const groups = [
   h1 { font: var(--text-h1); } .hero p { font: var(--text-body-lg); color: var(--color-slate); margin-top: var(--sp-4); max-width: 42em; }
   .groups { padding-block: var(--sp-16); } .group + .group { margin-top: var(--sp-16); }
   h2 { font: var(--text-h2); margin-bottom: var(--sp-6); } .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-6); }
-  .card { display: flex; flex-direction: column; min-height: 13rem; padding: var(--sp-6); text-decoration: none; color: inherit; border: 1px solid var(--color-line); border-left: 3px solid var(--color-brass); border-radius: var(--radius-card); }
+  .card { display: flex; flex-direction: column; min-height: 13rem; padding: var(--sp-6); text-decoration: none; color: inherit; border: 1px solid var(--color-line); border-left: 1px solid var(--color-line); border-radius: var(--radius-card); }
   .card p { color: var(--color-slate); margin-top: var(--sp-3); } .card span { color: var(--color-brass-text); margin-top: auto; padding-top: var(--sp-6); font: var(--text-meta); }
   @media (max-width: 768px) { .hero { padding-block: var(--sp-16) var(--sp-12); } .grid { grid-template-columns: 1fr; } }
 </style>

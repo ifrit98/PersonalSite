@@ -18,10 +18,10 @@ const { Content } = await render(essay);
 const { title, author, excerpt, publishedAt, updatedAt, relatedWork, sources } = essay.data;
 ---
 
-<BaseLayout title={title} description={excerpt}>
+<BaseLayout register="research" title={title} description={excerpt}>
   <article>
     <section class="hero"><div class="container container--narrow">
-      <span>ARCHITECTURE NOTE</span>
+      <span>Architecture note</span>
       <h1>{title}</h1>
       <p class="excerpt">{excerpt}</p>
       <p class="byline">
@@ -44,7 +44,7 @@ const { title, author, excerpt, publishedAt, updatedAt, relatedWork, sources } =
       {relatedWork.length > 0 && (
         <div class="related">
           <h2>Related work</h2>
-          <ul>{relatedWork.map((r) => <li><a href={r.href}>{r.label} →</a></li>)}</ul>
+          <ul>{relatedWork.map((r) => <li><a href={r.href}>{r.label}</a></li>)}</ul>
         </div>
       )}
     </div></section>
@@ -52,16 +52,17 @@ const { title, author, excerpt, publishedAt, updatedAt, relatedWork, sources } =
     <section class="dark"><div class="container container--narrow">
       <h2>Bring the decision, the constraints, and the evidence</h2>
       <p>I work with technical teams on focused AI and distributed-systems architecture reviews.</p>
-      <Button href={ENGAGE_URL} variant="brass">See engagement types →</Button>
+      <Button href={ENGAGE_URL} variant="brass">See engagement types</Button>
     </div></section>
   </article>
 </BaseLayout>
 <style>
-  .hero,.dark{background:var(--color-dark-surface); --color-brass-text: var(--color-brass);color:var(--color-dark-text);padding-block:var(--sp-20)}
-  .hero span{font:var(--text-mono-meta);color:var(--color-brass-text);letter-spacing:.06em}
+  .hero{padding-block:var(--sp-20);border-bottom:1px solid var(--color-line)}
+  .dark{background:var(--color-dark-surface); --color-brass-text: var(--color-brass);color:var(--color-dark-text);padding-block:var(--sp-20)}
+  .hero span{font:var(--text-meta);font-weight:600;color:var(--color-slate)}
   .hero h1{font:var(--text-h1);margin-top:var(--sp-4);max-width:26ch}
-  .excerpt{font:var(--text-body-lg);color:var(--color-dark-muted);margin-top:var(--sp-5);max-width:44em}
-  .byline{font:var(--text-meta);color:var(--color-dark-muted);margin-top:var(--sp-5)}
+  .excerpt{font:var(--text-body-lg);color:var(--color-slate);margin-top:var(--sp-5);max-width:44em}
+  .byline{font:var(--text-meta);color:var(--color-slate);margin-top:var(--sp-5)}
   .section{padding-block:var(--sp-16);border-bottom:1px solid var(--color-line)}
   .prose :global(p),.prose :global(li){font:var(--text-body);color:var(--color-slate);max-width:38em}
   .prose :global(p){margin-top:var(--sp-5)}

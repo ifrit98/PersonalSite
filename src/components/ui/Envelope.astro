@@ -1,0 +1,240 @@
+---
+// An operating envelope: the constraints one system had to survive, set out like
+// a datasheet, with its critical path underneath. Given several systems it steps
+// through them; without JavaScript the first one shows and the controls stay
+// hidden (every system is also in the selected-systems table).
+import type { SignatureSystem } from '@/lib/systems';
+
+interface Props {
+  systems: SignatureSystem[];
+}
+
+const { systems } = Astro.props;
+---
+
+<figure class="envelope" data-envelope>
+  <figcaption class="envelope__head">
+    <span>Operating envelope</span>
+    {systems.length > 1 && <span class="envelope__count" data-count aria-live="polite">1 / {systems.length}</span>}
+  </figcaption>
+
+  {systems.map((system, i) => (
+    <div class="envelope__system" data-system hidden={i > 0}>
+      <a class="envelope__name" href={system.href}>{system.name}</a>
+      <dl class="envelope__rows">
+        {system.envelope.map((row) => (
+          <div class:list={['envelope__row', { 'envelope__row--binding': row.binding }]}>
+            <dt>{row.label}</dt>
+            <dd>{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <ol class="envelope__flow" aria-label={`Critical path: ${system.flow.join(', then ')}`}>
+        {system.flow.map((node) => <li>{node}</li>)}
+      </ol>
+    </div>
+  ))}
+
+  <div class="envelope__foot">
+    <span class="envelope__legend"><i aria-hidden="true"></i>binding constraint</span>
+    {systems.length > 1 && (
+      <span class="envelope__controls" data-controls hidden>
+        <button type="button" data-step="-1" aria-label="Previous system">Prev</button>
+        <button type="button" data-step="1" aria-label="Next system">Next</button>
+      </span>
+    )}
+  </div>
+</figure>
+
+<style>
+  .envelope {
+    margin: 0;
+    background: var(--color-card-elevated);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    padding: var(--sp-6) var(--sp-8) var(--sp-5);
+    min-width: 0;
+  }
+
+  .envelope__head,
+  .envelope__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);
+  }
+
+  .envelope__count {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .envelope__name {
+    display: inline-block;
+    margin-top: var(--sp-2);
+    font-family: var(--font-display);
+    font-stretch: 90%;
+    font-size: 1.3125rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .envelope__name:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-line);
+    text-underline-offset: 0.2em;
+  }
+
+  .envelope__rows {
+    display: grid;
+    gap: var(--sp-2);
+    margin-top: var(--sp-4);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .envelope__row {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .envelope__row dt {
+    color: var(--color-slate);
+  }
+
+  .envelope__row dd {
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The red pen: only the constraint the system was built around. */
+  .envelope__row--binding dd {
+    color: var(--color-redline);
+    text-decoration: underline 1.5px var(--color-redline-mark);
+    text-underline-offset: 0.3em;
+  }
+
+  .envelope__flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-2) var(--sp-3);
+    margin-top: var(--sp-5);
+    padding-top: var(--sp-4);
+    border-top: 1px dashed var(--color-line);
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .envelope__flow li {
+    position: relative;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--color-ink);
+    border-radius: 2px;
+    color: var(--color-ink);
+  }
+
+  /* A drawn connector across the gap to the previous step. */
+  .envelope__flow li + li::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: var(--sp-3);
+    border-top: 1px solid var(--color-slate);
+  }
+
+  .envelope__foot {
+    margin-top: var(--sp-4);
+  }
+
+  .envelope__legend {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .envelope__legend i {
+    width: 1.25rem;
+    height: 0;
+    border-top: 1.5px solid var(--color-redline-mark);
+  }
+
+  .envelope__controls {
+    display: inline-flex;
+    gap: var(--sp-2);
+  }
+
+  .envelope__controls[hidden] {
+    display: none;
+  }
+
+  .envelope__controls button {
+    min-height: 2.75rem;
+    min-width: 3.5rem;
+    padding: 0 var(--sp-3);
+    font: 500 0.875rem / 1 var(--font-sans);
+    color: var(--color-ink);
+    background: transparent;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-button);
+    cursor: pointer;
+  }
+
+  .envelope__controls button:hover {
+    border-color: var(--color-ink);
+  }
+
+  .envelope__controls button:focus-visible {
+    outline: 2px solid var(--color-brass-text);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .envelope__system {
+      animation: envelope-in 220ms var(--ease-out);
+    }
+  }
+
+  @keyframes envelope-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 480px) {
+    .envelope {
+      padding-inline: var(--sp-4);
+    }
+
+    .envelope__row {
+      grid-template-columns: 6rem minmax(0, 1fr);
+      gap: var(--sp-3);
+    }
+  }
+</style>
+
+<script>
+  for (const envelope of document.querySelectorAll<HTMLElement>('[data-envelope]')) {
+    const systems = [...envelope.querySelectorAll<HTMLElement>('[data-system]')];
+    const controls = envelope.querySelector<HTMLElement>('[data-controls]');
+    const count = envelope.querySelector<HTMLElement>('[data-count]');
+    if (!controls || systems.length < 2) continue;
+
+    let current = 0;
+    controls.hidden = false;
+    controls.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-step]');
+      if (!button) return;
+      systems[current].hidden = true;
+      current = (current + Number(button.dataset.step) + systems.length) % systems.length;
+      systems[current].hidden = false;
+      if (count) count.textContent = `${current + 1} / ${systems.length}`;
+    });
+  }
+</script>

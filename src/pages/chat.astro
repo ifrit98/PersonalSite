@@ -9,7 +9,7 @@ import 'katex/dist/katex.min.css';
 
 <BaseLayout title="Ask" description={`Ask questions about ${SITE.author}'s work, research, projects, and background.`}>
   <div class="chat-page">
-    <header class="chat-header fade-up">
+    <header class="chat-header">
       <div class="container container--narrow">
         <h1 class="chat-header__title">Ask about my work</h1>
         <p class="chat-header__desc">
@@ -70,7 +70,7 @@ import 'katex/dist/katex.min.css';
 
   .chat-header__title {
     font: var(--text-h2);
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-weight: 500;
     color: var(--color-ink);
     margin-bottom: var(--sp-3);
@@ -109,10 +109,7 @@ import 'katex/dist/katex.min.css';
   .chat-welcome__text {
     font: var(--text-meta);
     font-family: var(--font-sans);
-    color: var(--color-slate);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
+    color: var(--color-slate);font-weight:600}
 
   .chat-starters {
     display: flex;
@@ -163,12 +160,9 @@ import 'katex/dist/katex.min.css';
   }
 
   .chat-msg__role {
-    font: var(--text-mono-meta);
-    font-family: var(--font-mono);
-    color: var(--color-slate);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    color: var(--color-slate);font-weight:600}
 
   .chat-msg__bubble {
     padding: var(--sp-4) var(--sp-5);
@@ -315,14 +309,11 @@ import 'katex/dist/katex.min.css';
   }
 
   .chat-sources__label {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.6rem;
-    color: var(--color-slate);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    color: var(--color-slate);;
     opacity: 0.6;
-    margin-bottom: 2px;
-  }
+    margin-bottom: 2px;font-weight:600}
 
   .chat-sources__list {
     display: flex;
@@ -336,8 +327,8 @@ import 'katex/dist/katex.min.css';
     font-size: 0.6875rem;
     line-height: 1.3;
     color: var(--color-slate);
-    background: rgba(169, 135, 82, 0.06);
-    border: 1px solid rgba(169, 135, 82, 0.15);
+    background: rgba(43, 76, 126, 0.06);
+    border: 1px solid rgba(43, 76, 126, 0.15);
     border-radius: 4px;
     padding: 5px 10px;
     text-decoration: none;
@@ -354,7 +345,7 @@ import 'katex/dist/katex.min.css';
   a.chat-source:hover {
     border-color: var(--color-brass);
     color: var(--color-brass-text);
-    background: rgba(169, 135, 82, 0.1);
+    background: rgba(43, 76, 126, 0.1);
   }
 
   .chat-typing {

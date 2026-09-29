@@ -42,7 +42,7 @@ const Tag = href ? 'a' : 'button';
   }
 
   .btn--primary:hover {
-    background-color: var(--color-oxblood);
+    background-color: #0B1626;
     color: var(--color-bone);
   }
 
@@ -55,8 +55,7 @@ const Tag = href ? 'a' : 'button';
   }
 
   .btn--secondary:hover {
-    border-color: var(--color-brass);
-    color: var(--color-brass-text);
+    border-color: var(--color-ink);
   }
 
   .btn--text {
@@ -68,20 +67,23 @@ const Tag = href ? 'a' : 'button';
   }
 
   .btn--text:hover {
-    color: var(--color-oxblood);
+    color: var(--color-ink);
     border-bottom-color: currentColor;
   }
 
+  /* "brass" is the call to action on dark bands: film on ink. The ink edge keeps
+     it visible where it is used on a light ground (the contact form). */
   .btn--brass {
     padding: 0.75rem 1.5rem;
-    background-color: var(--color-brass);
-    color: var(--color-dark-surface);
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    border: 1px solid var(--color-ink);
     border-radius: var(--radius-button);
   }
 
   .btn--brass:hover {
-    background-color: #BF9A62;
-    color: var(--color-dark-surface);
+    background-color: var(--color-white);
+    color: var(--color-ink);
   }
 
   .btn--ghost {
@@ -97,8 +99,10 @@ const Tag = href ? 'a' : 'button';
     border-bottom-color: currentColor;
   }
 
+  /* brass-text is link blue on light grounds and resets to brass on dark bands,
+     so the ring clears 3:1 on both. */
   .btn:focus-visible {
-    outline: 2px solid var(--color-brass);
+    outline: 2px solid var(--color-brass-text);
     outline-offset: 2px;
   }
 

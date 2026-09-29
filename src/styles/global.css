@@ -24,14 +24,32 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-stretch: 88%;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
-h1 { font: var(--text-h1); font-family: var(--font-serif); font-weight: 500; }
-h2 { font: var(--text-h2); font-family: var(--font-serif); font-weight: 500; }
-h3 { font: var(--text-h3); font-family: var(--font-serif); font-weight: 500; }
+h1 { font: var(--text-h1); font-stretch: 86%; letter-spacing: -0.025em; }
+h2 { font: var(--text-h2); font-stretch: 88%; letter-spacing: -0.02em; }
+h3 { font: var(--text-h3); font-stretch: 90%; }
+
+/* The research register: AfterFiat, Research and Writing keep the book face.
+   The text tokens are redeclared because a custom property resolves where it is
+   declared, so overriding --font-display alone would not reach them. */
+[data-register="research"] {
+  --font-display: var(--font-serif);
+  --text-display: 500 4rem / 1.125 var(--font-serif);
+  --text-h1: 500 3rem / 1.167 var(--font-serif);
+  --text-h2: 500 2.125rem / 1.176 var(--font-serif);
+  --text-h3: 500 1.5rem / 1.25 var(--font-serif);
+}
+[data-register="research"] :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 500;
+  font-stretch: normal;
+  letter-spacing: -0.01em;
+}
 
 .prose p {
   max-width: 38em;
@@ -48,7 +66,7 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: 2px solid var(--color-brass-text);
+  outline: 2px solid var(--color-ink);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -65,8 +83,8 @@ code, pre {
 }
 
 ::selection {
-  background-color: var(--color-brass);
-  color: var(--color-white);
+  background-color: #C7CFD8;
+  color: var(--color-ink);
 }
 
 /* Utility container */
@@ -81,35 +99,6 @@ code, pre {
   max-width: var(--content-width);
 }
 
-/* Subtle noise texture */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-  mix-blend-mode: multiply;
-}
-
-/* Scroll-triggered entrance — hidden state requires the .js class set in <head> */
-.js .fade-up {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity var(--duration-entrance) var(--ease-entrance),
-    transform var(--duration-entrance) var(--ease-entrance);
-  transition-delay: var(--stagger, 0ms);
-}
-
-.js .fade-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -117,11 +106,6 @@ body::after {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .fade-up {
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
 

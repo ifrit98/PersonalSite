@@ -57,7 +57,7 @@ test('homepage presents the canonical systems-architect position and ordered pro
   assert.match(hero, /obvious abstraction is usually wrong/i);
   assert.match(hero, /href="#selected-work"/);
   assert.match(hero, /Discuss an engagement/);
-  assert.match(hero, /Download Résumé/);
+  assert.match(hero, /Download résumé/i);
   assert.match(html, /href="\/turnkeyhq"/);
   assert.match(html, /TurnkeyHQ/);
   assert.doesNotMatch(hero, /TurnkeyHQ/);
@@ -291,8 +291,10 @@ test('one URL per page, with security headers, a matching sitemap, and no third-
 
   const html = await about.text();
   assert.doesNotMatch(html, /fonts\.googleapis\.com|fonts\.gstatic\.com/);
-  // Content stays visible when scripts don't run: the hiding rule requires .js.
-  assert.match(html, /classList\.add\('js'\)/);
+  // Nothing is hidden waiting for a scroll observer: the entrance animations that
+  // needed a .js guard are gone, so content is visible with or without scripts.
+  const globalCss = readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
+  assert.doesNotMatch(globalCss, /\.fade-up[^{]*\{[^}]*opacity:\s*0/);
 });
 
 test('link previews and humans.txt reflect the current identity', async () => {

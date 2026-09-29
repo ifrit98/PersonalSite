@@ -41,16 +41,15 @@ const verification = [
 ] as const;
 ---
 
-<BaseLayout
+<BaseLayout register="research"
   title="AfterFiat — Research Profile"
   ogImage="/og/afterfiat.png"
   description="Jason St George’s versioned, falsifiable monetary thesis on Privacy, Proofs, Compute, deliverability, holder behavior, and market realization."
 >
   <script type="application/ld+json" slot="head" set:html={researchData} />
 
-  <section class="hero fade-up">
+  <section class="hero">
     <div class="container">
-      <p class="kicker">Independent research · monetary systems · versioned thesis</p>
       <h1>Next Generation Stores of Value:<br /><em>Privacy, Proofs, Compute</em></h1>
       <p class="lede">
         A conditional monetary thesis testing whether three essential digital services can support
@@ -74,7 +73,7 @@ const verification = [
     </div>
   </aside>
 
-  <section class="claim section fade-up">
+  <section class="claim section">
     <div class="container split">
       <div>
         <p class="section-label">The narrower claim</p>
@@ -95,7 +94,7 @@ const verification = [
     </div>
   </section>
 
-  <section class="section section--dark fade-up">
+  <section class="section section--dark">
     <div class="container">
       <p class="section-label">Three services, one empirical question</p>
       <h2>What must remain deliverable?</h2>
@@ -108,20 +107,20 @@ const verification = [
     </div>
   </section>
 
-  <section class="section fade-up">
+  <section class="section">
     <div class="container">
       <div class="split">
         <div><p class="section-label">Argument architecture</p><h2>{Spelled(AFTERFIAT_PREMISES)} premises.<br />A nine-link chain.<br />{Spelled(AFTERFIAT_RED_LINES)} red lines.</h2></div>
         <div class="prose">
           <p>The thesis proceeds from administrative repression and service demand through deliverability, anti-bypass value capture, holder behavior, and market realization. Every link must survive; none is rescued by a compelling narrative.</p>
           <p>The {AFTERFIAT_RED_LINES} red lines turn the framework into a research program: measurable failure conditions for censorship resistance, proof portability, compute verification, concentration, bypass, liquidity, and holder conduct.</p>
-          <a class="text-link" href={AFTERFIAT_ARGUMENT_URL}>Inspect the complete argument map →</a>
+          <a class="text-link" href={AFTERFIAT_ARGUMENT_URL}>Inspect the complete argument map</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="machines section fade-up">
+  <section class="machines section">
     <div class="container">
       <p class="section-label">The two machines</p>
       <h2>Protocol performance and market price are different systems.</h2>
@@ -141,11 +140,11 @@ const verification = [
           <p>Separates protocol value capture from price capture. Wrappers, leverage, custody, and dealer hedging can dominate observed price without proving monetary adoption.</p>
         </article>
       </div>
-      <a class="text-link" href={AFTERFIAT_MARKET_URL}>Explore the Market Realization Plane →</a>
+      <a class="text-link" href={AFTERFIAT_MARKET_URL}>Explore the Market Realization Plane</a>
     </div>
   </section>
 
-  <section class="verification section fade-up">
+  <section class="verification section">
     <div class="container">
       <p class="section-label">Falsifiable telemetry</p>
       <h2>Four verification families</h2>
@@ -155,7 +154,7 @@ const verification = [
     </div>
   </section>
 
-  <section class="section instruments fade-up">
+  <section class="section instruments">
     <div class="container split">
       <div><p class="section-label">Instrument separation</p><h2>Do not hide duration inside money.</h2></div>
       <div class="prose">
@@ -165,7 +164,7 @@ const verification = [
     </div>
   </section>
 
-  <section class="closing section section--dark fade-up">
+  <section class="closing section section--dark">
     <div class="container split">
       <div><p class="section-label">A versioned research program</p><h2>Designed to be challenged, revised, and cited.</h2></div>
       <div class="prose">
@@ -180,14 +179,14 @@ const verification = [
 
 <style>
   .hero{padding-block:clamp(6rem,12vw,10rem) var(--sp-20);background:var(--color-bone);border-bottom:1px solid var(--color-line)}
-  .hero .container{max-width:1180px}.kicker,.section-label,.machine__eyebrow{font:var(--text-label);font-family:var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--color-brass-text);margin-bottom:var(--sp-5)}
+  .kicker,.section-label,.machine__eyebrow{font:var(--text-meta);font-family:var(--font-sans);;color:var(--color-brass-text);margin-bottom:var(--sp-5);font-weight:600}
   h1{max-width:1050px;font-family:var(--font-serif);font-size:clamp(3rem,7vw,6.4rem);font-weight:400;line-height:.96;letter-spacing:-.045em;color:var(--color-ink)}h1 em{font-weight:400;color:var(--color-brass-text)}
   .lede{max-width:780px;margin-top:var(--sp-8);font:var(--text-body-lg);color:var(--color-ink-muted)}.actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-8)}
   .receipt{background:var(--color-paper);border-bottom:1px solid var(--color-line)}.receipt__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;padding-block:0}.receipt span{padding:var(--sp-5);border-left:1px solid var(--color-line);font:var(--text-small);color:var(--color-ink-muted)}.receipt span:last-child{border-right:1px solid var(--color-line)}.receipt b{color:var(--color-ink);font-weight:600}
   .section{padding-block:clamp(5rem,9vw,8rem);border-bottom:1px solid var(--color-line)}.split{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(3rem,8vw,8rem)}h2{font-family:var(--font-serif);font-size:clamp(2.35rem,5vw,4.5rem);font-weight:400;line-height:1.02;letter-spacing:-.03em}.prose{font:var(--text-body-lg);color:var(--color-ink-muted)}.prose p+p{margin-top:var(--sp-5)}.prose .large{font-family:var(--font-serif);font-size:clamp(1.5rem,2.5vw,2.2rem);line-height:1.25;color:var(--color-ink)}
-  .section--dark{background:var(--color-ink);color:var(--color-bone);--color-brass-text:var(--color-brass)}.section--dark .section-label{color:var(--color-brass-light, #c7a66a)}.section--dark h2{max-width:900px}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:var(--sp-12);border:1px solid rgba(255,255,255,.16)}.service-grid article{padding:var(--sp-8);border-right:1px solid rgba(255,255,255,.16)}.service-grid article:last-child{border:0}.service-grid span{font-family:var(--font-mono);color:var(--color-brass-text)}.service-grid h3{font-family:var(--font-serif);font-size:2rem;margin-block:var(--sp-4)}.service-grid p,.section-note{color:rgba(255,255,255,.68);line-height:1.7}.section-note{margin-top:var(--sp-6)}
+  .section--dark{background:var(--color-ink);color:var(--color-bone);--color-brass-text:var(--color-brass)}.section--dark .section-label{color:var(--color-brass-light, #A9C1E6)}.section--dark h2{max-width:900px}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:var(--sp-12);border:1px solid rgba(255,255,255,.16)}.service-grid article{padding:var(--sp-8);border-right:1px solid rgba(255,255,255,.16)}.service-grid article:last-child{border:0}.service-grid span{font-family:var(--font-mono);color:var(--color-brass-text)}.service-grid h3{font-family:var(--font-serif);font-size:2rem;margin-block:var(--sp-4)}.service-grid p,.section-note{color:rgba(255,255,255,.68);line-height:1.7}.section-note{margin-top:var(--sp-6)}
   .text-link{display:inline-block;margin-top:var(--sp-6);color:var(--color-brass-text);font-weight:600}.machines{background:var(--color-paper)}.machines>div>h2{max-width:900px}.machine-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5);margin-block:var(--sp-10) var(--sp-4)}.machine{padding:var(--sp-8);border:1px solid var(--color-line);background:var(--color-bone)}.machine--market{background:var(--color-ink);color:var(--color-bone);--color-brass-text:var(--color-brass)}.loop{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-block:var(--sp-6);font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase}.loop span{padding:.65rem .8rem;border:1px solid var(--color-brass)}.loop i{font-style:normal;color:var(--color-brass-text)}.machine p:last-child{line-height:1.7;color:var(--color-ink-muted)}.machine--market p:last-child{color:rgba(255,255,255,.68)}
-  .verify-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:var(--sp-10);border-top:1px solid var(--color-line);border-left:1px solid var(--color-line)}.verify-grid article{padding:var(--sp-6);border-right:1px solid var(--color-line);border-bottom:1px solid var(--color-line)}.verify-grid h3{font-family:var(--font-mono);color:var(--color-brass-text);margin-bottom:var(--sp-4)}.verify-grid p{color:var(--color-ink-muted);line-height:1.6}.instruments{background:var(--color-bone)}.closing .prose{color:rgba(255,255,255,.7)}.resource-links{display:flex;flex-wrap:wrap;gap:var(--sp-5);margin-top:var(--sp-8)}.resource-links a{color:var(--color-brass-light,#d2b47b);border-bottom:1px solid currentColor}
+  .verify-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:var(--sp-10);border-top:1px solid var(--color-line);border-left:1px solid var(--color-line)}.verify-grid article{padding:var(--sp-6);border-right:1px solid var(--color-line);border-bottom:1px solid var(--color-line)}.verify-grid h3{font-family:var(--font-mono);color:var(--color-brass-text);margin-bottom:var(--sp-4)}.verify-grid p{color:var(--color-ink-muted);line-height:1.6}.instruments{background:var(--color-bone)}.closing .prose{color:rgba(255,255,255,.7)}.resource-links{display:flex;flex-wrap:wrap;gap:var(--sp-5);margin-top:var(--sp-8)}.resource-links a{color:var(--color-brass-light,#A9C1E6);border-bottom:1px solid currentColor}
   @media(max-width:800px){.receipt__grid{grid-template-columns:1fr 1fr}.receipt span:last-child{grid-column:1/-1}.split,.machine-grid{grid-template-columns:1fr}.service-grid{grid-template-columns:1fr}.service-grid article{border-right:0;border-bottom:1px solid rgba(255,255,255,.16)}.verify-grid{grid-template-columns:1fr 1fr}.loop{align-items:flex-start}.loop i{padding-top:.65rem}}
   @media(max-width:480px){.receipt__grid,.verify-grid{grid-template-columns:1fr}.receipt span:last-child{grid-column:auto}.hero{padding-top:5rem}.machine{padding:var(--sp-5)}}
 </style>
