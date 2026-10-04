@@ -229,6 +229,13 @@ const checks = [
     current: () => reachable(site.match(/twitter: '([^']+)'/)[1]),
     fix: 'correct SITE.social.twitter in src/lib/site.ts, or remove the X link, twitter:site meta, and sameAs entry',
   },
+  {
+    name: 'Explainer live site linked from /research resolves',
+    source: constant('EXPLAINER_URL'),
+    claimed: '200',
+    current: () => reachable(constant('EXPLAINER_URL')),
+    fix: 'update EXPLAINER_URL in src/lib/site.ts, or drop the Explainer entry from /research',
+  },
   // Repository links rendered as "View GitHub" buttons. A private or renamed
   // repo is a 404 to every logged-out visitor, which is what the site's readers
   // are, so anything but 200 is a broken button.

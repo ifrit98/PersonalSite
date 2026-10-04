@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { ESCHATOLOGY_URL, GAMUT_FIBERS, GAMUT_ORDERINGS, GAMUT_URL } from '@/lib/site';
+import { ESCHATOLOGY_URL, EXPLAINER_URL, GAMUT_FIBERS, GAMUT_ORDERINGS, GAMUT_URL } from '@/lib/site';
 
 const groups = [
   {
@@ -8,6 +8,7 @@ const groups = [
     items: [
       ['SwarmOS', 'Continuous, provenance-aware research infrastructure for coordinated AI agents.', '/swarmos'],
       ['Agentic Data', 'Persistent context infrastructure built around causal, temporal, permissioned organizational knowledge.', '/agentic-data'],
+      ['Explainer', 'An explanation compiler for Claude Code: prose, diagrams, interactive pages, or narrated video, each compiled from a model of the subject and checked against it for omissions and for what the reader did not need.', EXPLAINER_URL],
     ],
   },
   {
