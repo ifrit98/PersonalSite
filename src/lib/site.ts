@@ -44,6 +44,7 @@ export const AFTERFIAT_MARKET_URL = `${AFTERFIAT_URL}/market-realization/`;
 export const AFTERFIAT_UPDATES_URL = `${AFTERFIAT_URL}/updates/`;
 export const AFTERFIAT_CITE_URL = `${AFTERFIAT_URL}/cite/`;
 export const ESCHATOLOGY_URL = 'https://eschatologyreport.substack.com';
+export const EXPLAINER_URL = 'https://ifrit98.github.io/Explainer/';
 // shapeofmusic.org is what GAMUT's own pages name as canonical; the old
 // musicalgeometry.replit.app address still serves the same site.
 export const GAMUT_URL = 'https://shapeofmusic.org';
