@@ -574,6 +574,8 @@ test('contact preselects the intent it is linked with, and only that one', async
   assert.doesNotMatch(role, /within a few business days/);
   // Without JavaScript a submit must not put the visitor's details in a URL.
   assert.match(role, /<form id="contact-form"[^>]*method="post"/);
+  // The form sends with JavaScript; without it, say so before anyone types.
+  assert.match(role, /<noscript>[\s\S]*?mailto:jason@jasonstgeorge\.com[\s\S]*?<\/noscript>[\s\S]*?<form id="contact-form"/);
   // Direct email is offered above the form as well as below it
   // (humans.txt already pins this address as the contact).
   const beforeForm = role.split('<form id="contact-form"')[0];

@@ -32,6 +32,10 @@ const isEngagement = intent.id === 'engagement';
         <a href="/engage">engagement types</a> are described in detail.
       </p>
 
+      <noscript>
+        <p class="form__noscript">This form sends with JavaScript, which is off in your browser. Please email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> instead.</p>
+      </noscript>
+
       <form id="contact-form" class="form" method="post" novalidate>
         <fieldset class="form__intents">
           <legend class="form__label">Why are you writing?</legend>
@@ -486,6 +490,14 @@ const isEngagement = intent.id === 'engagement';
 
   [data-intent-only][hidden] {
     display: none;
+  }
+
+  .form__noscript {
+    margin-bottom: var(--sp-6);
+    padding: var(--sp-4);
+    border: 1px solid var(--color-ink);
+    border-radius: var(--radius-card);
+    color: var(--color-ink);
   }
 </style>
 
