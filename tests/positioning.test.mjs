@@ -535,3 +535,27 @@ test('resume matches the conservative claims used everywhere else', async () => 
   assert.match(resume, /continuous integrity proofs/);
   assert.match(resume, /sub-50 ms end-to-end inference/);
 });
+
+test('contact preselects the intent it is linked with, and only that one', async () => {
+  const checkedIntent = (html) => html.match(/value="(\w+)"[^>]*\bchecked\b/)?.[1];
+
+  assert.equal(checkedIntent(await renderedPage('/contact')), 'engagement');
+  assert.equal(checkedIntent(await renderedPage('/contact?intent=role')), 'role');
+  for (const hostile of ['ROLE', '%3Cscript%3Ealert(1)%3C%2Fscript%3E', '']) {
+    const html = await renderedPage(`/contact?intent=${hostile}`);
+    assert.equal(checkedIntent(html), 'engagement');
+    assert.doesNotMatch(html, /<script>alert/);
+  }
+
+  const role = await renderedPage('/contact?intent=role');
+  assert.match(role, /<h1[^>]*>Start a conversation\.<\/h1>/);
+  assert.match(role, /data-intent-only="engagement"[^>]*\bhidden\b/, 'engagement fields hidden for a role inquiry');
+  assert.match(role, /Share the role, team, working arrangement/);
+  assert.doesNotMatch(role, /within a few business days/);
+  // Without JavaScript a submit must not put the visitor's details in a URL.
+  assert.match(role, /<form id="contact-form"[^>]*method="post"/);
+  // Direct email is offered above the form as well as below it
+  // (humans.txt already pins this address as the contact).
+  const beforeForm = role.split('<form id="contact-form"')[0];
+  assert.match(beforeForm, /href="mailto:jason@jasonstgeorge\.com"/);
+});
