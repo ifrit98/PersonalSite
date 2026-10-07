@@ -50,7 +50,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
       { label: 'handling', value: 'classified, approval-gated' },
       { label: 'compute', value: 'Multi-GPU cluster' },
       { label: 'method', value: 'quantized adapters' },
-      { label: 'result', value: 'fine-tuning cost ≈ −65%' },
+      { label: 'span', value: 'data prep to operator' },
     ],
     flow: ['data pipeline', 'fine-tuning', 'deployment', 'operator'],
     summary: 'air-gapped · Multi-GPU · LLM fine-tuning',

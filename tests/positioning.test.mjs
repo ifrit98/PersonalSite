@@ -65,7 +65,7 @@ test('homepage presents the canonical systems-architect position and ordered pro
   assert.match(html, /Multi-GPU/);
   assert.match(html, /Ciphertext-only/);
   // Softened proof claims: no exact cluster count, no third-party economics.
-  assert.doesNotMatch(html, /128 GPUs|~\$60M|~\$7M|~\$5M/);
+  assert.doesNotMatch(html, /128 GPUs|~\$60M|~\$7M|~\$5M|65\s?%/);
   assert.match(html, /Define the system/);
   assert.match(html, /Build the critical path/);
   assert.match(html, /De-risk the system/);
@@ -427,7 +427,7 @@ test('contact endpoint fails toward the email fallback, not a false validation e
 // Softened claims must hold across the pages a buyer actually compares.
 test('work case studies state technical outcomes, not third-party economics', async () => {
   const work = await renderedPage('/work');
-  assert.doesNotMatch(work, /128-GPU|~\$60M|~\$7M|~\$5M|65% cost/);
+  assert.doesNotMatch(work, /128-GPU|~\$60M|~\$7M|~\$5M|65\s?%/);
   assert.match(work, /air-gapped multi-GPU cluster/);
   assert.match(work, /continuous integrity proofs/);
 });
