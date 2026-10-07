@@ -311,10 +311,12 @@ test('link previews and humans.txt reflect the current identity', async () => {
   const { existsSync } = await import('node:fs');
   const home = await renderedPage('');
   assert.match(home, /property="og:image" content="https:\/\/jasonstgeorge\.com\/og\/default\.png"/);
-  for (const [path, image] of [['/engage', 'engage'], ['/turnkeyhq', 'turnkeyhq'], ['/afterfiat', 'afterfiat']]) {
+  const previews = [['/engage', 'engage'], ['/turnkeyhq', 'turnkeyhq'], ['/afterfiat', 'afterfiat'],
+    ['/work/secure-ml-architecture', 'secure-ml'], ['/work/adversarial-storage-protocol', 'adversarial-storage']];
+  for (const [path, image] of previews) {
     assert.match(await renderedPage(path), new RegExp(`property="og:image" content="https://jasonstgeorge\\.com/og/${image}\\.png"`));
   }
-  for (const image of ['default', 'engage', 'turnkeyhq', 'afterfiat']) {
+  for (const image of ['default', ...previews.map(([, image]) => image)]) {
     assert.ok(existsSync(new URL(`../public/og/${image}.png`, import.meta.url)), `public/og/${image}.png exists`);
   }
 
@@ -439,6 +441,8 @@ test('contact endpoint fails toward the email fallback, not a false validation e
 test('work case studies state technical outcomes, not third-party economics', async () => {
   const work = await renderedPage('/work');
   assert.doesNotMatch(work, /128-GPU|~\$60M|~\$7M|~\$5M|65\s?%/);
+  assert.match(work, /Your AI has to run privately or offline/);
+  assert.match(work, /Inference has to fit a hardware and latency budget/);
   assert.match(work, /air-gapped multi-GPU cluster/);
   assert.match(work, /continuous integrity proofs/);
 });
