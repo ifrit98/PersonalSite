@@ -52,19 +52,29 @@ test('homepage presents the canonical systems-architect position and ordered pro
   const html = await renderedPage('');
   const hero = html.match(/<section class="hero[\s\S]*?<\/section>/)?.[0] ?? '';
 
-  assert.match(hero, /PRINCIPAL SYSTEMS ARCHITECT/i);
-  assert.match(hero, /constraints are real/i);
-  assert.match(hero, /obvious abstraction is usually wrong/i);
-  assert.match(hero, /href="#selected-work"/);
-  assert.match(hero, /Discuss an engagement/);
+  assert.match(hero, /<h1[^>]*>I design and build AI systems that have to work under real constraints\.<\/h1>/);
+  assert.match(hero, /principal systems architect/i);
+  assert.match(hero, /href="\/engage"[\s\S]{0,200}?Discuss an engagement/);
+  assert.match(hero, /href="#problems"/);
   assert.match(hero, /Download résumé/i);
-  assert.match(html, /href="\/turnkeyhq"/);
-  assert.match(html, /TurnkeyHQ/);
   assert.doesNotMatch(hero, /TurnkeyHQ/);
+  assert.match(html, /obvious abstraction is usually wrong/i);
+
+  const problems = html.match(/<section[^>]*id="problems"[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(problems, /Problems I’m brought in for|Problems I'm brought in for|Problems I&#39;m brought in for/);
+  for (const [problem, href] of [
+    ['Your AI has to run privately or offline', '/work/secure-ml-architecture'],
+    ['Inference has to fit a hardware and latency budget', '/work#real-time-underwater-detection'],
+    ['Your agent workflow has to behave, across many customers', '/turnkeyhq'],
+    ['Participants have a reason to game the system', '/work/adversarial-storage-protocol'],
+  ]) {
+    assert.match(problems, new RegExp(`href="${href.replace(/[/#]/g, '\\$&')}"[\\s\\S]*?${problem}`), problem);
+  }
+
+  assert.match(html, /href="\/contact\?intent=introduction"/);
   assert.match(html, /&lt;50 ms/);
   assert.match(html, /Multi-GPU/);
   assert.match(html, /Ciphertext-only/);
-  // Softened proof claims: no exact cluster count, no third-party economics.
   assert.doesNotMatch(html, /128 GPUs|~\$60M|~\$7M|~\$5M|65\s?%/);
   assert.match(html, /Define the system/);
   assert.match(html, /Build the critical path/);
