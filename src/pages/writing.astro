@@ -1,15 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { AFTERFIAT_PREMISES, AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, AFTERFIAT_RED_LINES, AFTERFIAT_VERSION, spelled, ESCHATOLOGY_URL, PUBLICATIONS, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
+import { publishedNotes } from '@/lib/notes';
+import { AFTERFIAT_PROFILE_URL, AFTERFIAT_READ_URL, AFTERFIAT_VERSION, ESCHATOLOGY_URL, PUBLICATIONS, SSRN_URL, DOI_URL, SITE } from '@/lib/site';
 
-// Architecture notes: native commercial essays (advisory package RB-22).
-// Drafts are excluded here as well as from the build, so the section simply
-// does not render until an essay is published.
-const notes = (await getCollection('essays', (e) => e.data.status === 'published')).sort(
-  (a, b) => (b.data.publishedAt ?? '').localeCompare(a.data.publishedAt ?? ''),
-);
+// Engineering notes (the `essays` collection). Drafts never reach this list, so
+// the section simply does not render until a note is published.
+const notes = await publishedNotes();
 
 const scholarlyData = JSON.stringify([
   {
@@ -63,12 +60,15 @@ const themes = [
   },
 ] as const;
 
-const startPaths = [
+const startPaths: { n: string; label: string; body: string; href?: string; cta?: string }[] = [
   {
     n: '01',
     label: 'For systems builders',
-    body:
-      `Start with AfterFiat: a conditional monetary thesis with ${spelled(AFTERFIAT_PREMISES)} premises, a nine-link chain, ${spelled(AFTERFIAT_RED_LINES)} red lines, and public telemetry for testing the result.`,
+    body: notes.length > 0
+      ? 'Start with the engineering notes and the selected work. AfterFiat is the long-form research: a conditional monetary thesis.'
+      : 'Start with the selected work. AfterFiat is the long-form research: a conditional monetary thesis with public telemetry for testing it.',
+    href: '/work',
+    cta: 'See selected work',
   },
   {
     n: '02',
@@ -82,7 +82,7 @@ const startPaths = [
     body:
       'Read the writing alongside the Work and Projects & Labs pages. The thesis becomes clearer when you can see the engineering, research, and public infrastructure around it.',
   },
-] as const;
+];
 ---
 
 <BaseLayout register="research"
@@ -107,6 +107,23 @@ const startPaths = [
       </p>
     </div>
   </section>
+
+  {notes.length > 0 && (
+    <section class="engineering-notes" id="engineering-notes">
+      <div class="container container--narrow">
+        <h2 class="engineering-notes__heading">Engineering notes</h2>
+        <p class="engineering-notes__intro">
+          Short notes drawn from finished work: one decision, the constraint behind it, and what it means for a team facing the same problem.
+        </p>
+        <ul class="engineering-notes__list" role="list">
+          {notes.map((note) => (
+            <li>
+              <a href={`/writing/${note.id}`}>
+                <h3>{note.data.title}</h3>
+                <p>{note.data.excerpt}</p>
+                {note.data.publishedAt && (
+                  <time datetime={note.data.publishedAt}>{note.data.publishedAt}</time>
+                )}
 
   <section class="writing-surfaces">
     <div class="container">
@@ -142,23 +159,6 @@ const startPaths = [
     </div>
   </section>
 
-  {notes.length > 0 && (
-    <section class="architecture-notes" id="architecture-notes">
-      <div class="container container--narrow">
-        <h2 class="architecture-notes__heading">Architecture notes</h2>
-        <p class="architecture-notes__intro">
-          Short technical essays on the decisions that make AI and distributed systems hard to
-          get right — written from the same method I bring to a review.
-        </p>
-        <ul class="architecture-notes__list" role="list">
-          {notes.map((note) => (
-            <li>
-              <a href={`/writing/${note.id}`}>
-                <h3>{note.data.title}</h3>
-                <p>{note.data.excerpt}</p>
-                {note.data.publishedAt && (
-                  <time datetime={note.data.publishedAt}>{note.data.publishedAt}</time>
-                )}
               </a>
             </li>
           ))}
@@ -229,6 +229,7 @@ const startPaths = [
               <div class="start-path__content">
                 <p class="start-path__label">{p.label}</p>
                 <p class="start-path__body">{p.body}</p>
+                {p.href && <a class="start-path__link" href={p.href}>{p.cta}</a>}
               </div>
             </li>
           ))
@@ -604,12 +605,18 @@ const startPaths = [
     }
   }
 
-  .architecture-notes { padding-block: var(--sp-16); border-top: 1px solid var(--color-line); }
-  .architecture-notes__heading { font: var(--text-h2); font-family: var(--font-serif); }
-  .architecture-notes__intro { font: var(--text-body); color: var(--color-slate); margin-top: var(--sp-4); max-width: 40em; }
-  .architecture-notes__list { list-style: none; margin: var(--sp-8) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--sp-5); }
-  .architecture-notes__list a { display: block; padding: var(--sp-6); border: 1px solid var(--color-line); border-left: 1px solid var(--color-line); border-radius: var(--radius-card); text-decoration: none; color: inherit; }
-  .architecture-notes__list h3 { font: var(--text-h3); font-family: var(--font-serif); }
-  .architecture-notes__list p { font: var(--text-body); color: var(--color-slate); margin-top: var(--sp-3); }
-  .architecture-notes__list time { display: block; font: var(--text-meta); color: var(--color-brass-text); margin-top: var(--sp-4); }
+  .engineering-notes { padding-block: var(--sp-16); border-top: 1px solid var(--color-line); }
+  .engineering-notes__heading { font: var(--text-h2); font-family: var(--font-serif); }
+  .engineering-notes__intro { font: var(--text-body); color: var(--color-slate); margin-top: var(--sp-4); max-width: 40em; }
+  .engineering-notes__list { list-style: none; margin: var(--sp-8) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--sp-5); }
+  .engineering-notes__list a { display: block; padding: var(--sp-6); border: 1px solid var(--color-line); border-left: 1px solid var(--color-line); border-radius: var(--radius-card); text-decoration: none; color: inherit; }
+  .engineering-notes__list h3 { font: var(--text-h3); font-family: var(--font-serif); }
+  .engineering-notes__list p { font: var(--text-body); color: var(--color-slate); margin-top: var(--sp-3); }
+  .engineering-notes__list time { display: block; font: var(--text-meta); color: var(--color-brass-text); margin-top: var(--sp-4); }
+  .start-path__link {
+    display: inline-block;
+    margin-top: var(--sp-2);
+    color: var(--color-brass-text);
+    font-weight: 500;
+  }
 </style>

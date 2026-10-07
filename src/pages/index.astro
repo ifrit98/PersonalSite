@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Envelope from '@/components/ui/Envelope.astro';
 import { SIGNATURE_SYSTEMS } from '@/lib/systems';
+import { publishedNotes } from '@/lib/notes';
 
 // PRD §§8–13: homepage is a professional compression layer. The envelope and the
 // systems table carry the proof that a stat strip and cards used to.
@@ -16,6 +17,7 @@ const research = [
   ['AfterFiat', 'A versioned, falsifiable thesis on privacy, proofs, and compute as money', 'Independent research', '/afterfiat'],
   ['Agentic Data', 'Causal, temporal, permissioned context for organizational knowledge', 'In active development', '/agentic-data'],
 ] as const;
+const notes = (await publishedNotes()).slice(0, 3);
 // The problems table's order: most common buyer problem first. The envelope keeps its own order.
 const PROBLEM_ORDER = ['secure-distributed-ml', 'real-time-underwater-detection', 'turnkeyhq', 'adversarial-storage-incentives'];
 const problems = PROBLEM_ORDER.map((id) => {
@@ -87,6 +89,19 @@ const problems = PROBLEM_ORDER.map((id) => {
       <p>Know someone working on one of these problems? <a href="/contact?intent=introduction">Introductions are welcome.</a></p>
     </div>
   </section>
+
+  {notes.length > 0 && (
+    <section class="section" id="notes">
+      <div class="container">
+        <h2>Engineering notes</h2>
+        <ul class="labs">
+          {notes.map((note) => (
+            <li><a href={`/writing/${note.id}`}><span class="labs__name">{note.data.title}</span><span class="labs__body">{note.data.excerpt}</span><span class="labs__status">{note.data.publishedAt}</span></a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <section class="section">
     <div class="container">

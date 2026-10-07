@@ -395,7 +395,12 @@ test('essay drafts stay out of the public build', async () => {
   }
 
   const writing = await renderedPage('/writing');
-  assert.doesNotMatch(writing, /Architecture notes/, 'the section renders only once an essay is published');
+  const home = await renderedPage('');
+  // The notes sections render only once an essay is published.
+  for (const html of [writing, home]) {
+    assert.doesNotMatch(html, /Engineering notes|Architecture notes/);
+  }
+  assert.match(writing, /For systems builders[\s\S]{0,800}?href="\/work"/);
 });
 
 // The contact form should arrive pre-classified against the published engagement types.
