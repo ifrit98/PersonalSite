@@ -54,6 +54,7 @@ test('homepage presents the canonical systems-architect position and ordered pro
 
   assert.match(hero, /<h1[^>]*>I design and build AI systems that have to work under real constraints\.<\/h1>/);
   assert.match(hero, /principal systems architect/i);
+  assert.match(hero, /I help the team define the problem, then build the critical path and make the risky assumptions testable/);
   assert.match(hero, /href="\/engage"[\s\S]{0,200}?Discuss an engagement/);
   assert.match(hero, /href="#problems"/);
   assert.match(hero, /Download résumé/i);
