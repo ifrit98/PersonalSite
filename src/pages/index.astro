@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Envelope from '@/components/ui/Envelope.astro';
 import { SIGNATURE_SYSTEMS } from '@/lib/systems';
+import { publishedNotes } from '@/lib/notes';
 
 // PRD §§8–13: homepage is a professional compression layer. The envelope and the
 // systems table carry the proof that a stat strip and cards used to.
@@ -16,16 +17,24 @@ const research = [
   ['AfterFiat', 'A versioned, falsifiable thesis on privacy, proofs, and compute as money', 'Independent research', '/afterfiat'],
   ['Agentic Data', 'Causal, temporal, permissioned context for organizational knowledge', 'In active development', '/agentic-data'],
 ] as const;
+const notes = (await publishedNotes()).slice(0, 3);
+// The problems table's order: most common buyer problem first. The envelope keeps its own order.
+const PROBLEM_ORDER = ['secure-distributed-ml', 'real-time-underwater-detection', 'turnkeyhq', 'adversarial-storage-incentives'];
+const problems = PROBLEM_ORDER.map((id) => {
+  const system = SIGNATURE_SYSTEMS.find((s) => s.id === id);
+  if (!system) throw new Error(`no signature system ${id}`);
+  return system;
+});
 ---
 <BaseLayout>
   <section class="hero">
     <div class="container hero__grid">
       <div class="hero__text">
-        <h1>I architect intelligent systems for problems where the constraints are real and the obvious abstraction is usually wrong.</h1>
-        <p>As a principal systems architect, I take ambiguous, high-consequence technical problems from problem definition through system architecture, critical implementation, and production deployment, especially where AI, distributed systems, security, adversarial behavior, real-time operation, or physical-world constraints intersect.</p>
+        <h1>I design and build AI systems that have to work under real constraints.</h1>
+        <p>Private deployment, tight hardware budgets, agents that must behave, and participants with a reason to cheat. As a principal systems architect, I come in before the architecture is obvious: I define the problem, build the critical path, and make the risky assumptions testable while they're still cheap to change.</p>
         <div class="hero__actions">
-          <Button href="#selected-work">View selected work</Button>
-          <a href="/engage">Discuss an engagement</a>
+          <Button href="/engage">Discuss an engagement</Button>
+          <a href="#problems">See the problems I work on</a>
           <a href="/papers/resume.pdf">Download résumé</a>
         </div>
       </div>
@@ -37,7 +46,7 @@ const research = [
   <section class="section">
     <div class="container">
       <h2>The work starts before the architecture is obvious.</h2>
-      <p class="intro">The highest-leverage engagements are usually not cleanly specified engineering tasks. They are systems problems where several constraints interact and the team needs a sharper model of the problem before adding more implementation.</p>
+      <p class="intro">In these problems the constraints are real and the obvious abstraction is usually wrong. The highest-leverage engagements are usually not cleanly specified engineering tasks. They are systems problems where several constraints interact and the team needs a sharper model of the problem before adding more implementation.</p>
       <ol class="steps">
         {steps.map(([title, body], i) => (
           <li><span class="steps__n">{i + 1}</span><h3>{title}</h3><p>{body}</p></li>
@@ -46,17 +55,17 @@ const research = [
     </div>
   </section>
 
-  <section class="section" id="selected-work">
+  <section class="section" id="problems">
     <div class="container">
-      <h2>Selected systems</h2>
-      <div class="table" role="table" aria-label="Selected systems">
+      <h2>Problems I'm brought in for</h2>
+      <div class="table" role="table" aria-label="Problems I'm brought in for">
         <div class="table__head" role="row">
-          <span role="columnheader">System</span><span role="columnheader">Envelope</span><span role="columnheader">Outcome</span>
+          <span role="columnheader">Problem</span><span role="columnheader">Where I've solved it</span><span role="columnheader">Outcome</span>
         </div>
-        {SIGNATURE_SYSTEMS.map((system) => (
+        {problems.map((system) => (
           <a class="table__row" role="row" href={system.href}>
-            <span role="cell" class="table__name">{system.name}</span>
-            <span role="cell" class="table__envelope">{system.summary}</span>
+            <span role="cell" class="table__problem">{system.problem}</span>
+            <span role="cell" class="table__system">{system.name}</span>
             <span role="cell" class="table__outcome">{system.outcome}</span>
           </a>
         ))}
@@ -74,6 +83,25 @@ const research = [
       <div class="dark__action"><Button href="/engage" variant="brass">See engagement types</Button></div>
     </div>
   </section>
+
+  <section class="introductions">
+    <div class="container">
+      <p>Know someone working on one of these problems? <a href="/contact?intent=introduction">Introductions are welcome.</a></p>
+    </div>
+  </section>
+
+  {notes.length > 0 && (
+    <section class="section" id="notes">
+      <div class="container">
+        <h2>Engineering notes</h2>
+        <ul class="labs">
+          {notes.map((note) => (
+            <li><a href={`/writing/${note.id}`}><span class="labs__name">{note.data.title}</span><span class="labs__body">{note.data.excerpt}</span>{note.data.publishedAt && <time class="labs__status" datetime={note.data.publishedAt}>{note.data.publishedAt}</time>}</a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <section class="section">
     <div class="container">
@@ -186,7 +214,7 @@ const research = [
   .table__head,
   .table__row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1.2fr);
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr) minmax(0, 1.2fr);
     gap: var(--sp-6);
     padding-block: var(--sp-4);
     border-top: 1px solid var(--color-line);
@@ -205,7 +233,7 @@ const research = [
     align-items: baseline;
   }
 
-  .table__row:hover .table__name {
+  .table__row:hover .table__problem {
     text-decoration: underline;
     text-decoration-color: var(--color-line);
     text-underline-offset: 0.25em;
@@ -215,16 +243,16 @@ const research = [
     background: var(--color-warm-wash);
   }
 
-  .table__name {
+  .table__problem {
     font-family: var(--font-display);
     font-weight: 600;
     font-stretch: 90%;
     font-size: 1.125rem;
   }
 
-  .table__envelope {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
+  .table__system {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
     color: var(--color-slate);
   }
 
@@ -260,6 +288,20 @@ const research = [
 
   .dark__action {
     margin-top: var(--sp-8);
+  }
+
+  .introductions {
+    padding-block: var(--sp-8);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .introductions p {
+    color: var(--color-slate);
+  }
+
+  .introductions a {
+    color: var(--color-brass-text);
+    font-weight: 500;
   }
 
   .labs {

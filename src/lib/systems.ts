@@ -1,6 +1,6 @@
 // The four signature systems, each described by its operating envelope: the
-// constraints it had to survive. The homepage envelope and the selected-systems
-// table both render from here, so a fact changes in one place.
+// constraints it had to survive. The homepage envelope and the problems table
+// both render from here, so a fact changes in one place.
 //
 // Every value restates something the case studies already say (src/content/work,
 // /turnkeyhq, the résumé). Nothing new is claimed here.
@@ -20,8 +20,8 @@ export interface SignatureSystem {
   envelope: EnvelopeRow[];
   /** The critical path, left to right. */
   flow: string[];
-  /** One line for the systems table: the envelope compressed. */
-  summary: string;
+  /** The problem, in the words of someone who has it. Homepage row and /work case lead. */
+  problem: string;
   outcome: string;
 }
 
@@ -38,7 +38,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
       { label: 'tuned for', value: 'Pd against Pfa' },
     ],
     flow: ['DSP features', 'Deep CNN', 'operator'],
-    summary: '<50 ms · Jetson · DSP + ML',
+    problem: 'Inference has to fit a hardware and latency budget',
     outcome: 'Sustained sub-50 ms inference on embedded hardware',
   },
   {
@@ -50,10 +50,10 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
       { label: 'handling', value: 'classified, approval-gated' },
       { label: 'compute', value: 'Multi-GPU cluster' },
       { label: 'method', value: 'quantized adapters' },
-      { label: 'result', value: 'fine-tuning cost ≈ −65%' },
+      { label: 'span', value: 'data prep to operator' },
     ],
     flow: ['data pipeline', 'fine-tuning', 'deployment', 'operator'],
-    summary: 'air-gapped · Multi-GPU · LLM fine-tuning',
+    problem: 'Your AI has to run privately or offline',
     outcome: 'Adopted for ongoing production use',
   },
   {
@@ -68,7 +68,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
       { label: 'incentives', value: 'sliding window' },
     ],
     flow: ['challenge', 'proof', 'verification', 'incentive'],
-    summary: 'Ciphertext-only · adversarial peers',
+    problem: 'Participants have a reason to game the system',
     outcome: 'Operated in production under continuous integrity proofs',
   },
   {
@@ -83,7 +83,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
       { label: 'stage', value: 'private beta' },
     ],
     flow: ['channels', 'deterministic plane', 'bounded agent plane'],
-    summary: '14 services · 244 routes · tenant-isolated',
+    problem: 'Your agent workflow has to behave, across many customers',
     outcome: 'Multi-tenant AI platform in private beta',
   },
 ];

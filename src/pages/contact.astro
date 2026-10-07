@@ -1,58 +1,60 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { INQUIRY_TYPES, SITE } from '@/lib/site';
+import { CONTACT_INTENTS, ENGAGEMENT_TYPES, SITE, contactIntent } from '@/lib/site';
 import { CONTACT_LIMITS } from '@/lib/request-guards';
 
-const inquiryTypes = INQUIRY_TYPES;
 const max = CONTACT_LIMITS;
-
-const bestFitCards = [
-  {
-    title: 'Architecture & Protocols',
-    body: 'System design, protocol analysis, threat modeling, proofs, mechanism design, and verification-heavy technical problems.',
-  },
-  {
-    title: 'ML Infrastructure & Secure Systems',
-    body: 'Distributed ML, deployment architecture, air-gapped or high-constraint environments, edge inference, and production workflows.',
-  },
-  {
-    title: 'Research, Writing & Technical Synthesis',
-    body: 'Research collaboration, technical memos, publication, long-form synthesis, and translating difficult systems questions into clear language.',
-  },
-  {
-    title: 'Knowledge Platforms & Public Capability',
-    body: 'Schema design, capability infrastructure, retrieval systems, curriculum architecture, and teach-forward knowledge products.',
-  },
-  {
-    title: 'Speaking & Interviews',
-    body: 'Conversations on verification, AI, money, capability, culture, institutional drift, and related systems questions.',
-  },
-] as const;
+// Server-rendered, so a linked intent is already selected on first paint.
+const intent = contactIntent(Astro.url.searchParams.get('intent'));
+const isEngagement = intent.id === 'engagement';
 ---
 
 <BaseLayout
   title="Contact"
-  description="Discuss an engagement for architecture-heavy technical work where security, latency, retrieval quality, production reliability, or verification matters."
+  description="Start a conversation: a technical problem, an introduction, a research question, or a role. A short message is enough."
 >
   <section class="page-hero" aria-labelledby="contact-hero-title">
     <div class="container container--narrow">
-      <h1 id="contact-hero-title" class="page-hero__title">Bring me the problem before the solution is obvious.</h1>
+      <h1 id="contact-hero-title" class="page-hero__title">Start a conversation.</h1>
       <p class="page-hero__body">
-        The best fit is an architecture-heavy technical problem where several constraints interact and the team needs a sharper model before it needs more code.
+        Tell me what you're working on, the question you're exploring, or why you think we should connect. A short message is enough.
       </p>
+      <p class="page-hero__body">Or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
     </div>
   </section>
 
   <section class="inquiry-form" id="engagement" aria-labelledby="inquiry-heading">
     <div class="container container--narrow">
-      <h2 id="inquiry-heading" class="inquiry-form__heading">Discuss an Engagement</h2>
-      <p class="inquiry-form__intro">
+      <h2 id="inquiry-heading" class="inquiry-form__heading" data-intent-heading>{intent.heading}</h2>
+      <p class="inquiry-form__intro" data-intent-only="engagement" hidden={!isEngagement}>
         A short, concrete description beats a polished pitch. If you are not sure which engagement fits, the
         <a href="/engage">engagement types</a> are described in detail.
       </p>
 
-      <form id="contact-form" class="form" novalidate>
+      <noscript>
+        <p class="form__noscript">This form sends with JavaScript, which is off in your browser. Please email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> instead.</p>
+      </noscript>
+
+      <form id="contact-form" class="form" method="post" novalidate>
+        <fieldset class="form__intents">
+          <legend class="form__label">Why are you writing?</legend>
+          {CONTACT_INTENTS.map((option) => (
+            <label class="form__intent">
+              <input
+                type="radio"
+                name="intent"
+                value={option.id}
+                checked={option.id === intent.id}
+                data-heading={option.heading}
+                data-prompt={option.prompt}
+                data-placeholder={option.placeholder}
+                data-inquiry-type={option.inquiryType ?? ''}
+              />
+              <span>{option.label}</span>
+            </label>
+          ))}
+        </fieldset>
         <!-- Bot traps: a field people never see, and the time the form was opened. -->
         <div class="form__trap" aria-hidden="true">
           <label for="field-website">Website</label>
@@ -75,71 +77,61 @@ const bestFitCards = [
 
         <div class="form__row form__row--half">
           <div class="form__field">
-            <label for="field-org" class="form__label">Organization</label>
+            <label for="field-org" class="form__label">Organization <span class="form__optional">(optional)</span></label>
             <input type="text" id="field-org" name="organization" maxlength={max.organization} class="form__input" autocomplete="organization" />
           </div>
-          <div class="form__field">
-          <label for="field-type" class="form__label">Problem type <span class="form__required">*</span></label>
-            <select id="field-type" name="inquiry_type" required class="form__input form__select" aria-describedby="field-type-error">
+          <div class="form__field" data-intent-only="engagement" hidden={!isEngagement}>
+            <label for="field-type" class="form__label">Engagement type <span class="form__required">*</span></label>
+            <select id="field-type" name="inquiry_type" required class="form__input form__select" aria-describedby="field-type-error" disabled={!isEngagement}>
               <option value="" disabled selected>Select one</option>
-              {inquiryTypes.map((t) => (
-                <option value={t}>{t}</option>
-              ))}
+              {ENGAGEMENT_TYPES.map((t) => <option value={t}>{t}</option>)}
             </select>
-            <span id="field-type-error" class="form__error">Please select an inquiry type.</span>
+            <span id="field-type-error" class="form__error">Please select an engagement type.</span>
           </div>
         </div>
+        <input type="hidden" id="field-intent-type" name="inquiry_type" value={intent.inquiryType ?? ''} disabled={isEngagement} />
 
         <div class="form__field">
-          <label for="field-problem" class="form__label">What problem are you trying to solve? <span class="form__required">*</span></label>
-          <textarea id="field-problem" name="problem" required rows="3" maxlength={max.problem} class="form__input form__textarea" placeholder="What are you trying to solve?" aria-describedby="field-problem-error"></textarea>
-          <span id="field-problem-error" class="form__error">Please describe the problem.</span>
+          <label for="field-problem" class="form__label"><span data-intent-prompt>{intent.prompt}</span> <span class="form__required">*</span></label>
+          <textarea id="field-problem" name="problem" required rows="4" maxlength={max.problem} class="form__input form__textarea" placeholder={intent.placeholder} aria-describedby="field-problem-error"></textarea>
+          <span id="field-problem-error" class="form__error">Please write a short message.</span>
         </div>
 
-        <div class="form__field">
-          <label for="field-constraints" class="form__label">Known constraints</label>
-          <textarea id="field-constraints" name="constraints" rows="2" maxlength={max.constraints} class="form__input form__textarea" placeholder="Security requirements, timelines, regulatory, environment constraints..."></textarea>
-        </div>
-
-        <div class="form__field">
-          <label for="field-outcome" class="form__label">Desired outcome</label>
-          <textarea id="field-outcome" name="desired_outcome" rows="2" maxlength={max.desired_outcome} class="form__input form__textarea" placeholder="What does success look like?"></textarea>
-        </div>
-
-        <div class="form__row form__row--half">
+        <div class="form__engagement" data-intent-only="engagement" hidden={!isEngagement}>
           <div class="form__field">
-            <label for="field-timeline" class="form__label">Timeline</label>
-            <input type="text" id="field-timeline" name="timeline" maxlength={max.timeline} class="form__input" placeholder="e.g. 2-week sprint, ongoing, Q3 2026" />
+            <label for="field-constraints" class="form__label">Known constraints</label>
+            <textarea id="field-constraints" name="constraints" rows="2" maxlength={max.constraints} class="form__input form__textarea" placeholder="Security requirements, timelines, regulatory, environment constraints..." disabled={!isEngagement}></textarea>
           </div>
           <div class="form__field">
-          <label for="field-budget" class="form__label">Budget / engagement range <span class="form__optional">(optional)</span></label>
-            <input type="text" id="field-budget" name="budget_range" maxlength={max.budget_range} class="form__input" placeholder="e.g. $10k–25k, TBD" />
+            <label for="field-outcome" class="form__label">Desired outcome</label>
+            <textarea id="field-outcome" name="desired_outcome" rows="2" maxlength={max.desired_outcome} class="form__input form__textarea" placeholder="What does success look like?" disabled={!isEngagement}></textarea>
           </div>
-        </div>
-
-        <div class="form__field">
-          <label for="field-message" class="form__label">Anything else</label>
-          <textarea id="field-message" name="message" rows="2" maxlength={max.message} class="form__input form__textarea" placeholder="Anything else relevant..."></textarea>
+          <div class="form__row form__row--half">
+            <div class="form__field">
+              <label for="field-timeline" class="form__label">Timeline</label>
+              <input type="text" id="field-timeline" name="timeline" maxlength={max.timeline} class="form__input" placeholder="e.g. 2-week sprint, ongoing, Q3 2026" disabled={!isEngagement} />
+            </div>
+            <div class="form__field">
+              <label for="field-budget" class="form__label">Budget / engagement range <span class="form__optional">(optional)</span></label>
+              <input type="text" id="field-budget" name="budget_range" maxlength={max.budget_range} class="form__input" placeholder="e.g. $10k–25k, TBD" disabled={!isEngagement} />
+            </div>
+          </div>
+          <div class="form__field">
+            <label for="field-message" class="form__label">Anything else</label>
+            <textarea id="field-message" name="message" rows="2" maxlength={max.message} class="form__input form__textarea" placeholder="Anything else relevant..." disabled={!isEngagement}></textarea>
+          </div>
         </div>
 
         <div class="form__actions">
-          <Button variant="brass" class="form__submit" data-track="contact_form_submit">Send Inquiry</Button>
+          <Button variant="brass" class="form__submit" data-track="contact_form_submit">Send message</Button>
         </div>
 
         <div id="form-status" class="form__status" aria-live="polite"></div>
       </form>
 
       <div class="form__fallback">
-        <p>Prefer email? Write directly to <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with the problem, constraints, and desired outcome.</p>
+        <p>Prefer email? Write directly to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
       </div>
-    </div>
-  </section>
-
-  <section class="best-fit" aria-labelledby="best-fit-heading">
-    <div class="container">
-      <h2 id="best-fit-heading" class="best-fit__heading">Best-fit problems</h2>
-      <p class="best-fit__intro">I am most useful when the architecture is not yet obvious; several technical or operational domains interact; incorrect assumptions become expensive later; or an existing project needs a sharper technical model before adding more implementation.</p>
-      <p class="best-fit__intro">If you already have a clean specification and simply need commodity implementation capacity, I may not be the highest-leverage fit.</p>
     </div>
   </section>
 
@@ -383,69 +375,13 @@ const bestFitCards = [
   }
 
   /* Best-fit section */
-  .best-fit {
-    padding-block: var(--sp-16);
-    border-top: 1px solid var(--color-line);
-  }
 
-  .best-fit__heading {
-    font: var(--text-h2);
-    font-family: var(--font-display);
-    font-weight: 500;
-    margin-bottom: var(--sp-4);
-  }
 
-  .best-fit__intro {
-    font: var(--text-body);
-    font-family: var(--font-sans);
-    color: var(--color-slate);
-    margin-bottom: var(--sp-8);
-    max-width: 38em;
-  }
 
-  .best-fit__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr));
-    gap: var(--sp-6);
-    grid-auto-rows: 1fr;
-  }
 
-  .best-fit__card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-3);
-    padding: var(--sp-6);
-    border: 1px solid var(--color-line);
-    border-left: 1px solid var(--color-line);
-    border-radius: var(--radius-card);
-    background-color: var(--color-card-elevated);
-    box-shadow: var(--shadow-card-rest);
-    transition:
-      border-color var(--duration-normal) var(--ease-out),
-      box-shadow var(--duration-normal) var(--ease-out);
-  }
 
-  .best-fit__card:hover {
-    border-color: var(--color-brass);
-    box-shadow: var(--shadow-card-lift);
-  }
 
-  .best-fit__card-title {
-    font: var(--text-h3);
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 1.125rem;
-    color: var(--color-ink);
-    margin: 0;
-  }
 
-  .best-fit__card-body {
-    font: var(--text-body);
-    font-family: var(--font-sans);
-    color: var(--color-slate);
-    margin: 0;
-    max-width: none;
-  }
 
   /* Direct contact */
   .direct {
@@ -503,9 +439,65 @@ const bestFitCards = [
       font-weight: 500;
     }
 
-    .best-fit__grid {
-      grid-template-columns: 1fr;
-    }
+  }
+
+  .form__intents {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2) var(--sp-3);
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .form__intents legend {
+    width: 100%;
+    margin-bottom: var(--sp-3);
+  }
+
+  .form__intent {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    min-height: 2.75rem;
+    padding: 0 var(--sp-4);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-button);
+    font: 500 0.9375rem / 1 var(--font-sans);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .form__intent:has(input:checked) {
+    border-color: var(--color-ink);
+    background: var(--color-paper);
+  }
+
+  .form__intent:has(input:focus-visible) {
+    outline: 2px solid var(--color-brass-text);
+    outline-offset: 2px;
+  }
+
+  .form__intent input {
+    accent-color: var(--color-ink);
+  }
+
+  .form__engagement {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+  }
+
+  [data-intent-only][hidden] {
+    display: none;
+  }
+
+  .form__noscript {
+    margin-bottom: var(--sp-6);
+    padding: var(--sp-4);
+    border: 1px solid var(--color-ink);
+    border-radius: var(--radius-card);
+    color: var(--color-ink);
   }
 </style>
 
@@ -518,6 +510,44 @@ const bestFitCards = [
     if (startedAt) startedAt.value = String(Date.now());
   };
   markStarted();
+
+  const intents = [...document.querySelectorAll<HTMLInputElement>('input[name="intent"]')];
+  const typeSelect = document.getElementById('field-type') as HTMLSelectElement | null;
+  const intentType = document.getElementById('field-intent-type') as HTMLInputElement | null;
+  const promptEl = document.querySelector<HTMLElement>('[data-intent-prompt]');
+  const headingEl = document.querySelector<HTMLElement>('[data-intent-heading]');
+  const problemEl = document.getElementById('field-problem') as HTMLTextAreaElement | null;
+  const directEmail = document.querySelector<HTMLAnchorElement>('.form__fallback a[href^="mailto:"]')?.textContent ?? 'email';
+
+  // Hidden fields are also disabled, so they neither validate nor submit, and
+  // switching back restores whatever was typed in them.
+  function applyIntent(input: HTMLInputElement) {
+    const engagement = input.value === 'engagement';
+    document.querySelectorAll<HTMLElement>('[data-intent-only="engagement"]').forEach((el) => {
+      el.hidden = !engagement;
+      el.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input, textarea, select')
+        .forEach((field) => { field.disabled = !engagement; });
+    });
+    if (typeSelect) typeSelect.disabled = !engagement;
+    if (intentType) {
+      intentType.disabled = engagement;
+      intentType.value = input.dataset.inquiryType ?? '';
+    }
+    if (promptEl) promptEl.textContent = input.dataset.prompt ?? '';
+    if (headingEl) headingEl.textContent = input.dataset.heading ?? '';
+    if (problemEl) problemEl.placeholder = input.dataset.placeholder ?? '';
+    // A validation error belongs to the form the visitor just left.
+    form?.querySelectorAll('.form__field--error').forEach((el) => el.classList.remove('form__field--error'));
+    if (statusEl?.classList.contains('form__status--error')) {
+      statusEl.className = 'form__status';
+      statusEl.textContent = '';
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.set('intent', input.value);
+    history.replaceState(null, '', url);
+  }
+
+  intents.forEach((input) => input.addEventListener('change', () => applyIntent(input)));
 
   function isValidEmail(email: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -543,8 +573,9 @@ const bestFitCards = [
     setFieldError('field-email', !email || !isValidEmail(email));
     if (!email || !isValidEmail(email)) valid = false;
 
-    setFieldError('field-type', !type);
-    if (!type) valid = false;
+    const needsType = !(document.getElementById('field-type') as HTMLSelectElement).disabled;
+    setFieldError('field-type', needsType && !type);
+    if (needsType && !type) valid = false;
 
     setFieldError('field-problem', !problem);
     if (!problem) valid = false;
@@ -567,7 +598,7 @@ const bestFitCards = [
 
     const fd = new FormData(form);
     const payload: Record<string, string> = {};
-    fd.forEach((v, k) => { payload[k] = v.toString(); });
+    fd.forEach((v, k) => { if (k !== 'intent') payload[k] = v.toString(); });
 
     try {
       const res = await fetch('/api/contact', {
@@ -580,17 +611,19 @@ const bestFitCards = [
 
       if (res.ok && data.success) {
         statusEl.className = 'form__status form__status--success';
-        statusEl.textContent = 'Inquiry sent. I will follow up within a few business days.';
+        statusEl.textContent = 'Thanks, your message was received.';
         form.reset();
+        const current = intents.find((i) => i.value === new URL(window.location.href).searchParams.get('intent'));
+        if (current) { current.checked = true; applyIntent(current); }
         markStarted();
         form.querySelectorAll('.form__field--error').forEach(el => el.classList.remove('form__field--error'));
       } else {
         statusEl.className = 'form__status form__status--error';
-        statusEl.textContent = data.error || 'Something went wrong. Please try email instead.';
+        statusEl.textContent = data.error || `Something went wrong. Your message is still here; you can also email ${directEmail}.`;
       }
     } catch {
       statusEl.className = 'form__status form__status--error';
-      statusEl.textContent = 'Network error. Please try email instead.';
+      statusEl.textContent = `Network error. Your message is still here; you can also email ${directEmail}.`;
     }
   });
 </script>

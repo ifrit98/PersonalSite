@@ -106,8 +106,8 @@ const LABELS: Record<ContactField, string> = {
   name: 'Name',
   email: 'Email',
   organization: 'Organization',
-  inquiry_type: 'Problem type',
-  problem: 'Problem description',
+  inquiry_type: 'Reason for writing',
+  problem: 'Message',
   constraints: 'Known constraints',
   desired_outcome: 'Desired outcome',
   timeline: 'Timeline',
@@ -158,7 +158,7 @@ export function checkContact(
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text('email'))) return { ok: false, error: 'Invalid email address.' };
   if (!inquiryTypes.includes(text('inquiry_type'))) {
-    return { ok: false, error: 'Choose a problem type from the list.' };
+    return { ok: false, error: 'Choose a reason for writing from the list.' };
   }
 
   const optional = (field: ContactField) => text(field) || null;

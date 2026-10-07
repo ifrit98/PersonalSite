@@ -52,20 +52,30 @@ test('homepage presents the canonical systems-architect position and ordered pro
   const html = await renderedPage('');
   const hero = html.match(/<section class="hero[\s\S]*?<\/section>/)?.[0] ?? '';
 
-  assert.match(hero, /PRINCIPAL SYSTEMS ARCHITECT/i);
-  assert.match(hero, /constraints are real/i);
-  assert.match(hero, /obvious abstraction is usually wrong/i);
-  assert.match(hero, /href="#selected-work"/);
-  assert.match(hero, /Discuss an engagement/);
+  assert.match(hero, /<h1[^>]*>I design and build AI systems that have to work under real constraints\.<\/h1>/);
+  assert.match(hero, /principal systems architect/i);
+  assert.match(hero, /href="\/engage"[\s\S]{0,200}?Discuss an engagement/);
+  assert.match(hero, /href="#problems"/);
   assert.match(hero, /Download résumé/i);
-  assert.match(html, /href="\/turnkeyhq"/);
-  assert.match(html, /TurnkeyHQ/);
   assert.doesNotMatch(hero, /TurnkeyHQ/);
+  assert.match(html, /obvious abstraction is usually wrong/i);
+
+  const problems = html.match(/<section[^>]*id="problems"[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(problems, /Problems I’m brought in for|Problems I'm brought in for|Problems I&#39;m brought in for/);
+  for (const [problem, href] of [
+    ['Your AI has to run privately or offline', '/work/secure-ml-architecture'],
+    ['Inference has to fit a hardware and latency budget', '/work#real-time-underwater-detection'],
+    ['Your agent workflow has to behave, across many customers', '/turnkeyhq'],
+    ['Participants have a reason to game the system', '/work/adversarial-storage-protocol'],
+  ]) {
+    assert.match(problems, new RegExp(`href="${href.replace(/[/#]/g, '\\$&')}"[\\s\\S]*?${problem}`), problem);
+  }
+
+  assert.match(html, /href="\/contact\?intent=introduction"/);
   assert.match(html, /&lt;50 ms/);
   assert.match(html, /Multi-GPU/);
   assert.match(html, /Ciphertext-only/);
-  // Softened proof claims: no exact cluster count, no third-party economics.
-  assert.doesNotMatch(html, /128 GPUs|~\$60M|~\$7M|~\$5M/);
+  assert.doesNotMatch(html, /128 GPUs|~\$60M|~\$7M|~\$5M|65\s?%/);
   assert.match(html, /Define the system/);
   assert.match(html, /Build the critical path/);
   assert.match(html, /De-risk the system/);
@@ -301,10 +311,12 @@ test('link previews and humans.txt reflect the current identity', async () => {
   const { existsSync } = await import('node:fs');
   const home = await renderedPage('');
   assert.match(home, /property="og:image" content="https:\/\/jasonstgeorge\.com\/og\/default\.png"/);
-  for (const [path, image] of [['/engage', 'engage'], ['/turnkeyhq', 'turnkeyhq'], ['/afterfiat', 'afterfiat']]) {
+  const previews = [['/engage', 'engage'], ['/turnkeyhq', 'turnkeyhq'], ['/afterfiat', 'afterfiat'],
+    ['/work/secure-ml-architecture', 'secure-ml'], ['/work/adversarial-storage-protocol', 'adversarial-storage']];
+  for (const [path, image] of previews) {
     assert.match(await renderedPage(path), new RegExp(`property="og:image" content="https://jasonstgeorge\\.com/og/${image}\\.png"`));
   }
-  for (const image of ['default', 'engage', 'turnkeyhq', 'afterfiat']) {
+  for (const image of ['default', ...previews.map(([, image]) => image)]) {
     assert.ok(existsSync(new URL(`../public/og/${image}.png`, import.meta.url)), `public/og/${image}.png exists`);
   }
 
@@ -327,7 +339,8 @@ test('engage page presents three priced offers and routes to the inquiry form', 
   assert.match(engage, /\$15K–\$30K/);
   assert.match(engage, /\$10K–\$15K \/ month/);
   assert.match(engage, /How engagements work/);
-  assert.match(engage, /href="\/contact#engagement"/);
+  assert.match(engage, /href="\/contact\?intent=engagement#engagement"/);
+  assert.match(engage, /href="\/contact\?intent=introduction"/);
   assert.match(engage, /href="\/work\/secure-ml-architecture"/);
   assert.match(engage, /href="\/work\/adversarial-storage-protocol"/);
   assert.match(engage, /href="\/work#real-time-underwater-detection"/);
@@ -382,7 +395,12 @@ test('essay drafts stay out of the public build', async () => {
   }
 
   const writing = await renderedPage('/writing');
-  assert.doesNotMatch(writing, /Architecture notes/, 'the section renders only once an essay is published');
+  const home = await renderedPage('');
+  // The notes sections render only once an essay is published.
+  for (const html of [writing, home]) {
+    assert.doesNotMatch(html, /Engineering notes|Architecture notes/);
+  }
+  assert.match(writing, /For systems builders[\s\S]{0,800}?href="\/work"/);
 });
 
 // The contact form should arrive pre-classified against the published engagement types.
@@ -427,7 +445,9 @@ test('contact endpoint fails toward the email fallback, not a false validation e
 // Softened claims must hold across the pages a buyer actually compares.
 test('work case studies state technical outcomes, not third-party economics', async () => {
   const work = await renderedPage('/work');
-  assert.doesNotMatch(work, /128-GPU|~\$60M|~\$7M|~\$5M|65% cost/);
+  assert.doesNotMatch(work, /128-GPU|~\$60M|~\$7M|~\$5M|65\s?%/);
+  assert.match(work, /Your AI has to run privately or offline/);
+  assert.match(work, /Inference has to fit a hardware and latency budget/);
   assert.match(work, /air-gapped multi-GPU cluster/);
   assert.match(work, /continuous integrity proofs/);
 });
@@ -534,4 +554,32 @@ test('resume matches the conservative claims used everywhere else', async () => 
   assert.match(resume, /Air-gapped multi-GPU ML/);
   assert.match(resume, /continuous integrity proofs/);
   assert.match(resume, /sub-50 ms end-to-end inference/);
+});
+
+test('contact preselects the intent it is linked with, and only that one', async () => {
+  const checkedIntent = (html) => html.match(/value="(\w+)"[^>]*\bchecked\b/)?.[1];
+
+  assert.equal(checkedIntent(await renderedPage('/contact')), 'engagement');
+  assert.equal(checkedIntent(await renderedPage('/contact?intent=role')), 'role');
+  for (const hostile of ['ROLE', '%3Cscript%3Ealert(1)%3C%2Fscript%3E', '']) {
+    const html = await renderedPage(`/contact?intent=${hostile}`);
+    assert.equal(checkedIntent(html), 'engagement');
+    assert.doesNotMatch(html, /<script>alert/);
+  }
+
+  const role = await renderedPage('/contact?intent=role');
+  assert.match(role, /<h1[^>]*>Start a conversation\.<\/h1>/);
+  assert.match(role, /data-intent-only="engagement"[^>]*\bhidden\b/, 'engagement fields hidden for a role inquiry');
+  assert.match(role, /Share the role, team, working arrangement/);
+  assert.doesNotMatch(role, /within a few business days/);
+  // The email fallback suits every reason for writing, not only an engagement.
+  assert.doesNotMatch(role, /with the problem, constraints, and desired outcome/);
+  // Without JavaScript a submit must not put the visitor's details in a URL.
+  assert.match(role, /<form id="contact-form"[^>]*method="post"/);
+  // The form sends with JavaScript; without it, say so before anyone types.
+  assert.match(role, /<noscript>[\s\S]*?mailto:jason@jasonstgeorge\.com[\s\S]*?<\/noscript>[\s\S]*?<form id="contact-form"/);
+  // Direct email is offered above the form as well as below it
+  // (humans.txt already pins this address as the contact).
+  const beforeForm = role.split('<form id="contact-form"')[0];
+  assert.match(beforeForm, /href="mailto:jason@jasonstgeorge\.com"/);
 });
