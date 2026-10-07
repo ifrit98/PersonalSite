@@ -48,3 +48,7 @@ archive/
 
 # private cold-pickup handoff (names advisory + job-search work)
 COLD_PICKUP.md
+
+# local planning: the external implementation brief and design specs derived from it
+JasonStGeorge_Site_Implementation_Brief_v1.docx
+docs/superpowers/
