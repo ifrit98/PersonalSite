@@ -122,6 +122,10 @@ test('notification sends plain text with reply-to the visitor', async () => {
   assert.equal(payload.html, undefined);
   assert.doesNotMatch(String(payload.subject), /\n/);
   assert.match(String(payload.text), /<script>alert\(1\)<\/script>/);
+  // Labels fit every reason for writing, not only an engagement.
+  assert.match(String(payload.text), /Reason for writing/);
+  assert.match(String(payload.text), /^Message\b/m);
+  assert.doesNotMatch(String(payload.text), /Problem type/);
 
   const failed = await notifyInquiry(inquiry, {
     env: { RESEND_API_KEY: 'k', CONTACT_NOTIFY_TO: 'me@example.com', CONTACT_NOTIFY_FROM: 'Site <in@example.com>' },

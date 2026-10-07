@@ -33,8 +33,8 @@ export async function notifyInquiry(
   const sections: [string, string | null][] = [
     ['From', `${inquiry.name} <${inquiry.email}>`],
     ['Organization', inquiry.organization],
-    ['Problem type', inquiry.inquiry_type],
-    ['Problem', inquiry.problem],
+    ['Reason for writing', inquiry.inquiry_type],
+    ['Message', inquiry.problem],
     ['Known constraints', inquiry.constraints],
     ['Desired outcome', inquiry.desired_outcome],
     ['Timeline', inquiry.timeline],
