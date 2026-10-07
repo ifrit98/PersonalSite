@@ -130,7 +130,7 @@ const isEngagement = intent.id === 'engagement';
       </form>
 
       <div class="form__fallback">
-        <p>Prefer email? Write directly to <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with the problem, constraints, and desired outcome.</p>
+        <p>Prefer email? Write directly to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
       </div>
     </div>
   </section>
@@ -536,7 +536,12 @@ const isEngagement = intent.id === 'engagement';
     if (promptEl) promptEl.textContent = input.dataset.prompt ?? '';
     if (headingEl) headingEl.textContent = input.dataset.heading ?? '';
     if (problemEl) problemEl.placeholder = input.dataset.placeholder ?? '';
-    setFieldError('field-type', false);
+    // A validation error belongs to the form the visitor just left.
+    form?.querySelectorAll('.form__field--error').forEach((el) => el.classList.remove('form__field--error'));
+    if (statusEl?.classList.contains('form__status--error')) {
+      statusEl.className = 'form__status';
+      statusEl.textContent = '';
+    }
     const url = new URL(window.location.href);
     url.searchParams.set('intent', input.value);
     history.replaceState(null, '', url);

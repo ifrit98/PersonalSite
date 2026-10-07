@@ -572,6 +572,8 @@ test('contact preselects the intent it is linked with, and only that one', async
   assert.match(role, /data-intent-only="engagement"[^>]*\bhidden\b/, 'engagement fields hidden for a role inquiry');
   assert.match(role, /Share the role, team, working arrangement/);
   assert.doesNotMatch(role, /within a few business days/);
+  // The email fallback suits every reason for writing, not only an engagement.
+  assert.doesNotMatch(role, /with the problem, constraints, and desired outcome/);
   // Without JavaScript a submit must not put the visitor's details in a URL.
   assert.match(role, /<form id="contact-form"[^>]*method="post"/);
   // The form sends with JavaScript; without it, say so before anyone types.
