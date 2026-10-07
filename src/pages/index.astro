@@ -96,7 +96,7 @@ const problems = PROBLEM_ORDER.map((id) => {
         <h2>Engineering notes</h2>
         <ul class="labs">
           {notes.map((note) => (
-            <li><a href={`/writing/${note.id}`}><span class="labs__name">{note.data.title}</span><span class="labs__body">{note.data.excerpt}</span><span class="labs__status">{note.data.publishedAt}</span></a></li>
+            <li><a href={`/writing/${note.id}`}><span class="labs__name">{note.data.title}</span><span class="labs__body">{note.data.excerpt}</span>{note.data.publishedAt && <time class="labs__status" datetime={note.data.publishedAt}>{note.data.publishedAt}</time>}</a></li>
           ))}
         </ul>
       </div>
