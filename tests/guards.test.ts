@@ -13,6 +13,7 @@ import {
   clientAddress,
   type ContactSubmission,
 } from '../src/lib/request-guards.ts';
+import { CONTACT_INTENTS, INQUIRY_TYPES, contactIntent } from '../src/lib/site.ts';
 
 const headers = (xff: string) => new Headers({ 'x-forwarded-for': xff });
 
@@ -121,6 +122,10 @@ test('notification sends plain text with reply-to the visitor', async () => {
   assert.equal(payload.html, undefined);
   assert.doesNotMatch(String(payload.subject), /\n/);
   assert.match(String(payload.text), /<script>alert\(1\)<\/script>/);
+  // Labels fit every reason for writing, not only an engagement.
+  assert.match(String(payload.text), /Reason for writing/);
+  assert.match(String(payload.text), /^Message\b/m);
+  assert.doesNotMatch(String(payload.text), /Problem type/);
 
   const failed = await notifyInquiry(inquiry, {
     env: { RESEND_API_KEY: 'k', CONTACT_NOTIFY_TO: 'me@example.com', CONTACT_NOTIFY_FROM: 'Site <in@example.com>' },
@@ -151,4 +156,26 @@ test('every CSS custom property the site reads is defined somewhere', () => {
     ),
   );
   assert.deepEqual([...undefinedUses], []);
+});
+
+test('every contact intent maps to an inquiry type the server accepts', () => {
+  for (const intent of CONTACT_INTENTS) {
+    if (intent.inquiryType !== null) assert.ok(INQUIRY_TYPES.includes(intent.inquiryType), intent.id);
+  }
+  assert.deepEqual(CONTACT_INTENTS.map((i) => i.id), ['engagement', 'introduction', 'research', 'role', 'other']);
+});
+
+test('an unknown or hostile intent falls back to engagement', () => {
+  for (const requested of [null, '', 'ROLE', '<script>', 'engagement ']) {
+    assert.equal(contactIntent(requested).id, 'engagement', String(requested));
+  }
+  assert.equal(contactIntent('role').id, 'role');
+});
+
+test('an introduction needs only name, email, type and message', () => {
+  const intro = { name: 'Ada', email: 'ada@example.com', inquiry_type: 'Introduction / referral', problem: 'A founder I know is moving inference on-prem.', started_at: '0' };
+  const checked = checkContact(intro, INQUIRY_TYPES);
+  assert.ok(checked.ok && !checked.spam);
+  assert.equal(checked.value.budget_range, null);
+  assert.equal(checked.value.constraints, null);
 });

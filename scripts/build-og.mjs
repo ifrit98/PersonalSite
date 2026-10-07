@@ -15,55 +15,35 @@ const out = new URL('../public/og/', import.meta.url);
 mkdirSync(out, { recursive: true });
 
 const CARDS = [
-  {
-    file: 'default',
-    eyebrow: 'Principal Systems Architect',
-    title: 'I architect intelligent systems for problems where the constraints are real.',
-    detail: 'AI · Autonomy · High-constraint infrastructure',
-  },
-  {
-    file: 'engage',
-    eyebrow: 'Engage',
-    title: 'Architecture reviews, de-risking sprints, and fractional principal architecture.',
-    detail: 'For consequential AI and systems decisions',
-  },
-  {
-    file: 'turnkeyhq',
-    eyebrow: 'Case study',
-    title: 'TurnkeyHQ: from product thesis to production operations.',
-    detail: 'Multi-tenant vertical AI platform · private beta',
-  },
-  {
-    file: 'afterfiat',
-    eyebrow: 'Research',
-    title: 'AfterFiat: a versioned, falsifiable monetary thesis.',
-    detail: 'Privacy · Proofs · Compute',
-  },
+  { file: 'default', title: 'I design and build AI systems that have to work under real constraints.', detail: 'Private deployment, edge inference, agent reliability, adversarial systems' },
+  { file: 'engage', title: 'Architecture reviews, de-risking sprints, and fractional principal architecture.', detail: 'For consequential AI and systems decisions' },
+  { file: 'turnkeyhq', title: 'TurnkeyHQ: from product thesis to production operations.', detail: 'A multi-tenant vertical AI platform in private beta' },
+  { file: 'afterfiat', title: 'AfterFiat: a versioned, falsifiable monetary thesis.', detail: 'Privacy, proofs, and compute as money' },
+  { file: 'secure-ml', title: 'Your AI has to run privately or offline.', detail: 'Secure ML architecture: controlled artifacts, reproducible dependencies, an operator path that survives' },
+  { file: 'adversarial-storage', title: 'Participants have a reason to game the system.', detail: 'Adversarial storage and verification: what is proved, when, and what stays cheap to fake' },
 ];
 
 const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+// A title never breaks inside a hyphenated word ("de-risking").
+const keepWhole = (s) => s.replace(/\S+-\S+/g, (word) => `<span class="nw">${word}</span>`);
+
 const page = (card) => `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=IBM+Plex+Mono:wght@500&display=block">
 <style>
   * { margin: 0; box-sizing: border-box; }
-  body { width: 1200px; height: 630px; background: #141B27; color: #E8E4DB; font-family: Inter, sans-serif;
-         display: grid; grid-template-rows: auto 1fr auto; padding: 72px 88px 64px; position: relative; overflow: hidden; }
-  body::after { content: ''; position: absolute; right: -140px; top: 115px; width: 520px; height: 520px; border-radius: 50%;
-                border: 1px solid rgba(169,135,82,0.16); box-shadow: 0 0 0 70px rgba(169,135,82,0.03), 0 0 0 140px rgba(169,135,82,0.02); }
-  .top { display: flex; align-items: center; gap: 18px; }
-  .rule { width: 48px; height: 3px; background: #A98752; }
-  .eyebrow { font: 500 20px/1 'IBM Plex Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; color: #A98752; }
-  .main { align-self: center; max-width: 900px; position: relative; z-index: 1; }
-  h1 { font: 500 62px/1.1 Newsreader, Georgia, serif; letter-spacing: -0.015em; text-wrap: balance; }
-  .detail { margin-top: 26px; font: 400 26px/1.4 Inter, sans-serif; color: rgba(232,228,219,0.66); }
-  .foot { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid rgba(232,228,219,0.12); padding-top: 22px; }
-  .name { font: 500 30px/1 Newsreader, Georgia, serif; }
-  .domain { font: 500 18px/1 'IBM Plex Mono', monospace; letter-spacing: 0.1em; color: rgba(232,228,219,0.55); }
+  body { width: 1200px; height: 630px; background: #F2F4F1; color: #14243A; font-family: Archivo, sans-serif;
+         display: grid; grid-template-rows: 1fr auto; padding: 80px 88px 64px; }
+  .main { align-self: center; max-width: 960px; }
+  h1 { font: 600 66px/1.04 Archivo, sans-serif; font-stretch: 84%; letter-spacing: -0.025em; text-wrap: balance; }
+  .detail { margin-top: 28px; font: 400 27px/1.4 Archivo, sans-serif; color: #546079; max-width: 900px; }
+  .foot { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid #14243A; padding-top: 22px; }
+  .name { font: 600 30px/1 Archivo, sans-serif; font-stretch: 90%; }
+  .nw { white-space: nowrap; }
+  .domain { font: 500 20px/1 'IBM Plex Mono', monospace; color: #546079; }
 </style></head><body>
-  <div class="top"><span class="rule"></span><span class="eyebrow">${escape(card.eyebrow)}</span></div>
-  <div class="main"><h1>${escape(card.title)}</h1><p class="detail">${escape(card.detail)}</p></div>
-  <div class="foot"><span class="name">Jason St George</span><span class="domain">JASONSTGEORGE.COM</span></div>
+  <div class="main"><h1>${keepWhole(escape(card.title))}</h1><p class="detail">${escape(card.detail)}</p></div>
+  <div class="foot"><span class="name">Jason St George</span><span class="domain">jasonstgeorge.com</span></div>
 </body></html>`;
 
 const browser = await chromium.launch();

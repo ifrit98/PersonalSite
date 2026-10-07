@@ -51,6 +51,7 @@ const secondary = (await getCollection('work', (entry) => entry.id in secondaryA
         {signature.map((item) => (
           <article class="case" id={item.id}>
             <div class="case__text">
+              <p class="case__problem">{envelopeFor(item.id).problem}</p>
               <h3>{item.name}</h3>
               <dl>
                 <div><dt>Problem</dt><dd>{item.problem}</dd></div>
@@ -138,6 +139,14 @@ const secondary = (await getCollection('work', (entry) => entry.id in secondaryA
 
   .case:first-child {
     border-top-color: var(--color-ink);
+  }
+
+  .case__problem {
+    margin-bottom: var(--sp-2);
+    font: var(--text-meta);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--color-slate);
   }
 
   .case h3 {

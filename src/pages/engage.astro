@@ -164,6 +164,7 @@ const experience = [
       <p>The strongest opening message is a concrete description of what you are building, what it has to survive, and what will go wrong if the architecture is wrong. A polished pitch is not necessary.</p>
       <p>If you already have a clean specification and simply need implementation capacity, I am not the highest-leverage fit, and I will tell you so quickly.</p>
       <div class="dark__action"><Button href={CONTACT_URL} variant="brass">Discuss an engagement</Button></div>
+      <p class="dark__alt">For an introduction or research conversation, <a href="/contact?intent=introduction">get in touch here</a>.</p>
     </div>
   </section>
 </BaseLayout>
@@ -393,6 +394,19 @@ const experience = [
 
   .dark__action {
     margin-top: var(--sp-8);
+  }
+
+  .dark .dark__alt {
+    margin-top: var(--sp-6);
+    font: var(--text-body);
+    font-family: var(--font-sans);
+    color: var(--color-dark-muted);
+  }
+
+  .dark__alt a {
+    color: var(--color-dark-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   @media (max-width: 900px) {
