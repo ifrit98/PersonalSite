@@ -13,7 +13,7 @@ export const SITE = {
   },
 } as const;
 
-export const CONTACT_URL = '/contact#engagement';
+export const CONTACT_URL = '/contact?intent=engagement#engagement';
 export const ENGAGE_URL = '/engage';
 export const SECURE_ML_URL = '/work/secure-ml-architecture';
 export const ADVERSARIAL_STORAGE_URL = '/work/adversarial-storage-protocol';

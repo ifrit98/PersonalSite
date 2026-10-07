@@ -327,7 +327,8 @@ test('engage page presents three priced offers and routes to the inquiry form', 
   assert.match(engage, /\$15K–\$30K/);
   assert.match(engage, /\$10K–\$15K \/ month/);
   assert.match(engage, /How engagements work/);
-  assert.match(engage, /href="\/contact#engagement"/);
+  assert.match(engage, /href="\/contact\?intent=engagement#engagement"/);
+  assert.match(engage, /href="\/contact\?intent=introduction"/);
   assert.match(engage, /href="\/work\/secure-ml-architecture"/);
   assert.match(engage, /href="\/work\/adversarial-storage-protocol"/);
   assert.match(engage, /href="\/work#real-time-underwater-detection"/);
