@@ -1,13 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { CONTACT_INTENTS, ENGAGEMENT_TYPES, SITE, contactIntent } from '@/lib/site';
+import { CONTACT_INTENTS, SITE, contactIntent } from '@/lib/site';
 import { CONTACT_LIMITS } from '@/lib/request-guards';
 
 const max = CONTACT_LIMITS;
 // Server-rendered, so a linked intent is already selected on first paint.
 const intent = contactIntent(Astro.url.searchParams.get('intent'));
-const isEngagement = intent.id === 'engagement';
 ---
 
 <BaseLayout
@@ -27,10 +26,6 @@ const isEngagement = intent.id === 'engagement';
   <section class="inquiry-form" id="engagement" aria-labelledby="inquiry-heading">
     <div class="container container--narrow">
       <h2 id="inquiry-heading" class="inquiry-form__heading" data-intent-heading>{intent.heading}</h2>
-      <p class="inquiry-form__intro" data-intent-only="engagement" hidden={!isEngagement}>
-        A short, concrete description beats a polished pitch. If you are not sure which engagement fits, the
-        <a href="/engage">engagement types</a> are described in detail.
-      </p>
 
       <noscript>
         <p class="form__noscript">This form sends with JavaScript, which is off in your browser. Please email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> instead.</p>
@@ -75,51 +70,16 @@ const isEngagement = intent.id === 'engagement';
           </div>
         </div>
 
-        <div class="form__row form__row--half">
-          <div class="form__field">
-            <label for="field-org" class="form__label">Organization <span class="form__optional">(optional)</span></label>
-            <input type="text" id="field-org" name="organization" maxlength={max.organization} class="form__input" autocomplete="organization" />
-          </div>
-          <div class="form__field" data-intent-only="engagement" hidden={!isEngagement}>
-            <label for="field-type" class="form__label">Engagement type <span class="form__required">*</span></label>
-            <select id="field-type" name="inquiry_type" required class="form__input form__select" aria-describedby="field-type-error" disabled={!isEngagement}>
-              <option value="" disabled selected>Select one</option>
-              {ENGAGEMENT_TYPES.map((t) => <option value={t}>{t}</option>)}
-            </select>
-            <span id="field-type-error" class="form__error">Please select an engagement type.</span>
-          </div>
+        <div class="form__field">
+          <label for="field-org" class="form__label">Organization <span class="form__optional">(optional)</span></label>
+          <input type="text" id="field-org" name="organization" maxlength={max.organization} class="form__input" autocomplete="organization" />
         </div>
-        <input type="hidden" id="field-intent-type" name="inquiry_type" value={intent.inquiryType ?? ''} disabled={isEngagement} />
+        <input type="hidden" id="field-intent-type" name="inquiry_type" value={intent.inquiryType} />
 
         <div class="form__field">
           <label for="field-problem" class="form__label"><span data-intent-prompt>{intent.prompt}</span> <span class="form__required">*</span></label>
-          <textarea id="field-problem" name="problem" required rows="4" maxlength={max.problem} class="form__input form__textarea" placeholder={intent.placeholder} aria-describedby="field-problem-error"></textarea>
+          <textarea id="field-problem" name="problem" required rows="5" maxlength={max.problem} class="form__input form__textarea" placeholder={intent.placeholder} aria-describedby="field-problem-error"></textarea>
           <span id="field-problem-error" class="form__error">Please write a short message.</span>
-        </div>
-
-        <div class="form__engagement" data-intent-only="engagement" hidden={!isEngagement}>
-          <div class="form__field">
-            <label for="field-constraints" class="form__label">Known constraints</label>
-            <textarea id="field-constraints" name="constraints" rows="2" maxlength={max.constraints} class="form__input form__textarea" placeholder="Security requirements, timelines, regulatory, environment constraints..." disabled={!isEngagement}></textarea>
-          </div>
-          <div class="form__field">
-            <label for="field-outcome" class="form__label">Desired outcome</label>
-            <textarea id="field-outcome" name="desired_outcome" rows="2" maxlength={max.desired_outcome} class="form__input form__textarea" placeholder="What does success look like?" disabled={!isEngagement}></textarea>
-          </div>
-          <div class="form__row form__row--half">
-            <div class="form__field">
-              <label for="field-timeline" class="form__label">Timeline</label>
-              <input type="text" id="field-timeline" name="timeline" maxlength={max.timeline} class="form__input" placeholder="e.g. 2-week sprint, ongoing, Q3 2026" disabled={!isEngagement} />
-            </div>
-            <div class="form__field">
-              <label for="field-budget" class="form__label">Budget / engagement range <span class="form__optional">(optional)</span></label>
-              <input type="text" id="field-budget" name="budget_range" maxlength={max.budget_range} class="form__input" placeholder="e.g. $10k–25k, TBD" disabled={!isEngagement} />
-            </div>
-          </div>
-          <div class="form__field">
-            <label for="field-message" class="form__label">Anything else</label>
-            <textarea id="field-message" name="message" rows="2" maxlength={max.message} class="form__input form__textarea" placeholder="Anything else relevant..." disabled={!isEngagement}></textarea>
-          </div>
         </div>
 
         <div class="form__actions">
@@ -482,15 +442,7 @@ const isEngagement = intent.id === 'engagement';
     accent-color: var(--color-ink);
   }
 
-  .form__engagement {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-6);
-  }
 
-  [data-intent-only][hidden] {
-    display: none;
-  }
 
   .form__noscript {
     margin-bottom: var(--sp-6);
@@ -512,27 +464,16 @@ const isEngagement = intent.id === 'engagement';
   markStarted();
 
   const intents = [...document.querySelectorAll<HTMLInputElement>('input[name="intent"]')];
-  const typeSelect = document.getElementById('field-type') as HTMLSelectElement | null;
   const intentType = document.getElementById('field-intent-type') as HTMLInputElement | null;
   const promptEl = document.querySelector<HTMLElement>('[data-intent-prompt]');
   const headingEl = document.querySelector<HTMLElement>('[data-intent-heading]');
   const problemEl = document.getElementById('field-problem') as HTMLTextAreaElement | null;
   const directEmail = document.querySelector<HTMLAnchorElement>('.form__fallback a[href^="mailto:"]')?.textContent ?? 'email';
 
-  // Hidden fields are also disabled, so they neither validate nor submit, and
-  // switching back restores whatever was typed in them.
+  // Every reason asks for the same fields; switching changes the stored type,
+  // the heading and the prompt, and keeps whatever was typed.
   function applyIntent(input: HTMLInputElement) {
-    const engagement = input.value === 'engagement';
-    document.querySelectorAll<HTMLElement>('[data-intent-only="engagement"]').forEach((el) => {
-      el.hidden = !engagement;
-      el.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input, textarea, select')
-        .forEach((field) => { field.disabled = !engagement; });
-    });
-    if (typeSelect) typeSelect.disabled = !engagement;
-    if (intentType) {
-      intentType.disabled = engagement;
-      intentType.value = input.dataset.inquiryType ?? '';
-    }
+    if (intentType) intentType.value = input.dataset.inquiryType ?? '';
     if (promptEl) promptEl.textContent = input.dataset.prompt ?? '';
     if (headingEl) headingEl.textContent = input.dataset.heading ?? '';
     if (problemEl) problemEl.placeholder = input.dataset.placeholder ?? '';
@@ -564,7 +505,6 @@ const isEngagement = intent.id === 'engagement';
     let valid = true;
     const name = (document.getElementById('field-name') as HTMLInputElement).value.trim();
     const email = (document.getElementById('field-email') as HTMLInputElement).value.trim();
-    const type = (document.getElementById('field-type') as HTMLSelectElement).value;
     const problem = (document.getElementById('field-problem') as HTMLTextAreaElement).value.trim();
 
     setFieldError('field-name', !name);
@@ -573,9 +513,6 @@ const isEngagement = intent.id === 'engagement';
     setFieldError('field-email', !email || !isValidEmail(email));
     if (!email || !isValidEmail(email)) valid = false;
 
-    const needsType = !(document.getElementById('field-type') as HTMLSelectElement).disabled;
-    setFieldError('field-type', needsType && !type);
-    if (needsType && !type) valid = false;
 
     setFieldError('field-problem', !problem);
     if (!problem) valid = false;

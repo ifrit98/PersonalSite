@@ -13,8 +13,7 @@ export const SITE = {
   },
 } as const;
 
-export const CONTACT_URL = '/contact?intent=engagement#engagement';
-export const ENGAGE_URL = '/engage';
+export const CONTACT_URL = '/contact';
 export const SECURE_ML_URL = '/work/secure-ml-architecture';
 export const ADVERSARIAL_STORAGE_URL = '/work/adversarial-storage-protocol';
 
@@ -102,17 +101,9 @@ export const PUBLICATIONS = [
 ] as const;
 
 // Shared by the contact form and /api/contact, which rejects anything else.
-// The engagement types /engage publishes; the contact form's engagement select
-// offers exactly these.
-export const ENGAGEMENT_TYPES = [
-  'Architecture & risk review',
-  'AI systems de-risking sprint',
-  'Fractional principal architecture',
-  'Technical diligence (investment / acquisition)',
-] as const;
-// Every value the server accepts as `inquiry_type`.
+// Every value the server accepts as `inquiry_type`, one per reason for writing.
 export const INQUIRY_TYPES = [
-  ...ENGAGEMENT_TYPES,
+  'Technical problem',
   'Introduction / referral',
   'Research / speaking',
   'Role inquiry',
@@ -120,18 +111,18 @@ export const INQUIRY_TYPES = [
 ] as const;
 
 // Why someone is writing. `/contact?intent=<id>` preselects one; anything else
-// falls back to engagement. Non-engagement intents store a fixed inquiry type and
-// ask for one message, which is stored in the existing `problem` column.
+// falls back to the first. Each stores a fixed inquiry type and asks for one
+// message, which is stored in the existing `problem` column.
 export type ContactIntentId = 'engagement' | 'introduction' | 'research' | 'role' | 'other';
 export const CONTACT_INTENTS: readonly {
   id: ContactIntentId;
   label: string;
   heading: string;
-  inquiryType: (typeof INQUIRY_TYPES)[number] | null;
+  inquiryType: (typeof INQUIRY_TYPES)[number];
   prompt: string;
   placeholder: string;
 }[] = [
-  { id: 'engagement', label: 'Discuss a technical problem', heading: 'Discuss a technical problem', inquiryType: null, prompt: 'What problem are you trying to solve?', placeholder: 'What are you trying to solve?' },
+  { id: 'engagement', label: 'Discuss a technical problem', heading: 'Discuss a technical problem', inquiryType: 'Technical problem', prompt: 'What problem are you trying to solve?', placeholder: 'What are you trying to solve?' },
   { id: 'introduction', label: 'Introduction or referral', heading: 'Make an introduction', inquiryType: 'Introduction / referral', prompt: 'Who or what would you like to introduce, and why might it be a fit?', placeholder: 'No need to share anyone else’s contact details yet.' },
   { id: 'research', label: 'Research conversation', heading: 'Start a research conversation', inquiryType: 'Research / speaking', prompt: 'What question or project would you like to explore?', placeholder: 'A link or a paragraph is enough.' },
   { id: 'role', label: 'Principal/Staff role', heading: 'Discuss a role', inquiryType: 'Role inquiry', prompt: 'Share the role, team, working arrangement, and what makes the problem interesting.', placeholder: 'A link to the role is welcome.' },
@@ -152,14 +143,13 @@ export const AGENTICDATA_GITHUB = 'https://github.com/ifrit98/AgenticData';
 
 export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
-  { label: 'Engage', href: '/engage' },
   { label: 'Research', href: '/research' },
   { label: 'Writing', href: '/writing' },
   { label: 'About', href: '/about' },
   { label: 'Resume', href: '/resume' },
 ] as const;
 
-// The header carries only the assistant and the engagement CTA; GitHub and
+// The header carries only the assistant and the contact CTA; GitHub and
 // LinkedIn live in the footer. Contact is reached through the CTA, not the nav.
 export const UTILITY_LINKS = [
   { label: 'Ask', href: '/chat' },

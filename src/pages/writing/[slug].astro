@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { ENGAGE_URL } from '@/lib/site';
+import { CONTACT_URL } from '@/lib/site';
 
 // Prerendered from published essays only, so a draft has no route, no entry in
 // the build output, and no line in the sitemap (advisory package RB-22).
@@ -50,9 +50,8 @@ const { title, author, excerpt, publishedAt, updatedAt, relatedWork, sources } =
     </div></section>
 
     <section class="dark"><div class="container container--narrow">
-      <h2>Bring the decision, the constraints, and the evidence</h2>
-      <p>I work with technical teams on focused AI and distributed-systems architecture reviews.</p>
-      <Button href={ENGAGE_URL} variant="brass">See engagement types</Button>
+      <h2>Questions, or a related problem?</h2>
+      <Button href={CONTACT_URL} variant="brass">Get in touch</Button>
     </div></section>
   </article>
 </BaseLayout>

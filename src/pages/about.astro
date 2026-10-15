@@ -5,7 +5,6 @@ import Button from '@/components/ui/Button.astro';
 import {
   SSRN_URL,
   DOI_URL,
-  ENGAGE_URL,
   SECURE_ML_URL,
   ADVERSARIAL_STORAGE_URL,
   AFTERFIAT_PROFILE_URL,
@@ -41,9 +40,9 @@ const timeline = [
   },
   {
     period: '2019–present',
-    label: 'Defense ML & Secure Infrastructure',
+    label: 'Secure & Real-Time ML',
     detail:
-      'Real-time edge inference for Navy sonar systems, under 50 ms on Jetson hardware. Distributed LLM fine-tuning across an air-gapped multi-GPU cluster.',
+      'Real-time edge inference under 50 ms on Jetson hardware. Distributed LLM fine-tuning across an air-gapped multi-GPU cluster.',
   },
   {
     period: '2023–2025',
@@ -81,7 +80,7 @@ const workOn = [
     body: 'Distributed training, secure deployment, real-time inference, and edge systems that have to survive their conditions of use.',
     links: [
       { label: 'Secure distributed ML', href: SECURE_ML_URL },
-      { label: 'Real-time detection', href: '/work#real-time-underwater-detection' },
+      { label: 'Real-time detection', href: '/work#real-time-edge-detection' },
     ],
   },
   {
@@ -260,8 +259,8 @@ const workOn = [
     <div class="container container--narrow">
       <h2 id="focus-heading" class="section-heading">Current work</h2>
       <p class="current-focus__body">
-        My current work spans product and platform engineering, independent research, open technical
-        infrastructure, and a small number of architecture engagements.
+        My current work spans product and platform engineering, independent research, and open technical
+        infrastructure.
       </p>
       <p class="current-focus__body">
         <a href={TURNKEYHQ_URL}>TurnkeyHQ</a> is the principal product build: a multi-tenant AI
@@ -270,11 +269,6 @@ const workOn = [
         <a href={AFTERFIAT_PROFILE_URL}>AfterFiat</a> and Kardashev Labs are the main independent
         research program. Other projects explore retrieval, agent coordination, optimization,
         practical knowledge infrastructure, and formal systems.
-      </p>
-      <p class="current-focus__body">
-        Alongside that I take a small number of outside engagements, usually where the architecture
-        is still unsettled and understanding the whole system matters more than owning one narrowly
-        defined piece of it. Those are described on <a href={ENGAGE_URL}>Engage</a>.
       </p>
     </div>
   </section>

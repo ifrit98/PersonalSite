@@ -27,9 +27,9 @@ export interface SignatureSystem {
 
 export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
   {
-    id: 'real-time-underwater-detection',
-    name: 'Real-time underwater detection',
-    href: '/work#real-time-underwater-detection',
+    id: 'real-time-edge-detection',
+    name: 'Real-time edge detection',
+    href: '/work#real-time-edge-detection',
     envelope: [
       { label: 'latency', value: '<50 ms end to end', binding: true },
       { label: 'hardware', value: 'Jetson, embedded' },
@@ -47,7 +47,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
     href: '/work/secure-ml-architecture',
     envelope: [
       { label: 'network', value: 'air-gapped', binding: true },
-      { label: 'handling', value: 'classified, approval-gated' },
+      { label: 'handling', value: 'restricted, approval-gated' },
       { label: 'compute', value: 'Multi-GPU cluster' },
       { label: 'method', value: 'quantized adapters' },
       { label: 'span', value: 'data prep to operator' },
