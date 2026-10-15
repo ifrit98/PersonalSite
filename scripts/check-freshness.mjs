@@ -222,14 +222,6 @@ const checks = [
     fix: 'the explorer coverage statement changed; re-read it and adjust the GAMUT copy on /research and /resume',
   },
   {
-    // Linked in the footer, the Person JSON-LD, twitter:site, and humans.txt.
-    name: 'X profile linked site-wide resolves',
-    source: site.match(/twitter: '([^']+)'/)?.[1] ?? 'SITE.social.twitter',
-    claimed: '200',
-    current: () => reachable(site.match(/twitter: '([^']+)'/)[1]),
-    fix: 'correct SITE.social.twitter in src/lib/site.ts, or remove the X link, twitter:site meta, and sameAs entry',
-  },
-  {
     name: 'Explainer live site linked from /research resolves',
     source: constant('EXPLAINER_URL'),
     claimed: '200',
@@ -241,8 +233,6 @@ const checks = [
   // are, so anything but 200 is a broken button.
   ...[
     ['Capability Commons', constant('CAPABILITY_COMMONS_GITHUB')],
-    ['SwarmOS', constant('SWARMOS_GITHUB')],
-    ['Agentic Data', constant('AGENTICDATA_GITHUB')],
   ].map(([project, url]) => ({
     name: `${project} repository link resolves for a logged-out visitor`,
     source: url,

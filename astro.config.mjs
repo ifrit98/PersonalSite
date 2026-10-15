@@ -21,8 +21,6 @@ export default defineConfig({
     // The sonification paper appeared at MSV '18, not Bridges 2019; the file was
     // renamed to match. Keep old links (and anything that indexed them) working.
     '/papers/stgeorge-sonification-bridges-2019.pdf': '/papers/stgeorge-sonification-msv-2018.pdf',
-    // Retired page; old links land on the contact page.
-    '/engage': { status: 301, destination: '/contact' },
   },
   server: {
     port: 5000,

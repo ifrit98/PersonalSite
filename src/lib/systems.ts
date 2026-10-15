@@ -20,7 +20,7 @@ export interface SignatureSystem {
   envelope: EnvelopeRow[];
   /** The critical path, left to right. */
   flow: string[];
-  /** The problem, in the words of someone who has it. Homepage row and /work case lead. */
+  /** The problem the system solved. Homepage row and /work case lead. */
   problem: string;
   outcome: string;
 }
@@ -38,7 +38,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
       { label: 'tuned for', value: 'Pd against Pfa' },
     ],
     flow: ['DSP features', 'Deep CNN', 'operator'],
-    problem: 'Inference has to fit a hardware and latency budget',
+    problem: 'Inference inside a hardware and latency budget',
     outcome: 'Sustained sub-50 ms inference on embedded hardware',
   },
   {
@@ -53,7 +53,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
       { label: 'span', value: 'data prep to operator' },
     ],
     flow: ['data pipeline', 'fine-tuning', 'deployment', 'operator'],
-    problem: 'Your AI has to run privately or offline',
+    problem: 'AI that has to run privately or offline',
     outcome: 'Adopted for ongoing production use',
   },
   {
@@ -68,7 +68,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
       { label: 'incentives', value: 'sliding window' },
     ],
     flow: ['challenge', 'proof', 'verification', 'incentive'],
-    problem: 'Participants have a reason to game the system',
+    problem: 'Systems whose participants have a reason to cheat',
     outcome: 'Operated in production under continuous integrity proofs',
   },
   {
@@ -83,7 +83,7 @@ export const SIGNATURE_SYSTEMS: SignatureSystem[] = [
       { label: 'stage', value: 'private beta' },
     ],
     flow: ['channels', 'deterministic plane', 'bounded agent plane'],
-    problem: 'Your agent workflow has to behave, across many customers',
+    problem: 'Agent workflows that must behave across many customers',
     outcome: 'Multi-tenant AI platform in private beta',
   },
 ];

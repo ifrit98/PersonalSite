@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { SITE, SWARMOS_GITHUB } from '@/lib/site';
+import { SITE } from '@/lib/site';
 
 const corePrinciples = [
   {
@@ -318,42 +318,6 @@ const targetDomains = [
     </div>
   </section>
 
-  <section class="so-section" id="roadmap">
-    <div class="container container--narrow">
-      <h2 class="so-section__heading">Roadmap</h2>
-      <div class="so-roadmap__timeline">
-        <div class="so-roadmap__entry so-roadmap__entry--done">
-          <span class="so-roadmap__date">2026 Q1</span>
-          <div>
-            <strong>Platform MVP</strong>
-            <p>Full TypeScript monorepo with 13 packages. API gateway with 30+ endpoints. JWT/RBAC/ABAC authentication. In-memory repository layer for all services. Artifact upload pipeline with S3 multipart support. Task state machine with validated transitions. Claim graph with evidence/counterevidence/verification. Agent registry with lease management. Audit logging.</p>
-          </div>
-        </div>
-        <div class="so-roadmap__entry so-roadmap__entry--current">
-          <span class="so-roadmap__date">2026 Q2</span>
-          <div>
-            <strong>Database &amp; Event Integration</strong>
-            <p>Connect PostgreSQL via Drizzle repositories. Run database migrations. Redis Streams event bus integration in services. Semantic search via pgvector embeddings. Agent orchestration engine (task routing, scheduling).</p>
-          </div>
-        </div>
-        <div class="so-roadmap__entry">
-          <span class="so-roadmap__date">2026 Q3</span>
-          <div>
-            <strong>Agent Orchestration &amp; UI</strong>
-            <p>WebSocket real-time updates. UI dashboard for program directors and scientists. Comprehensive test suite. OpenAPI/Swagger documentation. CI/CD pipeline.</p>
-          </div>
-        </div>
-        <div class="so-roadmap__entry">
-          <span class="so-roadmap__date">2026 Q4</span>
-          <div>
-            <strong>Domain Templates &amp; Scale</strong>
-            <p>Biology, civilization dynamics, materials discovery, and deep history workflow templates. Multi-program orchestration. Community deployment documentation.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="so-section" id="maxim">
     <div class="container container--narrow">
       <blockquote class="so-maxim">
@@ -367,12 +331,7 @@ const targetDomains = [
   <section class="so-section so-section--contribute" id="contribute">
     <div class="container container--narrow">
       <h2 class="so-section__heading">Get involved</h2>
-      <p class="so-section__body">
-        SwarmOS is being built in public. The platform is functional and actively developing toward
-        full database integration and agent orchestration.
-      </p>
       <div class="so-section__actions">
-        <Button href={SWARMOS_GITHUB}>View GitHub</Button>
         <Button href="#architecture" variant="secondary">Read the Architecture</Button>
         <Button href="/contact" variant="secondary">Contact Jason</Button>
       </div>

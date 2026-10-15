@@ -9,7 +9,6 @@ export const SITE = {
   social: {
     github: 'https://github.com/ifrit98',
     linkedin: 'https://linkedin.com/in/stgeorgejas',
-    twitter: 'https://x.com/jasonstgeorge_',
   },
 } as const;
 
@@ -26,7 +25,7 @@ export const AFTERFIAT_PROFILE_URL = '/afterfiat';
 // links a version derives from these constants: a new release is an edit here,
 // not a hunt through six files. `npm run check:freshness` compares them against
 // what afterfiat.xyz actually publishes.
-export const AFTERFIAT_VERSION = '3.4';
+export const AFTERFIAT_VERSION = '3.5';
 export const AFTERFIAT_VERSION_YEAR = '2026';
 export const AFTERFIAT_RED_LINES = 18;
 // Premises and sections moved in v3.3 and v3.4 while the version check was the
@@ -34,7 +33,7 @@ export const AFTERFIAT_RED_LINES = 18;
 // The web edition numbers sections §0–§33 plus §5b and the PDF numbers them
 // 1–35: both hold 35, so the site states the count and never a numbering.
 export const AFTERFIAT_PREMISES = 11;
-export const AFTERFIAT_SECTIONS = 35;
+export const AFTERFIAT_SECTIONS = 36;
 export const AFTERFIAT_CANONICAL_URL = `${AFTERFIAT_URL}/v/${AFTERFIAT_VERSION}/`;
 export const AFTERFIAT_READ_URL = `${AFTERFIAT_URL}/v/${AFTERFIAT_VERSION}/read/`;
 export const AFTERFIAT_PDF_URL = `${AFTERFIAT_URL}/pdf/next-gen-sov-v${AFTERFIAT_VERSION}.pdf`;
@@ -137,9 +136,7 @@ export const CAPABILITY_COMMONS_URL = '/capability-commons';
 export const CAPABILITY_COMMONS_GITHUB = 'https://github.com/Granite-Labs-LLC/CapabilityCommons';
 export const STRUCTURE_LAB_URL = '/work#structure-lab';
 export const SWARMOS_URL = '/swarmos';
-export const SWARMOS_GITHUB = 'https://github.com/ifrit98/swarmos';
 export const AGENTICDATA_URL = '/agentic-data';
-export const AGENTICDATA_GITHUB = 'https://github.com/ifrit98/AgenticData';
 
 export const NAV_LINKS = [
   { label: 'Work', href: '/work' },
@@ -149,9 +146,13 @@ export const NAV_LINKS = [
   { label: 'Resume', href: '/resume' },
 ] as const;
 
+// The assistant needs a valid OpenAI key and a built index (runbook A1-A2).
+// Until both are restored it stays unlinked and /chat shows an offline note.
+export const CHAT_ENABLED = false;
+
 // The header carries only the assistant and the contact CTA; GitHub and
 // LinkedIn live in the footer. Contact is reached through the CTA, not the nav.
-export const UTILITY_LINKS = [
-  { label: 'Ask', href: '/chat' },
-] as const;
+export const UTILITY_LINKS: readonly { label: string; href: string }[] = CHAT_ENABLED
+  ? [{ label: 'Ask', href: '/chat' }]
+  : [];
 

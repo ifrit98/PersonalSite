@@ -55,24 +55,24 @@ test('homepage presents the canonical systems-architect position and ordered pro
   assert.match(hero, /<h1[^>]*>I design and build AI systems that have to work under real constraints\.<\/h1>/);
   assert.match(hero, /principal systems architect/i);
   assert.match(hero, /I help the team define the problem, then build the critical path and make the risky assumptions testable/);
+  assert.match(hero, /I help the team define the problem, then build the critical path and make the risky assumptions testable/);
   assert.match(hero, /href="\/contact"[\s\S]{0,200}?Get in touch/);
-  assert.match(hero, /href="#problems"/);
+  assert.match(hero, /href="#selected-work"/);
   assert.match(hero, /Download résumé/i);
   assert.doesNotMatch(hero, /TurnkeyHQ/);
   assert.match(html, /obvious abstraction is usually wrong/i);
 
-  const problems = html.match(/<section[^>]*id="problems"[\s\S]*?<\/section>/)?.[0] ?? '';
-  assert.match(problems, /Problems I’m brought in for|Problems I'm brought in for|Problems I&#39;m brought in for/);
+  const problems = html.match(/<section[^>]*id="selected-work"[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(problems, /<h2[^>]*>Selected systems<\/h2>/);
   for (const [problem, href] of [
-    ['Your AI has to run privately or offline', '/work/secure-ml-architecture'],
-    ['Inference has to fit a hardware and latency budget', '/work#real-time-edge-detection'],
-    ['Your agent workflow has to behave, across many customers', '/turnkeyhq'],
-    ['Participants have a reason to game the system', '/work/adversarial-storage-protocol'],
+    ['AI that has to run privately or offline', '/work/secure-ml-architecture'],
+    ['Inference inside a hardware and latency budget', '/work#real-time-edge-detection'],
+    ['Agent workflows that must behave across many customers', '/turnkeyhq'],
+    ['Systems whose participants have a reason to cheat', '/work/adversarial-storage-protocol'],
   ]) {
     assert.match(problems, new RegExp(`href="${href.replace(/[/#]/g, '\\$&')}"[\\s\\S]*?${problem}`), problem);
   }
 
-  assert.match(html, /href="\/contact\?intent=introduction"/);
   assert.match(html, /&lt;50 ms/);
   assert.match(html, /Multi-GPU/);
   assert.match(html, /Ciphertext-only/);
@@ -278,7 +278,6 @@ test('header links once to each destination; footer carries the social links', a
   const footer = home.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '';
   assert.match(footer, /github\.com\/ifrit98/);
   assert.match(footer, /href="\/contact"/);
-  assert.equal((footer.match(/href="\/chat"/g) ?? []).length, 1, 'footer links to Ask once');
   assert.doesNotMatch(footer, /I architect intelligent systems for problems/);
 });
 
@@ -402,8 +401,8 @@ test('contact endpoint fails toward the email fallback, not a false validation e
 test('work case studies state technical outcomes, not third-party economics', async () => {
   const work = await renderedPage('/work');
   assert.doesNotMatch(work, /128-GPU|~\$60M|~\$7M|~\$5M|65\s?%/);
-  assert.match(work, /Your AI has to run privately or offline/);
-  assert.match(work, /Inference has to fit a hardware and latency budget/);
+  assert.match(work, /AI that has to run privately or offline/);
+  assert.match(work, /Inference inside a hardware and latency budget/);
   assert.match(work, /air-gapped multi-GPU cluster/);
   assert.match(work, /continuous integrity proofs/);
 });
@@ -542,7 +541,7 @@ test('contact preselects the intent it is linked with, and only that one', async
 // included) and on the sources the résumé PDF and the chatbot are built from.
 test('no page or public source names a clearance, a program, or a fee', async () => {
   const { readdirSync } = await import('node:fs');
-  const forbidden = /TS\/SCI|SCIF|\bclassified\b|\bNavy\b|\bsonar\b|underwater|\bclearance\b|\bUAV\b|\$\d+K\b|Discuss an engagement|engagement types|fractional principal architecture|de-risking sprint|\/engage\b/i;
+  const forbidden = /TS\/SCI|SCIF|\bclassified\b|\bNavy\b|\bsonar\b|underwater|\bclearance\b|\bUAV\b|\$\d+K\b|Discuss an engagement|engagement types|fractional principal architecture|de-risking sprint|\/engage\b|Buying question|brought in for|highest-leverage|Best-fit problems|bounded review|Introductions are welcome|architecture reviews/i;
   const paths = ['', '/work', '/research', '/writing', '/about', '/resume', '/contact', '/chat', '/afterfiat',
     '/turnkeyhq', '/swarmos', '/agentic-data', '/capability-commons', '/work/adversarial-storage-protocol',
     '/work/secure-ml-architecture', '/contact?intent=role'];
@@ -553,7 +552,8 @@ test('no page or public source names a clearance, a program, or a fee', async ()
     if (m) hits.push(`${path || '/'}: ${m[0]}`);
   }
   const sources = ['../tex-src/main.tex', '../src/pages/api/chat.ts', '../src/components/layout/Footer.astro',
-    ...readdirSync(new URL('../src/content/work/', import.meta.url)).map((f) => `../src/content/work/${f}`)];
+    ...readdirSync(new URL('../src/content/work/', import.meta.url)).map((f) => `../src/content/work/${f}`),
+    ...readdirSync(new URL('../src/content/essays/', import.meta.url)).map((f) => `../src/content/essays/${f}`)];
   for (const file of sources) {
     const m = readFileSync(new URL(file, import.meta.url), 'utf8').match(forbidden);
     if (m) hits.push(`${file.replace('../', '')}: ${m[0]}`);
@@ -563,4 +563,25 @@ test('no page or public source names a clearance, a program, or a fee', async ()
   const engage = await fetch(`http://127.0.0.1:${port}/engage`, { redirect: 'manual' });
   assert.equal(engage.status, 301);
   assert.equal(new URL(engage.headers.get('location'), 'http://x').pathname, '/contact');
+});
+
+// Nothing linked from the site is offline, private, or visibly out of date.
+test('the site links nothing that is offline, private, or out of date', async () => {
+  const home = await renderedPage('');
+  const header = home.match(/<header[\s\S]*?<\/header>/)?.[0] ?? '';
+  const footer = home.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '';
+  // The assistant stays unlinked until its key and index are restored.
+  assert.doesNotMatch(header + footer, /href="\/chat"/);
+  assert.doesNotMatch(home, /class="chat-fab/);
+  const chat = await renderedPage('/chat');
+  assert.match(chat, /offline/i);
+  assert.doesNotMatch(chat, /id="chat-form"/);
+  // Private repositories and the missing X profile are not linked.
+  for (const path of ['', '/swarmos', '/agentic-data']) {
+    assert.doesNotMatch(await renderedPage(path), /github\.com\/ifrit98\/(swarmos|AgenticData)|x\.com\/|twitter:site/i, path);
+  }
+  // Project pages carry no dated quarterly roadmap.
+  for (const path of ['/swarmos', '/agentic-data', '/capability-commons']) {
+    assert.doesNotMatch(await renderedPage(path), /20\d\d Q[1-4]/, path);
+  }
 });

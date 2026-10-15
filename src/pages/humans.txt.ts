@@ -13,7 +13,6 @@ Site: ${SITE.url}
 Contact: ${SITE.email}
 GitHub: ${SITE.social.github}
 LinkedIn: ${SITE.social.linkedin}
-X: ${SITE.social.twitter}
 Location: United States
 Education: B.M. University of North Texas; M.S. Computer Science, Rochester Institute of Technology
 

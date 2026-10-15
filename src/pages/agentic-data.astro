@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import { AGENTICDATA_GITHUB } from '@/lib/site';
 
 const pillars = [
   {
@@ -334,42 +333,6 @@ const connectors = [
     </div>
   </section>
 
-  <section class="ad-section" id="roadmap">
-    <div class="container container--narrow">
-      <h2 class="ad-section__heading">Roadmap</h2>
-      <div class="ad-roadmap__timeline">
-        <div class="ad-roadmap__entry ad-roadmap__entry--done">
-          <span class="ad-roadmap__date">2026 Q1</span>
-          <div>
-            <strong>Core Platform</strong>
-            <p>Python/FastAPI with 27 endpoints. 21-table Postgres schema. OpenSearch hybrid indexing. Neo4j graph store. S3 object storage. 35 typed edges. Agentic retrieval planner with 5 strategies. Truth maintenance. JWT/RBAC auth. 315 passing tests. GitHub/Jira/PagerDuty connectors. Docker Compose.</p>
-          </div>
-        </div>
-        <div class="ad-roadmap__entry ad-roadmap__entry--current">
-          <span class="ad-roadmap__date">2026 Q2</span>
-          <div>
-            <strong>Production Hardening</strong>
-            <p>OpenAI + cross-encoder embedding/reranking providers. Full Alembic migration suite. Expanded connector coverage (Slack, Confluence, ServiceNow). Contradiction detection with LLM backend. Interactive evidence explorer UI.</p>
-          </div>
-        </div>
-        <div class="ad-roadmap__entry">
-          <span class="ad-roadmap__date">2026 Q3</span>
-          <div>
-            <strong>Scale &amp; Intelligence</strong>
-            <p>Proactive knowledge maintenance (stale note detection, missing rationale surfacing). Multi-tenant deployment. Evaluation framework with golden question sets. CI/CD with full integration tests.</p>
-          </div>
-        </div>
-        <div class="ad-roadmap__entry">
-          <span class="ad-roadmap__date">2026 Q4</span>
-          <div>
-            <strong>Infrastructure Layer</strong>
-            <p>Agent-facing API for external AI systems. Webhook-based real-time ingestion. Federated graph queries across tenants. Scale to trillions of tokens without degrading retrieval quality.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="ad-section" id="maxim">
     <div class="container container--narrow">
       <blockquote class="ad-maxim">
@@ -383,12 +346,7 @@ const connectors = [
   <section class="ad-section ad-section--contribute" id="contribute">
     <div class="container container--narrow">
       <h2 class="ad-section__heading">Get involved</h2>
-      <p class="ad-section__body">
-        Agentic Data is being built in public. The core platform is functional with 315 passing
-        tests and active development toward production hardening and expanded connector coverage.
-      </p>
       <div class="ad-section__actions">
-        <Button href={AGENTICDATA_GITHUB}>View GitHub</Button>
         <Button href="#architecture" variant="secondary">Read the Architecture</Button>
         <Button href="/contact" variant="secondary">Contact Jason</Button>
       </div>
