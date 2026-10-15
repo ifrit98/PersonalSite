@@ -92,21 +92,11 @@ const secondary = (await getCollection('work', (entry) => entry.id in secondaryA
       </div>
     </div>
   </section>
-
-  <section class="dark">
-    <div class="container container--narrow">
-      <h2>Best-fit problems</h2>
-      <p>I am most useful when the architecture is not yet obvious, several technical or operational domains interact, incorrect assumptions become expensive later, or the system must survive real users, real infrastructure, or adversarial behavior.</p>
-      <p>If you already have a clean specification and simply need commodity implementation capacity, I may not be the highest-leverage fit.</p>
-      <div class="dark__action"><Button href="/contact" variant="brass">Get in touch</Button></div>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
   .hero,
-  .section,
-  .dark {
+  .section {
     padding-block: var(--sp-20);
     border-bottom: 1px solid var(--color-line);
   }
@@ -225,26 +215,6 @@ const secondary = (await getCollection('work', (entry) => entry.id in secondaryA
     color: var(--color-slate);
   }
 
-  .dark {
-    background: var(--color-dark-surface);
-    --color-brass-text: var(--color-brass);
-  }
-
-  .dark h2 {
-    color: var(--color-dark-text);
-    margin-bottom: 0;
-  }
-
-  .dark p {
-    margin-top: var(--sp-5);
-    font: var(--text-body-lg);
-    font-family: var(--font-sans);
-    color: var(--color-dark-muted);
-  }
-
-  .dark__action {
-    margin-top: var(--sp-8);
-  }
 
   @media (max-width: 900px) {
     .case {
@@ -255,8 +225,7 @@ const secondary = (await getCollection('work', (entry) => entry.id in secondaryA
 
   @media (max-width: 768px) {
     .hero,
-    .section,
-    .dark {
+    .section {
       padding-block: var(--sp-14);
     }
 

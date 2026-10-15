@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { SITE } from '@/lib/site';
+import { CHAT_ENABLED, SITE } from '@/lib/site';
 import { CHAT_LIMITS } from '@/lib/request-guards';
 // Bundled rather than loaded from a CDN: same version as the katex package that
 // renders the math, and no third-party stylesheet on the page.
@@ -8,19 +8,27 @@ import 'katex/dist/katex.min.css';
 ---
 
 <BaseLayout title="Ask" description={`Ask questions about ${SITE.author}'s work, research, projects, and background.`}>
-  <div class="chat-page">
+  <div class:list={['chat-page', { 'chat-page--offline': !CHAT_ENABLED }]}>
     <header class="chat-header">
       <div class="container container--narrow">
         <h1 class="chat-header__title">Ask about my work</h1>
-        <p class="chat-header__desc">
-          This assistant draws on my published writing, research papers, project
-          documentation, and professional background. Ask anything — it will
-          cite its sources.
-        </p>
+        {CHAT_ENABLED ? (
+          <p class="chat-header__desc">
+            This assistant draws on my published writing, research papers, project
+            documentation, and professional background. Ask anything — it will
+            cite its sources.
+          </p>
+        ) : (
+          <p class="chat-header__desc">
+            The assistant is offline for now. My <a href="/work">work</a>,{' '}
+            <a href="/research">research</a> and <a href="/writing">writing</a> cover the same ground,
+            and you can <a href="/contact">get in touch</a> directly.
+          </p>
+        )}
       </div>
     </header>
 
-    <div class="chat-container container container--narrow">
+    {CHAT_ENABLED && (<div class="chat-container container container--narrow">
       <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Conversation">
         <div class="chat-welcome" id="chat-welcome">
           <p class="chat-welcome__text">A few places to start:</p>
@@ -52,7 +60,7 @@ import 'katex/dist/katex.min.css';
           </svg>
         </button>
       </form>
-    </div>
+    </div>)}
   </div>
 </BaseLayout>
 
@@ -61,6 +69,12 @@ import 'katex/dist/katex.min.css';
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 4.5rem);
+  }
+
+  /* With the assistant offline the page is only its note. */
+  .chat-page--offline {
+    min-height: 0;
+    padding-bottom: var(--sp-16);
   }
 
   .chat-header {
@@ -515,6 +529,8 @@ import 'katex/dist/katex.min.css';
     }
   }
 
+  // The chat markup only renders while CHAT_ENABLED is on.
+  if (document.getElementById('chat-form')) {
   const messagesEl = document.getElementById('chat-messages')!;
   const welcomeEl = document.getElementById('chat-welcome')!;
   const form = document.getElementById('chat-form') as HTMLFormElement;
@@ -748,4 +764,5 @@ import 'katex/dist/katex.min.css';
     autoResize();
     send(text);
   });
+  }
 </script>

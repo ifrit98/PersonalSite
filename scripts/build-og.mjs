@@ -18,8 +18,8 @@ const CARDS = [
   { file: 'default', title: 'I design and build AI systems that have to work under real constraints.', detail: 'Private deployment, edge inference, agent reliability, adversarial systems' },
   { file: 'turnkeyhq', title: 'TurnkeyHQ: from product thesis to production operations.', detail: 'A multi-tenant vertical AI platform in private beta' },
   { file: 'afterfiat', title: 'AfterFiat: a versioned, falsifiable monetary thesis.', detail: 'Privacy, proofs, and compute as money' },
-  { file: 'secure-ml', title: 'Your AI has to run privately or offline.', detail: 'Secure ML architecture: controlled artifacts, reproducible dependencies, an operator path that survives' },
-  { file: 'adversarial-storage', title: 'Participants have a reason to game the system.', detail: 'Adversarial storage and verification: what is proved, when, and what stays cheap to fake' },
+  { file: 'secure-ml', title: 'AI that has to run privately or offline.', detail: 'Secure ML architecture: controlled artifacts, reproducible dependencies, an operator path that survives' },
+  { file: 'adversarial-storage', title: 'Systems whose participants have a reason to cheat.', detail: 'Adversarial storage and verification: what is proved, when, and what stays cheap to fake' },
 ];
 
 const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

@@ -34,7 +34,7 @@ const problems = PROBLEM_ORDER.map((id) => {
         <p>Private deployment, tight hardware budgets, agents that must behave, and participants with a reason to cheat. As a principal systems architect, I come in before the architecture is obvious: I help the team define the problem, then build the critical path and make the risky assumptions testable while they're still cheap to change.</p>
         <div class="hero__actions">
           <Button href="/contact">Get in touch</Button>
-          <a href="#problems">See the problems I work on</a>
+          <a href="#selected-work">See selected work</a>
           <a href="/papers/resume.pdf">Download résumé</a>
         </div>
       </div>
@@ -46,7 +46,7 @@ const problems = PROBLEM_ORDER.map((id) => {
   <section class="section">
     <div class="container">
       <h2>The work starts before the architecture is obvious.</h2>
-      <p class="intro">In these problems the constraints are real and the obvious abstraction is usually wrong. The highest-leverage engagements are usually not cleanly specified engineering tasks. They are systems problems where several constraints interact and the team needs a sharper model of the problem before adding more implementation.</p>
+      <p class="intro">In these problems the constraints are real and the obvious abstraction is usually wrong. The most valuable work is rarely a cleanly specified engineering task. It is usually a systems problem where several constraints interact and the team needs a sharper model of the problem before adding more implementation.</p>
       <ol class="steps">
         {steps.map(([title, body], i) => (
           <li><span class="steps__n">{i + 1}</span><h3>{title}</h3><p>{body}</p></li>
@@ -55,12 +55,12 @@ const problems = PROBLEM_ORDER.map((id) => {
     </div>
   </section>
 
-  <section class="section" id="problems">
+  <section class="section" id="selected-work">
     <div class="container">
-      <h2>Problems I'm brought in for</h2>
-      <div class="table" role="table" aria-label="Problems I'm brought in for">
+      <h2>Selected systems</h2>
+      <div class="table" role="table" aria-label="Selected systems">
         <div class="table__head" role="row">
-          <span role="columnheader">Problem</span><span role="columnheader">Where I've solved it</span><span role="columnheader">Outcome</span>
+          <span role="columnheader">Problem</span><span role="columnheader">System</span><span role="columnheader">Outcome</span>
         </div>
         {problems.map((system) => (
           <a class="table__row" role="row" href={system.href}>
@@ -71,22 +71,6 @@ const problems = PROBLEM_ORDER.map((id) => {
         ))}
       </div>
       <a class="section__more" href="/work">All systems work and case studies</a>
-    </div>
-  </section>
-
-  <section class="dark">
-    <div class="container container--narrow">
-      <h2>When am I most useful?</h2>
-      <p>Usually when the problem sounds something like this: “We know what outcome we need, but several systems, constraints, and stakeholders interact; the existing abstractions are breaking down; and simply adding more engineers will not tell us what the architecture should be.”</p>
-      <p>That is a decision problem, not a staffing problem. Teams in it are usually better served by a bounded review of the decision than by committing another engineer for six months to a design nobody has attacked yet.</p>
-      <p>Bring the problem, the constraints, and the desired outcome.</p>
-      <div class="dark__action"><Button href="/contact" variant="brass">Get in touch</Button></div>
-    </div>
-  </section>
-
-  <section class="introductions">
-    <div class="container">
-      <p>Know someone working on one of these problems? <a href="/contact?intent=introduction">Introductions are welcome.</a></p>
     </div>
   </section>
 
@@ -267,42 +251,7 @@ const problems = PROBLEM_ORDER.map((id) => {
     color: var(--color-brass-text);
   }
 
-  .dark {
-    background: var(--color-dark-surface);
-    color: var(--color-dark-text);
-    --color-brass-text: var(--color-brass);
-    padding-block: var(--sp-20);
-  }
 
-  .dark h2 {
-    color: var(--color-dark-text);
-  }
-
-  .dark p {
-    margin-top: var(--sp-5);
-    font: var(--text-body-lg);
-    font-family: var(--font-sans);
-    color: var(--color-dark-muted);
-    max-width: 44em;
-  }
-
-  .dark__action {
-    margin-top: var(--sp-8);
-  }
-
-  .introductions {
-    padding-block: var(--sp-8);
-    border-bottom: 1px solid var(--color-line);
-  }
-
-  .introductions p {
-    color: var(--color-slate);
-  }
-
-  .introductions a {
-    color: var(--color-brass-text);
-    font-weight: 500;
-  }
 
   .labs {
     margin-top: var(--sp-8);
@@ -355,8 +304,7 @@ const problems = PROBLEM_ORDER.map((id) => {
       padding-block: var(--sp-12);
     }
 
-    .section,
-    .dark {
+    .section {
       padding-block: var(--sp-14);
     }
 

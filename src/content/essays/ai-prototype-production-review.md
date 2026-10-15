@@ -110,7 +110,6 @@ The recurring question is whether the architecture makes its own assumptions vis
 
 ---
 
-**Proposed closing CTA:** I work with technical teams on focused AI and distributed-systems architecture reviews. Bring the decision, the constraints and the evidence available so far. [Link to the verified engagement route when published.]
 
 ### Sources
 
