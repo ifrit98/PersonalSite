@@ -19,7 +19,7 @@ const research = [
 ] as const;
 const notes = (await publishedNotes()).slice(0, 3);
 // The problems table's order: most common buyer problem first. The envelope keeps its own order.
-const PROBLEM_ORDER = ['secure-distributed-ml', 'real-time-underwater-detection', 'turnkeyhq', 'adversarial-storage-incentives'];
+const PROBLEM_ORDER = ['secure-distributed-ml', 'real-time-edge-detection', 'turnkeyhq', 'adversarial-storage-incentives'];
 const problems = PROBLEM_ORDER.map((id) => {
   const system = SIGNATURE_SYSTEMS.find((s) => s.id === id);
   if (!system) throw new Error(`no signature system ${id}`);
@@ -33,7 +33,7 @@ const problems = PROBLEM_ORDER.map((id) => {
         <h1>I design and build AI systems that have to work under real constraints.</h1>
         <p>Private deployment, tight hardware budgets, agents that must behave, and participants with a reason to cheat. As a principal systems architect, I come in before the architecture is obvious: I help the team define the problem, then build the critical path and make the risky assumptions testable while they're still cheap to change.</p>
         <div class="hero__actions">
-          <Button href="/engage">Discuss an engagement</Button>
+          <Button href="/contact">Get in touch</Button>
           <a href="#problems">See the problems I work on</a>
           <a href="/papers/resume.pdf">Download résumé</a>
         </div>
@@ -80,7 +80,7 @@ const problems = PROBLEM_ORDER.map((id) => {
       <p>Usually when the problem sounds something like this: “We know what outcome we need, but several systems, constraints, and stakeholders interact; the existing abstractions are breaking down; and simply adding more engineers will not tell us what the architecture should be.”</p>
       <p>That is a decision problem, not a staffing problem. Teams in it are usually better served by a bounded review of the decision than by committing another engineer for six months to a design nobody has attacked yet.</p>
       <p>Bring the problem, the constraints, and the desired outcome.</p>
-      <div class="dark__action"><Button href="/engage" variant="brass">See engagement types</Button></div>
+      <div class="dark__action"><Button href="/contact" variant="brass">Get in touch</Button></div>
     </div>
   </section>
 

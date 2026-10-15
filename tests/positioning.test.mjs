@@ -55,7 +55,7 @@ test('homepage presents the canonical systems-architect position and ordered pro
   assert.match(hero, /<h1[^>]*>I design and build AI systems that have to work under real constraints\.<\/h1>/);
   assert.match(hero, /principal systems architect/i);
   assert.match(hero, /I help the team define the problem, then build the critical path and make the risky assumptions testable/);
-  assert.match(hero, /href="\/engage"[\s\S]{0,200}?Discuss an engagement/);
+  assert.match(hero, /href="\/contact"[\s\S]{0,200}?Get in touch/);
   assert.match(hero, /href="#problems"/);
   assert.match(hero, /Download résumé/i);
   assert.doesNotMatch(hero, /TurnkeyHQ/);
@@ -65,7 +65,7 @@ test('homepage presents the canonical systems-architect position and ordered pro
   assert.match(problems, /Problems I’m brought in for|Problems I'm brought in for|Problems I&#39;m brought in for/);
   for (const [problem, href] of [
     ['Your AI has to run privately or offline', '/work/secure-ml-architecture'],
-    ['Inference has to fit a hardware and latency budget', '/work#real-time-underwater-detection'],
+    ['Inference has to fit a hardware and latency budget', '/work#real-time-edge-detection'],
     ['Your agent workflow has to behave, across many customers', '/turnkeyhq'],
     ['Participants have a reason to game the system', '/work/adversarial-storage-protocol'],
   ]) {
@@ -102,10 +102,10 @@ test('global navigation, work, and resume reinforce the canonical positioning', 
 
   assert.match(home, />Research</);
   assert.match(home, />Resume</);
-  assert.match(home, /Discuss an engagement/);
-  assert.match(home, />Engage</);
-  assert.match(home, /href="\/engage"/);
-  assert.match(work, /href="\/engage"/);
+  assert.match(home, /Get in touch/);
+  assert.doesNotMatch(home, />Engage</);
+  assert.doesNotMatch(home, /href="\/engage"/);
+  assert.doesNotMatch(work, /href="\/engage"/);
   assert.doesNotMatch(home, /Read the Thesis/);
   assert.match(work, /href="\/turnkeyhq"/);
   assert.match(work, /Selected systems work/);
@@ -197,14 +197,14 @@ test('every publication citation agrees across about, writing, and resume', asyn
   assert.match(moved.headers.get('location') ?? '', /stgeorge-sonification-msv-2018\.pdf$/);
 });
 
-test('homepage prices judgment the way /engage does, and its résumé link works', async () => {
+test('homepage states no hourly framing, and its résumé link works', async () => {
   const home = await renderedPage('');
   assert.doesNotMatch(home, /twenty hours/i);
   assert.match(home, /href="\/papers\/resume\.pdf"/);
 });
 
 test('every in-page anchor on the site lands on an element', async () => {
-  const paths = ['', '/work', '/engage', '/research', '/writing', '/about', '/resume', '/contact', '/chat',
+  const paths = ['', '/work', '/research', '/writing', '/about', '/resume', '/contact', '/chat',
     '/afterfiat', '/turnkeyhq', '/swarmos', '/agentic-data', '/capability-commons',
     '/work/adversarial-storage-protocol', '/work/secure-ml-architecture'];
   const pages = new Map();
@@ -274,8 +274,7 @@ test('header links once to each destination; footer carries the social links', a
   const home = await renderedPage('');
   const header = home.match(/<header[\s\S]*?<\/header>/)?.[0] ?? '';
   assert.doesNotMatch(header, /github\.com|linkedin\.com/);
-  assert.doesNotMatch(header, /href="\/contact"/);
-  assert.match(header, /href="\/engage"/);
+  assert.match(header, /href="\/contact"[^>]*>Get in touch/);
   const footer = home.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '';
   assert.match(footer, /github\.com\/ifrit98/);
   assert.match(footer, /href="\/contact"/);
@@ -312,7 +311,7 @@ test('link previews and humans.txt reflect the current identity', async () => {
   const { existsSync } = await import('node:fs');
   const home = await renderedPage('');
   assert.match(home, /property="og:image" content="https:\/\/jasonstgeorge\.com\/og\/default\.png"/);
-  const previews = [['/engage', 'engage'], ['/turnkeyhq', 'turnkeyhq'], ['/afterfiat', 'afterfiat'],
+  const previews = [['/turnkeyhq', 'turnkeyhq'], ['/afterfiat', 'afterfiat'],
     ['/work/secure-ml-architecture', 'secure-ml'], ['/work/adversarial-storage-protocol', 'adversarial-storage']];
   for (const [path, image] of previews) {
     assert.match(await renderedPage(path), new RegExp(`property="og:image" content="https://jasonstgeorge\\.com/og/${image}\\.png"`));
@@ -326,46 +325,6 @@ test('link previews and humans.txt reflect the current identity', async () => {
   const text = await humans.text();
   assert.match(text, /Contact: jason@jasonstgeorge\.com/);
   assert.match(text, /Last updated: \d{4}-\d{2}-\d{2}/);
-});
-
-// Commercial interface: /engage is the bounded, priced entry point for advisory work.
-test('engage page presents three priced offers and routes to the inquiry form', async () => {
-  const engage = await renderedPage('/engage');
-
-  assert.match(engage, /<h1[^>]*>Work with Jason<\/h1>/);
-  assert.match(engage, /Architecture &amp; Risk Review/);
-  assert.match(engage, /AI Systems De-Risking Sprint/);
-  assert.match(engage, /Fractional Principal Architecture/);
-  assert.match(engage, /\$8K–\$15K/);
-  assert.match(engage, /\$15K–\$30K/);
-  assert.match(engage, /\$10K–\$15K \/ month/);
-  assert.match(engage, /How engagements work/);
-  assert.match(engage, /href="\/contact\?intent=engagement#engagement"/);
-  assert.match(engage, /href="\/contact\?intent=introduction"/);
-  assert.match(engage, /href="\/work\/secure-ml-architecture"/);
-  assert.match(engage, /href="\/work\/adversarial-storage-protocol"/);
-  assert.match(engage, /href="\/work#real-time-underwater-detection"/);
-  assert.doesNotMatch(engage, /per hour|hourly rate/i);
-});
-
-// Advisory package RB-04/RB-05/RB-06: capacity-aware durations, one fee qualifier,
-// diligence as a named review use case, and no second universal minimum.
-test('engage states indicative fees, capacity-aware durations, and a diligence use case', async () => {
-  const engage = await renderedPage('/engage');
-
-  assert.match(engage, /2–4 weeks/);
-  assert.match(engage, /4–8 weeks/);
-  assert.match(engage, /Scoped one month at a time/);
-  // No published hour count for a buyer to divide the monthly fee by.
-  assert.doesNotMatch(engage, /hrs\/mo/);
-  assert.match(engage, /Indicative USD fees/);
-  assert.match(engage, /Technical diligence for a consequential decision/);
-  assert.match(engage, /not a valuation, legal opinion, security certification/);
-  assert.doesNotMatch(engage, /engagements start at/i);
-  // Conservative proof boundaries for new advisory material.
-  assert.doesNotMatch(engage, /128-GPU/);
-  assert.doesNotMatch(engage, /\$60M/);
-  assert.doesNotMatch(engage, /TurnkeyHQ/);
 });
 
 // Advisory package RB-07: two evidence pages, stated without unreleasable detail.
@@ -404,15 +363,11 @@ test('essay drafts stay out of the public build', async () => {
   assert.match(writing, /For systems builders[\s\S]{0,800}?href="\/work"/);
 });
 
-// The contact form should arrive pre-classified against the published engagement types.
-test('contact form mirrors the published engagement types', async () => {
+// The contact form asks for a message, not a commercial qualification.
+test('contact asks for a message, with no engagement types or budget', async () => {
   const contact = await renderedPage('/contact');
-
-  assert.match(contact, /Architecture &amp; risk review/);
-  assert.match(contact, /AI systems de-risking sprint/);
-  assert.match(contact, /Fractional principal architecture/);
-  assert.match(contact, /Technical diligence/);
-  assert.match(contact, /href="\/engage"/);
+  assert.doesNotMatch(contact, /budget|Engagement type|de-risking sprint|Fractional principal/i);
+  assert.match(contact, /name="problem"/);
 });
 
 // Acceptance check (advisory package RB-02): the inquiry path must not dead-end.
@@ -436,7 +391,7 @@ test('contact endpoint fails toward the email fallback, not a false validation e
     headers: json,
     body: JSON.stringify({
       name: 'Verification', email: 'test@example.com',
-      inquiry_type: 'Architecture & risk review', problem: 'route verification',
+      inquiry_type: 'Technical problem', problem: 'route verification',
     }),
   });
   assert.equal(complete.status, 500, 'a configuration failure is a server error');
@@ -476,10 +431,8 @@ test('about presents corrected citations, linked work threads, and no principles
   assert.match(about, /href="\/capability-commons"/);
   assert.match(about, /href="\/turnkeyhq"/);
 
-  // TurnkeyHQ is present as current founder-operator work, and /engage is
-  // reachable from the page describing what he currently does.
+  // TurnkeyHQ is present as current founder-operator work.
   assert.match(about, /Alchemical AI \/ TurnkeyHQ/);
-  assert.match(about, /href="\/engage"/);
 
   // The CTA points at /research directly instead of the /projects redirect.
   assert.match(about, /href="\/research"/);
@@ -570,7 +523,6 @@ test('contact preselects the intent it is linked with, and only that one', async
 
   const role = await renderedPage('/contact?intent=role');
   assert.match(role, /<h1[^>]*>Start a conversation\.<\/h1>/);
-  assert.match(role, /data-intent-only="engagement"[^>]*\bhidden\b/, 'engagement fields hidden for a role inquiry');
   assert.match(role, /Share the role, team, working arrangement/);
   assert.doesNotMatch(role, /within a few business days/);
   // The email fallback suits every reason for writing, not only an engagement.
@@ -583,4 +535,32 @@ test('contact preselects the intent it is linked with, and only that one', async
   // (humans.txt already pins this address as the contact).
   const beforeForm = role.split('<form id="contact-form"')[0];
   assert.match(beforeForm, /href="mailto:jason@jasonstgeorge\.com"/);
+});
+
+// Nothing public names a clearance, classified work, a government customer or
+// mission, or a fee. Checked on every rendered page (attributes and anchors
+// included) and on the sources the résumé PDF and the chatbot are built from.
+test('no page or public source names a clearance, a program, or a fee', async () => {
+  const { readdirSync } = await import('node:fs');
+  const forbidden = /TS\/SCI|SCIF|\bclassified\b|\bNavy\b|\bsonar\b|underwater|\bclearance\b|\bUAV\b|\$\d+K\b|Discuss an engagement|engagement types|fractional principal architecture|de-risking sprint|\/engage\b/i;
+  const paths = ['', '/work', '/research', '/writing', '/about', '/resume', '/contact', '/chat', '/afterfiat',
+    '/turnkeyhq', '/swarmos', '/agentic-data', '/capability-commons', '/work/adversarial-storage-protocol',
+    '/work/secure-ml-architecture', '/contact?intent=role'];
+  const hits = [];
+  for (const path of paths) {
+    const html = await renderedPage(path);
+    const m = html.match(forbidden);
+    if (m) hits.push(`${path || '/'}: ${m[0]}`);
+  }
+  const sources = ['../tex-src/main.tex', '../src/pages/api/chat.ts', '../src/components/layout/Footer.astro',
+    ...readdirSync(new URL('../src/content/work/', import.meta.url)).map((f) => `../src/content/work/${f}`)];
+  for (const file of sources) {
+    const m = readFileSync(new URL(file, import.meta.url), 'utf8').match(forbidden);
+    if (m) hits.push(`${file.replace('../', '')}: ${m[0]}`);
+  }
+  assert.deepEqual(hits, []);
+
+  const engage = await fetch(`http://127.0.0.1:${port}/engage`, { redirect: 'manual' });
+  assert.equal(engage.status, 301);
+  assert.equal(new URL(engage.headers.get('location'), 'http://x').pathname, '/contact');
 });

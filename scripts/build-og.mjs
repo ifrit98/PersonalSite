@@ -16,7 +16,6 @@ mkdirSync(out, { recursive: true });
 
 const CARDS = [
   { file: 'default', title: 'I design and build AI systems that have to work under real constraints.', detail: 'Private deployment, edge inference, agent reliability, adversarial systems' },
-  { file: 'engage', title: 'Architecture reviews, de-risking sprints, and fractional principal architecture.', detail: 'For consequential AI and systems decisions' },
   { file: 'turnkeyhq', title: 'TurnkeyHQ: from product thesis to production operations.', detail: 'A multi-tenant vertical AI platform in private beta' },
   { file: 'afterfiat', title: 'AfterFiat: a versioned, falsifiable monetary thesis.', detail: 'Privacy, proofs, and compute as money' },
   { file: 'secure-ml', title: 'Your AI has to run privately or offline.', detail: 'Secure ML architecture: controlled artifacts, reproducible dependencies, an operator path that survives' },

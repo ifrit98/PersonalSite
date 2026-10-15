@@ -6,8 +6,8 @@ import Envelope from '@/components/ui/Envelope.astro';
 import { SIGNATURE_SYSTEMS } from '@/lib/systems';
 // PRD §§14–18, 50: case studies follow one proof-led skeleton.
 const signature = [
-  { id: 'real-time-underwater-detection', name: 'Real-Time Underwater Detection', problem: 'Operational underwater detection that had to work outside lab conditions.', constraints: 'Operational noise, simulation-to-real transfer, and sub-50 ms Jetson inference.', contribution: 'Led the hybrid DSP + ML architecture, simulation workflow, and edge deployment path.', outcome: 'Sub-50 ms operational inference on embedded hardware' },
-  { id: 'secure-distributed-ml', name: 'Secure Distributed ML Infrastructure', problem: 'Enable distributed LLM work in disconnected, approval-heavy environments.', constraints: 'Air-gapped operations, classified handling, and strict artifact approval.', contribution: 'Built the training, deployment, and operator workflow capability.', outcome: 'Distributed fine-tuning operational across an air-gapped multi-GPU cluster', href: '/work/secure-ml-architecture' },
+  { id: 'real-time-edge-detection', name: 'Real-Time Edge Detection', problem: 'Operational real-time detection that had to work outside lab conditions.', constraints: 'Operational noise, simulation-to-real transfer, and sub-50 ms Jetson inference.', contribution: 'Led the hybrid DSP + ML architecture, simulation workflow, and edge deployment path.', outcome: 'Sub-50 ms operational inference on embedded hardware' },
+  { id: 'secure-distributed-ml', name: 'Secure Distributed ML Infrastructure', problem: 'Enable distributed LLM work in disconnected, approval-heavy environments.', constraints: 'Air-gapped operations, restricted handling, and strict artifact approval.', contribution: 'Built the training, deployment, and operator workflow capability.', outcome: 'Distributed fine-tuning operational across an air-gapped multi-GPU cluster', href: '/work/secure-ml-architecture' },
   { id: 'adversarial-storage-incentives', name: 'Adversarial Storage & Incentives', problem: 'Make continued ciphertext storage provable rather than trusted.', constraints: 'Adversarial participants, anti-precompute mechanics, and long-horizon incentives.', contribution: 'Architected challenge design, verification, reputation, and incentive alignment.', outcome: 'Operated in production under continuous integrity proofs', href: '/work/adversarial-storage-protocol' },
   { id: 'turnkeyhq', name: 'TurnkeyHQ', problem: 'Turn an ambiguous vertical-AI thesis into an operable multi-tenant system.', constraints: 'Tenant isolation, bounded model behavior, release evidence, and commercial controls.', contribution: 'Co-founded and carried the product through architecture, implementation, operations, and controls.', outcome: '14 services · 244 API routes · 75 agent skills · private beta', href: '/turnkeyhq' },
 ] as const;
@@ -98,8 +98,7 @@ const secondary = (await getCollection('work', (entry) => entry.id in secondaryA
       <h2>Best-fit problems</h2>
       <p>I am most useful when the architecture is not yet obvious, several technical or operational domains interact, incorrect assumptions become expensive later, or the system must survive real users, real infrastructure, or adversarial behavior.</p>
       <p>If you already have a clean specification and simply need commodity implementation capacity, I may not be the highest-leverage fit.</p>
-      <p>Most of this work is bought as a bounded engagement: an architecture and risk review, a de-risking sprint, or ongoing fractional principal architecture.</p>
-      <div class="dark__action"><Button href="/engage" variant="brass">See engagement types</Button></div>
+      <div class="dark__action"><Button href="/contact" variant="brass">Get in touch</Button></div>
     </div>
   </section>
 </BaseLayout>
